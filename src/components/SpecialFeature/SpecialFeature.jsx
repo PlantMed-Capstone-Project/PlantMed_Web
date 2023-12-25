@@ -14,7 +14,7 @@ export default function SpecialFeature() {
                     height: "50rem",
                     backgroundColor: "#FFF",
                     boxShadow: "0px 4px 5px 2px rgba(33, 68, 0, 0.30)",
-                    marginTop: "6.38rem",
+                    marginTop: "3.38rem",
                     p: "5rem 4.81rem 0 0"
                 }}
             >
@@ -41,7 +41,7 @@ export default function SpecialFeature() {
                         }
                     }
                 >
-                    <img src={lapImage} alt="lap top" style={{ height: "100%", width: "100%", objectFit: "cover", objectPosition:"0 0" }} />
+                    <img src={lapImage} alt="lap top" style={{ height: "100%", width: "100%", objectFit: "cover", objectPosition: "0 0" }} />
                 </Box>
             </Stack>
         </>

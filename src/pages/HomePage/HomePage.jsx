@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import DiversityPlant from 'components/DiversityPlant/DiversityPlant'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
 import Footer from 'components/Footer/Footer'
@@ -18,10 +18,20 @@ export default function HomePage() {
       <Heros />
       <Sologan />
       <FeaturedSearch />
-      <SpecialFeature />
+      <Stack
+        direction="column"
+        alignItems="center"
+        width="100%"
+        height="106.94rem"
+        mt="6.38rem"
+        sx={{ backgroundColor: "#F4FFEB" }}
+      >
+        <DiversityPlant />
+        <SpecialFeature />
+      </Stack>
       <Quantity />
       <Footer valueTop={spacingTop} />
-      <DiversityPlant/>
+
     </Box>
   )
 }
