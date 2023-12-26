@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import Slider from "react-slick";
-import imgDemo from '../../Images/heroSi.jpg'
+import imgDemo from  'Images/heroSen.jpg'
 import './DiversityPlant.css'
 
 export default function DiversityPlant() {
@@ -50,10 +50,10 @@ export default function DiversityPlant() {
                                 }
                             >
                                 <CardMedia
-                                    sx={{ height: 160}}
+                                    sx={{ height: 160 }}
                                     image={imgDemo}
                                     title="green iguana"
-                               
+
 
                                 />
                                 <CardContent>

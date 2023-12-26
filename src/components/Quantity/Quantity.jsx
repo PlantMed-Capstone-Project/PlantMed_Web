@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import CountUp from 'react-countup';
-import groupImage from '../../Images/groupImage.png'
+import groupImage from 'Images/groupImage.png'
 
 export default function Quantity() {
 

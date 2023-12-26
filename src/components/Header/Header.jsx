@@ -1,4 +1,4 @@
-import { Avatar, Box, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Stack, Tab, Tabs, Tooltip, Typography, styled } from '@mui/material';
 import { useState } from 'react';
 import avartarImage from '../../Images/avatar.jpg';
 import logoImage from '../../Images/logo.png';
@@ -6,7 +6,13 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LockIcon from '@mui/icons-material/Lock';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { motion } from "framer-motion"
+import * as styleMui from './header.styled'
 
+const iconStyle = {
+    height: '1.25rem',
+    width: '1.25rem',
+    color: '#69AD28',
+};
 
 export default function Header() {
     const [value, setValue] = useState(0);
@@ -17,9 +23,9 @@ export default function Header() {
     }
 
     const menuItems = [
-        { icon: <SettingsIcon sx={{ height: "1.25rem", width: "1.25rem", color: "#69AD28" }} />, text: 'Cài đặt tài khoản' },
-        { icon: <LockIcon sx={{ height: "1.25rem", width: "1.25rem", color: "#69AD28" }} />, text: 'Thay đổi mật khẩu' },
-        { icon: <ExitToAppIcon sx={{ height: "1.25rem", width: "1.25rem", color: "#69AD28" }} />, text: 'Đăng xuất' },
+        { icon: <SettingsIcon sx={iconStyle} />, text: 'Cài đặt tài khoản' },
+        { icon: <LockIcon sx={iconStyle} />, text: 'Thay đổi mật khẩu' },
+        { icon: <ExitToAppIcon sx={iconStyle} />, text: 'Đăng xuất' },
     ];
 
     const headerChoose = ['TRANG CHỦ', 'PHÁT HIỆN HÌNH ẢNH', 'BÀI VIẾT', 'THỰC VẬT', 'VỀ CHÚNG TÔI']
@@ -60,33 +66,14 @@ export default function Header() {
             </Tooltip>
             {
                 openPf && (
-                    <motion.div
-                        style={
-                            {
-                                width: "12.6875rem",
-                                height: "13.125rem",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                gap: "0",
-                                backgroundColor: "#fff",
-                                boxShadow: "0px 0px 3px 0px rgba(33, 68, 0, 0.30)",
-                                borderRadius: "0.625rem",
-                                position: "absolute",
-                                top: "5.31rem",
-                                right: "8.62rem",
-                                paddingTop: "1.25rem",
-                                zIndex: "10"
-                            }
-                        }
+                    <styleMui.CustomBoxPopup
+                        component={motion.div}
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
                     >
-                        <Box
-                            sx={{ width: "8.125rem", display: "flex", flexDirection: "column", alignItems: "center", borderBottom: "solid #69AD28 2px", pb: "0.63rem" }}
-                        >
+                        <styleMui.BoxContainAvt>
                             <Avatar
                                 alt="Your avatar"
                                 src={avartarImage}
@@ -94,7 +81,7 @@ export default function Header() {
                             />
                             <Typography variant='subtitle1' sx={{ fontSize: "0.625rem", fontWeight: "500", color: "#214400" }}>QiQi</Typography>
                             <Typography variant='caption' sx={{ fontStyle: "italic", color: "#214400", fontSize: "0.5rem", fontWeight: "300" }}>nguyen@gmail.com</Typography>
-                        </Box>
+                        </styleMui.BoxContainAvt>
                         <Stack
                             direction="column"
                             spacing="0.5rem"
@@ -122,7 +109,7 @@ export default function Header() {
                                 </Stack>
                             ))}
                         </Stack>
-                    </motion.div>
+                    </styleMui.CustomBoxPopup>
                 )
             }
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
-import herosFImage from '../../Images/herogreen.jpg'
-import herosSImage from '../../Images/heroSi.jpg'
-import herosThImage from '../../Images/heroSen.jpg'
+import herosFImage from 'Images/herogreen.jpg'
+import herosSImage from 'Images/heroSi.jpg'
+import herosThImage from 'Images/heroSen.jpg'
 import { Box } from '@mui/material'
 
 export default function Heros() {

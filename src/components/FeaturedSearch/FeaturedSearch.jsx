@@ -1,8 +1,9 @@
-import { Box, Grid, Link, Stack, Typography } from '@mui/material'
+import { Grid, Link, Stack, Typography } from '@mui/material'
+import imageDayLeo from 'Images/heroSen.jpg'
+import imageBachBo from 'Images/heroSi.jpg'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import imageDayLeo from '../../Images/heroSen.jpg'
-import imageBachBo from '../../Images/heroSi.jpg'
+import * as styleMui from './FeatureSearch.styled'
 
 function FeaturedSearch() {
 
@@ -33,34 +34,19 @@ function FeaturedSearch() {
             <Grid container rowSpacing="3rem" columnSpacing="1.69rem" width="72.69rem">
                 {products.map((product, idx) => (
                     <Grid item xs={product.id <= 2 ? 6 : 4} key={product.id}>
-                        <Box pt="1.31rem" sx={{ position: "relative", height: product.id <= 2 ? '22.5rem' : '14.875rem', backgroundColor: "#F4FFEB", borderRadius: "0.625rem", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            <motion.p
-                                style={
-                                    {
-                                        color: "#214400",
-                                        fontSize: product.id <= 2 ? "1.5625rem" : '1.25rem',
-                                        fontWeight: "500",
-                                        fontFamily: " Roboto Serif",
-                                        transition: "all 0.1s",
-                                        opacity: hoverIndex == idx ? "0" : "1"
-                                    }
-                                }
-
+                        <styleMui.BoxAllGrid pt="1.31rem" product={product.id}>
+                            <styleMui.NameOfProduct
+                                component={motion.p}
+                                product={product.id}
+                                hoverIndex={hoverIndex}
+                                idx={idx}
                             >
                                 {product.name}
-                            </motion.p>
-                            <motion.div
-                                style={
-                                    {
-                                        width: product.id <= 2 ? "32.875rem" : "21.4375rem",
-                                        height: product.id <= 2 ? "19.5625rem" : "12.9375rem",
-                                        boxShadow: "0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)",
-                                        borderRadius: "10px",
-                                        position: "absolute",
-                                        bottom: product.id <= 2 ? "-1.38rem" : "-1.12rem",
-                                        overflow: "hidden"
-                                    }
-                                }
+                            </styleMui.NameOfProduct>
+
+                            <styleMui.BoxImage
+                                component={motion.div}
+                                product={product.id}
                                 whileHover={{ y: "-14%" }}
                                 onMouseOver={() => handleHover(idx)}
                                 onMouseLeave={handleLeave}
@@ -70,22 +56,9 @@ function FeaturedSearch() {
 
                                 {/* set hover and show text background black */}
                                 {hoverIndex === idx &&
-                                    <motion.div
-                                        style={
-                                            {
-                                                height: "100%",
-                                                width: "100%",
-                                                backgroundColor: "rgba(0, 0, 0, 0.46)",
-                                                position: "absolute",
-                                                top: "0",
-                                                left: "0",
-                                                borderRadius: "10px",
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                alignItems: "center",
-                                                paddingTop: product.id <= 2 ? "3.12rem" : "1.94rem"
-                                            }
-                                        }
+                                    <styleMui.BoxBlackHover
+                                        component={motion.div}
+                                        product={product.id}
                                         initial={{ opacity: 0, scale: 0 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0 }}
@@ -127,11 +100,11 @@ function FeaturedSearch() {
                                                 Xem thêm
                                             </Link>
                                         </Stack>
-                                    </motion.div>
+                                    </styleMui.BoxBlackHover>
                                 }
 
-                            </motion.div>
-                        </Box>
+                            </styleMui.BoxImage>
+                        </styleMui.BoxAllGrid>
                     </Grid>
                 ))}
             </Grid>
