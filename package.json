@@ -3,12 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.1",
+    "@mui/material": "^5.15.1",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.9",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "framer-motion": "^10.16.16",
+    "keen-slider": "^6.8.6",
     "react": "^18.2.0",
+    "react-countup": "^6.5.0",
     "react-dom": "^18.2.0",
+    "react-google-font-loader": "^1.1.0",
+    "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -34,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
