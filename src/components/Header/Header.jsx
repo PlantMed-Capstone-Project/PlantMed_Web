@@ -4,8 +4,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Avatar, Box, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
 import { motion } from "framer-motion";
 import { useState } from 'react';
-import avartarImage from '../../Images/avatar.jpg';
-import logoImage from '../../Images/logo.png';
+import avartarImage from 'Images/avatar.jpg';
+import logoImage from 'Images/logo.png';
 import * as styleMui from './header.styled';
 
 const iconStyle = {
