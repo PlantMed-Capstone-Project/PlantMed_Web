@@ -1,6 +1,6 @@
 import { Box, Typography, styled } from '@mui/material'
 
-export const BoxContainer = styled(Box)(({ theme }) => ({
+export const BoxContainer = styled(Box)(() => ({
   position: 'absolute',
   left: '50%',
   bottom: '3.44rem',
@@ -17,7 +17,7 @@ export const BoxContainer = styled(Box)(({ theme }) => ({
   padding: '1.75rem 0 2.31rem 0',
 }))
 
-export const TitleBox = styled(Typography)(({ theme }) => ({
+export const TitleBox = styled(Typography)(() => ({
   fontStyle: 'italic',
   color: '#69AD28',
   fontWeight: '200',
@@ -40,11 +40,11 @@ export const TitleBox = styled(Typography)(({ theme }) => ({
   },
 }))
 
-export const BoxDescription = styled(Box)(({ theme }) => ({
+export const BoxDescription = styled(Box)(() => ({
     textAlign: "justify",
-                                width: "100%",
-                                fontSize: "1.375rem",
-                                fontWeight: "300",
-                                lineHeight: "normal",
-                                color: "#214400"
+    width: "100%",
+    fontSize: "1.375rem",
+    fontWeight: "300",
+    lineHeight: "normal",
+    color: "#214400"
   }))

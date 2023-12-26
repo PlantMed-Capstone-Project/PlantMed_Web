@@ -1,6 +1,6 @@
 import { Box, Button, Stack, Typography, styled } from '@mui/material'
 
-export const BoxContainer = styled(Stack)(({ theme }) => ({
+export const BoxContainer = styled(Stack)(() => ({
   position: 'relative',
   width: '72.75rem',
   height: '50rem',
@@ -9,13 +9,13 @@ export const BoxContainer = styled(Stack)(({ theme }) => ({
   marginTop: '3.38rem',
 }))
 
-export const Boxtitle = styled(Typography)(({ theme }) => ({
+export const Boxtitle = styled(Typography)(() => ({
   color: '#214400',
   fontSize: '2.1875rem',
   fontWeight: '500',
 }))
 
-export const BoxDes = styled(Typography)(({ theme }) => ({
+export const BoxDes = styled(Typography)(() => ({
   width: '39.45rem',
   color: '#69AD28',
   fontSize: '3.4375rem',
@@ -25,7 +25,7 @@ export const BoxDes = styled(Typography)(({ theme }) => ({
   marginTop: '3rem',
 }))
 
-export const ButtonCustom = styled(Button)(({ theme }) => ({
+export const ButtonCustom = styled(Button)(() => ({
   color: 'white',
   backgroundColor: '#69AD28',
   width: '13.6875rem',
@@ -37,7 +37,7 @@ export const ButtonCustom = styled(Button)(({ theme }) => ({
   },
 }))
 
-export const BoxImage = styled(Box)(({ theme }) => ({
+export const BoxImage = styled(Box)(() => ({
   position: 'absolute',
   top: '3rem',
   left: '5rem',

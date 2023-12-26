@@ -52,7 +52,7 @@ export default function Heros() {
             {
                 sliderImage.map((vl, idx) => (
                     <Box key={idx} className={`keen-slider__slide number-slide${idx + 1}`} sx={{ width: "100%", height: "100%" }} >
-                        <img key={idx} src={vl} alt="picture" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+                        <img key={idx} src={vl} alt="product" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
                     </Box>
                 ))
             }

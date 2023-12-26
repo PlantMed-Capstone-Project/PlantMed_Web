@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material'
 
-export const CustomBoxPopup = styled(Box)(({ theme }) => ({
+export const CustomBoxPopup = styled(Box)(() => ({
   width: '12.6875rem',
   height: '13.125rem',
   display: 'flex',
@@ -18,7 +18,7 @@ export const CustomBoxPopup = styled(Box)(({ theme }) => ({
   // additional styles can be added here
 }))
 
-export const BoxContainAvt = styled(Box)(({ theme }) => ({
+export const BoxContainAvt = styled(Box)(() => ({
   width: '8.125rem',
   display: 'flex',
   flexDirection: 'column',

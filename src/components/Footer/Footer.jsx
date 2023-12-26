@@ -1,10 +1,9 @@
-import { Box, Stack, Typography } from '@mui/material'
-import React from 'react'
+import CallIcon from '@mui/icons-material/Call';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import CallIcon from '@mui/icons-material/Call';
-import * as styleMui from './Footer.styled'
+import { Stack, Typography } from '@mui/material';
+import * as styleMui from './Footer.styled';
 
 
 export default function Footer({ valueTop }) {

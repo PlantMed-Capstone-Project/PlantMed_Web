@@ -1,8 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import React, { useState } from 'react'
+import imgDemo from 'Images/heroSen.jpg';
 import Slider from "react-slick";
-import imgDemo from  'Images/heroSen.jpg'
-import './DiversityPlant.css'
+import './DiversityPlant.css';
 
 export default function DiversityPlant() {
 

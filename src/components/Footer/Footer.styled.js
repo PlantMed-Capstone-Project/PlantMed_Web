@@ -1,13 +1,13 @@
 import { Box, Stack, Typography, styled } from '@mui/material'
 
-export const Text = styled(Typography)(({ theme }) => ({
+export const Text = styled(Typography)(() => ({
   fontFamily: 'Roboto Serif',
   fontSize: '0.9375rem',
   fontWeight: '400',
   color: 'white',
 }))
 
-export const ContainerIcon = styled(Box)(({ theme }) => ({
+export const ContainerIcon = styled(Box)(() => ({
   height: '2rem',
   width: '2rem',
   borderRadius: '50%',
@@ -18,7 +18,7 @@ export const ContainerIcon = styled(Box)(({ theme }) => ({
   color: '#214400',
 }))
 
-export const ContainerAll = styled(Stack)(({ theme, valueTop }) => ({
+export const ContainerAll = styled(Stack)(({ valueTop }) => ({
   paddingTop: '3rem',
   backgroundColor: '#214400',
   height: '18.75rem',

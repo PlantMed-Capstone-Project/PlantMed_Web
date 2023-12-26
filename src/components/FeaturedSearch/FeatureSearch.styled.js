@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material'
 
-export const BoxAllGrid = styled(Box)(({ theme, product }) => ({
+export const BoxAllGrid = styled(Box)(({ product }) => ({
   position: 'relative',
   height: product <= 2 ? '22.5rem' : '14.875rem',
   backgroundColor: '#F4FFEB',
@@ -12,7 +12,7 @@ export const BoxAllGrid = styled(Box)(({ theme, product }) => ({
 }))
 
 export const NameOfProduct = styled(Box)(
-  ({ theme, product, hoverIndex, idx }) => ({
+  ({ product, hoverIndex, idx }) => ({
     color: '#214400',
     fontSize: product <= 2 ? '1.5625rem' : '1.25rem',
     fontWeight: '500',
@@ -22,7 +22,7 @@ export const NameOfProduct = styled(Box)(
   })
 )
 
-export const BoxImage = styled(Box)(({ theme, product }) => ({
+export const BoxImage = styled(Box)(({ product }) => ({
   width: product <= 2 ? '32.875rem' : '21.4375rem',
   height: product <= 2 ? '19.5625rem' : '12.9375rem',
   boxShadow:
@@ -33,7 +33,7 @@ export const BoxImage = styled(Box)(({ theme, product }) => ({
   overflow: 'hidden',
 }))
 
-export const BoxBlackHover = styled(Box)(({ theme, product }) => ({
+export const BoxBlackHover = styled(Box)(({ product }) => ({
   height: '100%',
   width: '100%',
   backgroundColor: 'rgba(0, 0, 0, 0.46)',

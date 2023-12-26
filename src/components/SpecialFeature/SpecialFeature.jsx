@@ -1,5 +1,3 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
-import React from 'react'
 import lapImage from 'Images/lap.png'
 import * as styleMui from './SpecialFeature.styled'
 

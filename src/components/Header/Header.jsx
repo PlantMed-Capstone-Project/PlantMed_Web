@@ -1,12 +1,12 @@
-import { Avatar, Box, Stack, Tab, Tabs, Tooltip, Typography, styled } from '@mui/material';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LockIcon from '@mui/icons-material/Lock';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Avatar, Box, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { motion } from "framer-motion";
 import { useState } from 'react';
 import avartarImage from '../../Images/avatar.jpg';
 import logoImage from '../../Images/logo.png';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LockIcon from '@mui/icons-material/Lock';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { motion } from "framer-motion"
-import * as styleMui from './header.styled'
+import * as styleMui from './header.styled';
 
 const iconStyle = {
     height: '1.25rem',
