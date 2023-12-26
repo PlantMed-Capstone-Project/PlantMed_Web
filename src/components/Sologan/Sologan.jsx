@@ -31,11 +31,7 @@ export default function Sologan() {
                     direction="column"
                     alignItems="center"
                     spacing={2}
-                    sx={
-                        {
-                            width: "58.0625rem"
-                        }
-                    }
+                    width="58.0625rem"
                 >
                     <styleMui.BoxDescription>
                         <Typography>

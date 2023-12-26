@@ -18,8 +18,8 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} exact />
-          <Route path="/plant" element={<PlantPage />} exact />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/plant" element={<PlantPage />} />
         </Routes>
       </BrowserRouter>
     </Box>
