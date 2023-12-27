@@ -25,18 +25,18 @@ function BlogPage() {
         }}>
             <Header />
             <HeroBlog />
-            <MyBlog data={blogData} />
+            <MyBlog blogData={blogData} />
             <JoinBlog />
             <Stack
                 direction="column"
                 alignItems="center"
                 width="100%"
-                mt="60px"
+                mt="3.75rem"
                 sx={{ backgroundColor: "#F4FFEB" }}
             >
                 <DiversityPlant />
             </Stack>
-            <BlogList data={blogData} />
+            <BlogList blogData={blogData} />
             <Footer />
         </Box >
     )

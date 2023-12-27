@@ -5,11 +5,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
-import plant from "../../Images/heroSen.jpg"
+import plant from "Images/heroSen.jpg"
 
 const styles = {
     card: {
-        boxShadow: "0px 4px 5px 0px rgba(33, 68, 0, 0.50)",
+        boxShadow: "0 0.25rem 0.25rem 0 rgba(33, 68, 0, 0.50)",
         width: 400,
         display: "flex",
         flexDirection: "column",
@@ -17,35 +17,35 @@ const styles = {
     },
     containerBlog: {
         flexGrow: 1,
-        marginTop: "100px",
+        marginTop: "6.25rem",
         width: "100%",
-        padding: "0px 200px"
+        padding: "0 12.5rem"
     },
     myBlogTitle: {
-        fontSize: "35px",
+        fontSize: "2.188rem",
         textAlign: "center",
-        marginBottom: "30px",
+        marginBottom: "1.875rem",
         fontWeight: "500",
         color: "#214400"
     }
 }
 
-function MyBlog({ data }) {
+function MyBlog(props) {
     return (
         <Box sx={styles.containerBlog}>
             <Typography sx={styles.myBlogTitle}>Bài viết của bạn</Typography>
             <Grid container spacing={2}>
-                {data.map((data, index) => (
+                {props.blogData.map((data, index) => (
                     <Grid item xs={4} sx={{ display: "flex", flexDirection: "row", flex: 1 }}>
                         <Card sx={styles.card}>
                             <CardActionArea sx={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "flex-start", alignItems: "start" }}>
                                 <CardMedia
                                     component="img"
-                                    height="200"
+                                    height="150"
                                     image={plant}
                                     alt="plant"
                                 />
-                                <CardContent sx={{ padding: "10px 25px 20px" }}>
+                                <CardContent sx={{ padding: "0.625rem 1.563rem 1.25rem" }}>
                                     <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: "bold" }}>
                                         {data.name}
                                     </Typography>

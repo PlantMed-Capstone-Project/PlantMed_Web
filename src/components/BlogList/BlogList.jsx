@@ -5,13 +5,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import plant from "../../Images/heroSen.jpg"
-import Footer from 'components/Footer/Footer';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import plant from "Images/heroSen.jpg";
 
 const styles = {
     card: {
-        boxShadow: "0px 4px 5px 0px rgba(33, 68, 0, 0.50)",
+        boxShadow: "0 0.25rem 0.25rem 0 rgba(33, 68, 0, 0.50)",
         width: 400,
         display: "flex",
         flexDirection: "column",
@@ -19,14 +22,14 @@ const styles = {
     },
     containerBlog: {
         flexGrow: 1,
-        marginTop: "100px",
+        marginTop: "6.25rem",
         width: "100%",
-        padding: "0px 100px"
+        padding: "0 6.25rem"
     },
     myBlogTitle: {
-        fontSize: "35px",
+        fontSize: "2.188rem",
         textAlign: "center",
-        marginBottom: "30px",
+        marginBottom: "1.875rem",
         fontWeight: "500",
         color: "#214400"
     }
@@ -34,11 +37,11 @@ const styles = {
 
 
 
-function BlogList({ data }) {
+function BlogList(props) {
     return (
         <Box sx={styles.containerBlog}>
             <Grid container spacing={5}>
-                {data.map((data, index) => (
+                {props.blogData.map((data, index) => (
                     <Grid item xs={4} sx={{ display: "flex", flexDirection: "row", flex: 1 }}>
                         <Card sx={styles.card}>
                             <CardActionArea sx={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "flex-start", alignItems: "start" }}>
@@ -48,7 +51,7 @@ function BlogList({ data }) {
                                     image={plant}
                                     alt="plant"
                                 />
-                                <CardContent sx={{ padding: "10px 25px 20px" }}>
+                                <CardContent sx={{ padding: "0.625rem 1.563rem 1.25rem" }}>
                                     <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: "bold" }}>
                                         {data.name}
                                     </Typography>
@@ -61,16 +64,18 @@ function BlogList({ data }) {
                     </Grid>
                 ))}
             </Grid>
-            <Box sx={{ margin: "60px", display: "flex", justifyContent: "center" }}>
-                <Button variant='contained' endIcon={<ArrowRightAltIcon />} sx={{
-                    backgroundColor: "#69AD28", padding: "5px 35px !important", fontSize: "16px",
-                    textTransform: "none", ":hover": { bgcolor: "success.main" }
-                }}>
-                    Trang kế tiếp
-                </Button>
-
-            </Box>
-
+            <Stack spacing={2} sx={{ margin: "3rem 0 6.25rem 0", alignItems: "center" }}>
+                <Pagination
+                    count={10}
+                    color='success'
+                    renderItem={(item) => (
+                        <PaginationItem
+                            slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                            {...item}
+                        />
+                    )}
+                />
+            </Stack>
         </Box >
     );
 }
