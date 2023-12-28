@@ -14,7 +14,7 @@ const iconStyle = {
     color: '#69AD28',
 };
 
-export default function Header() {
+export default function Header({ navItems }) {
     const [value, setValue] = useState(0);
     const [openPf, setOpenPf] = useState(false)
 
@@ -27,8 +27,6 @@ export default function Header() {
         { icon: <LockIcon sx={iconStyle} />, text: 'Thay đổi mật khẩu' },
         { icon: <ExitToAppIcon sx={iconStyle} />, text: 'Đăng xuất' },
     ];
-
-    const headerChoose = ['TRANG CHỦ', 'PHÁT HIỆN HÌNH ẢNH', 'BÀI VIẾT', 'THỰC VẬT', 'VỀ CHÚNG TÔI']
 
     return (
         <Stack direction="row" alignItems="center" justifyContent="space-between" component="header" p="0 8.62rem" sx={{ width: "100%", height: "5.94rem", backgroundColor: "#FFF", position: "relative" }}>
@@ -48,11 +46,9 @@ export default function Header() {
                             color: '#69AD28 !important'
                         }
                     }}>
-                        {
-                            headerChoose.map((vl, idx) => (
-                                <Tab key={idx} label={vl} sx={{ color: "#214400", fontWeight: "700" }} />
-                            ))
-                        }
+                        {navItems.map((item) => (
+                            <Tab key={item} label={item} sx={{ color: "#214400", fontWeight: "700" }} />
+                        ))}
                     </Tabs>
                 </Box>
             </Stack>

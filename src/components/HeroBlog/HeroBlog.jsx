@@ -1,5 +1,5 @@
 import React from 'react'
-import girlComputer from "Images/girl-computer.png"
+import girlComputer from 'Images/girl-computer.png'
 import { Box, Stack, Typography, Button } from '@mui/material'
 
 function HeroBlog() {

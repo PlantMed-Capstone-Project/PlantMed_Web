@@ -49,13 +49,11 @@ export default function Heros() {
 
     return (
         <Box ref={sliderRef} className='keen-slider' sx={{ height: '37.5rem', width: "100%", position: "relative", zIndex: "0" }}>
-            {
-                sliderImage.map((vl, idx) => (
-                    <Box key={idx} className={`keen-slider__slide number-slide${idx + 1}`} sx={{ width: "100%", height: "100%" }} >
-                        <img key={idx} src={vl} alt="product" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
-                    </Box>
-                ))
-            }
+            {sliderImage.map((item, idx) => (
+                <Box key={item} className={`keen-slider__slide number-slide${idx + 1}`} sx={{ width: "100%", height: "100%" }} >
+                    <img src={item} alt="product" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+                </Box>
+            ))}
         </Box>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Typography, Button } from "@mui/material"
-import TextField from '@mui/material/TextField';
+import { Box, Typography, Button } from '@mui/material'
+import TextField from '@mui/material/TextField'
 
 function JoinBlog() {
     return (

@@ -8,14 +8,29 @@ import BlogList from 'components/BlogList/BlogList'
 import DiversityPlant from 'components/DiversityPlant/DiversityPlant'
 import Footer from 'components/Footer/Footer'
 
-const blogData = [
-    { id: 1, name: 'Câu kỷ tử', description: "Ago sign pot cool exactly dull pilot feathers anyway art pitch earn tax throw meant those missing instrument property", image: '../../Images/heroSen.jpg' },
-    { id: 2, name: 'Câu kỷ tử', description: "Mot cây gì đó", image: "../../Images/heroSen.jpg" },
-    { id: 3, name: 'Câu kỷ tử', description: "la cay gi do", image: "../../Images/heroSen.jpg" },
-    { id: 4, name: 'Câu kỷ tử', description: "la cay gi do", image: "../../Images/heroSen.jpg" },
-]
-
 function BlogPage() {
+    const nav = ['TRANG CHỦ', 'PHÁT HIỆN HÌNH ẢNH', 'BÀI VIẾT', 'THỰC VẬT', 'VỀ CHÚNG TÔI']
+
+    const blogData = [
+        { id: 1, name: 'Câu kỷ tử', description: "Ago sign pot cool exactly dull pilot feathers anyway art pitch earn tax throw meant those missing instrument property", image: '../../Images/heroSen.jpg' },
+        { id: 2, name: 'Câu kỷ tử', description: "Mot cây gì đó", image: "../../Images/heroSen.jpg" },
+        { id: 3, name: 'Câu kỷ tử', description: "la cay gi do", image: "../../Images/heroSen.jpg" },
+        { id: 4, name: 'Câu kỷ tử', description: "la cay gi do", image: "../../Images/heroSen.jpg" },
+    ]
+    
+    const blogs = [
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+    ]
+
     return (
         <Box component="section" sx={{
             width: "90rem",
@@ -23,7 +38,7 @@ function BlogPage() {
             flexDirection: "column",
             alignItems: "center"
         }}>
-            <Header />
+            <Header nav={nav} />
             <HeroBlog />
             <MyBlog blogData={blogData} />
             <JoinBlog />
@@ -34,7 +49,7 @@ function BlogPage() {
                 mt="3.75rem"
                 sx={{ backgroundColor: "#F4FFEB" }}
             >
-                <DiversityPlant />
+                <DiversityPlant title='BÀI VIẾT NỔI BẬT' data={blogs} />
             </Stack>
             <BlogList blogData={blogData} />
             <Footer />

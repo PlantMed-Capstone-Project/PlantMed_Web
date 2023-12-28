@@ -5,27 +5,27 @@ import * as styleMui from './Sologan.styled'
 export default function Sologan() {
 
     return (
-        <Box
-            sx={
-                {
-                    height: "23.8125rem",
-                    width: "100%",
-                    backgroundColor: "#F4FFEB",
-                    position: "relative",
-                    zIndex: "0",
-
-                }
-            }
-        >
+        <Box sx={{
+            height: "23.8125rem",
+            width: "100%",
+            backgroundColor: "#F4FFEB",
+            position: "relative",
+            zIndex: "0",
+        }}>
             <styleMui.BoxContainer>
-                <Stack
-                    direction="column"
-                    alignItems="center"
-                >
+                <Stack direction="column" alignItems="center">
                     <styleMui.TitleBox variant="body1">
                         Chào mừng bạn đến
                     </styleMui.TitleBox>
-                    <Typography variant='h5' sx={{ fontSize: "2.5rem", fontWeight: "400", color: "#214400", fontFamily: 'FS PF BeauSans Pro, sans-serif' }}>PLANTMED</Typography>
+                    <Typography variant='h5' 
+                    sx={{ 
+                        fontSize: "2.5rem", 
+                        fontWeight: "400", 
+                        color: "#214400", 
+                        fontFamily: 'FS PF BeauSans Pro, sans-serif' 
+                    }}>
+                        PLANTMED
+                    </Typography>
                 </Stack>
                 <Stack
                     direction="column"

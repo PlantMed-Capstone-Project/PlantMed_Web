@@ -1,11 +1,10 @@
-import * as React from 'react';
-import { Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
-import plant from "Images/heroSen.jpg"
+import * as React from 'react'
+import { Box, Typography } from '@mui/material'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import { CardActionArea } from '@mui/material'
 
 const styles = {
     card: {
@@ -30,19 +29,19 @@ const styles = {
     }
 }
 
-function MyBlog(props) {
+function MyBlog({ blogData }) {
     return (
         <Box sx={styles.containerBlog}>
             <Typography sx={styles.myBlogTitle}>Bài viết của bạn</Typography>
             <Grid container spacing={2}>
-                {props.blogData.map((data, index) => (
+                {blogData.map((data) => (
                     <Grid item xs={4} sx={{ display: "flex", flexDirection: "row", flex: 1 }}>
                         <Card sx={styles.card}>
                             <CardActionArea sx={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "flex-start", alignItems: "start" }}>
                                 <CardMedia
                                     component="img"
                                     height="150"
-                                    image={plant}
+                                    image={data.image}
                                     alt="plant"
                                 />
                                 <CardContent sx={{ padding: "0.625rem 1.563rem 1.25rem" }}>
@@ -59,7 +58,7 @@ function MyBlog(props) {
                 ))}
             </Grid>
         </Box >
-    );
+    )
 }
 
-export default MyBlog;
+export default MyBlog
