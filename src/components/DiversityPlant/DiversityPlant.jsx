@@ -1,6 +1,6 @@
-import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import Slider from "react-slick";
-import './DiversityPlant.css';
+import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material'
+import Slider from "react-slick"
+import './DiversityPlant.css'
 
 export default function DiversityPlant({ title, data }) {
 
@@ -14,7 +14,7 @@ export default function DiversityPlant({ title, data }) {
         slidesToShow: 3,
         slidesToScroll: 1,
         centerPadding: "0",
-    };
+    }
 
     return (
         <Stack
@@ -28,10 +28,10 @@ export default function DiversityPlant({ title, data }) {
             </Typography>
             <Box sx={{ height: "500px", width: "100%" }}>
                 <Slider {...settings}>
-                    {data.map((obj) => (
+                    {data?.map((obj) => (
                         <Card
                             className='card_feature'
-                            key={obj}
+                            key={obj.id}
                             sx={{
                                 height: "18.48163rem",
                                 width: "18.98344rem",
@@ -58,7 +58,5 @@ export default function DiversityPlant({ title, data }) {
                 </Slider>
             </Box>
         </Stack>
-
     )
-
 }

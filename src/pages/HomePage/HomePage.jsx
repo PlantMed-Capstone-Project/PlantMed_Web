@@ -16,45 +16,45 @@ export default function HomePage() {
 	const spacingTop = 5
 	const nav = ['TRANG CHỦ', 'PHÁT HIỆN HÌNH ẢNH', 'BÀI VIẾT', 'THỰC VẬT', 'VỀ CHÚNG TÔI']
 	const plants = [
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-		{ title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-	]
+        {id: 1, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 2, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 3, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 4, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 5, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 6, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 7, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 8, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 9, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        {id: 10, title: 'Cầu Kỳ Tử', image: imgDemo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+    ]
 
-  const searchProducts = [
-    { id: 1, name: 'Product 1', image: imageBachBo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-    { id: 2, name: 'Product 2', image: imageDayLeo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-    { id: 3, name: 'Product 3', image: imageBachBo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-    { id: 4, name: 'Product 4', image: imageDayLeo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-    { id: 5, name: 'Product 5', image: imageBachBo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
-  ]
+    const searchProducts = [
+        { id: 1, name: 'Product 1', image: imageBachBo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { id: 2, name: 'Product 2', image: imageDayLeo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { id: 3, name: 'Product 3', image: imageBachBo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { id: 4, name: 'Product 4', image: imageDayLeo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+        { id: 5, name: 'Product 5', image: imageBachBo, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+    ]
 
   return (
     <Box component="section" sx={{ width: "90rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <Header navItems={nav} />
-      <Heros />
-      <Sologan />
-      <FeaturedSearch />
-      <Stack
-        direction="column"
-        alignItems="center"
-        width="100%"
-        height="106.94rem"
-        mt="6.38rem"
-        sx={{ backgroundColor: "#F4FFEB" }}
-      >
-        <DiversityPlant title='ĐA DẠNG CÁC LOẠI THỰC VẬT' data={plants} />
-        <SpecialFeature title='TÌM KIẾM NỔI BẬT' data={searchProducts} />
-      </Stack>
-      <Quantity />
-      <Footer valueTop={spacingTop} />
+        <Header navItems={nav} />
+        <Heros />
+        <Sologan />
+        <FeaturedSearch title='TÌM KIẾM NỔI BẬT' data={searchProducts} />
+        <Stack
+            direction="column"
+            alignItems="center"
+            width="100%"
+            height="106.94rem"
+            mt="6.38rem"
+            sx={{ backgroundColor: "#F4FFEB" }}
+        >
+            <DiversityPlant title='ĐA DẠNG CÁC LOẠI THỰC VẬT' data={plants} />
+            <SpecialFeature />
+        </Stack>
+        <Quantity />
+        <Footer valueTop={spacingTop} />
     </Box>
   )
 }

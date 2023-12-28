@@ -1,15 +1,13 @@
-import * as React from 'react'
-import { Box, Typography, Button } from '@mui/material'
-import Grid from '@mui/material/Grid'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { Box, CardActionArea, Typography } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { CardActionArea } from '@mui/material'
+import Grid from '@mui/material/Grid'
 import Pagination from '@mui/material/Pagination'
 import PaginationItem from '@mui/material/PaginationItem'
 import Stack from '@mui/material/Stack'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import plant from "Images/heroSen.jpg"
 
 const styles = {
@@ -40,7 +38,7 @@ function BlogList({ blogData }) {
     return (
         <Box sx={styles.containerBlog}>
             <Grid container spacing={5}>
-                {blogData.map((data) => (
+                {blogData?.map((data) => (
                     <Grid key={data} item xs={4} sx={{ display: "flex", flexDirection: "row", flex: 1 }}>
                         <Card sx={styles.card}>
                             <CardActionArea sx={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "flex-start", alignItems: "start" }}>

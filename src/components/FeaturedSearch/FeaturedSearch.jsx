@@ -24,7 +24,7 @@ function FeaturedSearch({ title, data }) {
                 {title}
             </Typography>
             <Grid container rowSpacing="3rem" columnSpacing="1.69rem" width="72.69rem">
-                {data.map((product, idx) => (
+                {data?.map((product, idx) => (
                     <Grid item xs={product.id <= 2 ? 6 : 4} key={product.id}>
                         <styleMui.BoxAllGrid pt="1.31rem" product={product.id}>
                             <styleMui.NameOfProduct
