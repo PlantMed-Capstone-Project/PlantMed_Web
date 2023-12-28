@@ -1,38 +1,30 @@
 import { Grid, Link, Stack, Typography } from '@mui/material'
-import imageDayLeo from 'Images/heroSen.jpg'
-import imageBachBo from 'Images/heroSi.jpg'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import * as styleMui from './FeatureSearch.styled'
 
-function FeaturedSearch() {
+function FeaturedSearch({ title, data }) {
 
-    const [hoverIndex, setHoverIndex] = useState(null);
+    const [hoverIndex, setHoverIndex] = useState(null)
     const [hoverBg, setHoverBg] = useState(null)
 
     const handleHover = (idx) => {
-        setHoverIndex(idx);
+        setHoverIndex(idx)
         setHoverBg(true)
-    };
+    }
 
     const handleLeave = () => {
-        setHoverIndex(null);
+        setHoverIndex(null)
         setHoverBg(null)
-    };
-
-    const products = [
-        { id: 1, name: 'Product 1', IMAGE: imageBachBo },
-        { id: 2, name: 'Product 2', IMAGE: imageDayLeo },
-        { id: 3, name: 'Product 3', IMAGE: imageBachBo },
-        { id: 4, name: 'Product 4', IMAGE: imageDayLeo },
-        { id: 5, name: 'Product 5', IMAGE: imageBachBo },
-    ];
+    }
 
     return (
         <Stack direction="column" alignItems="center" spacing={2} sx={{ width: "100%", mt: "2.75rem" }}>
-            <Typography sx={{ fontSize: "2.1875rem", color: "#214400", fontWeight: "500" }}>TÌM KIẾM NỔI BẬT</Typography>
+            <Typography sx={{ fontSize: "2.1875rem", color: "#214400", fontWeight: "500" }}>
+                {title}
+            </Typography>
             <Grid container rowSpacing="3rem" columnSpacing="1.69rem" width="72.69rem">
-                {products.map((product, idx) => (
+                {data?.map((product, idx) => (
                     <Grid item xs={product.id <= 2 ? 6 : 4} key={product.id}>
                         <styleMui.BoxAllGrid pt="1.31rem" product={product.id}>
                             <styleMui.NameOfProduct
@@ -51,8 +43,7 @@ function FeaturedSearch() {
                                 onMouseOver={() => handleHover(idx)}
                                 onMouseLeave={handleLeave}
                             >
-
-                                <img src={product.IMAGE} alt="" style={{ height: "100%", width: "100%", objectFit: "cover", borderRadius: "10px" }} />
+                                <img src={product.image} alt="" style={{ height: "100%", width: "100%", objectFit: "cover", borderRadius: "10px" }} />
 
                                 {/* set hover and show text background black */}
                                 {hoverIndex === idx &&
@@ -69,12 +60,10 @@ function FeaturedSearch() {
                                             direction="column"
                                             alignItems="center"
                                             spacing={product.id <= 2 ? "2.44rem" : "1.1rem"}
-                                            sx={
-                                                {
-                                                    p: product.id <= 2 ? "0 5.12rem" : "0 3rem",
-                                                    mt: product.id <= 2 ? "1.5rem" : "0.7rem"
-                                                }
-                                            }
+                                            sx={{
+                                                p: product.id <= 2 ? "0 5.12rem" : "0 3rem",
+                                                mt: product.id <= 2 ? "1.5rem" : "0.7rem"
+                                            }}
                                         >
                                             <Typography
                                                 sx={{
@@ -84,10 +73,12 @@ function FeaturedSearch() {
                                                     textAlign: "center",
                                                 }}
                                             >
-                                                Tác dụng diệt ký sinh trùng: Dịch cồn hoặc nước ngâm kiệt của rễ cây bách bộ có tác dụng diệt ký sinh trùng như là chấy rận, bọ chét, ấu trùng ruồi, muỗi...
+                                                {product.description.length <= 100
+                                                ? product.description
+                                                : product.description.slice(0, 100) + '...'}
                                             </Typography>
 
-                                            <Link
+                                            <Link color="inherit"
                                                 sx={{
                                                     color: "#FFF",
                                                     fontSize: "1.25rem",
@@ -95,21 +86,18 @@ function FeaturedSearch() {
                                                     textAlign: "center",
                                                     cursor: "pointer"
                                                 }}
-                                                color="inherit"
                                             >
                                                 Xem thêm
                                             </Link>
                                         </Stack>
                                     </styleMui.BoxBlackHover>
                                 }
-
                             </styleMui.BoxImage>
                         </styleMui.BoxAllGrid>
                     </Grid>
                 ))}
             </Grid>
         </Stack>
-
     )
 }
 

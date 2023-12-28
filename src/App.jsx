@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from 'pages/HomePage'
 import PlantPage from 'pages/Plant/PlantPage'
+import BlogPage from 'pages/BlogPage/BlogPage'
 import { Box } from '@mui/material'
 import GoogleFontLoader from 'react-google-font-loader';
 
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/plant" element={<PlantPage />} />
+          <Route path="/blog" element={<BlogPage />} />
         </Routes>
       </BrowserRouter>
     </Box>
