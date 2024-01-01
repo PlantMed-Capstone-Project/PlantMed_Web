@@ -1,0 +1,7 @@
+.thumbnail .keen-slider__slide {
+    cursor: pointer;
+}
+
+.thumbnail .keen-slider__slide.active .thum_slide {
+    border: 2px dashed black;
+}

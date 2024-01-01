@@ -18,10 +18,10 @@ export const ContainerIcon = styled(Box)(() => ({
   color: '#214400',
 }))
 
-export const ContainerAll = styled(Stack)(({ valueTop }) => ({
+export const ContainerAll = styled(Stack)(({ topspacing }) => ({
   paddingTop: '3rem',
   backgroundColor: '#214400',
   height: '18.75rem',
   width: '100%',
-  marginTop: `${valueTop}rem`,
+  marginTop: `${topspacing}rem`,
 }))

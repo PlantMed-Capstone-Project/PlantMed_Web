@@ -5,7 +5,7 @@ import TelegramIcon from '@mui/icons-material/Telegram'
 import { Stack, Typography } from '@mui/material'
 import * as styleMui from './Footer.styled'
 
-export default function Footer({ valueTop }) {
+export default function Footer({ topspacing }) {
 
     const socialData = [<FacebookOutlinedIcon />, <InstagramIcon />, <TelegramIcon />, <CallIcon />]
 
@@ -14,7 +14,7 @@ export default function Footer({ valueTop }) {
             direction="column"
             spacing="1.12rem"
             alignItems="center"
-            valueTop={valueTop}
+            topspacing={topspacing}
         >
             <Stack
                 direction="row"

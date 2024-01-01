@@ -2,11 +2,14 @@ import { Grid, Link, Stack, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import * as styleMui from './FeatureSearch.styled'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 function FeaturedSearch({ title, data }) {
 
     const [hoverIndex, setHoverIndex] = useState(null)
     const [hoverBg, setHoverBg] = useState(null)
+
+    const navigate = useNavigate();
 
     const handleHover = (idx) => {
         setHoverIndex(idx)
@@ -18,6 +21,15 @@ function FeaturedSearch({ title, data }) {
         setHoverBg(null)
     }
 
+    const goDetail = (id) => {
+        navigate({
+            pathname: "detail",
+            search: createSearchParams({
+                id: id
+            }).toString()
+        });
+    }
+
     return (
         <Stack direction="column" alignItems="center" spacing={2} sx={{ width: "100%", mt: "2.75rem" }}>
             <Typography sx={{ fontSize: "2.1875rem", color: "#214400", fontWeight: "500" }}>
@@ -25,8 +37,8 @@ function FeaturedSearch({ title, data }) {
             </Typography>
             <Grid container rowSpacing="3rem" columnSpacing="1.69rem" width="72.69rem">
                 {data?.map((product, idx) => (
-                    <Grid item xs={product.id <= 2 ? 6 : 4} key={product.id}>
-                        <styleMui.BoxAllGrid pt="1.31rem" product={product.id}>
+                    <Grid item xs={product.id <= 2 ? 6 : 4} key={idx}>
+                        <styleMui.BoxAllGrid pt="1.31rem" product={product.id} onClick={() => goDetail(product.id)} >
                             <styleMui.NameOfProduct
                                 component={motion.p}
                                 product={product.id}
@@ -74,8 +86,8 @@ function FeaturedSearch({ title, data }) {
                                                 }}
                                             >
                                                 {product.description.length <= 100
-                                                ? product.description
-                                                : product.description.slice(0, 100) + '...'}
+                                                    ? product.description
+                                                    : product.description.slice(0, 100) + '...'}
                                             </Typography>
 
                                             <Link color="inherit"
