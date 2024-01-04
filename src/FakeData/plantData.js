@@ -1,8 +1,11 @@
 export const plantDetail = [
     {
         plantID: 1,
-        name: 'cay bach linh',
-        nameEx: 'hello cay bach linh',
+        name: 'Cây Bạch Linh',
+        nameEx: 'Cây asmopjophia',
+        hoCay:"Ngũ gia bì hay còn có tên gọi khác là Nhân sâm (Araliaceae)",
+        location:" chúng là giống cây sống nhiều năm, ưa ẩm, ưa sáng nhưng cũng chịu hạn, chịu bóng nhưng k chịu được ngập úng vậy nên chúng phân bố trên khắp các vùng sinh thái và phát triển trên nhiều loại đất nhưng tốt nhất là đất pha cát.",
+        shopSell:"Một số nơi có bán đinh lăng có thể kể đến như Thảo Dược Đại Nam, Đông Ám Rượu, Dược Liệu Tân Phát…hay bạn có thể ra các nhà thuốc đông y để mua chúng về làm thuốc.",
         des: 'Cây, người bạn thân thiết của tự nhiên, là biểu tượng của sức sống và sự sinh sôi. Mỗi cây mang trong mình một câu chuyện đặc biệt: từ sự mạnh mẽ của cây sồi với thân gỗ vững chãi, đến vẻ thanh cao của cây thông trước bức trời xanh thẳm. Cây không chỉ là nguồn cảm hứng vô tận cho nghệ thuật và triết học mà còn là nguồn tài nguyên quý giá cho cuộc sống. Với khả năng hấp thụ khí CO2 và sản xuất oxy, cây góp phần quan trọng trong việc duy trì hệ sinh thái và cân bằng môi trường. Từ hình dáng, màu sắc đến mùi hương của lá, mỗi chi tiết của cây đều góp phần tạo nên vẻ đẹp tuyệt vời, khiến chúng trở thành phần không thể thiếu trong cuộc sống của chúng ta.',
         images: [
             {

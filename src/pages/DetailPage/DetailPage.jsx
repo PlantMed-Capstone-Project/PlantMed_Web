@@ -3,6 +3,8 @@ import { getIdPlant } from 'FakeData/plantData';
 import Header from 'components/Header/Header';
 import HerosDeatail from 'components/HerosDeatail/HerosDeatail';
 import InforDetail from 'components/InforDetail/InforDetail';
+import MoreBlog from 'components/MoreBlog/MoreBlog';
+import MoreDetail from 'components/MoreDetail/MoreDetail';
 import SlideDetail from 'components/SlideDetail/SlideDetail';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -26,8 +28,10 @@ export default function DetailPage() {
       <HerosDeatail />
       <Stack direction="row" width="90rem" height="56.0625rem" mt="3rem" sx={{ backgroundColor: "#F4FFEB" }}>
         <SlideDetail data={data} />
-        <InforDetail />
+        <InforDetail data={data} />
       </Stack>
+      <MoreDetail data={data} />
+      <MoreBlog/>
     </Box>
   )
 }
