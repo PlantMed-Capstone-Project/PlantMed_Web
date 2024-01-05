@@ -21,6 +21,57 @@ export default function DetailPage() {
     window.scrollTo(0, 0);
   }, [searchParams])
 
+  const fakeData = [
+    {
+      id:1,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    },
+    {
+      id:2,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    },
+    {
+      id:3,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    },
+    {
+      id:4,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    },
+    {
+      id:5,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    },
+    {
+      id:6,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    },
+    {
+      id:7,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    },
+    {
+      id:8,
+      image:'https://images.unsplash.com/photo-1704303928271-775bb222ab46?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      name:'Cay Phuc Linh',
+      des:"There are many things we can learn about the youth of today from this excellent video.There are many things we can learn about the youth of today from this excellent video."
+    }
+  ]
+
 
   return (
     <Box component="section" sx={{ width: "90rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -31,7 +82,7 @@ export default function DetailPage() {
         <InforDetail data={data} />
       </Stack>
       <MoreDetail data={data} />
-      <MoreBlog/>
+      <MoreBlog data ={fakeData}/>
     </Box>
   )
 }

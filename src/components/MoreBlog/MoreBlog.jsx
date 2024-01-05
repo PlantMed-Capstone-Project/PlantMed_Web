@@ -22,19 +22,13 @@ const itemWithStagger = {
 };
 
 
-export default function MoreBlog() {
+export default function MoreBlog({ data }) {
 
     const [visible, setVisible] = useState(4)
 
     const inCrease = () => {
         setVisible((prevVisible) => prevVisible + 4)
     }
-
-    useEffect(() => {
-
-    }, [visible])
-
-
 
     return (
         <Stack direction="column" alignItems="center" pt="2.94rem" width="90rem" spacing="2.38rem">
@@ -44,9 +38,9 @@ export default function MoreBlog() {
             <Stack direction="row" width="73rem" flexWrap="wrap" sx={{ columnGap: "0.6rem", rowGap: "1.3rem" }}>
                 {/* Sử dụng phương thức ...Array để tạo 1 mãng có 10 phần tử */}
                 {
-                    [...Array(10)].slice(0, visible).map((_, idx) => (
+                    data.slice(0, visible).map((vl, idx) => (
                         <muiStyle.cardBox
-                            key={idx}
+                            key={data}
                             component={motion.div}
                             variants={itemWithStagger}
                             initial="hidden"
@@ -57,15 +51,14 @@ export default function MoreBlog() {
                                 component="img"
                                 alt="green iguana"
                                 height="134"
-                                image={demoImage}
+                                image={vl.image}
                             />
                             <CardContent>
                                 <Typography gutterBottom sx={{ fontSize: "1.1rem" }}>
-                                    Lizard
+                                    {vl.name}
                                 </Typography>
                                 <Typography variant="body2" sx={{ fontSize: "0.6rem" }}>
-                                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                                    species, ranging across all continents except Antarctica
+                                    {vl.des.slice(0, 120)}
                                 </Typography>
                             </CardContent>
                         </muiStyle.cardBox>
@@ -74,7 +67,7 @@ export default function MoreBlog() {
                 {/* End card */}
             </Stack>
             {
-                visible < 10 &&
+                visible < data.length &&
                 <muiStyle.Button onClick={() => inCrease()}>Xem thêm</muiStyle.Button>
             }
         </Stack>

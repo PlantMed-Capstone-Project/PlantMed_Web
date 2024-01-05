@@ -18,7 +18,7 @@ export const text = styled(Typography)(() => ({
 
 export const cardBox = styled(Card)(({ }) => ({
     width: '17.75rem',
-    height: '14.3125rem',
+    height: '14.5rem',
     boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
     cursor: 'pointer',
 }))
