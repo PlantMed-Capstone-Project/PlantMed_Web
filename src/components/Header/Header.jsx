@@ -7,6 +7,7 @@ import { useState } from 'react'
 import avartarImage from 'Images/avatar.jpg'
 import logoImage from 'Images/logo.png'
 import * as styleMui from './header.styled'
+import { Link } from 'react-router-dom'
 
 const iconStyle = {
     height: '1.25rem',
@@ -22,7 +23,32 @@ export default function Header({ }) {
         setValue(newValue)
     }
 
-    const nav = ['TRANG CHỦ', 'PHÁT HIỆN HÌNH ẢNH', 'BÀI VIẾT', 'THỰC VẬT', 'VỀ CHÚNG TÔI']
+    const handleTabs = (idx) => {
+
+    }
+
+    const navItem = [
+        {
+            lable: 'TRANG CHỦ',
+            link: '/'
+        },
+        {
+            lable: 'PHÁT HIỆN HÌNH ẢNH',
+            link: '/'
+        },
+        {
+            lable: 'BÀI VIẾT',
+            link: '/blog'
+        },
+        {
+            lable: 'THỰC VẬT',
+            link: '/'
+        },
+        {
+            lable: 'VỀ CHÚNG TÔI',
+            link: '/'
+        }
+    ]
 
     const menuItems = [
         { icon: <SettingsIcon sx={iconStyle} />, text: 'Cài đặt tài khoản' },
@@ -48,8 +74,8 @@ export default function Header({ }) {
                             color: '#69AD28 !important'
                         }
                     }}>
-                        {nav?.map((item, idx) => (
-                            <Tab key={idx} label={item} sx={{ color: "#214400", fontWeight: "700" }} />
+                        {navItem?.map((item, idx) => (
+                            <Tab component={Link} to={item.link} key={idx} label={item.lable} sx={{ color: "#214400", fontWeight: "700" }} />
                         ))}
                     </Tabs>
                 </Box>

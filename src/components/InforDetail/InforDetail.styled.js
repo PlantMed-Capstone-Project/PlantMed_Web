@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from '@mui/material'
+import { Stack, Typography, styled } from '@mui/material'
 
 export const Dot = styled(Typography)(() => ({
     marginRight: 8,
@@ -12,7 +12,7 @@ export const TextList = styled(Typography)(() => ({
     color: '#214400',
     fontSize: '1.3rem',
     fontWeight: '300',
-    wordWrap:"break-word"
+    wordWrap: 'break-word',
 }))
 
 export const TxtListHead = styled(Typography)(() => ({
@@ -21,4 +21,11 @@ export const TxtListHead = styled(Typography)(() => ({
     fontWeight: '600',
     width: '22.3rem',
     textAlign: 'center',
+}))
+
+export const container = styled(Stack)(({ screen }) => ({
+    backgroundColor: screen ? 'none' : '#FFF',
+    padding: screen ? '0' : '3.94rem 8.5rem 0 8.5rem',
+    width: screen ? '50%' : '90rem',
+    height: screen ? '100%' : '54rem',
 }))
