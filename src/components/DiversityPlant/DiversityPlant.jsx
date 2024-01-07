@@ -21,17 +21,17 @@ export default function DiversityPlant({ title, data }) {
             direction="column"
             alignItems="center"
             width="100%"
-            mt="6.19rem"
+            mt="8.19rem"
         >
             <Typography sx={{ color: "#214400", fontSize: "2.1875rem", fontWeight: "500" }}>
                 {title}
             </Typography>
-            <Box sx={{ height: "500px", width: "100%" }}>
+            <Box mt="3rem" sx={{ height: "500px", width: "100%" }}>
                 <Slider {...settings}>
-                    {data?.map((obj) => (
+                    {data?.map((obj, idx) => (
                         <Card
                             className='card_feature'
-                            key={obj.id}
+                            key={idx}
                             sx={{
                                 height: "18.48163rem",
                                 width: "18.98344rem",

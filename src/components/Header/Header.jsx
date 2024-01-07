@@ -7,6 +7,7 @@ import { useState } from 'react'
 import avartarImage from 'Images/avatar.jpg'
 import logoImage from 'Images/logo.png'
 import * as styleMui from './header.styled'
+import { Link } from 'react-router-dom'
 
 const iconStyle = {
     height: '1.25rem',
@@ -14,13 +15,40 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-export default function Header({ navItems }) {
+export default function Header({ }) {
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
+
+    const handleTabs = (idx) => {
+
+    }
+
+    const navItem = [
+        {
+            lable: 'TRANG CHỦ',
+            link: '/'
+        },
+        {
+            lable: 'PHÁT HIỆN HÌNH ẢNH',
+            link: '/'
+        },
+        {
+            lable: 'BÀI VIẾT',
+            link: '/blog'
+        },
+        {
+            lable: 'THỰC VẬT',
+            link: '/'
+        },
+        {
+            lable: 'VỀ CHÚNG TÔI',
+            link: '/'
+        }
+    ]
 
     const menuItems = [
         { icon: <SettingsIcon sx={iconStyle} />, text: 'Cài đặt tài khoản' },
@@ -39,15 +67,15 @@ export default function Header({ navItems }) {
             >
                 <img src={logoImage} alt="" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
             </Box>
-            <Stack direction="row" alignItems="center" sx={{ height: "100%", borderBottom: 1, borderColor: 'divider' }}>
+            <Stack direction="row" alignItems="center" sx={{ height: "100%", borderColor: 'divider' }}>
                 <Box sx={{ borderBottom: 2, borderColor: 'transparent' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" TabIndicatorProps={{ style: { backgroundColor: "#69AD28" } }} sx={{
                         '& .Mui-selected': {
                             color: '#69AD28 !important'
                         }
                     }}>
-                        {navItems?.map((item) => (
-                            <Tab key={item} label={item} sx={{ color: "#214400", fontWeight: "700" }} />
+                        {navItem?.map((item, idx) => (
+                            <Tab component={Link} to={item.link} key={idx} label={item.lable} sx={{ color: "#214400", fontWeight: "700" }} />
                         ))}
                     </Tabs>
                 </Box>

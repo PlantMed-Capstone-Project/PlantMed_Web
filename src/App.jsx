@@ -5,6 +5,7 @@ import PlantPage from 'pages/Plant/PlantPage'
 import BlogPage from 'pages/BlogPage/BlogPage'
 import { Box } from '@mui/material'
 import GoogleFontLoader from 'react-google-font-loader';
+import DetailPage from 'pages/DetailPage/DetailPage'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/plant" element={<PlantPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/detail" element={<DetailPage />} />
         </Routes>
       </BrowserRouter>
     </Box>
