@@ -1,6 +1,6 @@
 const { styled, TextField, Typography } = require('@mui/material')
 
-export const searchBar = styled(TextField)(({ isforcus }) => ({
+export const searchBar = styled(TextField)(() => ({
     width: '43.25rem', // Độ rộng thanh tìm kiếm
     borderRadius: '0.625rem', // Bo tròn viền
     height: '3.625rem',
