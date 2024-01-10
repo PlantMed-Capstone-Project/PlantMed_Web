@@ -15,6 +15,7 @@ function PaginationLayout({ data, serachText }) {
             const searchAll = data?.filter((value) => {
                 return formatText(value.title).includes(serachText)
             })
+            setCurrentPage(1)
             setDataPlants(searchAll)
         } else setDataPlants(data)
     }, [serachText])
