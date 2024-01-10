@@ -97,7 +97,7 @@ export default function DetailPage() {
   return (
     <Box component="section" sx={{ width: "90rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Header />
-      <HerosDeatail />
+      <HerosDeatail pages="detail" />
       <Stack direction="row" width="90rem" height="56.0625rem" mt="3rem" sx={{ backgroundColor: "#F4FFEB" }}>
         <SlideDetail data={data} />
         <InforDetail textData={textData} screenSlide={true} />
