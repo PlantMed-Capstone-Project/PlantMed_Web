@@ -2,10 +2,10 @@ import { CardMedia } from '@mui/material'
 import hienNhanImage from 'Images/hiền nhân.jpg'
 import * as styleMui from './heroDetail.styled'
 
-export default function HerosDeatail({ pages }) {
+export default function HerosDeatail({ }) {
 
   return (
-    <styleMui.BoxImg mt="0.88rem" width="72.75rem" height={pages === 'plant' ? "31.25rem" : "13.75rem"}>
+    <styleMui.BoxImg mt="0.88rem" width="72.75rem" height="13.75rem">
       <CardMedia
         component="img"
         height="100%"

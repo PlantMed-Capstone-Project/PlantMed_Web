@@ -14,7 +14,7 @@ export default function PlantPage() {
   const [search, setSearch] = useState('')
 
   const plants = [
-    { id: 1, title: 'Cầu Kỳ Tử', image: immageBa, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
+    { id: 1, title: 'Cầu cổ Tử', image: immageBa, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
     { id: 2, title: 'Cầu Kỳ Tử', image: imgHai, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
     { id: 3, title: 'Cầu khỉ', image: imgHai, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
     { id: 4, title: 'Cầu Kỳ Tử', image: immageBa, description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica' },
@@ -27,12 +27,16 @@ export default function PlantPage() {
   ]
 
 
+  useEffect(() => {
+    console.log(search);
+  }, [search])
+
 
 
   return (
     <Box component="section" sx={{ width: "90rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Header />
-      <HerosDeatail pages="plant" />
+      <HerosDeatail />
       <Searching setSearch={setSearch} />
       <PaginationLayout data={plants} serachText={search} />
       <Footer />
