@@ -5,8 +5,9 @@ import Heros from 'components/Heros/Heros'
 import Quantity from 'components/Quantity/Quantity'
 import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
-import { default as imageDayLeo, default as imgDemo } from 'Images/heroSen.jpg'
+import imgDemo from 'Images/heroSen.jpg'
 import imageBachBo from 'Images/heroSi.jpg'
+import imageDayLeo from 'Images/herogreen.jpg'
 
 export default function HomePage() {
     const spacingTop = 5

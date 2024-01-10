@@ -1,12 +1,11 @@
 import { Box } from '@mui/material'
-import imgDemo from 'Images/heroSen.jpg'
-import immageBa from 'Images/heroSi.jpg'
-import imgHai from 'Images/hiền nhân.jpg'
-import Footer from 'components/Footer/Footer'
 import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
 import PaginationLayout from 'components/PaginationLayout/PaginationLayout'
 import Searching from 'components/Searching/Searching'
 import { useEffect, useState } from 'react'
+import imgDemo from 'Images/heroSen.jpg'
+import immageBa from 'Images/heroSi.jpg'
+import imgHai from 'Images/hiền nhân.jpg'
 
 export default function PlantPage() {
     const [search, setSearch] = useState('')
