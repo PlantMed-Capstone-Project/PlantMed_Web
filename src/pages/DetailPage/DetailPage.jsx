@@ -1,6 +1,5 @@
 import { Box, Stack } from '@mui/material'
 import { getIdPlant } from 'FakeData/plantData'
-import Header from 'components/Header/Header'
 import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
 import InforDetail from 'components/InforDetail/InforDetail'
 import MoreBlog from 'components/MoreBlog/MoreBlog'
@@ -100,7 +99,6 @@ export default function DetailPage() {
                 alignItems: 'center',
             }}
         >
-            <Header />
             <HerosDeatail />
             <Stack
                 direction="row"

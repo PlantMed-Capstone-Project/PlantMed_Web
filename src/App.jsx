@@ -1,14 +1,16 @@
-import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Box } from '@mui/material'
+import Header from 'components/Header/Header'
+import BlogPage from 'pages/BlogPage/BlogPage'
+import DetailPage from 'pages/DetailPage/DetailPage'
 import HomePage from 'pages/HomePage'
 import PlantPage from 'pages/Plant/PlantPage'
-import BlogPage from 'pages/BlogPage/BlogPage'
-import { Box } from '@mui/material'
 import GoogleFontLoader from 'react-google-font-loader'
-import DetailPage from 'pages/DetailPage/DetailPage'
-import Header from 'components/Header/Header'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import './App.css'
+import Footer from 'components/Footer/Footer'
 
 function App() {
+    const spacingTop = 5
     return (
         <Box
             component="section"
@@ -37,6 +39,7 @@ function App() {
                     <Route path="/detail" element={<DetailPage />} />
                 </Routes>
             </BrowserRouter>
+            <Footer topspacing={spacingTop} />
         </Box>
     )
 }

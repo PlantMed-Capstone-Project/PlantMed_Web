@@ -1,14 +1,11 @@
 import { Box, Stack } from '@mui/material'
 import DiversityPlant from 'components/DiversityPlant/DiversityPlant'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
-import Footer from 'components/Footer/Footer'
-import Header from 'components/Header/Header'
 import Heros from 'components/Heros/Heros'
 import Quantity from 'components/Quantity/Quantity'
 import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
-import imgDemo from 'Images/heroSen.jpg'
-import imageDayLeo from 'Images/heroSen.jpg'
+import { default as imageDayLeo, default as imgDemo } from 'Images/heroSen.jpg'
 import imageBachBo from 'Images/heroSi.jpg'
 
 export default function HomePage() {
@@ -152,7 +149,6 @@ export default function HomePage() {
                 <SpecialFeature />
             </Stack>
             <Quantity />
-            <Footer topspacing={spacingTop} />
         </Box>
     )
 }
