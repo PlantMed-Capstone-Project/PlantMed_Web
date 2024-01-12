@@ -1,26 +1,9 @@
-import SearchIcon from '@mui/icons-material/Search';
-import { Stack } from '@mui/material';
-import * as styleMui from './Searching.styled';
+import SearchIcon from '@mui/icons-material/Search'
+import { Stack } from '@mui/material'
+import * as styleMui from './Searching.styled'
+import { formatText } from 'globalFunction/globalFunc'
 
 function Searching({ setSearch }) {
-
-    // xóa các ký tự thừa trong search
-    const formatText = (str) => {
-        str = str.toLowerCase();
-        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
-        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
-        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
-        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
-        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
-        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
-        str = str.replace(/đ/g, "d");
-        str = str.replace(/\s/g, "");
-        // Some system encode vietnamese combining accent as individual utf-8 characters
-        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng 
-        str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
-        return str;
-    }
-
     const handleSearch = (event) => {
         setSearch(formatText(event.target.value))
     }
@@ -31,7 +14,7 @@ function Searching({ setSearch }) {
             direction="column"
             alignItems="center"
             width="100%"
-            sx={{ gap: "1.6rem" }}
+            sx={{ gap: '1.6rem' }}
         >
             <styleMui.Text>BẠN CẦN TÌM GÌ?</styleMui.Text>
             <styleMui.searchBar
@@ -39,7 +22,15 @@ function Searching({ setSearch }) {
                 onChange={handleSearch}
                 InputProps={{
                     endAdornment: (
-                        <SearchIcon sx={{ color: '#69AD28', mr: 1, pointerEvents: 'none', height: "2.5rem", width: "2.5rem" }} />
+                        <SearchIcon
+                            sx={{
+                                color: '#69AD28',
+                                mr: 1,
+                                pointerEvents: 'none',
+                                height: '2.5rem',
+                                width: '2.5rem',
+                            }}
+                        />
                     ),
                 }}
             />

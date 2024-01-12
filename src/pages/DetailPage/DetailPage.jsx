@@ -1,9 +1,7 @@
 import { Box, Stack } from '@mui/material'
 import { getIdPlant } from 'FakeData/plantData'
-import Header from 'components/Header/Header'
 import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
 import InforDetail from 'components/InforDetail/InforDetail'
-import MapLayout from 'components/MapLayout/MapLayout'
 import MoreBlog from 'components/MoreBlog/MoreBlog'
 import SlideDetail from 'components/SlideDetail/SlideDetail'
 import { useEffect } from 'react'
@@ -101,8 +99,7 @@ export default function DetailPage() {
                 alignItems: 'center',
             }}
         >
-            <Header />
-            <HerosDeatail pages="detail" />
+            <HerosDeatail />
             <Stack
                 direction="row"
                 width="90rem"
