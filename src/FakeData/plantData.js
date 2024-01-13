@@ -4,8 +4,7 @@ export const plantDetail = [
         name: 'Cây Bạch Linh',
         nameEx: 'Cây asmopjophia',
         hoCay: 'Ngũ gia bì hay còn có tên gọi khác là Nhân sâm (Araliaceae)',
-        location:
-            ' chúng là giống cây sống nhiều năm, ưa ẩm, ưa sáng nhưng cũng chịu hạn, chịu bóng nhưng k chịu được ngập úng vậy nên chúng phân bố trên khắp các vùng sinh thái và phát triển trên nhiều loại đất nhưng tốt nhất là đất pha cát.',
+        origin: ' chúng là giống cây sống nhiều năm, ưa ẩm, ưa sáng nhưng cũng chịu hạn, chịu bóng nhưng k chịu được ngập úng vậy nên chúng phân bố trên khắp các vùng sinh thái và phát triển trên nhiều loại đất nhưng tốt nhất là đất pha cát.',
         shopSell:
             'Một số nơi có bán đinh lăng có thể kể đến như Thảo Dược Đại Nam, Đông Ám Rượu, Dược Liệu Tân Phát…hay bạn có thể ra các nhà thuốc đông y để mua chúng về làm thuốc.',
         des: 'Cây, người bạn thân thiết của tự nhiên, là biểu tượng của sức sống và sự sinh sôi. Mỗi cây mang trong mình một câu chuyện đặc biệt: từ sự mạnh mẽ của cây sồi với thân gỗ vững chãi, đến vẻ thanh cao của cây thông trước bức trời xanh thẳm. Cây không chỉ là nguồn cảm hứng vô tận cho nghệ thuật và triết học mà còn là nguồn tài nguyên quý giá cho cuộc sống. Với khả năng hấp thụ khí CO2 và sản xuất oxy, cây góp phần quan trọng trong việc duy trì hệ sinh thái và cân bằng môi trường. Từ hình dáng, màu sắc đến mùi hương của lá, mỗi chi tiết của cây đều góp phần tạo nên vẻ đẹp tuyệt vời, khiến chúng trở thành phần không thể thiếu trong cuộc sống của chúng ta.',
@@ -50,6 +49,13 @@ export const plantDetail = [
                 id: 10,
                 image: 'https://img.freepik.com/free-photo/friends-eating-pizza-home-together_23-2150419466.jpg?w=996&t=st=1703921666~exp=1703922266~hmac=f37187d50ac51e947ea3a89d24fec33fd6df1b212a9312f5a8eadfcc89902010',
             },
+        ],
+        locations: [
+            { id: 1, long: 9.989388, lat: 105.44381 },
+            { id: 2, long: 9.997465, lat: 105.782937 },
+            { id: 3, long: 9.953507, lat: 105.78843 },
+            { id: 4, long: 10.062713, lat: 105.9031 },
+            { id: 5, long: 10.092459, lat: 105.880441 },
         ],
     },
 ]

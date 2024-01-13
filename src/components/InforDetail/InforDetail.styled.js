@@ -27,5 +27,5 @@ export const container = styled(Stack)(({ screen }) => ({
     backgroundColor: screen ? 'none' : '#FFF',
     padding: screen ? '0' : '3.94rem 8.5rem 0 8.5rem',
     width: screen ? '50%' : '90rem',
-    height: screen ? '100%' : '54rem',
+    height: screen ? '100%' : '',
 }))

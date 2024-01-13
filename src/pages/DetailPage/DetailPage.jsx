@@ -2,6 +2,7 @@ import { Box, Stack } from '@mui/material'
 import { getIdPlant } from 'FakeData/plantData'
 import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
 import InforDetail from 'components/InforDetail/InforDetail'
+import MapLayout from 'components/MapLayout/MapLayout'
 import MoreBlog from 'components/MoreBlog/MoreBlog'
 import SlideDetail from 'components/SlideDetail/SlideDetail'
 import { useEffect } from 'react'
@@ -85,7 +86,7 @@ export default function DetailPage() {
         { label: 'Tên quốc tế', value: data[0].name },
         { label: 'Tên thường gọi', value: data[0].nameEx },
         { label: 'Họ của cây', value: data[0].hoCay },
-        { label: 'Nơi sinh trưởng', value: data[0].location },
+        { label: 'Nơi sinh trưởng', value: data[0].origin },
         { label: 'Cơ sở bán', value: data[0].shopSell },
     ]
 
@@ -108,9 +109,10 @@ export default function DetailPage() {
                 sx={{ backgroundColor: '#F4FFEB' }}
             >
                 <SlideDetail data={data} />
-                <InforDetail textData={textData} screenSlide={true} />
+                <InforDetail textData={textData} screenSlide />
             </Stack>
-            <InforDetail textData={textData} screenSlide={false} />
+            <InforDetail textData={textData} />
+            <MapLayout data={data} />
             <MoreBlog data={fakeData} />
         </Box>
     )
