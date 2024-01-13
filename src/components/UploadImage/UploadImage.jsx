@@ -3,7 +3,9 @@ import { styled } from '@mui/material/styles'
 import * as styleMui from './UploadImage.styled'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { motion } from 'framer-motion'
+import SendIcon from '@mui/icons-material/Send'
 import { useState } from 'react'
+import axios from 'axios'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -18,12 +20,33 @@ const VisuallyHiddenInput = styled('input')({
 })
 
 function UploadImage() {
-    const [fileUpload, setFileUpload] = useState(null)
     const [imageLoaded, setImageLoaded] = useState()
+    const [imaePush, setImagePush] = useState()
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']
 
     const handleFileChange = (event) => {
-        setFileUpload(event.target?.files[0])
-        setImageLoaded(URL.createObjectURL(event.target?.files[0]))
+        if (
+            event.target.files.length > 0 &&
+            allowedTypes.includes(event.target.files[0].type)
+        ) {
+            setImageLoaded(URL.createObjectURL(event.target.files[0]))
+            setImagePush(event.target.files[0])
+        }
+    }
+
+    const fileUpload = () => {
+        const fd = new FormData()
+        fd.append('file', imaePush)
+        axios
+            .post('https://predict-qj5v.onrender.com/upload', fd, {
+                headers: { 'Content-type': 'multipart/form-data' },
+            })
+            .then((res) => {
+                console.log(`Success` + res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     return (
@@ -35,38 +58,24 @@ function UploadImage() {
             <styleMui.container
                 direction="column"
                 alignItems="center"
-                justifyContent="center"
+                isloaded={imageLoaded}
             >
                 {imageLoaded ? (
-                    <Box
+                    <styleMui.imageLoadBox
                         component="label"
-                        sx={{
-                            width: '60rem',
-                            height: '25rem',
-                            borderRadius: '0.625rem',
-                            overflow: 'hidden',
-                        }}
+                        onChange={(event) => handleFileChange(event)}
                     >
                         <CardMedia
                             component="img"
-                            sx={{ height: '25rem', objectFit: 'contain' }}
+                            sx={{ height: '35rem', objectFit: 'cover' }}
                             image={imageLoaded}
                             title="green iguana"
                         />
                         <VisuallyHiddenInput type="file" />
-                    </Box>
+                    </styleMui.imageLoadBox>
                 ) : (
                     <styleMui.uploadPlace>
-                        <Box
-                            component="label"
-                            sx={{
-                                width: '17rem',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                gap: '0.2rem',
-                            }}
-                        >
+                        <styleMui.containerIcon component="label">
                             <Box
                                 component={motion.div}
                                 initial={{ rotate: 0 }}
@@ -79,8 +88,8 @@ function UploadImage() {
                                 >
                                     <CloudUploadIcon
                                         sx={{
-                                            width: '5.625rem',
-                                            height: '5.625rem',
+                                            width: '15rem',
+                                            height: '15rem',
                                             color: '#69AD28',
                                             cursor: 'pointer',
                                         }}
@@ -88,17 +97,21 @@ function UploadImage() {
                                     <VisuallyHiddenInput type="file" />
                                 </IconButton>
                             </Box>
-                            <Typography
-                                sx={{
-                                    color: '#69AD28',
-                                    fontSize: '1.56rem',
-                                    fontWeight: '400',
-                                }}
-                            >
+                            <styleMui.txtUnderIcon>
                                 Kéo thả hoặc tải ảnh lên
-                            </Typography>
-                        </Box>
+                            </styleMui.txtUnderIcon>
+                        </styleMui.containerIcon>
                     </styleMui.uploadPlace>
+                )}
+
+                {imageLoaded && (
+                    <styleMui.btnSend
+                        variant="contained"
+                        endIcon={<SendIcon />}
+                        onClick={fileUpload}
+                    >
+                        Gửi ảnh đi
+                    </styleMui.btnSend>
                 )}
             </styleMui.container>
         </styleMui.background>
