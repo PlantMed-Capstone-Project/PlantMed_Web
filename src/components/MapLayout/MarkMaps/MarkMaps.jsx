@@ -1,26 +1,34 @@
 import useCurrentLocation from 'hooks/useCurrentLocation'
-import React, { useImperativeHandle } from 'react'
+import React, { useImperativeHandle, useState } from 'react'
 import { Marker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
 
 function MarkMaps(props, ref) {
+    const { locationPermission } = props
     const map = useMap()
     const currrentLocation = useCurrentLocation()
+    const [circleAdded, setCircleAdded] = useState(false)
     const radius = 10000
-
-    // Thêm vào maps một circle với vị trí tâm là vị trí của user
-    const circle = L.circle(
-        [currrentLocation.coordinate.lat, currrentLocation.coordinate.lng],
-        {
-            color: '#9BB8CD',
-            fillColor: '#9BB8CD',
-            fillOpacity: 0.06,
-            radius: radius,
-        }
-    ).addTo(map)
 
     const viewToLocation = () => {
         if (currrentLocation.loaded && !currrentLocation.error) {
+            if (!circleAdded) {
+                // Thêm vào maps một circle với vị trí tâm là vị trí của user
+                L.circle(
+                    [
+                        currrentLocation.coordinate.lat,
+                        currrentLocation.coordinate.lng,
+                    ],
+                    {
+                        color: '#9BB8CD',
+                        fillColor: '#9BB8CD',
+                        fillOpacity: 0.06,
+                        radius: radius,
+                    }
+                ).addTo(map)
+                setCircleAdded(true)
+            }
+
             map.flyTo(
                 [
                     currrentLocation.coordinate.lat,
@@ -28,8 +36,9 @@ function MarkMaps(props, ref) {
                 ],
                 12
             )
+            locationPermission(false)
         } else {
-            alert(currrentLocation.error.message)
+            locationPermission(true)
         }
     }
 

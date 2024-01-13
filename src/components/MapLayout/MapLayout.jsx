@@ -9,6 +9,8 @@ import { useRef, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import * as muiStyle from './MapLayout.styled'
 import MarkMaps from './MarkMaps/MarkMaps'
+import { ToastContainer, toast, Bounce } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function MapLayout({ data }) {
     const [showPlants, setShowPlant] = useState(false)
@@ -38,8 +40,37 @@ export default function MapLayout({ data }) {
         iconAnchor: [25, 50], //đây là size của icon khi zoom out and in, phải theo công thức x/2, y
     })
 
+    const locationPermission = (value) => {
+        if (value) {
+            toast.info('🦄 Vui lòng bật định vị !', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'colored',
+                transition: Bounce,
+            })
+        }
+    }
+
     return (
         <muiStyle.container>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+                transition={Bounce}
+            />
             <muiStyle.text>Thông tin vị trí</muiStyle.text>
             <muiStyle.mapContainer width="100%" height="40.8125rem">
                 {/*Start Button cover maps */}
@@ -81,7 +112,10 @@ export default function MapLayout({ data }) {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <MarkMaps ref={ref} />
+                    <MarkMaps
+                        ref={ref}
+                        locationPermission={locationPermission}
+                    />
                     {showPlants &&
                         data[0].locations?.map((value, idx) => (
                             <Marker
