@@ -2,7 +2,6 @@ import { Box, Link, Pagination, Stack, Typography, styled } from '@mui/material'
 
 export const container = styled(Stack)(() => ({
     marginTop: '3.56rem',
-    rowGap: '4.31rem',
     columnGap: '1.56rem',
     marginBottom: '4.13rem',
     flexWrap: 'wrap',

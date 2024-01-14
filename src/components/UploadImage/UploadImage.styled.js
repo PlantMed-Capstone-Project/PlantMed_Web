@@ -49,7 +49,30 @@ export const txtUnderIcon = styled(Typography)({
     fontWeight: '400',
 })
 
-export const btnSend = styled(Button)({
+export const btnSend = styled(Box)({
+    position: 'relative',
+    height: '2.1875rem',
+    width: '8.25rem',
     backgroundColor: '#69AD28',
     '&:hover': { backgroundColor: '#8ad345' },
+    cursor: 'pointer',
+    userSelect: 'none',
+    borderRadius: '0.1875rem',
+    padding: '0 0.5rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+})
+
+export const textBtn = styled(Typography)({
+    fontSize: '1rem',
+    fontWeight: '700',
+    color: '#FFF',
+})
+
+export const spinProgress = styled(Box)({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
 })

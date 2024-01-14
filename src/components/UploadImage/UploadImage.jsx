@@ -1,11 +1,18 @@
-import { Box, Button, CardMedia, IconButton, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import * as styleMui from './UploadImage.styled'
+import CheckIcon from '@mui/icons-material/Check'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { motion } from 'framer-motion'
 import SendIcon from '@mui/icons-material/Send'
-import { useState } from 'react'
+import {
+    Box,
+    CardMedia,
+    CircularProgress,
+    IconButton,
+    Stack,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
 import axios from 'axios'
+import { motion } from 'framer-motion'
+import { useState } from 'react'
+import * as styleMui from './UploadImage.styled'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -22,6 +29,8 @@ const VisuallyHiddenInput = styled('input')({
 function UploadImage() {
     const [imageLoaded, setImageLoaded] = useState()
     const [imaePush, setImagePush] = useState()
+    const [loading, setLoading] = useState(false)
+    const [slide, setSlide] = useState(false)
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']
 
     const handleFileChange = (event) => {
@@ -34,19 +43,27 @@ function UploadImage() {
         }
     }
 
-    const fileUpload = () => {
+    const uploadFile = async () => {
+        setLoading(true)
+        setSlide(true)
         const fd = new FormData()
         fd.append('file', imaePush)
-        axios
-            .post('https://predict-qj5v.onrender.com/upload', fd, {
-                headers: { 'Content-type': 'multipart/form-data' },
-            })
-            .then((res) => {
-                console.log(`Success` + res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        try {
+            let res = await axios.post(
+                'https://predict-qj5v.onrender.com/upload',
+                fd,
+                {
+                    headers: { 'Content-type': 'multipart/form-data' },
+                }
+            )
+            return res
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setTimeout(() => {
+                setLoading(false)
+            }, 2000)
+        }
     }
 
     return (
@@ -105,12 +122,30 @@ function UploadImage() {
                 )}
 
                 {imageLoaded && (
-                    <styleMui.btnSend
-                        variant="contained"
-                        endIcon={<SendIcon />}
-                        onClick={fileUpload}
-                    >
-                        Gửi ảnh đi
+                    <styleMui.btnSend variant="contained" onClick={uploadFile}>
+                        <Stack
+                            direction="row"
+                            spacing="0.5rem"
+                            component={motion.div}
+                            initial={{ opacity: 1, x: 0 }}
+                            animate={{
+                                opacity: loading ? 0 : 1,
+                                x: loading ? 100 : 0,
+                            }}
+                        >
+                            <styleMui.textBtn>Gửi ảnh đi</styleMui.textBtn>
+                            <SendIcon sx={{ color: '#FFF' }} />
+                        </Stack>
+                        {loading && (
+                            <styleMui.spinProgress>
+                                <CircularProgress
+                                    size={30}
+                                    sx={{
+                                        color: '#FFF',
+                                    }}
+                                />
+                            </styleMui.spinProgress>
+                        )}
                     </styleMui.btnSend>
                 )}
             </styleMui.container>
