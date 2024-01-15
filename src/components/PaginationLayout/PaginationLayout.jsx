@@ -2,7 +2,7 @@ import { Stack } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import * as styleMui from './Pagination.styled'
-import { formatText } from 'globalFunction/globalFunc'
+import { formatText } from 'utils'
 
 function PaginationLayout({ data, serachText }) {
     const [isHover, setIshover] = useState(null)
@@ -17,7 +17,10 @@ function PaginationLayout({ data, serachText }) {
             })
             setCurrentPage(1)
             setDataPlants(searchAll)
-        } else setDataPlants(data)
+        } else {
+            setDataPlants(data)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [serachText])
 
     const hoverEnter = (idx) => {

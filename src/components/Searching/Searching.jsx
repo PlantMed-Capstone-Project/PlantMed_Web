@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search'
 import { Stack } from '@mui/material'
 import * as styleMui from './Searching.styled'
-import { formatText } from 'globalFunction/globalFunc'
+import { formatText } from 'utils'
 
 function Searching({ setSearch }) {
     const handleSearch = (event) => {
