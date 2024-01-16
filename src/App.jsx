@@ -8,6 +8,8 @@ import GoogleFontLoader from 'react-google-font-loader'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from 'components/Footer/Footer'
+import SignupPage from 'pages/SignupPage/SignupPage'
+import SigninPage from 'pages/SigninPage/SigninPage'
 
 function App() {
     const spacingTop = 5
@@ -37,6 +39,8 @@ function App() {
                     <Route path="/plant" element={<PlantPage />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/detail" element={<DetailPage />} />
+                    <Route path="/signup" element={<SignupPage />} />
+                    <Route path="/signin" element={<SigninPage />} />
                 </Routes>
             </BrowserRouter>
             <Footer topspacing={spacingTop} />
