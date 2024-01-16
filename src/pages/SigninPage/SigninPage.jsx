@@ -1,55 +1,20 @@
 import SigninForm from 'components/SigninForm/SigninForm'
-import { Box, Typography } from '@mui/material'
-import backgroundImage from 'Images/heroSen.jpg'
+import { Box } from '@mui/material'
+import * as styleMui from './SigninPage.styled'
 
 function SigninPage() {
     return (
         <Box>
-            <Box
-                sx={{
-                    position: 'relative',
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundPosition: 'center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    width: '100vw',
-                    height: '100vh',
-                    filter: `blur(5px)`,
-                    zIndex: -1,
-                }}
-            ></Box>
-            <Typography
-                variant="h5"
-                sx={{
-                    position: 'absolute',
-                    top: '10rem',
-                    left: '53rem',
-                    textAlign: 'center',
-                    fontSize: '2rem',
-                    fontWeight: '900',
-                    color: '#FFF',
-                }}
-            >
+            <styleMui.Background></styleMui.Background>
+            <styleMui.Title variant="h5">
                 CHÀO MỪNG <br />
                 TRỞ LẠI VỚI PLANTMED
-            </Typography>
-            <Typography
-                variant="h5"
-                sx={{
-                    position: 'absolute',
-                    top: '16rem',
-                    left: '51rem',
-                    textAlign: 'center',
-                    fontSize: '1.5rem',
-                    fontWeight: '200',
-                    fontStyle: 'italic',
-                    color: '#FFF',
-                }}
-            >
+            </styleMui.Title>
+            <styleMui.Note>
                 Đây là trang đăng nhập dành cho cá nhân
                 <br />
                 đã có tài khoản tại PLANTMED
-            </Typography>
+            </styleMui.Note>
             <SigninForm></SigninForm>
         </Box>
     )

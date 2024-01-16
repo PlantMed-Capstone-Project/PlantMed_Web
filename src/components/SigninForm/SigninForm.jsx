@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, InputAdornment, Checkbox } from '@mui/material'
+import { InputAdornment, Checkbox } from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person'
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
@@ -17,17 +17,7 @@ export default function SigninForm() {
         { icon: <LockRoundedIcon sx={iconStyle} />, text: 'Mật khẩu' },
     ]
     return (
-        <styleMui.Form
-            sx={{
-                position: 'absolute',
-                top: '5rem',
-                left: '10rem',
-                backgroundColor: '#fff',
-                width: '25rem',
-                height: '36rem',
-                borderRadius: '1rem',
-            }}
-        >
+        <styleMui.Form>
             <styleMui.signinTitle variant="h5" align="center">
                 Đăng nhập
             </styleMui.signinTitle>
@@ -49,14 +39,7 @@ export default function SigninForm() {
                     }}
                 />
             ))}
-            <Box
-                sx={{
-                    marginLeft: '3.5rem',
-                    marginTop: '1rem',
-                    display: 'flex',
-                    flexWrap: 'nowrap',
-                }}
-            >
+            <styleMui.passSection>
                 <Checkbox
                     icon={<RadioButtonUncheckedIcon />}
                     checkedIcon={
@@ -67,7 +50,7 @@ export default function SigninForm() {
                 <styleMui.forgetPass href="/" underline="hover">
                     Quên mật khẩu?
                 </styleMui.forgetPass>
-            </Box>
+            </styleMui.passSection>
             <styleMui.button variant="contained">Đăng nhập</styleMui.button>
             <styleMui.link href="/signup" underline="hover">
                 Tạo tài khoản mới

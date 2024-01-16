@@ -101,14 +101,7 @@ export default function SignupForm() {
                         }}
                     />
                 ))}
-                <Box
-                    sx={{
-                        marginLeft: '3.5rem',
-                        marginTop: '1rem',
-                        display: 'flex',
-                        flexWrap: 'nowrap',
-                    }}
-                >
+                <styleMui.policySection>
                     <Checkbox
                         icon={<RadioButtonUncheckedIcon />}
                         checkedIcon={
@@ -119,7 +112,7 @@ export default function SignupForm() {
                         Tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính
                         sách quyền riêng tư của chúng tôi.
                     </styleMui.policy>
-                </Box>
+                </styleMui.policySection>
                 <styleMui.button variant="contained">Đăng ký</styleMui.button>
                 <styleMui.link href="/signin" underline="hover">
                     Đăng nhập

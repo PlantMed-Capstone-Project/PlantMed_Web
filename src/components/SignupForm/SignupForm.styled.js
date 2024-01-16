@@ -1,11 +1,4 @@
-const {
-    styled,
-    TextField,
-    Box,
-    Typography,
-    Button,
-    Link,
-} = require('@mui/material')
+import { styled, TextField, Box, Typography, Button, Link } from '@mui/material'
 
 export const Input = styled(TextField)(() => ({
     marginLeft: '4rem',
@@ -32,6 +25,13 @@ export const Form = styled(Box)(() => ({
     width: '25rem',
     height: '37rem',
     borderRadius: '1rem',
+}))
+
+export const policySection = styled(Box)(() => ({
+    marginLeft: '3.5rem',
+    marginTop: '1rem',
+    display: 'flex',
+    flexWrap: 'nowrap',
 }))
 
 export const signupTitle = styled(Typography)(() => ({
