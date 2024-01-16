@@ -12,3 +12,18 @@ export const formatText = (str) => {
         .replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, '')
         .replace(/\u02C6|\u0306|\u031B/g, '')
 }
+
+/**
+ * For API setup
+ * @param {*} obj
+ * @returns
+ */
+export function objectToFormData(obj) {
+    const formData = new FormData()
+
+    Object.entries(obj).forEach(([key, value]) => {
+        formData.append(key, value)
+    })
+
+    return formData
+}
