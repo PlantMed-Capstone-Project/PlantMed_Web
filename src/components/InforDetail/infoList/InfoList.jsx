@@ -1,14 +1,29 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import * as styleMui from '../InforDetail.styled'
-import { ListItem } from '@mui/material'
 
 function InfoList({ label, value, screenSlide }) {
+    const [desText, setDesText] = useState('')
+
+    // Kiểm tra xem component đang hoạt động trong root nào
+    const checkTypeDes = () => {
+        if (screenSlide === 'popupscreen') {
+            setDesText(() =>
+                value.length > 60 ? value.slice(0, 59) + '...' : value
+            )
+        } else setDesText(value)
+    }
+
+    useEffect(() => {
+        checkTypeDes()
+    }, [])
+
     return (
-        <ListItem sx={{ width: screenSlide ? "37rem" : '100%', display: "flex", alignItems: "flex-start" }
-        }>
-            <styleMui.Dot>•</styleMui.Dot>
-            <styleMui.TextList> {label}: {value}</styleMui.TextList>
-        </ListItem >
+        <styleMui.liContainer screen={screenSlide}>
+            <styleMui.Dot screen={screenSlide}>•</styleMui.Dot>
+            <styleMui.TextList screen={screenSlide}>
+                {label}: {desText}
+            </styleMui.TextList>
+        </styleMui.liContainer>
     )
 }
 

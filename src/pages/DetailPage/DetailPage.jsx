@@ -13,6 +13,8 @@ export default function DetailPage() {
     const searchParams = new URLSearchParams(location.search)
     const id = Number(searchParams.get('id'))
     const data = getIdPlant(id)
+    const slideNav = 'topscreen'
+    const slideBottom = 'bottomscreen'
 
     useEffect(() => {
         // khi navigate sang trang khác phải sử dụng cái này để cho nó up to đầu trang
@@ -109,9 +111,9 @@ export default function DetailPage() {
                 sx={{ backgroundColor: '#F4FFEB' }}
             >
                 <SlideDetail data={data} />
-                <InforDetail textData={textData} screenSlide />
+                <InforDetail textData={textData} screenSlide={slideNav} />
             </Stack>
-            <InforDetail textData={textData} />
+            <InforDetail textData={textData} screenSlide={slideBottom} />
             <MapLayout data={data} />
             <MoreBlog data={fakeData} />
         </Box>

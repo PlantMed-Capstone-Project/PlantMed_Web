@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import * as styleMui from './Pagination.styled'
 import { formatText } from 'globalFunction/globalFunc'
 
-function PaginationLayout({ data, serachText }) {
+function PaginationLayout({ data, serachText, setIndexData }) {
     const [isHover, setIshover] = useState(null)
     const [dataPlants, setDataPlants] = useState(data)
     const [currentPage, setCurrentPage] = useState(1)
@@ -57,6 +57,7 @@ function PaginationLayout({ data, serachText }) {
                         transition={{
                             duration: 0.2,
                         }}
+                        onClick={() => setIndexData(vl.id)}
                     >
                         <styleMui.title
                             sx={{ opacity: isHover === idx ? '0' : '1' }}
