@@ -22,11 +22,11 @@ export default function SignupForm() {
 
     const nabItem = [
         {
-            lable: 'người dùng',
+            label: 'người dùng',
             link: '/',
         },
         {
-            lable: 'chuyên gia',
+            label: 'chuyên gia',
             link: '/',
         },
     ]
@@ -69,15 +69,15 @@ export default function SignupForm() {
                             component={Link}
                             to={item.link}
                             key={idx}
-                            label={item.lable}
-                            value={item.lable}
+                            label={item.label}
+                            value={item.label}
                             sx={{
                                 color: '#214400',
                                 fontWeight: '700',
                                 width: '8.5rem',
                             }}
                             onClick={() => {
-                                setAction(item.lable)
+                                setAction(item.label)
                             }}
                         />
                     ))}
