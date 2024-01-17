@@ -10,6 +10,7 @@ import './App.css'
 import Footer from 'components/Footer/Footer'
 import SignupPage from 'pages/SignupPage/SignupPage'
 import SigninPage from 'pages/SigninPage/SigninPage'
+import DetectionPage from 'pages/DetectionPage/DetectionPage'
 
 function App() {
     const spacingTop = 0
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/detail" element={<DetailPage />} />
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path="/signin" element={<SigninPage />} />
+                    <Route path="/predict" element={<DetectionPage />} />
                 </Routes>
             </BrowserRouter>
             <Footer topspacing={spacingTop} />

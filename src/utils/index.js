@@ -1,4 +1,3 @@
-// xóa các ký tự đặc biệt của tiếng việt nam
 export const formatText = (str) => {
     return str
         .toLowerCase()

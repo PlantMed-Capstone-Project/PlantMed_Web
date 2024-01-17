@@ -1,22 +1,27 @@
-import { List, Stack } from '@mui/material'
+import { List } from '@mui/material'
 import * as styleMui from './InforDetail.styled'
 import InfoList from './infoList/InfoList'
 
-function InforDetail({ textData, screenSlide = false }) {
+function InforDetail({ textData, screenSlide }) {
     return (
         <styleMui.container
             direction="column"
             alignItems="center"
-            justifyContent={screenSlide ? 'center' : 'flex-start'}
+            justifyContent={
+                screenSlide === 'topscreen' ? 'center' : 'flex-start'
+            }
             screen={screenSlide}
             spacing={2}
         >
-            <styleMui.TxtListHead>
+            <styleMui.TxtListHead screen={screenSlide}>
                 ĐINH LĂNG – CÂY SÂM CỦA NGƯỜI NGHÈO
             </styleMui.TxtListHead>
             <List
                 component="nav"
-                sx={{ width: '100%', p: screenSlide ? '0 0 0 2.37rem' : '0' }}
+                sx={{
+                    width: '100%',
+                    p: screenSlide === 'topscreen' ? '0 0 0 2.37rem' : '0',
+                }}
             >
                 {/* Hứng danh mục list và dữ liệu data trả về vào một mãng object sau đó pass đi vào component khác */}
                 {textData.map((item, idx) => (

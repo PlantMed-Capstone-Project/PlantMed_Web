@@ -2,7 +2,6 @@ import { Box, Link, Pagination, Stack, Typography, styled } from '@mui/material'
 
 export const container = styled(Stack)(() => ({
     marginTop: '3.56rem',
-    rowGap: '4.31rem',
     columnGap: '1.56rem',
     marginBottom: '4.13rem',
     flexWrap: 'wrap',
@@ -10,9 +9,9 @@ export const container = styled(Stack)(() => ({
     height: '40.31rem',
 }))
 
-export const card = styled(Box)(() => ({
-    width: '23.1875rem  ',
-    height: '14.875rem',
+export const card = styled(Box)(({ topsearch }) => ({
+    width: topsearch ? '17.75rem' : '23.1875rem  ',
+    height: topsearch ? '14.3125rem' : '14.875rem',
     backgroundColor: '#F4FFEB',
     borderRadius: '0.625rem',
     textAlign: 'center',
@@ -20,11 +19,11 @@ export const card = styled(Box)(() => ({
     padding: '0 0.87rem',
 }))
 
-export const boxImage = styled(Box)(() => ({
+export const boxImage = styled(Box)(({ topsearch }) => ({
     position: 'absolute',
     bottom: '-1.12rem',
-    width: '21.43rem',
-    height: '12.9375rem',
+    width: topsearch ? '15.9925rem' : '21.43rem',
+    height: topsearch ? '12.375rem' : '12.9375rem',
     borderRadius: '0.625rem',
     boxShadow:
         '0px 6px 6px -3px rgba(0,0,0,0.2), 0px 10px 14px 1px rgba(0,0,0,0.14), 0px 4px 18px 3px rgba(0,0,0,0.12)',
