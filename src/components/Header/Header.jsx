@@ -62,7 +62,7 @@ export default function Header() {
         },
         {
             lable: 'THỰC VẬT',
-            link: '/plant',
+            link: '/plants',
         },
         {
             lable: 'VỀ CHÚNG TÔI',

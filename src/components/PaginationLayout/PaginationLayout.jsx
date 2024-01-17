@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import * as styleMui from './Pagination.styled'
 import { formatText } from 'utils'
 
-function PaginationLayout({ data, serachText }) {
+function PaginationLayout({ data, serachText, setIndexData }) {
     const [isHover, setIshover] = useState(null)
     const [dataPlants, setDataPlants] = useState(data)
     const [currentPage, setCurrentPage] = useState(1)
@@ -20,7 +20,7 @@ function PaginationLayout({ data, serachText }) {
         } else {
             setDataPlants(data)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [serachText])
 
     const hoverEnter = (idx) => {
@@ -37,7 +37,7 @@ function PaginationLayout({ data, serachText }) {
     // xac dinh san pham nao se duoc render
     const displayedData = dataPlants?.slice(
         (currentPage - 1) * itemsPerPage,
-        (currentPage - 1 + 1) * itemsPerPage
+        currentPage * itemsPerPage
     )
 
     const handlePagnating = (e, vl) => {
@@ -60,6 +60,7 @@ function PaginationLayout({ data, serachText }) {
                         transition={{
                             duration: 0.2,
                         }}
+                        onClick={() => setIndexData(vl.id)}
                     >
                         <styleMui.title
                             sx={{ opacity: isHover === idx ? '0' : '1' }}
@@ -122,6 +123,7 @@ function PaginationLayout({ data, serachText }) {
                         </styleMui.boxImage>
                     </styleMui.card>
                 ))}
+
             <styleMui.pagination count={pageCount} onChange={handlePagnating} />
         </styleMui.container>
     )

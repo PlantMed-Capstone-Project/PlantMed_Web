@@ -1,14 +1,30 @@
-import { Box } from '@mui/material'
-import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
-import PaginationLayout from 'components/PaginationLayout/PaginationLayout'
-import Searching from 'components/Searching/Searching'
-import { useEffect, useState } from 'react'
 import imgDemo from 'Images/heroSen.jpg'
 import immageBa from 'Images/heroSi.jpg'
 import imgHai from 'Images/hiền nhân.jpg'
+import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
+import PaginationLayout from 'components/PaginationLayout/PaginationLayout'
+import PopupInfo from 'components/PopupInfo/PopupInfo'
+import Searching from 'components/Searching/Searching'
+import { AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import * as styleMui from './PlantPage.styled'
 
 export default function PlantPage() {
     const [search, setSearch] = useState('')
+    const [indexData, setIndexData] = useState()
+
+    const containerPopup = useRef()
+
+    // kiểm tra khi click có đang click vào popup hay không ?
+    const handler = (e) => {
+        if (!containerPopup.current?.contains(e.target)) {
+            setIndexData(null)
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handler)
+    }, [])
 
     const plants = [
         {
@@ -83,23 +99,27 @@ export default function PlantPage() {
         },
     ]
 
-    useEffect(() => {
-        console.log(search)
-    }, [search])
-
     return (
-        <Box
-            component="section"
-            sx={{
-                width: '90rem',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
-            <HerosDeatail />
-            <Searching setSearch={setSearch} />
-            <PaginationLayout data={plants} serachText={search} />
-        </Box>
+        <>
+            <styleMui.container component="section">
+                <HerosDeatail />
+                <Searching setSearch={setSearch} />
+                <PaginationLayout
+                    data={plants}
+                    serachText={search}
+                    setIndexData={setIndexData}
+                />
+            </styleMui.container>
+            <styleMui.popupContainer isopen={indexData != null}>
+                <styleMui.activePopup
+                    ref={containerPopup}
+                    isopen={indexData != null}
+                >
+                    <AnimatePresence>
+                        {indexData != null && <PopupInfo id={indexData} />}
+                    </AnimatePresence>
+                </styleMui.activePopup>
+            </styleMui.popupContainer>
+        </>
     )
 }

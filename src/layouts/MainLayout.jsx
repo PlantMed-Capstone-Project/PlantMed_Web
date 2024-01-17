@@ -1,6 +1,6 @@
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
-import * as S from './LoginLayout.styled'
+import * as S from './MainLayout.styled'
 
 const MainLayout = ({ children }) => {
     const spacingTop = 5
