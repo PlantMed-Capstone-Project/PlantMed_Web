@@ -1,19 +1,15 @@
 import { Box } from '@mui/material'
-import Header from 'components/Header/Header'
-import BlogPage from 'pages/BlogPage/BlogPage'
-import DetailPage from 'pages/DetailPage/DetailPage'
-import HomePage from 'pages/HomePage'
-import PlantPage from 'pages/Plant/PlantPage'
 import GoogleFontLoader from 'react-google-font-loader'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+import CustomSnackbar from 'components/CustomSnackbar'
+import NotFound from 'components/NotFound'
+import ReduxContainer from 'components/ReduxContainer'
+import { LoginRoute, PrivateRoute } from 'components/Routers'
+import { privateRoutes, publicRoutes } from 'routes'
 import './App.css'
-import Footer from 'components/Footer/Footer'
-import SignupPage from 'pages/SignupPage/SignupPage'
-import SigninPage from 'pages/SigninPage/SigninPage'
-import DetectionPage from 'pages/DetectionPage/DetectionPage'
 
 function App() {
-    const spacingTop = 0
     return (
         <Box
             component="section"
@@ -25,27 +21,60 @@ function App() {
                 alignItems: 'center',
             }}
         >
-            <GoogleFontLoader
-                fonts={[
-                    {
-                        font: 'Roboto',
-                        weights: [200, 400, 500, 700],
-                    },
-                ]}
-            />
-            <BrowserRouter>
-                <Header />
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/plant" element={<PlantPage />} />
-                    <Route path="/blog" element={<BlogPage />} />
-                    <Route path="/detail" element={<DetailPage />} />
-                    <Route path="/signup" element={<SignupPage />} />
-                    <Route path="/signin" element={<SigninPage />} />
-                    <Route path="/predict" element={<DetectionPage />} />
-                </Routes>
-            </BrowserRouter>
-            <Footer topspacing={spacingTop} />
+            <ReduxContainer>
+                <GoogleFontLoader
+                    fonts={[
+                        {
+                            font: 'Roboto',
+                            weights: [200, 400, 500, 700],
+                        },
+                    ]}
+                />
+                <CustomSnackbar />
+                <BrowserRouter>
+                    <Routes>
+                        <Route element={<LoginRoute />}>
+                            {publicRoutes.map((route) => {
+                                const Page = route.page
+                                const Layout = route.layout
+
+                                return (
+                                    <Route
+                                        key={route.path}
+                                        path={route.path}
+                                        element={
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        }
+                                    />
+                                )
+                            })}
+                        </Route>
+
+                        <Route element={<PrivateRoute />}>
+                            {privateRoutes.map((route) => {
+                                const Page = route.page
+                                const Layout = route.layout
+
+                                return (
+                                    <Route
+                                        key={route.path}
+                                        path={route.path}
+                                        element={
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        }
+                                    />
+                                )
+                            })}
+                        </Route>
+
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </BrowserRouter>
+            </ReduxContainer>
         </Box>
     )
 }

@@ -4,8 +4,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
-import { Box, Checkbox, InputAdornment, Link, Tab, Tabs } from '@mui/material'
-import { useState } from 'react'
+import { Checkbox, InputAdornment, Link, Tab, Tabs } from '@mui/material'
 import * as styleMui from './SignupForm.styled'
 
 const iconStyle = {
@@ -36,8 +35,6 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         { icon: <LockRoundedIcon sx={iconStyle} />, text: 'Mật khẩu' },
         { icon: <LockRoundedIcon sx={iconStyle} />, text: 'Xác thực mật khẩu' },
     ]
-
-    const [action, setAction] = useState('người dùng')
 
     return (
         <styleMui.container>
@@ -70,9 +67,6 @@ export default function SignupForm({ setTypeUser, typeUser }) {
                                 color: '#214400',
                                 fontWeight: '700',
                                 width: '8.5rem',
-                            }}
-                            onClick={() => {
-                                setAction(item.label)
                             }}
                         />
                     ))}
@@ -109,7 +103,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
                     </styleMui.policy>
                 </styleMui.policySection>
                 <styleMui.button variant="contained">Đăng ký</styleMui.button>
-                <styleMui.link href="/signin" underline="hover">
+                <styleMui.link href="/login" underline="hover">
                     Đăng nhập
                 </styleMui.link>
             </styleMui.Form>

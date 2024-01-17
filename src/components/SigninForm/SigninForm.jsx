@@ -1,17 +1,6 @@
-import React from 'react'
-import {
-    InputAdornment,
-    Checkbox,
-    Box,
-    FormControl,
-    InputLabel,
-    OutlinedInput,
-    TextField,
-} from '@mui/material'
-import PersonIcon from '@mui/icons-material/Person'
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import PersonIcon from '@mui/icons-material/Person'
+import { Box } from '@mui/material'
 import * as styleMui from './SigninForm.styled'
 
 const iconStyle = {
@@ -62,7 +51,7 @@ export default function SigninForm() {
                     <styleMui.button variant="contained">
                         Đăng nhập
                     </styleMui.button>
-                    <styleMui.link href="/signup" underline="hover">
+                    <styleMui.link href="/register" underline="hover">
                         Tạo tài khoản mới
                     </styleMui.link>
                 </Box>

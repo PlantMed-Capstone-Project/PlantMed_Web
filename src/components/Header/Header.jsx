@@ -24,7 +24,7 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-export default function Header({}) {
+export default function Header() {
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
     const location = useLocation()
@@ -54,7 +54,7 @@ export default function Header({}) {
         },
         {
             lable: 'PHÁT HIỆN HÌNH ẢNH',
-            link: '/',
+            link: '/predict',
         },
         {
             lable: 'BÀI VIẾT',
@@ -62,11 +62,11 @@ export default function Header({}) {
         },
         {
             lable: 'THỰC VẬT',
-            link: '/plant',
+            link: '/plants',
         },
         {
             lable: 'VỀ CHÚNG TÔI',
-            link: '/',
+            link: '/about-us',
         },
     ]
 
@@ -147,7 +147,7 @@ export default function Header({}) {
                         height: '2.8125rem',
                         cursor: 'pointer',
                     }}
-                    onClick={() => setOpenPf(!openPf)}
+                    onClick={() => setOpenPf((state) => !state.valueOf)}
                 />
             </Tooltip>
             {openPf && (

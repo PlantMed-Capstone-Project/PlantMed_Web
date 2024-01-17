@@ -45,8 +45,7 @@ export const Form = styled(Box)(() => ({
 export const passSection = styled(Box)(() => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingRight: '3.7rem',
+    justifyContent: 'center',
     width: '100%',
 }))
 
@@ -83,6 +82,7 @@ export const forgetPass = styled(Link)(() => ({
     fontStyle: 'italic',
     fontWeight: '400',
     color: '#214400',
+    textAlign: 'center',
 }))
 
 export const link = styled(Link)(() => ({

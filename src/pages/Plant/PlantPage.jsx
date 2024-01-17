@@ -5,11 +5,9 @@ import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
 import PaginationLayout from 'components/PaginationLayout/PaginationLayout'
 import PopupInfo from 'components/PopupInfo/PopupInfo'
 import Searching from 'components/Searching/Searching'
-import { useRef, useState } from 'react'
-import * as styleMui from './PlantPage.styled'
-import { useEffect } from 'react'
-import { Box } from '@mui/material'
 import { AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import * as styleMui from './PlantPage.styled'
 
 export default function PlantPage() {
     const [search, setSearch] = useState('')
