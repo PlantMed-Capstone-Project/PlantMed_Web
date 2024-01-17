@@ -10,7 +10,9 @@ function InfoList({ label, value, screenSlide }) {
             setDesText(() =>
                 value.length > 60 ? value.slice(0, 59) + '...' : value
             )
-        } else setDesText(value)
+        } else {
+            setDesText(value)
+        }
     }
 
     useEffect(() => {

@@ -43,35 +43,19 @@ export const TxtListHead = styled(Typography)(({ screen }) => ({
 }))
 
 export const container = styled(Stack)(({ screen }) => ({
-    backgroundColor:
-        screen === 'topscreen'
-            ? 'none'
-            : screen === 'bottomscreen'
-            ? '#FFF'
-            : 'none',
-    padding:
-        screen === 'topscreen'
-            ? '0'
-            : screen === 'bottomscreen'
-            ? '3.94rem 8.5rem 0 8.5rem'
-            : '0',
+    backgroundColor: screen === 'bottomscreen' ? '#FFF' : 'none',
+    padding: screen === 'bottomscreen' ? '3.94rem 8.5rem 0 8.5rem' : '0',
     width:
         screen === 'topscreen'
             ? '50%'
             : screen === 'bottomscreen'
             ? '90rem'
             : '100%',
-    height:
-        screen === 'topscreen' ? '100%' : screen === 'bottomscreen' ? '' : '',
+    height: screen === 'topscreen' ? '100%' : '',
 }))
 
 export const liContainer = styled(ListItem)(({ screen }) => ({
-    width:
-        screen === 'topscreen'
-            ? '37rem'
-            : screen === 'bottomscreen'
-            ? '100%'
-            : '100%',
+    width: screen === 'topscreen' ? '37rem' : '100%',
     display: 'flex',
     alignItems: 'flex-start',
     padding: screen === 'popupscreen' && '0',
