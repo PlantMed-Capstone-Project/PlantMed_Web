@@ -8,10 +8,12 @@ import GoogleFontLoader from 'react-google-font-loader'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from 'components/Footer/Footer'
+import SignupPage from 'pages/SignupPage/SignupPage'
+import SigninPage from 'pages/SigninPage/SigninPage'
 import DetectionPage from 'pages/DetectionPage/DetectionPage'
 
 function App() {
-    const spacingTop = 5
+    const spacingTop = 0
     return (
         <Box
             component="section"
@@ -38,6 +40,8 @@ function App() {
                     <Route path="/plant" element={<PlantPage />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/detail" element={<DetailPage />} />
+                    <Route path="/signup" element={<SignupPage />} />
+                    <Route path="/signin" element={<SigninPage />} />
                     <Route path="/predict" element={<DetectionPage />} />
                 </Routes>
             </BrowserRouter>

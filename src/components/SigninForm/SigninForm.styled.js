@@ -1,0 +1,108 @@
+import { styled, TextField, Box, Typography, Button, Link } from '@mui/material'
+
+export const Input = styled(TextField)(() => ({
+    width: '100%', // Độ rộng thanh tìm kiếm
+    borderRadius: '0.625rem', // Bo tròn viền
+    backgroundColor: '#FFF',
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderRadius: '0.625rem',
+            borderWidth: '2px',
+            borderColor: '#69AD28', // Màu viền
+        },
+        '&:hover fieldset': {
+            borderColor: '#69AD28', // Màu viền khi hover
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#69AD28',
+        },
+    },
+}))
+
+export const Note = styled(Typography)(() => ({
+    position: 'absolute',
+    top: '16rem',
+    left: '51rem',
+    fontSize: '1.5rem',
+    fontWeight: '200',
+    fontStyle: 'italic',
+    color: '#FFF',
+}))
+
+export const Form = styled(Box)(() => ({
+    backgroundColor: '#F4FFEB',
+    width: '25.125rem',
+    height: '33rem',
+    borderRadius: '0.625rem',
+    boxShadow: '0px 0px 3px 0px rgba(33, 68, 0, 0.30)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '2.63rem',
+}))
+
+export const passSection = styled(Box)(() => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingRight: '3.7rem',
+    width: '100%',
+}))
+
+export const container = styled(Box)(() => ({
+    height: '100%',
+    width: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}))
+
+export const signinTitle = styled(Typography)(() => ({
+    marginTop: '2rem',
+    fontSize: '2.5rem',
+    fontWeight: '900',
+    color: '#69AD28',
+}))
+
+export const remerberPass = styled(Typography)(() => ({
+    fontSize: '0.9rem',
+    fontWeight: '200',
+    fontStyle: 'italic',
+    color: '#214400',
+}))
+
+export const button = styled(Button)(() => ({
+    backgroundColor: '#69AD28',
+    borderRadius: '0.6rem',
+    width: '8rem',
+}))
+
+export const forgetPass = styled(Link)(() => ({
+    fontSize: '0.9rem',
+    fontStyle: 'italic',
+    fontWeight: '400',
+    color: '#214400',
+}))
+
+export const link = styled(Link)(() => ({
+    fontSize: '0.9rem',
+    fontStyle: 'italic',
+    fontWeight: '400',
+    color: '#214400',
+}))
+
+export const containerInput = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.13rem',
+    width: '100%',
+    alignItems: 'center',
+}))
+
+export const inputPlace = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    width: '17.875rem',
+    gap: '1.12rem',
+}))
