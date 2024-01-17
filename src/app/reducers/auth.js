@@ -19,7 +19,7 @@ const authSlice = createSlice({
         login: (state, action) => {
             let { accessToken, refreshToken, expires } = action.payload
             createCookie(ACCESS_TOKEN, accessToken, expires)
-            createCookie(REFRESH_TOKEN, refreshToken, expires)
+            createCookie(REFRESH_TOKEN, refreshToken)
             state.isLogin = true
             state.error = null
         },

@@ -1,4 +1,4 @@
-function createCookie(name, value, days) {
+function createCookie(name, value, days = 3) {
     let expires
     if (days) {
         var date = new Date()
