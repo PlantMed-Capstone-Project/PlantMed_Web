@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { Box, Link, InputAdornment, Checkbox, Tabs, Tab } from '@mui/material'
-import PersonIcon from '@mui/icons-material/Person'
 import BadgeIcon from '@mui/icons-material/Badge'
-import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
-import LockRoundedIcon from '@mui/icons-material/LockRounded'
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import LockRoundedIcon from '@mui/icons-material/LockRounded'
+import PersonIcon from '@mui/icons-material/Person'
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
+import { Box, Checkbox, InputAdornment, Link, Tab, Tabs } from '@mui/material'
+import { useState } from 'react'
 import * as styleMui from './SignupForm.styled'
 
 const iconStyle = {
@@ -13,11 +13,9 @@ const iconStyle = {
     fontSize: '2rem',
 }
 
-export default function SignupForm() {
-    const [value, setValue] = React.useState('người dùng')
-
+export default function SignupForm({ setTypeUser, typeUser }) {
     const handleChange = (event, newValue) => {
-        setValue(newValue)
+        setTypeUser(newValue)
     }
 
     const nabItem = [
@@ -42,16 +40,21 @@ export default function SignupForm() {
     const [action, setAction] = useState('người dùng')
 
     return (
-        <Box>
-            <styleMui.Note variant="h5">
-                Đây là trang đăng ký dành cho {action}
-            </styleMui.Note>
+        <Box
+            sx={{
+                height: '100%',
+                width: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
             <styleMui.Form>
                 <styleMui.signupTitle variant="h5" align="center">
                     Đăng ký
                 </styleMui.signupTitle>
                 <Tabs
-                    value={value}
+                    value={typeUser}
                     onChange={handleChange}
                     aria-label="basic tabs example"
                     TabIndicatorProps={{

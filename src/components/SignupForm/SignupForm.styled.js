@@ -18,9 +18,6 @@ export const Note = styled(Typography)(() => ({
 }))
 
 export const Form = styled(Box)(() => ({
-    position: 'absolute',
-    top: '5rem',
-    left: '10rem',
     backgroundColor: '#fff',
     width: '25rem',
     height: '37rem',

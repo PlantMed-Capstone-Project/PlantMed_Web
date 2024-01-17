@@ -12,7 +12,7 @@ import SignupPage from 'pages/SignupPage/SignupPage'
 import SigninPage from 'pages/SigninPage/SigninPage'
 
 function App() {
-    const spacingTop = 5
+    const spacingTop = 0
     return (
         <Box
             component="section"

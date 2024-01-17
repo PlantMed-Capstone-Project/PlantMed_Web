@@ -1,17 +1,27 @@
 import SignupForm from 'components/SignupForm/SignupForm'
-import { Box } from '@mui/material'
+import { useState } from 'react'
 import * as styleMui from './SignupPage.styled'
 
 function SignupPage() {
+    const [typeUser, setTypeUser] = useState('người dùng')
+
     return (
-        <Box>
-            <styleMui.Background></styleMui.Background>
-            <styleMui.Title>
-                CHÀO MỪNG <br />
-                BẠN ĐẾN VỚI PLANTMED
-            </styleMui.Title>
-            <SignupForm></SignupForm>
-        </Box>
+        <styleMui.container>
+            <styleMui.Background>
+                <SignupForm setTypeUser={setTypeUser} typeUser={typeUser} />
+                <styleMui.containerTxt>
+                    <styleMui.containsTitle>
+                        <styleMui.Title>
+                            CHÀO MỪNG <br />
+                            BẠN ĐẾN VỚI PLANTMED
+                        </styleMui.Title>
+                        <styleMui.subTitle>
+                            Đây là trang đăng ký dành cho {typeUser}
+                        </styleMui.subTitle>
+                    </styleMui.containsTitle>
+                </styleMui.containerTxt>
+            </styleMui.Background>
+        </styleMui.container>
     )
 }
 
