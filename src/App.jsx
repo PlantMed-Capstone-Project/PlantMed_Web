@@ -38,7 +38,7 @@ function App() {
                     <Route path="/plant" element={<PlantPage />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/detail" element={<DetailPage />} />
-                    <Route path="/ditection" element={<DetectionPage />} />
+                    <Route path="/predict" element={<DetectionPage />} />
                 </Routes>
             </BrowserRouter>
             <Footer topspacing={spacingTop} />

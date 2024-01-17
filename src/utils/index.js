@@ -1,4 +1,3 @@
-// xóa các ký tự đặc biệt của tiếng việt nam
 export const formatText = (str) => {
     return str
         .toLowerCase()
@@ -13,4 +12,3 @@ export const formatText = (str) => {
         .replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, '')
         .replace(/\u02C6|\u0306|\u031B/g, '')
 }
-
