@@ -1,11 +1,11 @@
 import { Box } from '@mui/material'
+import GoogleFontLoader from 'react-google-font-loader'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import CustomSnackbar from 'components/CustomSnackbar'
 import NotFound from 'components/NotFound'
 import ReduxContainer from 'components/ReduxContainer'
-import { LoginRoute } from 'components/Routers/LoginRoute'
-import PrivateRoute from 'components/Routers/PrivateRoute'
-import GoogleFontLoader from 'react-google-font-loader'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { LoginRoute, PrivateRoute } from 'components/Routers'
 import { privateRoutes, publicRoutes } from 'routes'
 import './App.css'
 

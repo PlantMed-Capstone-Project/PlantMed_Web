@@ -4,7 +4,7 @@ import useActions from 'hooks/useActions'
 import { Navigate, Outlet } from 'react-router-dom'
 import { readCookie } from 'utils/cookie'
 
-const PrivateRoute = () => {
+export const PrivateRoute = () => {
     const { logout } = useActions(authAction)
     const accessToken = readCookie(ACCESS_TOKEN)
     const refreshToken = readCookie(REFRESH_TOKEN)
@@ -16,5 +16,3 @@ const PrivateRoute = () => {
 
     return <Outlet />
 }
-
-export default PrivateRoute
