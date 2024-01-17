@@ -18,7 +18,7 @@ export const Note = styled(Typography)(() => ({
 }))
 
 export const Form = styled(Box)(() => ({
-    backgroundColor: '#fff',
+    backgroundColor: '#F4FFEB',
     width: '25rem',
     height: '37rem',
     borderRadius: '1rem',
@@ -29,6 +29,14 @@ export const policySection = styled(Box)(() => ({
     marginTop: '1rem',
     display: 'flex',
     flexWrap: 'nowrap',
+}))
+
+export const container = styled(Box)(() => ({
+    height: '100%',
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 }))
 
 export const signupTitle = styled(Typography)(() => ({

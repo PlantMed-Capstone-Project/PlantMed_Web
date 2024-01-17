@@ -1,5 +1,13 @@
 import React from 'react'
-import { InputAdornment, Checkbox } from '@mui/material'
+import {
+    InputAdornment,
+    Checkbox,
+    Box,
+    FormControl,
+    InputLabel,
+    OutlinedInput,
+    TextField,
+} from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person'
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
@@ -17,44 +25,48 @@ export default function SigninForm() {
         { icon: <LockRoundedIcon sx={iconStyle} />, text: 'Mật khẩu' },
     ]
     return (
-        <styleMui.Form>
-            <styleMui.signinTitle variant="h5" align="center">
-                Đăng nhập
-            </styleMui.signinTitle>
-            {inputItems.map((item, index) => (
-                <styleMui.Input
-                    id="margin-dense"
-                    placeholder={item.text}
-                    size="small"
-                    fullWidth
-                    style={{ width: 280 }}
-                    margin="dense"
-                    variant="outlined"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                {item.icon}
-                            </InputAdornment>
-                        ),
+        <styleMui.container>
+            <styleMui.Form>
+                <styleMui.signinTitle variant="h5" align="center">
+                    Đăng nhập
+                </styleMui.signinTitle>
+
+                <styleMui.containerInput>
+                    {/* Start input place */}
+                    <styleMui.inputPlace>
+                        {inputItems.map((item, index) => (
+                            <styleMui.Input
+                                placeholder={item.text}
+                                InputProps={{
+                                    startAdornment: item.icon,
+                                }}
+                            />
+                        ))}
+                    </styleMui.inputPlace>
+                    {/* End input place */}
+
+                    <styleMui.passSection>
+                        <styleMui.forgetPass href="/" underline="hover">
+                            Quên mật khẩu?
+                        </styleMui.forgetPass>
+                    </styleMui.passSection>
+                </styleMui.containerInput>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '0.69rem',
                     }}
-                />
-            ))}
-            <styleMui.passSection>
-                <Checkbox
-                    icon={<RadioButtonUncheckedIcon />}
-                    checkedIcon={
-                        <CheckCircleOutlineIcon sx={{ color: '#69AD28' }} />
-                    }
-                />
-                <styleMui.remerberPass>Ghi nhớ đăng nhập</styleMui.remerberPass>
-                <styleMui.forgetPass href="/" underline="hover">
-                    Quên mật khẩu?
-                </styleMui.forgetPass>
-            </styleMui.passSection>
-            <styleMui.button variant="contained">Đăng nhập</styleMui.button>
-            <styleMui.link href="/signup" underline="hover">
-                Tạo tài khoản mới
-            </styleMui.link>
-        </styleMui.Form>
+                >
+                    <styleMui.button variant="contained">
+                        Đăng nhập
+                    </styleMui.button>
+                    <styleMui.link href="/signup" underline="hover">
+                        Tạo tài khoản mới
+                    </styleMui.link>
+                </Box>
+            </styleMui.Form>
+        </styleMui.container>
     )
 }

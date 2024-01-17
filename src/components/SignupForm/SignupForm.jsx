@@ -40,15 +40,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
     const [action, setAction] = useState('người dùng')
 
     return (
-        <Box
-            sx={{
-                height: '100%',
-                width: '50%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
+        <styleMui.container>
             <styleMui.Form>
                 <styleMui.signupTitle variant="h5" align="center">
                     Đăng ký
@@ -121,6 +113,6 @@ export default function SignupForm({ setTypeUser, typeUser }) {
                     Đăng nhập
                 </styleMui.link>
             </styleMui.Form>
-        </Box>
+        </styleMui.container>
     )
 }
