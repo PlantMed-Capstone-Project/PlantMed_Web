@@ -37,7 +37,7 @@ function PaginationLayout({ data, serachText, setIndexData }) {
     // xac dinh san pham nao se duoc render
     const displayedData = dataPlants?.slice(
         (currentPage - 1) * itemsPerPage,
-        (currentPage - 1 + 1) * itemsPerPage
+        currentPage * itemsPerPage
     )
 
     const handlePagnating = (e, vl) => {
