@@ -17,7 +17,10 @@ function PaginationLayout({ data, serachText, setIndexData }) {
             })
             setCurrentPage(1)
             setDataPlants(searchAll)
-        } else setDataPlants(data)
+        } else {
+            setDataPlants(data)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [serachText])
 
     const hoverEnter = (idx) => {
@@ -120,6 +123,7 @@ function PaginationLayout({ data, serachText, setIndexData }) {
                         </styleMui.boxImage>
                     </styleMui.card>
                 ))}
+
             <styleMui.pagination count={pageCount} onChange={handlePagnating} />
         </styleMui.container>
     )
