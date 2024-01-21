@@ -26,4 +26,4 @@ const privateRoutes = [
     { path: '/profile', page: 'profile page here', layout: MainLayout },
 ]
 
-export { privateRoutes, publicRoutes }
+export { publicRoutes, privateRoutes }
