@@ -39,6 +39,7 @@ function UploadImage() {
             allowedTypes.includes(event.target.files[0].type)
         ) {
             setImageLoaded(URL.createObjectURL(event.target.files[0]))
+            // đổi thành base64 string rồi quăng lại cho server
             setImagePush(event.target.files[0])
         }
     }
@@ -50,7 +51,7 @@ function UploadImage() {
         fd.append('file', imaePush)
         try {
             let res = await axios.post(
-                'https://predict-qj5v.onrender.com/upload',
+                'https://content-foxhound-logically.ngrok-free.app/predict',
                 fd,
                 {
                     headers: { 'Content-type': 'multipart/form-data' },

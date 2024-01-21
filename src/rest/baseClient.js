@@ -6,7 +6,7 @@ import { readCookie } from 'utils/cookie'
 
 export default class Client {
     constructor(server = BASE_URL) {
-        this.baseUrl = server || window.location.origin + '/'
+        this.baseUrl = 'https://content-foxhound-logically.ngrok-free.app/'
         this.client = axios.create({
             baseURL: this.baseUrl,
             headers: {

@@ -1,7 +1,7 @@
 import { PREDICT_URL } from 'constants'
 import Client from 'rest/baseClient'
 
-const http = new Client(PREDICT_URL)
+const http = new Client()
 
 export const predict = (payload) => {
     return http.postForm('predict', payload)
