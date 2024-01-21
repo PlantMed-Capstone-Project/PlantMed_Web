@@ -1,16 +1,24 @@
-import { Box, Stack } from '@mui/material'
-import DiversityPlant from 'components/DiversityPlant/DiversityPlant'
+import imgDemo from 'Images/heroSen.jpg'
+import imageBachBo from 'Images/heroSi.jpg'
+import imageDayLeo from 'Images/herogreen.jpg'
+import imgHosen from 'Images/avatar.jpg'
+import imgHosung from 'Images/hiền nhân.jpg'
+import imgHoacucLon from 'Images/lap.png'
+import hoaThom from 'Images/cannabis.png'
+import hoaHoe from 'Images/groupImage.png'
+import CardThreeD from 'components/CardThreeD/CardThreeDList/CardThreeDList'
+import SpecialThreeD from 'components/CardThreeD/SpecialThreeD'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
 import Heros from 'components/Heros/Heros'
 import Quantity from 'components/Quantity/Quantity'
 import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
-import imgDemo from 'Images/heroSen.jpg'
-import imageBachBo from 'Images/heroSi.jpg'
-import imageDayLeo from 'Images/herogreen.jpg'
+import { v4 as uuidv4 } from 'uuid'
+import * as styleMui from './HomePage.styled'
 
 export default function HomePage() {
     const spacingTop = 5
+
     const plants = [
         {
             id: 1,
@@ -22,42 +30,42 @@ export default function HomePage() {
         {
             id: 2,
             title: 'Cầu Kỳ Tử',
-            image: imgDemo,
+            image: imageBachBo,
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
         {
             id: 3,
             title: 'Cầu Kỳ Tử',
-            image: imgDemo,
+            image: imageDayLeo,
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
         {
             id: 4,
             title: 'Cầu Kỳ Tử',
-            image: imgDemo,
+            image: imgHosen,
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
         {
             id: 5,
             title: 'Cầu Kỳ Tử',
-            image: imgDemo,
+            image: imgHosung,
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
         {
             id: 6,
             title: 'Cầu Kỳ Tử',
-            image: imgDemo,
+            image: imgHoacucLon,
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
         {
             id: 7,
             title: 'Cầu Kỳ Tử',
-            image: imgDemo,
+            image: hoaThom,
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
@@ -71,7 +79,7 @@ export default function HomePage() {
         {
             id: 9,
             title: 'Cầu Kỳ Tử',
-            image: imgDemo,
+            image: hoaHoe,
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
@@ -122,34 +130,35 @@ export default function HomePage() {
         },
     ]
 
+    // lib cần phải truyền tải component theo dạng này vào prop của 1 thư viện mới có thể sử dụng
+    const manyPlantCard = plants.map((item) => ({
+        key: uuidv4(),
+        content: <CardThreeD key={item} data={item} />,
+    }))
+
     return (
-        <Box
-            component="section"
-            sx={{
-                width: '90rem',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
+        <styleMui.container component="section">
             <Heros />
             <Sologan />
             <FeaturedSearch title="TÌM KIẾM NỔI BẬT" data={searchProducts} />
-            <Stack
-                direction="column"
-                alignItems="center"
-                width="100%"
-                height="106.94rem"
-                mt="6.38rem"
-                sx={{ backgroundColor: '#F4FFEB' }}
-            >
-                <DiversityPlant
-                    title="ĐA DẠNG CÁC LOẠI THỰC VẬT"
-                    data={plants}
-                />
+            <styleMui.subContainer direction="column" alignItems="center">
+                <styleMui.alotComponent>
+                    <styleMui.slideShowTitle>
+                        ĐA DẠNG CÁC LOẠI THỰC VẬT
+                    </styleMui.slideShowTitle>
+                    <SpecialThreeD
+                        cards={manyPlantCard}
+                        height="25rem"
+                        width="95%"
+                        margin="0 auto"
+                        offset={2}
+                        showArrows={false}
+                    />
+                </styleMui.alotComponent>
+
                 <SpecialFeature />
-            </Stack>
+            </styleMui.subContainer>
             <Quantity />
-        </Box>
+        </styleMui.container>
     )
 }
