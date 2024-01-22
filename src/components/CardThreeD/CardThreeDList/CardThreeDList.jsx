@@ -13,7 +13,6 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
     const [hoverImg, setHoverImg] = useState(false)
 
     const { data } = props
-    console.log(data)
     return (
         <Card
             sx={{

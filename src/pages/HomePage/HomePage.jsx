@@ -150,8 +150,8 @@ export default function HomePage() {
                         cards={manyPlantCard}
                         height="25rem"
                         width="95%"
-                        margin="0 auto"
-                        offset={2}
+                        margin="0 0 6rem 0"
+                        offset={3}
                         showArrows={false}
                     />
                 </styleMui.alotComponent>

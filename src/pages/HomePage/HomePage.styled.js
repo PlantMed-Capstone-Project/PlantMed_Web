@@ -20,7 +20,7 @@ export const alotComponent = styled(Box)(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     height: 'auto',
-    gap: '4rem',
+    gap: '2.5rem',
     marginTop: '6rem',
 }))
 
