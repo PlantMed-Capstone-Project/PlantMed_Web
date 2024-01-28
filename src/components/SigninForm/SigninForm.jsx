@@ -26,6 +26,8 @@ export default function SigninForm() {
                         {inputItems.map((item, index) => (
                             <styleMui.Input
                                 placeholder={item.text}
+                                size="small"
+                                style={{ width: 280 }}
                                 InputProps={{
                                     startAdornment: item.icon,
                                 }}

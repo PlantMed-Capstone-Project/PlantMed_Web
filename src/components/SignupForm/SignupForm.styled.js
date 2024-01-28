@@ -1,10 +1,21 @@
-import { styled, TextField, Box, Typography, Button, Link } from '@mui/material'
+import { styled, TextField, Box, Typography, Button, Link, FormControlLabel } from '@mui/material'
 
 export const Input = styled(TextField)(() => ({
-    marginLeft: '4rem',
-    marginTop: '1rem',
-    outline: '0.1rem solid #69AD28',
-    borderRadius: '0.5rem',
+    width: '100%',
+    backgroundColor: '#FFF',
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderRadius: '0.625rem',
+            borderWidth: '2px',
+            borderColor: '#69AD28', // Màu viền
+        },
+        '&:hover fieldset': {
+            borderColor: '#69AD28', // Màu viền khi hover
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#69AD28',
+        },
+    },
 }))
 
 export const Note = styled(Typography)(() => ({
@@ -20,7 +31,7 @@ export const Note = styled(Typography)(() => ({
 export const Form = styled(Box)(() => ({
     backgroundColor: '#F4FFEB',
     width: '25rem',
-    height: '37rem',
+    height: '42.5rem',
     borderRadius: '1rem',
 }))
 
@@ -40,22 +51,32 @@ export const container = styled(Box)(() => ({
 }))
 
 export const signupTitle = styled(Typography)(() => ({
-    marginTop: '2rem',
+    marginTop: '1.5rem',
     fontSize: '2.5rem',
     fontWeight: '900',
     color: '#69AD28',
 }))
 
-export const policy = styled(Typography)(() => ({
+export const policyPlace = styled(FormControlLabel)(() => ({
     marginTop: '0.4rem',
-    lineHeight: '1rem',
+    marginLeft: '3rem',
     textAlign: 'left',
-    width: '16rem',
+    width: '19rem',    
+}))
+
+export const policy = styled(Typography)(() => ({
     fontSize: '0.8rem',
     fontStyle: 'italic',
     fontWeight: '200',
     color: '#214400',
-}))
+})) 
+
+export const policyCheck = styled(Typography)(() => ({
+    marginLeft: '3.5rem',
+    fontSize: '0.8rem',
+    fontWeight: '200',
+    color: '#D32F2F',
+})) 
 
 export const button = styled(Button)(() => ({
     marginTop: '0.5rem',
@@ -73,4 +94,12 @@ export const link = styled(Link)(() => ({
     fontStyle: 'italic',
     fontWeight: '400',
     color: '#214400',
+}))
+
+export const inputPlace = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    width: '17.875rem',
+    marginTop: '1rem',
+    marginLeft: '3.5rem',
 }))
