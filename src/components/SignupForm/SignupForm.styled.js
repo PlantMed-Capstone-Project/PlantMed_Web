@@ -1,7 +1,7 @@
-import { styled, TextField, Box, Typography, Button, Link, FormControlLabel } from '@mui/material'
+import { styled, TextField, Box, Typography, Button, Link, FormControlLabel, Tab } from '@mui/material'
 
 export const Input = styled(TextField)(() => ({
-    width: '100%',
+    width: '280',
     backgroundColor: '#FFF',
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
@@ -26,6 +26,12 @@ export const Note = styled(Typography)(() => ({
     fontWeight: '200',
     fontStyle: 'italic',
     color: '#FFF',
+}))
+
+export const typeUserTab = styled(Tab)(() => ({
+    color: '#214400',
+    fontWeight: '700',
+    width: '8.5rem',
 }))
 
 export const Form = styled(Box)(() => ({
