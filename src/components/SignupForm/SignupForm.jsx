@@ -3,10 +3,12 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { Checkbox, IconButton, InputAdornment, Link, Tabs } from '@mui/material'
+import { IconButton, InputAdornment, Link, Tabs } from '@mui/material'
 import { useState } from 'react'
 import * as styleMui from './SignupForm.styled'
-import { redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { saveScrollPosition } from 'utils/scrollUtils'
 
 const iconStyle = {
     color: '#69AD28',
@@ -14,8 +16,15 @@ const iconStyle = {
 }
 
 export default function SignupForm({ setTypeUser, typeUser }) {
+    const navigate = useNavigate()
     const handleChange = (event, newValue) => {
         setTypeUser(newValue)
+    }
+
+    //Lưu trạng thái scroll khi qua trang khác
+    const location = useLocation()
+    const handleClick = () => {
+        saveScrollPosition(location.pathname)
     }
 
     //Chuyển trạng thái nhìn thấy mật khẩu
@@ -35,7 +44,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         policyCheck: false,
     })
 
-    //khai báo array các thuộc tính input
+    //Khai báo array các thuộc tính input
     const inputFields = [
         {
             key: 'email',
@@ -74,7 +83,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         },
     ]
 
-    //khai báo array các validation
+    //Khai báo array các validation
     const validationRules = [
         {
             field: 'email',
@@ -114,7 +123,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         },
     ]
 
-    //khai báo array các tab
+    //Khai báo array các tab
     const nabItem = [
         {
             label: 'người dùng',
@@ -126,7 +135,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         },
     ]
 
-    //khai báo input
+    //Khai báo input
     const renderInputs = () => {
         return inputFields.map((item, indx) => (
             <styleMui.Input
@@ -155,7 +164,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         ))
     }
 
-    //check validation
+    //Check validation
     const onValidate = () => {
         setErrors({})
         let isValid = true
@@ -204,70 +213,68 @@ export default function SignupForm({ setTypeUser, typeUser }) {
 
     const onSubmit = () => {
         clearInput()
-        return redirect('/login')
+        return navigate('/verification')
     }
 
     return (
-        <styleMui.container>
-            <styleMui.Form>
-                <styleMui.signupTitle variant="h5" align="center">
-                    Đăng ký
-                </styleMui.signupTitle>
-                <Tabs
-                    value={typeUser}
-                    onChange={handleChange}
-                    aria-label="basic tabs example"
-                    TabIndicatorProps={{
-                        style: { backgroundColor: '#69AD28' },
-                    }}
-                    sx={{
-                        marginLeft: '4rem',
-                        '& .Mui-selected': {
-                            color: '#69AD28 !important',
-                        },
-                    }}
-                >
-                    {nabItem?.map((item, idx) => (
-                        <styleMui.typeUserTab
-                            component={Link}
-                            to={item.link}
-                            key={idx}
-                            label={item.label}
-                            value={item.label}
-                        />
-                    ))}
-                </Tabs>
-                <styleMui.inputPlace>{renderInputs()}</styleMui.inputPlace>
-                <styleMui.policyPlace
-                    control={
-                        <Checkbox
-                            checked={inputs.policyCheck}
-                            onChange={handleCheckboxChange}
-                            value="policyCheck"
-                        />
-                    }
-                    label={
-                        <styleMui.policy>
-                            Tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính
-                            sách quyền riêng tư của chúng tôi.
-                        </styleMui.policy>
-                    }
-                />
-                {errors.policyCheck && (
-                    <styleMui.policyCheck>
-                        {errors.policyCheck}
-                    </styleMui.policyCheck>
-                )}
-                <styleMui.button
-                    variant="contained"
-                    onClick={() => onValidate()}
-                >
-                    Đăng ký
-                </styleMui.button>
-                <styleMui.link href="/login" underline="hover">
-                    Đăng nhập
-                </styleMui.link>
-            </styleMui.Form>
-        </styleMui.container>
+        <styleMui.Form>
+            <styleMui.signupTitle variant="h5" align="center">
+                Đăng ký
+            </styleMui.signupTitle>
+            <Tabs
+                value={typeUser}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                TabIndicatorProps={{
+                    style: { backgroundColor: '#69AD28' },
+                }}
+                sx={{
+                    '& .Mui-selected': {
+                        color: '#69AD28 !important',
+                    },
+                }}
+            >
+                {nabItem?.map((item, idx) => (
+                    <styleMui.typeUserTab
+                        component={Link}
+                        to={item.link}
+                        key={idx}
+                        label={item.label}
+                        value={item.label}
+                    />
+                ))}
+            </Tabs>
+            <styleMui.inputPlace>{renderInputs()}</styleMui.inputPlace>
+            <styleMui.policyPlace
+                control={
+                    <styleMui.Check
+                        checked={inputs.policyCheck}
+                        onChange={handleCheckboxChange}
+                        value="policyCheck"
+                    />
+                }
+                label={
+                    <styleMui.policy>
+                        Tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính
+                        sách quyền riêng tư của chúng tôi.
+                    </styleMui.policy>
+                }
+            />
+            {errors.policyCheck && (
+                <styleMui.policyCheck>
+                    {errors.policyCheck}
+                </styleMui.policyCheck>
+            )}
+            <styleMui.button variant="contained" onClick={() => onValidate()}>
+                Đăng ký
+            </styleMui.button>
+            <styleMui.link
+                href="/login"
+                underline="hover"
+                onClick={handleClick}
+            >
+                Đăng nhập
+            </styleMui.link>
+        </styleMui.Form>
     )
 }

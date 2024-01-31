@@ -1,7 +1,7 @@
 import { styled, TextField, Box, Typography, Button, Link } from '@mui/material'
 
 export const Input = styled(TextField)(() => ({
-    width: '100%', // Độ rộng thanh tìm kiếm
+    width: '280', // Độ rộng thanh tìm kiếm
     borderRadius: '0.625rem', // Bo tròn viền
     backgroundColor: '#FFF',
     '& .MuiOutlinedInput-root': {
@@ -47,14 +47,6 @@ export const passSection = styled(Box)(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-}))
-
-export const container = styled(Box)(() => ({
-    height: '100%',
-    width: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
 }))
 
 export const signinTitle = styled(Typography)(() => ({
@@ -105,4 +97,11 @@ export const inputPlace = styled(Box)(() => ({
     flexDirection: 'column',
     width: '17.875rem',
     gap: '1.12rem',
+}))
+
+export const navPlace = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.69rem',
 }))
