@@ -36,7 +36,6 @@ export default function VerificationForm() {
     }
 
     return (
-        <styleMui.container>
             <styleMui.Form>
                 <CheckCircleOutlineIcon
                     sx={{ color: '#69AD28', fontSize: '6rem' }}
@@ -72,6 +71,5 @@ export default function VerificationForm() {
                     </styleMui.link>
                 </styleMui.textContainer>
             </styleMui.Form>
-        </styleMui.container>
     )
 }

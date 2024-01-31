@@ -20,3 +20,11 @@ export const container = styled(Box)(() => ({
     justifyContent: 'center',
 }))
 
+export const formContainer = styled(Box)(() => ({
+    paddingLeft: '10rem',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}))
+

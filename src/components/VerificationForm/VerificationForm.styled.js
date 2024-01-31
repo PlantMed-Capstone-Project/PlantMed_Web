@@ -14,14 +14,6 @@ export const Form = styled(Box)(() => ({
     gap: '1.8rem',
 }))
 
-export const container = styled(Box)(() => ({
-    height: '100%',
-    width: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}))
-
 export const textContainer = styled(Box)(() => ({
     height: '100%',
     width: '100%',
