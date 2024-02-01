@@ -8,13 +8,11 @@ import HomePage from 'pages/HomePage'
 import PlantPage from 'pages/Plant/PlantPage'
 import SigninPage from 'pages/SigninPage/SigninPage'
 import SignupPage from 'pages/SignupPage/SignupPage'
-import VerificationPage from 'pages/VerificationPage/VerificationPage'
 
 const publicRoutes = [
     { path: '/', page: HomePage, layout: MainLayout },
     { path: '/login', page: SigninPage, layout: LoginLayout },
     { path: '/register', page: SignupPage, layout: LoginLayout },
-    { path: '/verification', page: VerificationPage, layout: LoginLayout },
     { path: '/plants', page: PlantPage, layout: MainLayout },
     { path: '/detail', page: DetailPage, layout: MainLayout },
     { path: '/about-us', page: 'about us here', layout: MainLayout },

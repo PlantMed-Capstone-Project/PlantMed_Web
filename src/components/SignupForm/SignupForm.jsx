@@ -213,7 +213,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
 
     const onSubmit = () => {
         clearInput()
-        return navigate('/verification')
+        return navigate('/login')
     }
 
     return (
