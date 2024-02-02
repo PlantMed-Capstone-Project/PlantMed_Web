@@ -1,4 +1,14 @@
-import { styled, TextField, Box, Typography, Button, Link, FormControlLabel, Tab, Checkbox } from '@mui/material'
+import {
+    styled,
+    TextField,
+    Box,
+    Typography,
+    Button,
+    Link,
+    FormControlLabel,
+    Tab,
+    Checkbox,
+} from '@mui/material'
 
 export const Input = styled(TextField)(() => ({
     width: '280',
@@ -18,16 +28,6 @@ export const Input = styled(TextField)(() => ({
     },
 }))
 
-export const Note = styled(Typography)(() => ({
-    position: 'absolute',
-    top: '16rem',
-    left: '51rem',
-    fontSize: '1.5rem',
-    fontWeight: '200',
-    fontStyle: 'italic',
-    color: '#FFF',
-}))
-
 export const typeUserTab = styled(Tab)(() => ({
     color: '#214400',
     fontWeight: '700',
@@ -45,13 +45,13 @@ export const Form = styled(Box)(() => ({
     backgroundColor: '#F4FFEB',
     boxShadow: '0px 0px 3px 0px rgba(33, 68, 0, 0.30)',
     width: '25rem',
-    height: '42.5rem',
+    height: '40.5rem',
     borderRadius: '1rem',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '1rem',
+    gap: '0.5rem',
 }))
 
 export const policySection = styled(Box)(() => ({
@@ -82,7 +82,7 @@ export const policy = styled(Typography)(() => ({
 
 export const policyCheck = styled(Typography)(() => ({
     textAlign: 'center',
-    marginTop: '-1rem',
+    marginTop: '-0.5rem',
     fontSize: '0.8rem',
     fontWeight: '200',
     color: '#D32F2F',
