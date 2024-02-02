@@ -196,6 +196,100 @@ export const plants = [
     },
 ]
 
+export const blogDetail = [
+    {
+        id: 1,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay tu linh',
+            },
+            {
+                id: 2,
+                tagName: 'cay tu linh',
+            },
+        ],
+    },
+    {
+        id: 2,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay thuoc phien',
+            },
+            {
+                id: 2,
+                tagName: 'Cần sa',
+            },
+        ],
+    },
+    {
+        id: 3,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay coi',
+            },
+            {
+                id: 2,
+                tagName: 'cay tu linh',
+            },
+        ],
+    },
+    {
+        id: 4,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay tinh linh',
+            },
+        ],
+    },
+    {
+        id: 5,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay tu linh',
+            },
+            {
+                id: 2,
+                tagName: 'cay tu ',
+            },
+        ],
+    },
+]
+
 export const getIdPlant = (value) => {
     return plantDetail.filter((vl) => vl.plantID === value)
 }
