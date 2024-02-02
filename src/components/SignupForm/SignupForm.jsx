@@ -5,10 +5,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton, InputAdornment, Link, Tabs } from '@mui/material'
 import { useState } from 'react'
-import * as styleMui from './SignupForm.styled'
 import { useNavigate } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
-import { saveScrollPosition } from 'utils/scrollUtils'
+import * as styleMui from './SignupForm.styled'
 
 const iconStyle = {
     color: '#69AD28',
@@ -19,12 +17,6 @@ export default function SignupForm({ setTypeUser, typeUser }) {
     const navigate = useNavigate()
     const handleChange = (event, newValue) => {
         setTypeUser(newValue)
-    }
-
-    //Lưu trạng thái scroll khi qua trang khác
-    const location = useLocation()
-    const handleClick = () => {
-        saveScrollPosition(location.pathname)
     }
 
     //Chuyển trạng thái nhìn thấy mật khẩu
@@ -268,11 +260,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
             <styleMui.button variant="contained" onClick={() => onValidate()}>
                 Đăng ký
             </styleMui.button>
-            <styleMui.link
-                href="/login"
-                underline="hover"
-                onClick={handleClick}
-            >
+            <styleMui.link href="/login" underline="hover">
                 Đăng nhập
             </styleMui.link>
         </styleMui.Form>

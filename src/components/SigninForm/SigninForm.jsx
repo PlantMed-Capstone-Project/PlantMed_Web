@@ -2,7 +2,6 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
 import * as styleMui from './SigninForm.styled'
 import { useLocation } from 'react-router-dom'
-import { saveScrollPosition } from 'utils/scrollUtils'
 
 const iconStyle = {
     color: '#69AD28',
@@ -15,11 +14,6 @@ export default function SigninForm() {
         { icon: <LockRoundedIcon sx={iconStyle} />, placeholder: 'Mật khẩu' },
     ]
 
-    //Lưu trạng thái scroll khi qua trang khác
-    const location = useLocation()
-    const handleClick = () => {
-        saveScrollPosition(location.pathname)
-    }
     return (
         <styleMui.Form>
             <styleMui.signinTitle variant="h5" align="center">
@@ -50,11 +44,7 @@ export default function SigninForm() {
             </styleMui.containerInput>
             <styleMui.navPlace>
                 <styleMui.button variant="contained">Đăng nhập</styleMui.button>
-                <styleMui.link
-                    href="/register"
-                    underline="hover"
-                    onClick={handleClick}
-                >
+                <styleMui.link href="/register" underline="hover">
                     Tạo tài khoản mới
                 </styleMui.link>
             </styleMui.navPlace>

@@ -1,42 +1,35 @@
 import SignupForm from 'components/SignupForm/SignupForm'
-import { useState } from 'react'
-import * as styleMui from './SignupPage.styled'
-import { useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
-import { saveScrollPosition, restoreScrollPosition } from 'utils/scrollUtils'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import * as styleMui from './SignupPage.styled'
 
 function SignupPage() {
-    const [typeUser, setTypeUser] = useState('người dùng')
     const location = useLocation()
-    const [isScrolled, setIsScrolled] = useState(false)
+    const searchParams = new URLSearchParams(location.search)
+
+    const [typeUser, setTypeUser] = useState('người dùng')
 
     //trigger animation khi scrollY
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY
-            if (scrollPosition >= 50) {
-                setIsScrolled(true)
-            } else {
-                setIsScrolled(false)
-            }
+        let checkNav = true
+
+        if (checkNav) {
+            window.scrollTo(0, 100)
         }
 
-        window.addEventListener('scroll', handleScroll)
-
+        // clean up func
         return () => {
-            window.removeEventListener('scroll', handleScroll)
-            saveScrollPosition(location.pathname)
-            restoreScrollPosition(location.pathname)
+            checkNav = false
         }
-    }, [location])
+    }, [searchParams])
 
     return (
         <styleMui.container>
             <styleMui.Background>
                 <motion.div
                     initial={{ opacity: 0, x: '30%' }}
-                    animate={isScrolled ? { opacity: 1, x: '0%' } : {}}
+                    animate={{ opacity: 1, x: '0%' }}
                     exit={{ opacity: 0, x: '-30%' }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
@@ -50,7 +43,7 @@ function SignupPage() {
                 <styleMui.containerTxt>
                     <motion.div
                         initial={{ opacity: 0, x: '-30%' }}
-                        animate={isScrolled ? { opacity: 1, x: '0%' } : {}}
+                        animate={{ opacity: 1, x: '0%' }}
                         exit={{ opacity: 0, x: '-30%' }}
                         transition={{ duration: 0.5, ease: 'easeOut' }}
                     >

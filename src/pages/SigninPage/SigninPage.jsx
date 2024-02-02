@@ -1,33 +1,26 @@
 import SigninForm from 'components/SigninForm/SigninForm'
-import * as styleMui from './SigninPage.styled'
-import { useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { saveScrollPosition, restoreScrollPosition } from 'utils/scrollUtils'
 import { motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import * as styleMui from './SigninPage.styled'
 
 function SigninPage() {
     const location = useLocation()
-    const [isScrolled, setIsScrolled] = useState(false)
+    const searchParams = new URLSearchParams(location.search)
 
     //trigger animation khi scrollY
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY
-            if (scrollPosition >= 50) {
-                setIsScrolled(true)
-            } else {
-                setIsScrolled(false)
-            }
+        let checkNav = true
+
+        if (checkNav) {
+            window.scrollTo(0, 100)
         }
 
-        window.addEventListener('scroll', handleScroll)
-
+        // clean up func
         return () => {
-            window.removeEventListener('scroll', handleScroll)
-            saveScrollPosition(location.pathname)
-            restoreScrollPosition(location.pathname)
+            checkNav = false
         }
-    }, [location])
+    }, [searchParams])
 
     return (
         <styleMui.container>
@@ -35,7 +28,7 @@ function SigninPage() {
                 <styleMui.arrangeContainer>
                     <motion.div
                         initial={{ opacity: 0, x: '30%' }}
-                        animate={isScrolled ? { opacity: 1, x: '0%' } : {}}
+                        animate={{ opacity: 1, x: '0%' }}
                         exit={{ opacity: 0, x: '30%' }}
                         transition={{ duration: 0.5, ease: 'easeOut' }}
                     >
@@ -54,7 +47,7 @@ function SigninPage() {
                 </styleMui.arrangeContainer>
                 <motion.div
                     initial={{ opacity: 0, x: '-30%' }}
-                    animate={isScrolled ? { opacity: 1, x: '0%' } : {}}
+                    animate={{ opacity: 1, x: '0%' }}
                     exit={{ opacity: 0, x: '30%' }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                 >

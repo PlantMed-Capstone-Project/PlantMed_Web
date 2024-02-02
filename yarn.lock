@@ -7490,11 +7490,6 @@ optionator@^0.9.3:
     prelude-ls "^1.2.1"
     type-check "^0.4.0"
 
-otp-input-react@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/otp-input-react/-/otp-input-react-0.2.0.tgz#722966d800ca60ddd32d5613a202d0cad7cb3cd6"
-  integrity sha512-YzqsIEJ3/YSAMehjABFv4LPqvpwDZL7lyDyA4vFtt0CPtdXrJu2i+hWT96UHAjBEq2e4zDpw3osgRT/6FQ6JKw==
-
 p-limit@^2.0.0, p-limit@^2.2.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/p-limit/-/p-limit-2.3.0.tgz"
