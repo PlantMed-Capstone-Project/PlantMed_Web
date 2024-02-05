@@ -288,6 +288,63 @@ export const blogDetail = [
             },
         ],
     },
+    {
+        id: 6,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay tu linh',
+            },
+            {
+                id: 2,
+                tagName: 'cay tu ',
+            },
+        ],
+    },
+    {
+        id: 7,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay tu linh',
+            },
+            {
+                id: 2,
+                tagName: 'cay tu ',
+            },
+        ],
+    },
+    {
+        id: 8,
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
+        image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        tags: [
+            {
+                id: 1,
+                tagName: 'cay tu linh',
+            },
+            {
+                id: 2,
+                tagName: 'cay tu ',
+            },
+        ],
+    },
 ]
 
 export const getIdPlant = (value) => {

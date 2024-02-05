@@ -5,7 +5,7 @@ import { useState } from 'react'
 import * as styleMui from './BlogDetail.styled'
 import { useEffect } from 'react'
 
-function BlogDetail() {
+function BlogListPage() {
     const [tagSearch, setTagSearch] = useState('')
     const [positions, setPosition] = useState({
         scroll: null,
@@ -15,6 +15,8 @@ function BlogDetail() {
     const [rightHeight, setRightHeight] = useState({
         height: null,
     })
+    const [isFixed, setIsFixed] = useState(false)
+    const [isAbs, setIsAbs] = useState(false)
 
     const data = blogDetail
 
@@ -23,17 +25,20 @@ function BlogDetail() {
             positions.topContent +
             positions.sectionHeight -
             rightHeight.height -
-            45
+            320
 
         if (
             positions.scroll > positions.topContent &&
             positions.scroll < bottomStop
         ) {
-            console.log('đã scroll đến phần cần')
+            setIsFixed(true)
+            setIsAbs(false)
         } else if (positions.scroll > bottomStop) {
-            console.log('scroll tới cuối mất rồi')
+            setIsFixed(false)
+            setIsAbs(true)
         } else if (positions.scroll < positions.topContent) {
-            console.log('chua bắt đầu scroll')
+            setIsFixed(false)
+            setIsAbs(false)
         }
     }
 
@@ -63,10 +68,12 @@ function BlogDetail() {
                     data={data}
                     setTagSearch={setTagSearch}
                     rightHeight={rightHeight}
+                    isFixed={isFixed}
+                    isAbs={isAbs}
                 />
             </styleMui.ctnComponent>
         </styleMui.container>
     )
 }
 
-export default BlogDetail
+export default BlogListPage

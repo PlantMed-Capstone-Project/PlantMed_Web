@@ -6,6 +6,7 @@ export const ctnComponent = styled(Box)(() => ({
     alignItems: 'flex-start',
     padding: '3rem 8.69rem 0 8.63rem',
     gap: '1rem',
+    position: 'relative',
 }))
 
 export const container = styled(Box)(() => ({

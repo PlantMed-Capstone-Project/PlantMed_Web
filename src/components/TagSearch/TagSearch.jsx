@@ -1,9 +1,9 @@
-import { Box, CardMedia, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import titleImage from 'Images/hiền nhân.jpg'
+import presentImage from 'Images/tía tô.jpg'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './TagSearch.styled'
-import presentImage from 'Images/tía tô.jpg'
-function TagSearch({ data, setTagSearch, rightHeight }) {
+function TagSearch({ data, setTagSearch, rightHeight, isFixed, isAbs }) {
     const [dataTag, setDataTag] = useState()
     const [isHover, setIsHover] = useState(null)
     const [prvText, setPrvText] = useState('')
@@ -37,6 +37,8 @@ function TagSearch({ data, setTagSearch, rightHeight }) {
     // sử dụng Set để lọc ra các phần tử bị trùng, và sau khi add vào set thì chuyển thành mãng bằng qua array.form
     const uniqueTagsSet = new Set()
     const maxTags = 5
+
+    //Lọc mãng và nhét các phần tử tagName vào trong mãng mới
     const filterTags = () => {
         data.forEach((vl) => {
             vl.tags.forEach((tag) => {
@@ -95,14 +97,10 @@ function TagSearch({ data, setTagSearch, rightHeight }) {
                 </styleMui.BoxTagSearch>
             </styleMui.ctnTagTitle>
 
-            <Box
+            <styleMui.cotainerFixed
                 ref={getHeightEl}
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1rem',
-                    width: '22rem',
-                }}
+                isfixed={isFixed}
+                isabs={isAbs}
             >
                 {dataPresent.length &&
                     dataPresent.map((vl, idx) => (
@@ -120,7 +118,7 @@ function TagSearch({ data, setTagSearch, rightHeight }) {
                             </styleMui.imgTitle>
                         </styleMui.imagePresent>
                     ))}
-            </Box>
+            </styleMui.cotainerFixed>
         </styleMui.container>
     )
 }

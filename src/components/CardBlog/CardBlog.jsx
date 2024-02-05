@@ -6,7 +6,7 @@ import CardBlogList from './CardBlogList/CardBlogList'
 function CardBlog({ data, valueSearch, positions }) {
     const [dataBlog, setDataBlog] = useState(data)
     const [currentPage, setCurrentPage] = useState(1)
-    let itemsPerPage = 3
+    let itemsPerPage = 6
 
     const getPosition = useRef()
 
@@ -80,20 +80,7 @@ function CardBlog({ data, valueSearch, positions }) {
                     displayedData.map((vl, idx) => (
                         <CardBlogList key={data} item={vl} />
                     ))}
-                <Pagination
-                    sx={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        '& .MuiPaginationItem-page': {
-                            color: 'black', // Màu chữ của từng trang
-                        },
-                        '& .MuiPaginationItem-page.Mui-selected': {
-                            color: '#69AD28',
-                            backgroundColor: '#F4FFEB',
-                            borderColor: '#69AD28',
-                        },
-                    }}
+                <styleMui.pagination
                     count={pageCount}
                     onChange={handlePagnating}
                 />

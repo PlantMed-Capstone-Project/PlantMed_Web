@@ -6,6 +6,7 @@ export const container = styled(Box)(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     paddingTop: '9rem',
+    height: 'auto',
 }))
 
 export const BoxTagSearch = styled(Box)(() => ({
@@ -59,6 +60,17 @@ export const imagePresent = styled(Box)(() => ({
     width: '100%',
     height: '15rem',
     borderRadius: '0.6rem',
+}))
+
+export const cotainerFixed = styled(Box)(({ isfixed, isabs }) => ({
+    position:
+        isfixed && !isabs ? 'fixed' : !isfixed && isabs ? 'absolute' : 'none',
+    top: isfixed && !isabs ? '2rem' : !isfixed && isabs ? 'none' : 'none',
+    bottom: isfixed && !isabs ? 'none' : !isfixed && isabs ? '3.4rem' : 'none',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    width: '22rem',
 }))
 
 export const imgTitle = styled(CardMedia)(() => ({

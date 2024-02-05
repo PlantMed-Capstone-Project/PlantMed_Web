@@ -1,6 +1,6 @@
 import LoginLayout from 'layouts/LoginLayout'
 import MainLayout from 'layouts/MainLayout'
-import BlogDetail from 'pages/BlogDetail/BlogDetail'
+import BlogListPage from 'pages/BlogDetail/BlogListPage'
 
 import BlogPage from 'pages/BlogPage/BlogPage'
 import DetailPage from 'pages/DetailPage/DetailPage'
@@ -18,7 +18,7 @@ const publicRoutes = [
     { path: '/detail', page: DetailPage, layout: MainLayout },
     { path: '/about-us', page: 'about us here', layout: MainLayout },
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
-    { path: '/blogdetail', page: BlogDetail, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
+    { path: '/bloglist', page: BlogListPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
 ]
 
 const privateRoutes = [
@@ -28,4 +28,4 @@ const privateRoutes = [
     { path: '/profile', page: 'profile page here', layout: MainLayout },
 ]
 
-export { publicRoutes, privateRoutes }
+export { privateRoutes, publicRoutes }
