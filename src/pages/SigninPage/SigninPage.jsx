@@ -25,36 +25,34 @@ function SigninPage() {
     return (
         <styleMui.container>
             <styleMui.Background>
-                <styleMui.arrangeContainer>
-                    <motion.div
-                        initial={{ opacity: 0, x: '30%' }}
-                        animate={{ opacity: 1, x: '0%' }}
-                        exit={{ opacity: 0, x: '30%' }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
-                    >
-                        <styleMui.contentPlace>
-                            <styleMui.Title variant="h5">
-                                CHÀO MỪNG <br />
-                                TRỞ LẠI VỚI PLANTMED
-                            </styleMui.Title>
-                            <styleMui.Note>
-                                Đây là trang đăng nhập dành cho cá nhân
-                                <br />
-                                đã có tài khoản tại PLANTMED
-                            </styleMui.Note>
-                        </styleMui.contentPlace>
-                    </motion.div>
+                <styleMui.arrangeContainer
+                    component={motion.div}
+                    initial={{ opacity: 0, x: '30%' }}
+                    animate={{ opacity: 1, x: '0%' }}
+                    exit={{ opacity: 0, x: '30%' }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                >
+                    <styleMui.contentPlace>
+                        <styleMui.Title variant="h5">
+                            CHÀO MỪNG <br />
+                            TRỞ LẠI VỚI PLANTMED
+                        </styleMui.Title>
+                        <styleMui.Note>
+                            Đây là trang đăng nhập dành cho cá nhân
+                            <br />
+                            đã có tài khoản tại PLANTMED
+                        </styleMui.Note>
+                    </styleMui.contentPlace>
                 </styleMui.arrangeContainer>
-                <motion.div
+                <styleMui.formContainer
+                    component={motion.div}
                     initial={{ opacity: 0, x: '-30%' }}
                     animate={{ opacity: 1, x: '0%' }}
                     exit={{ opacity: 0, x: '30%' }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
-                    <styleMui.formContainer>
-                        <SigninForm />
-                    </styleMui.formContainer>
-                </motion.div>
+                    <SigninForm />
+                </styleMui.formContainer>
             </styleMui.Background>
         </styleMui.container>
     )
