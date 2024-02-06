@@ -65,8 +65,8 @@ export const imagePresent = styled(Box)(() => ({
 export const cotainerFixed = styled(Box)(({ isfixed, isabs }) => ({
     position:
         isfixed && !isabs ? 'fixed' : !isfixed && isabs ? 'absolute' : 'none',
-    top: isfixed && !isabs ? '2rem' : !isfixed && isabs ? 'none' : 'none',
-    bottom: isfixed && !isabs ? 'none' : !isfixed && isabs ? '3.4rem' : 'none',
+    top: isfixed && !isabs ? '2rem' : 'none',
+    bottom: !isfixed && isabs ? '3.4rem' : 'none',
     display: 'flex',
     flexDirection: 'column',
     gap: '1rem',
