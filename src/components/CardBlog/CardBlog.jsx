@@ -7,6 +7,7 @@ function CardBlog({ data, valueSearch, positions }) {
     const [dataBlog, setDataBlog] = useState(data)
     const [currentPage, setCurrentPage] = useState(1)
     let itemsPerPage = 6
+    const topQuantity = 272
 
     const getPosition = useRef()
 
@@ -39,9 +40,12 @@ function CardBlog({ data, valueSearch, positions }) {
 
     // xử lý các giá trị scroll
     const handleScroll = () => {
+        // đây là giá trị khi cuộn trang và có xu hướng tăng dần khi cuộn xuống
         positions.scroll = window.pageYOffset
+        // đây là giá trị chiều cao của element đó
         positions.sectionHeight = getPosition.current.clientHeight
-        positions.topContent = getPosition.current.offsetTop + 272
+        // đây là giá trị tính từ đỉnh của element đến đầu trang
+        positions.topContent = getPosition.current.offsetTop + topQuantity
     }
 
     // kích hoạt sự kiện scroll

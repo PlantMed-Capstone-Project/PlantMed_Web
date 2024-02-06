@@ -21,6 +21,7 @@ function BlogListPage() {
     const data = blogDetail
 
     const scrollValue = () => {
+        // tính giá trị của cuối element, và trừ cho 320 để giảm giá trị, và kích hoạt animate sớm nhất
         const bottomStop =
             positions.topContent +
             positions.sectionHeight -
