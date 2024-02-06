@@ -1,5 +1,5 @@
 import { Box, Typography, styled } from '@mui/material'
-import backgroundImage from 'Images/heroSen.jpg'
+import backgroundImage from 'Images/cannabis.png'
 
 export const Background = styled(Box)(() => ({
     backgroundImage: `url(${backgroundImage})`,
@@ -18,6 +18,31 @@ export const container = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+}))
+
+export const formContainer = styled(Box)(() => ({
+    paddingLeft: '10rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}))
+
+export const contentPlace = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+}))
+
+export const arrangeContainer = styled(Box)(() => ({
+    width: '50%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    paddingTop: '7.5rem',
+    paddingLeft: '10.5rem',
 }))
 
 export const Title = styled(Typography)(() => ({
