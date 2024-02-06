@@ -6,18 +6,15 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 
 function FeaturedSearch({ title, data }) {
     const [hoverIndex, setHoverIndex] = useState(null)
-    const [hoverBg, setHoverBg] = useState(null)
 
     const navigate = useNavigate()
 
     const handleHover = (idx) => {
         setHoverIndex(idx)
-        setHoverBg(true)
     }
 
     const handleLeave = () => {
         setHoverIndex(null)
-        setHoverBg(null)
     }
 
     const goDetail = (id) => {
