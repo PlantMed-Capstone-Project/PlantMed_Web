@@ -2,7 +2,7 @@ import { blogDetail } from 'FakeData/plantData'
 import CardBlog from 'components/CardBlog/CardBlog'
 import TagSearch from 'components/TagSearch/TagSearch'
 import { useState } from 'react'
-import * as styleMui from './BlogDetail.styled'
+import * as styleMui from './BlogListPage.styled'
 import { useEffect } from 'react'
 
 function BlogListPage() {
