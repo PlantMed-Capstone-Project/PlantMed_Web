@@ -1,9 +1,8 @@
-import { Box, Button, CardMedia, Typography } from '@mui/material'
-import React from 'react'
+import { CardMedia } from '@mui/material'
 import notfoundImage from 'Images/notfound.png'
-import * as styleMui from './NotFound.styled'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import * as styleMui from './NotFound.styled'
 
 const NotFound = () => {
     const navigate = useNavigate()

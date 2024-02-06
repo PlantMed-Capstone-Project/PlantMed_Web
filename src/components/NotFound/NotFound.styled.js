@@ -17,7 +17,7 @@ export const containerImg = styled(Box)({
 })
 
 export const text = styled(Typography)({
-    fontFamily: 'Rubik Burned, system-ui',
+    fontFamily: '"Protest Riot", sans-serif',
     color: '#214400',
     fontSize: '3.125rem',
     textShadow: '0px 8px 3px rgba(33, 68, 0, 0.30)',
