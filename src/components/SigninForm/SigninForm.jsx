@@ -13,9 +13,50 @@ const iconStyle = {
 }
 
 export default function SigninForm() {
-    const inputItems = [
-        { icon: <PersonIcon sx={iconStyle} />, placeholder: 'Email' },
-        { icon: <LockRoundedIcon sx={iconStyle} />, placeholder: 'Mật khẩu' },
+    const navigate = useNavigate()
+    //Chuyển trạng thái nhìn thấy mật khẩu
+    const [eye, setEye] = useState(false)
+    const handleEye = () => {
+        setEye(!eye)
+    }
+
+    const [errors, setErrors] = useState({})
+
+    const [inputs, setInputs] = useState({
+        email: '',
+        password: '',
+    })
+
+    const inputFields = [
+        {
+            key: 'email',
+            placeholder: 'Email',
+            type: 'text',
+            icon: <PersonIcon sx={iconStyle} />,
+        },
+        {
+            key: 'password',
+            placeholder: 'Mật khẩu',
+            type: eye ? 'text' : 'password',
+            icon: <LockRoundedIcon sx={iconStyle} />,
+            eyeIcon: (
+                <IconButton onClick={handleEye}>
+                    {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </IconButton>
+            ),
+        },
+    ]
+
+    //Khai báo array các validation
+    const validationRules = [
+        {
+            field: 'email',
+            message: 'Vui lòng nhập email',
+        },
+        {
+            field: 'password',
+            message: 'Vui lòng nhập mật khẩu',
+        },
     ]
 
     //Check validation
