@@ -5,8 +5,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton, InputAdornment } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 
 const iconStyle = {
     color: '#69AD28',
@@ -14,50 +13,9 @@ const iconStyle = {
 }
 
 export default function SigninForm() {
-    const navigate = useNavigate()
-    //Chuyển trạng thái nhìn thấy mật khẩu
-    const [eye, setEye] = useState(false)
-    const handleEye = () => {
-        setEye(!eye)
-    }
-
-    const [errors, setErrors] = useState({})
-
-    const [inputs, setInputs] = useState({
-        email: '',
-        password: '',
-    })
-
-    const inputFields = [
-        {
-            key: 'email',
-            placeholder: 'Email',
-            type: 'text',
-            icon: <PersonIcon sx={iconStyle} />,
-        },
-        {
-            key: 'password',
-            placeholder: 'Mật khẩu',
-            type: eye ? 'text' : 'password',
-            icon: <LockRoundedIcon sx={iconStyle} />,
-            eyeIcon: (
-                <IconButton onClick={handleEye}>
-                    {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-            ),
-        },
-    ]
-
-    //Khai báo array các validation
-    const validationRules = [
-        {
-            field: 'email',
-            message: 'Vui lòng nhập email',
-        },
-        {
-            field: 'password',
-            message: 'Vui lòng nhập mật khẩu',
-        },
+    const inputItems = [
+        { icon: <PersonIcon sx={iconStyle} />, placeholder: 'Email' },
+        { icon: <LockRoundedIcon sx={iconStyle} />, placeholder: 'Mật khẩu' },
     ]
 
     //Check validation
@@ -92,22 +50,9 @@ export default function SigninForm() {
         })
     }
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
-        const response = await axios
-            .post('https://reqres.in/api/login', {
-                email: inputs.email,
-                password: inputs.password,
-            })
-            .then((res) => {
-                console.log(res)
-                console.log(response.data)
-                clearInput()
-                navigate('/register')
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    const onSubmit = () => {
+        clearInput()
+        return navigate('/')
     }
 
     //Khai báo input
@@ -135,37 +80,38 @@ export default function SigninForm() {
                         </InputAdornment>
                     ),
                 }}
-                required
             />
         ))
     }
 
     return (
-        <form method="post" onSubmit={() => onValidate()}>
-            <styleMui.Form>
-                <styleMui.signinTitle variant="h5" align="center">
-                    Đăng nhập
-                </styleMui.signinTitle>
-                <styleMui.containerInput>
-                    {/* Start input place */}
-                    <styleMui.inputPlace>{renderInputs()}</styleMui.inputPlace>
-                    {/* End input place */}
+        <styleMui.Form>
+            <styleMui.signinTitle variant="h5" align="center">
+                Đăng nhập
+            </styleMui.signinTitle>
 
-                    <styleMui.passSection>
-                        <styleMui.forgetPass href="/" underline="hover">
-                            Quên mật khẩu?
-                        </styleMui.forgetPass>
-                    </styleMui.passSection>
-                </styleMui.containerInput>
-                <styleMui.navPlace>
-                    <styleMui.button variant="contained">
-                        Đăng nhập
-                    </styleMui.button>
-                    <styleMui.link href="/register" underline="hover">
-                        Tạo tài khoản mới
-                    </styleMui.link>
-                </styleMui.navPlace>
-            </styleMui.Form>
-        </form>
+            <styleMui.containerInput>
+                {/* Start input place */}
+                <styleMui.inputPlace>{renderInputs()}</styleMui.inputPlace>
+                {/* End input place */}
+
+                <styleMui.passSection>
+                    <styleMui.forgetPass href="/" underline="hover">
+                        Quên mật khẩu?
+                    </styleMui.forgetPass>
+                </styleMui.passSection>
+            </styleMui.containerInput>
+            <styleMui.navPlace>
+                <styleMui.button
+                    variant="contained"
+                    onClick={() => onValidate()}
+                >
+                    Đăng nhập
+                </styleMui.button>
+                <styleMui.link href="/register" underline="hover">
+                    Tạo tài khoản mới
+                </styleMui.link>
+            </styleMui.navPlace>
+        </styleMui.Form>
     )
 }
