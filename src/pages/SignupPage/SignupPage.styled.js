@@ -16,6 +16,7 @@ export const containerTxt = styled(Box)(() => ({
     width: '50%',
     alignItems: 'flex-start',
     paddingTop: '7.75rem',
+    paddingLeft: '10rem',
 }))
 
 export const containsTitle = styled(Box)(() => ({
@@ -29,11 +30,20 @@ export const Background = styled(Box)(() => ({
     backgroundImage: `url(${backgroundImage})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
     width: '100%',
     height: '100%',
     display: 'flex',
     alignItems: 'center',
 }))
+
+export const formContainer = styled(Box)(() => ({
+    paddingLeft: '10rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}))
+
 
 export const Title = styled(Typography)(() => ({
     textAlign: 'center',

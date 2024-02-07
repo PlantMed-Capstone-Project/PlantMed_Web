@@ -33,7 +33,12 @@ export default function DetectionPage() {
                 >
                     Tìm kiếm nổi bật
                 </Typography>
-                <PaginationLayout data={data} serachText={search} topsearch />
+                <PaginationLayout
+                    data={data}
+                    serachText={search}
+                    topsearch
+                    topSearch
+                />
             </Stack>
         </Box>
     )
