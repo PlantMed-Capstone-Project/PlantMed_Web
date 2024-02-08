@@ -1,6 +1,6 @@
 import LoginLayout from 'layouts/LoginLayout'
 import MainLayout from 'layouts/MainLayout'
-import AboutUsPage from 'pages/AboutUsPage/AboutUsPage'
+import AboutUsPage from 'pages/AboutUsPage'
 
 import BlogPage from 'pages/BlogPage/BlogPage'
 import DetailPage from 'pages/DetailPage/DetailPage'
