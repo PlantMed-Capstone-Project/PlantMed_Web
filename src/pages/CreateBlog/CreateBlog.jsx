@@ -18,6 +18,18 @@ const VisuallyHiddenInput = styled('input')({
 })
 
 function CreateBlog() {
+    const [thumbnail, setThumbnail] = useState('')
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+
+    const handleFileChange = (event) => {
+        if (
+            event.target.files.length > 0 &&
+            allowedTypes.includes(event.target.files[0].type)
+        ) {
+            setThumbnail(event.target.files[0])
+        }
+    }
+
     return (
         <Box
             component="section"
@@ -69,18 +81,26 @@ function CreateBlog() {
                             marginBottom: '1.25rem',
                         }}
                     />
-                    <Button
-                        component="label"
-                        variant="contained"
-                        color="success"
-                        endIcon={<CloudUploadIcon />}
-                        sx={{
-                            marginBottom: '1.25rem',
-                        }}
-                    >
-                        Tải ảnh lên
-                        <VisuallyHiddenInput type="file" />
-                    </Button>
+                    <Box sx={{ display: 'flex' }}>
+                        <Button
+                            component="label"
+                            variant="contained"
+                            color="success"
+                            endIcon={<CloudUploadIcon />}
+                            sx={{
+                                marginBottom: '1.25rem',
+                            }}
+                        >
+                            Tải ảnh bìa
+                            <VisuallyHiddenInput
+                                type="file"
+                                onChange={handleFileChange}
+                            />
+                        </Button>
+                        <Typography sx={{ marginLeft: '1.25rem' }}>
+                            {thumbnail.name}
+                        </Typography>
+                    </Box>
                     <Editor />
                 </Box>
                 <Box
