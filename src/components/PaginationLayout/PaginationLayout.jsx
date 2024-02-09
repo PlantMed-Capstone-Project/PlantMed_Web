@@ -4,7 +4,12 @@ import { useEffect, useState } from 'react'
 import * as styleMui from './Pagination.styled'
 import { formatText } from 'utils'
 
-function PaginationLayout({ data, serachText, setIndexData }) {
+function PaginationLayout({
+    data,
+    serachText,
+    setIndexData,
+    topSearch = false,
+}) {
     const [isHover, setIshover] = useState(null)
     const [dataPlants, setDataPlants] = useState(data)
     const [currentPage, setCurrentPage] = useState(1)
@@ -123,8 +128,12 @@ function PaginationLayout({ data, serachText, setIndexData }) {
                         </styleMui.boxImage>
                     </styleMui.card>
                 ))}
-
-            <styleMui.pagination count={pageCount} onChange={handlePagnating} />
+            {!topSearch && (
+                <styleMui.pagination
+                    count={pageCount}
+                    onChange={handlePagnating}
+                />
+            )}
         </styleMui.container>
     )
 }
