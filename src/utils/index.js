@@ -1,3 +1,8 @@
+/**
+ * Sử dụng để format string có ký tự utf8
+ * @param {*} str string
+ * @returns string
+ */
 export const formatText = (str) => {
     return str
         .toLowerCase()
@@ -14,9 +19,9 @@ export const formatText = (str) => {
 }
 
 /**
- * For API setup
- * @param {*} obj
- * @returns
+ * Sử dụng cho api yêu cầu multipart
+ * @param {*} obj object
+ * @returns FormData
  */
 export function objectToFormData(obj) {
     const formData = new FormData()
@@ -26,4 +31,37 @@ export function objectToFormData(obj) {
     })
 
     return formData
+}
+
+/**
+ * Chuyển đổi file hình ảnh thành chuỗi base64
+ * @param {*} file Image
+ * @returns string
+ */
+export const imageToBase64 = (file) => {
+    const reader = new FileReader()
+    const base64 = reader.readAsDataURL(file).split(',')[1]
+    return base64
+}
+
+/**
+ * Chuyển đổi chuỗi base64 thành file hình ảnh
+ * @param {*} str string
+ * @returns Image
+ */
+export const base64ToImage = (str) => {
+    const img = new Image()
+    img.src = `data:image/png;base64,${str}`
+    return img
+}
+
+/**
+ * Chuyển đổi accessToken thành 1 đối tượng
+ * @param {*} token string
+ * @returns object
+ */
+export const parseJwt = (token) => {
+    return token
+        ? JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+        : ''
 }
