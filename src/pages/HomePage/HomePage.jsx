@@ -123,15 +123,7 @@ export default function HomePage() {
     ]
 
     return (
-        <Box
-            component="section"
-            sx={{
-                width: '90rem',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}
-        >
+        <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
             <Heros />
             <Sologan />
             <FeaturedSearch title="TÌM KIẾM NỔI BẬT" data={searchProducts} />
@@ -150,6 +142,6 @@ export default function HomePage() {
                 <SpecialFeature />
             </Stack>
             <Quantity />
-        </Box>
+        </Stack>
     )
 }

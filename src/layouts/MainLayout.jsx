@@ -5,7 +5,7 @@ import * as S from './MainLayout.styled'
 const MainLayout = ({ children }) => {
     const spacingTop = 5
     return (
-        <S.Root>
+        <>
             <S.Header>
                 <Header />
             </S.Header>
@@ -15,7 +15,7 @@ const MainLayout = ({ children }) => {
             <S.Footer>
                 <Footer topspacing={spacingTop} />
             </S.Footer>
-        </S.Root>
+        </>
     )
 }
 
