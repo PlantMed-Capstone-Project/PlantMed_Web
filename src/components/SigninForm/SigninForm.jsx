@@ -1,6 +1,11 @@
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
 import * as styleMui from './SigninForm.styled'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { IconButton, InputAdornment } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const iconStyle = {
     color: '#69AD28',
@@ -8,10 +13,117 @@ const iconStyle = {
 }
 
 export default function SigninForm() {
-    const inputItems = [
-        { id: 1, icon: <PersonIcon sx={iconStyle} />, placeholder: 'Email' },
-        { id: 2, icon: <LockRoundedIcon sx={iconStyle} />, placeholder: 'Mật khẩu' },
+    const navigate = useNavigate()
+    //Chuyển trạng thái nhìn thấy mật khẩu
+    const [eye, setEye] = useState(false)
+    const handleEye = () => {
+        setEye(!eye)
+    }
+
+    const [errors, setErrors] = useState({})
+
+    const [inputs, setInputs] = useState({
+        email: '',
+        password: '',
+    })
+
+    const inputFields = [
+        {
+            key: 'email',
+            placeholder: 'Email',
+            type: 'text',
+            icon: <PersonIcon sx={iconStyle} />,
+        },
+        {
+            key: 'password',
+            placeholder: 'Mật khẩu',
+            type: eye ? 'text' : 'password',
+            icon: <LockRoundedIcon sx={iconStyle} />,
+            eyeIcon: (
+                <IconButton onClick={handleEye}>
+                    {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </IconButton>
+            ),
+        },
     ]
+
+    //Khai báo array các validation
+    const validationRules = [
+        {
+            field: 'email',
+            message: 'Vui lòng nhập email',
+        },
+        {
+            field: 'password',
+            message: 'Vui lòng nhập mật khẩu',
+        },
+    ]
+
+    //Check validation
+    const onValidate = () => {
+        setErrors({})
+        let isValid = true
+
+        validationRules.forEach(({ field, message }) => {
+            if (!inputs[field]) {
+                isValid = false
+                handleError(message, field)
+            }
+        })
+
+        if (isValid) {
+            onSubmit()
+        }
+    }
+
+    const handleError = (errorMess, input) => {
+        setErrors((prevState) => ({ ...prevState, [input]: errorMess }))
+    }
+
+    const handleInputChange = (key, value) => {
+        setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
+    }
+
+    const clearInput = () => {
+        setInputs({
+            email: '',
+            password: '',
+        })
+    }
+
+    const onSubmit = () => {
+        clearInput()
+        return navigate('/')
+    }
+
+    //Khai báo input
+    const renderInputs = () => {
+        return inputFields.map((item, indx) => (
+            <styleMui.Input
+                key={indx}
+                placeholder={item.placeholder}
+                size="small"
+                value={inputs[item.key]}
+                error={errors[item.key]}
+                onChange={(e) => handleInputChange(item.key, e.target.value)}
+                helperText={errors[item.key]}
+                margin="dense"
+                type={item.type}
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            {item.icon}
+                        </InputAdornment>
+                    ),
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            {item.eyeIcon}
+                        </InputAdornment>
+                    ),
+                }}
+            />
+        ))
+    }
 
     return (
         <styleMui.Form>
@@ -21,18 +133,7 @@ export default function SigninForm() {
 
             <styleMui.containerInput>
                 {/* Start input place */}
-                <styleMui.inputPlace>
-                    {inputItems.map((item) => (
-                        <styleMui.Input
-                            key={item.id}
-                            placeholder={item.placeholder}
-                            size="small"
-                            InputProps={{
-                                startAdornment: item.icon,
-                            }}
-                        />
-                    ))}
-                </styleMui.inputPlace>
+                <styleMui.inputPlace>{renderInputs()}</styleMui.inputPlace>
                 {/* End input place */}
 
                 <styleMui.passSection>
@@ -42,7 +143,12 @@ export default function SigninForm() {
                 </styleMui.passSection>
             </styleMui.containerInput>
             <styleMui.navPlace>
-                <styleMui.button variant="contained">Đăng nhập</styleMui.button>
+                <styleMui.button
+                    variant="contained"
+                    onClick={() => onValidate()}
+                >
+                    Đăng nhập
+                </styleMui.button>
                 <styleMui.link href="/register" underline="hover">
                     Tạo tài khoản mới
                 </styleMui.link>
