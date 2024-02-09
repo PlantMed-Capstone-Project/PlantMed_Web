@@ -103,7 +103,7 @@ export default function SigninForm() {
             const response = await authLogin(inputs)
             login(response.data)
             show({
-                message: 'Đăng nhập thành công!',
+                message: 'Đăng nhập thành công!!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
             clearInput()

@@ -49,7 +49,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
             id: 1,
             key: 'email',
             placeholder: 'Email',
-            type: 'text',
+            type: 'email',
             icon: <PersonIcon sx={iconStyle} />,
         },
         {
@@ -239,7 +239,9 @@ export default function SignupForm({ setTypeUser, typeUser }) {
             return navigate('/verification')
         } catch (error) {
             show({
-                message: error.response.data.message,
+                message:
+                    error.response.data.message ??
+                    'Lỗi hệ thống! Vui lòng thử lại sau!',
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         }
