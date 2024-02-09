@@ -1,8 +1,8 @@
 import { Grid, Link, Stack, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import * as styleMui from './FeatureSearch.styled'
 import { createSearchParams, useNavigate } from 'react-router-dom'
+import * as styleMui from './FeatureSearch.styled'
 
 function FeaturedSearch({ title, data }) {
     const [hoverIndex, setHoverIndex] = useState(null)

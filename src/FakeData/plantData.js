@@ -196,237 +196,154 @@ export const plants = [
     },
 ]
 
-export const blogs = [
+export const blogDetail = [
     {
         id: 1,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
+                tagName: 'cay tu linh',
             },
             {
                 id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'cay tu linh',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
     {
         id: 2,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
+                tagName: 'cay thuoc phien',
             },
             {
                 id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'Cần sa',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
     {
         id: 3,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
+                tagName: 'cay coi',
             },
             {
                 id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'cay tu linh',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
     {
         id: 4,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
-            },
-            {
-                id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'cay tinh linh',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
     {
         id: 5,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
+                tagName: 'cay tu linh',
             },
             {
                 id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'cay tu ',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
     {
         id: 6,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
+                tagName: 'cay tu linh',
             },
             {
                 id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'cay tu ',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
     {
         id: 7,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
+                tagName: 'cay tu linh',
             },
             {
                 id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'cay tu ',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
     {
         id: 8,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
+        avartar: '',
+        user: 'Tan Nguyen',
+        title: 'Cầu cổ Tử',
         image: immageBa,
+        description:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                name: 'cay nhan sam',
+                tagName: 'cay tu linh',
             },
             {
                 id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
+                tagName: 'cay tu ',
             },
         ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-    },
-    {
-        id: 9,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
-        image: immageBa,
-        tags: [
-            {
-                id: 1,
-                name: 'cay nhan sam',
-            },
-            {
-                id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
-            },
-        ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-    },
-    {
-        id: 10,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
-        image: immageBa,
-        tags: [
-            {
-                id: 1,
-                name: 'cay nhan sam',
-            },
-            {
-                id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
-            },
-        ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-    },
-    {
-        id: 11,
-        title: 'Cầu cổ Tử là gì trong cuộc sống hiện nay',
-        image: immageBa,
-        tags: [
-            {
-                id: 1,
-                name: 'cay nhan sam',
-            },
-            {
-                id: 2,
-                name: 'cay cuc heo',
-            },
-            {
-                id: 3,
-                name: 'cay cuc lon',
-            },
-        ],
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     },
 ]
 

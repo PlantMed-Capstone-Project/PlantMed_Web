@@ -1,6 +1,7 @@
 import LoginLayout from 'layouts/LoginLayout'
 import MainLayout from 'layouts/MainLayout'
 import AboutUsPage from 'pages/AboutUsPage'
+import BlogListPage from 'pages/BlogDetail/BlogListPage'
 
 import BlogPage from 'pages/BlogPage/BlogPage'
 import DetailPage from 'pages/DetailPage/DetailPage'
@@ -20,6 +21,7 @@ const publicRoutes = [
     { path: '/detail', page: DetailPage, layout: MainLayout },
     { path: '/about-us', page: AboutUsPage, layout: MainLayout },
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
+    { path: '/bloglist', page: BlogListPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
 ]
 
 const privateRoutes = [
