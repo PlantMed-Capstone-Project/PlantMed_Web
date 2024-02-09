@@ -1,11 +1,15 @@
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
-import * as styleMui from './SigninForm.styled'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton, InputAdornment } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { authAction } from 'app/reducers/auth'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import useActions from 'hooks/useActions'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { login as authLogin } from 'rest/api/auth'
+import * as styleMui from './SigninForm.styled'
 
 const iconStyle = {
     color: '#69AD28',
@@ -13,11 +17,14 @@ const iconStyle = {
 }
 
 export default function SigninForm() {
+    const { login, loginFailure } = useActions(authAction)
+    const { show } = useActions(snackbarAction)
+
     const navigate = useNavigate()
     //Chuyển trạng thái nhìn thấy mật khẩu
     const [eye, setEye] = useState(false)
     const handleEye = () => {
-        setEye(!eye)
+        setEye((prevState) => !prevState)
     }
 
     const [errors, setErrors] = useState({})
@@ -31,7 +38,7 @@ export default function SigninForm() {
         {
             key: 'email',
             placeholder: 'Email',
-            type: 'text',
+            type: 'email',
             icon: <PersonIcon sx={iconStyle} />,
         },
         {
@@ -91,9 +98,24 @@ export default function SigninForm() {
         })
     }
 
-    const onSubmit = () => {
-        clearInput()
-        return navigate('/')
+    const onSubmit = async () => {
+        try {
+            const response = await authLogin(inputs)
+            login(response.data)
+            show({
+                message: 'Đăng nhập thành công!!',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+            clearInput()
+            return navigate('/')
+        } catch (error) {
+            loginFailure(error.response.data.message)
+            show({
+                message: error.response.data.message,
+                severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
+            })
+        }
     }
 
     //Khai báo input
