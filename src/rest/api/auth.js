@@ -1,13 +1,16 @@
+import { LOCAL_URL } from 'constants'
 import Client from 'rest/baseClient'
 
-const http = new Client()
+const http = new Client(LOCAL_URL)
 
-export const login = (payload) => {
-    return http.post('auth/signin', payload)
+export const login = async (payload) => {
+    return http.post('auth/login', payload)
 }
 
-export const register = (payload) => {
-    return http.post('auth/signup', payload)
+export const register = async (payload) => {
+    return http.post('auth/register', payload)
 }
 
-// ...etc
+export const verifyEmail = async (payload) => {
+    return http.post('auth/verify', payload)
+}

@@ -4,8 +4,13 @@ import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton, InputAdornment, Link, Tabs } from '@mui/material'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { FORM_REGISTER, VERIFY_CODE } from 'constants'
+import useActions from 'hooks/useActions'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { verifyEmail } from 'rest/api/auth'
+import { createCookie } from 'utils/cookie'
 import * as styleMui from './SignupForm.styled'
 
 const iconStyle = {
@@ -15,6 +20,8 @@ const iconStyle = {
 
 export default function SignupForm({ setTypeUser, typeUser }) {
     const navigate = useNavigate()
+    const { show } = useActions(snackbarAction)
+
     const handleChange = (event, newValue) => {
         setTypeUser(newValue)
     }
@@ -22,7 +29,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
     //Chuyển trạng thái nhìn thấy mật khẩu
     const [eye, setEye] = useState(false)
     const handleEye = () => {
-        setEye(!eye)
+        setEye((prevState) => !prevState)
     }
 
     const [errors, setErrors] = useState({})
@@ -39,24 +46,28 @@ export default function SignupForm({ setTypeUser, typeUser }) {
     //Khai báo array các thuộc tính input
     const inputFields = [
         {
+            id: 1,
             key: 'email',
             placeholder: 'Email',
             type: 'text',
             icon: <PersonIcon sx={iconStyle} />,
         },
         {
+            id: 2,
             key: 'lastName',
             placeholder: 'Họ',
             type: 'text',
             icon: <BadgeIcon sx={iconStyle} />,
         },
         {
+            id: 3,
             key: 'firstName',
             placeholder: 'Tên',
             type: 'text',
             icon: <BadgeIcon sx={iconStyle} />,
         },
         {
+            id: 4,
             key: 'password',
             placeholder: 'Mật khẩu',
             type: eye ? 'text' : 'password',
@@ -68,6 +79,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
             ),
         },
         {
+            id: 5,
             key: 'confirmPassword',
             placeholder: 'Xác thực mật khẩu',
             type: eye ? 'text' : 'password',
@@ -80,6 +92,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         {
             field: 'email',
             message: 'Email không hợp lệ',
+            // eslint-disable-next-line no-useless-escape
             regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
         },
         {
@@ -118,10 +131,12 @@ export default function SignupForm({ setTypeUser, typeUser }) {
     //Khai báo array các tab
     const nabItem = [
         {
+            id: 1,
             label: 'người dùng',
             link: '/',
         },
         {
+            id: 2,
             label: 'chuyên gia',
             link: '/',
         },
@@ -129,9 +144,9 @@ export default function SignupForm({ setTypeUser, typeUser }) {
 
     //Khai báo input
     const renderInputs = () => {
-        return inputFields.map((item, indx) => (
+        return inputFields.map((item) => (
             <styleMui.Input
-                key={indx}
+                key={item.id}
                 placeholder={item.placeholder}
                 size="small"
                 value={inputs[item.key]}
@@ -203,9 +218,31 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         })
     }
 
-    const onSubmit = () => {
-        clearInput()
-        return navigate('/login')
+    // handle registration account
+    const onSubmit = async () => {
+        try {
+            show({
+                message: 'Vui long chờ trong giây lát',
+                autoHideDuration: 2000,
+            })
+            const response = await verifyEmail({ email: inputs.email })
+            const data = {
+                email: inputs.email,
+                password: inputs.password,
+                confirmPassword: inputs.confirmPassword,
+                fullName: inputs.lastName + ' ' + inputs.firstName,
+                role: typeUser === 'người dùng' ? 'user' : 'expert',
+            }
+            createCookie(VERIFY_CODE, JSON.stringify(response.data.data))
+            createCookie(FORM_REGISTER, JSON.stringify(data))
+            clearInput()
+            return navigate('/verification')
+        } catch (error) {
+            show({
+                message: error.response.data.message,
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        }
     }
 
     return (
@@ -226,11 +263,11 @@ export default function SignupForm({ setTypeUser, typeUser }) {
                     },
                 }}
             >
-                {nabItem?.map((item, idx) => (
+                {nabItem?.map((item) => (
                     <styleMui.typeUserTab
                         component={Link}
                         to={item.link}
-                        key={idx}
+                        key={item.id}
                         label={item.label}
                         value={item.label}
                     />

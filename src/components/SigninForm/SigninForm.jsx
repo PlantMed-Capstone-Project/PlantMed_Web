@@ -1,7 +1,6 @@
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
 import * as styleMui from './SigninForm.styled'
-import { useLocation } from 'react-router-dom'
 
 const iconStyle = {
     color: '#69AD28',
@@ -10,8 +9,8 @@ const iconStyle = {
 
 export default function SigninForm() {
     const inputItems = [
-        { icon: <PersonIcon sx={iconStyle} />, placeholder: 'Email' },
-        { icon: <LockRoundedIcon sx={iconStyle} />, placeholder: 'Mật khẩu' },
+        { id: 1, icon: <PersonIcon sx={iconStyle} />, placeholder: 'Email' },
+        { id: 2, icon: <LockRoundedIcon sx={iconStyle} />, placeholder: 'Mật khẩu' },
     ]
 
     return (
@@ -23,9 +22,9 @@ export default function SigninForm() {
             <styleMui.containerInput>
                 {/* Start input place */}
                 <styleMui.inputPlace>
-                    {inputItems.map((item, indx) => (
+                    {inputItems.map((item) => (
                         <styleMui.Input
-                            key={indx}
+                            key={item.id}
                             placeholder={item.placeholder}
                             size="small"
                             InputProps={{
