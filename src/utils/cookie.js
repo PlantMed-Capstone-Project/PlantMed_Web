@@ -1,10 +1,11 @@
-function createCookie(name, value, days = 3) {
+function createCookie(name, value, days) {
     let expires
     if (days) {
         var date = new Date()
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
         expires = '; expires=' + date.toGMTString()
     } else expires = ''
+    console.log('expires:', expires)
     document.cookie = name + '=' + value + expires + '; path=/'
 }
 
