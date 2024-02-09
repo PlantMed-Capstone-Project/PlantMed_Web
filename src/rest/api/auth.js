@@ -1,7 +1,6 @@
-import { LOCAL_URL } from 'constants'
 import Client from 'rest/baseClient'
 
-const http = new Client(LOCAL_URL)
+const http = new Client()
 
 export const login = async (payload) => {
     return http.post('auth/login', payload)
