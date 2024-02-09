@@ -6,6 +6,7 @@ import * as styleMui from './SignupPage.styled'
 
 function SignupPage() {
     const location = useLocation()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const searchParams = new URLSearchParams(location.search)
 
     const [typeUser, setTypeUser] = useState('người dùng')
