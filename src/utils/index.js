@@ -38,10 +38,18 @@ export function objectToFormData(obj) {
  * @param {*} file Image
  * @returns string
  */
-export const imageToBase64 = (file) => {
-    const reader = new FileReader()
-    const base64 = reader.readAsDataURL(file).split(',')[1]
-    return base64
+export const imageToBase64 = (file, callback) => {
+    let xhr = new XMLHttpRequest()
+    xhr.onload = function() {
+      let reader = new FileReader()
+      reader.onloadend = function() {
+        callback(reader.result)
+      }
+      reader.readAsDataURL(xhr.response)
+    }
+    xhr.open('GET', file)
+    xhr.responseType = 'blob'
+    xhr.send()
 }
 
 /**
