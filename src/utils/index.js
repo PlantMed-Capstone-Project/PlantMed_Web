@@ -40,12 +40,12 @@ export function objectToFormData(obj) {
  */
 export const imageToBase64 = (file, callback) => {
     let xhr = new XMLHttpRequest()
-    xhr.onload = function() {
-      let reader = new FileReader()
-      reader.onloadend = function() {
-        callback(reader.result)
-      }
-      reader.readAsDataURL(xhr.response)
+    xhr.onload = function () {
+        let reader = new FileReader()
+        reader.onloadend = function () {
+            callback(reader.result.split(',')[1])
+        }
+        reader.readAsDataURL(xhr.response)
     }
     xhr.open('GET', file)
     xhr.responseType = 'blob'
