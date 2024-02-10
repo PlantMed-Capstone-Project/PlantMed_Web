@@ -34,9 +34,15 @@ export function objectToFormData(obj) {
 }
 
 /**
- * Chuyển đổi file hình ảnh thành chuỗi base64
- * @param {*} file Image
- * @returns string
+ * Dùng chuyển đổi image sang dạng chuỗi base64.
+ * Cách sử dụng:
+ * ```js
+ * imageToBase64(files[0], function(result) {
+ *      setState(result)
+ * })
+ * ```
+ * @param {*} file Image file
+ * @param {*} callback function, useState
  */
 export const imageToBase64 = (file, callback) => {
     let xhr = new XMLHttpRequest()
