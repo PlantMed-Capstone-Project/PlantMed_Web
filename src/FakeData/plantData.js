@@ -350,3 +350,7 @@ export const blogDetail = [
 export const getIdPlant = (value) => {
     return plantDetail.filter((vl) => vl.plantID === value)
 }
+
+export const getIdBlog = (value) => {
+    return blogDetail.find((vl) => vl.id === value)
+}

@@ -10,6 +10,7 @@ import HomePage from 'pages/HomePage'
 import PlantPage from 'pages/Plant/PlantPage'
 import SigninPage from 'pages/SigninPage/SigninPage'
 import SignupPage from 'pages/SignupPage/SignupPage'
+import BlogDetail from 'pages/BlogDetail/BlogDetail'
 import VerificationPage from 'pages/VerificationPage/VerificationPage'
 
 const publicRoutes = [
@@ -22,11 +23,12 @@ const publicRoutes = [
     { path: '/about-us', page: AboutUsPage, layout: MainLayout },
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
     { path: '/bloglist', page: BlogListPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
+    { path: '/blog', page: BlogPage, layout: MainLayout },
+    { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
 ]
 
 const privateRoutes = [
-    { path: '/blog', page: BlogPage, layout: MainLayout },
-    { path: '/blog/:id', page: 'detail blog here', layout: MainLayout },
+
     { path: '/profile', page: 'profile page here', layout: MainLayout },
 ]
 

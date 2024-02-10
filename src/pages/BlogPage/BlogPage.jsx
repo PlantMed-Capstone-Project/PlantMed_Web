@@ -43,7 +43,7 @@ function BlogPage() {
         },
     ]
 
-    const blogs = [
+    const blogList = [
         {
             id: 1,
             title: 'Cầu Kỳ Tử',
@@ -136,9 +136,9 @@ function BlogPage() {
                 mt="3.75rem"
                 sx={{ backgroundColor: '#F4FFEB' }}
             >
-                <DiversityPlant title="BÀI VIẾT NỔI BẬT" data={blogs} />
+                <DiversityPlant title="BÀI VIẾT NỔI BẬT" data={blogData} />
             </Stack>
-            <BlogList blogData={blogData} />
+            <BlogList blogData={blogList} />
         </Box>
     )
 }

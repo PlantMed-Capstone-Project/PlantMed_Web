@@ -9,6 +9,7 @@ import Pagination from '@mui/material/Pagination'
 import PaginationItem from '@mui/material/PaginationItem'
 import Stack from '@mui/material/Stack'
 import plant from 'Images/heroSen.jpg'
+import { Link } from 'react-router-dom'
 
 const styles = {
     card: {
@@ -45,42 +46,48 @@ function BlogList({ blogData }) {
                         sx={{ display: 'flex', flexDirection: 'row', flex: 1 }}
                     >
                         <Card sx={styles.card}>
-                            <CardActionArea
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    flex: 1,
-                                    justifyContent: 'flex-start',
-                                    alignItems: 'start',
-                                }}
+                            <Link
+                                to={`${data.id}`}
+                                style={{ textDecoration: 'none' }}
                             >
-                                <CardMedia
-                                    component="img"
-                                    height="200"
-                                    image={plant}
-                                    alt="plant"
-                                />
-                                <CardContent
+                                <CardActionArea
                                     sx={{
-                                        padding: '0.625rem 1.563rem 1.25rem',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        flex: 1,
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'start',
                                     }}
                                 >
-                                    <Typography
-                                        gutterBottom
-                                        variant="h6"
-                                        component="div"
-                                        sx={{ fontWeight: 'bold' }}
+                                    <CardMedia
+                                        component="img"
+                                        height="200"
+                                        image={plant}
+                                        alt="plant"
+                                    />
+                                    <CardContent
+                                        sx={{
+                                            padding:
+                                                '0.625rem 1.563rem 1.25rem',
+                                        }}
                                     >
-                                        {data.name}
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                    >
-                                        {data.description}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
+                                        <Typography
+                                            gutterBottom
+                                            variant="h6"
+                                            component="div"
+                                            sx={{ fontWeight: 'bold' }}
+                                        >
+                                            {data.name}
+                                        </Typography>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                        >
+                                            {data.description}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Link>
                         </Card>
                     </Grid>
                 ))}
