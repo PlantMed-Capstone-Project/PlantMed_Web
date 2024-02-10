@@ -7,11 +7,13 @@ import { useEffect } from 'react'
 
 function BlogListPage() {
     const [tagSearch, setTagSearch] = useState('')
+    // eslint-disable-next-line no-unused-vars
     const [positions, setPosition] = useState({
         scroll: null,
         topContent: null,
         sectionHeight: null,
     })
+    // eslint-disable-next-line no-unused-vars
     const [rightHeight, setRightHeight] = useState({
         height: null,
     })
@@ -49,6 +51,7 @@ function BlogListPage() {
         return () => {
             window.removeEventListener('scroll', scrollValue)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
