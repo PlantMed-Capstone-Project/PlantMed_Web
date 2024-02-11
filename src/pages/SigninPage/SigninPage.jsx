@@ -6,16 +6,7 @@ import * as styleMui from './SigninPage.styled'
 function SigninPage() {
     //trigger crollY
     useEffect(() => {
-        let checkNav = true
-
-        if (checkNav) {
-            window.scrollTo(0, 100)
-        }
-
-        // clean up func
-        return () => {
-            checkNav = false
-        }
+        window.scrollTo(0, 100)
     }, [])
 
     return (
