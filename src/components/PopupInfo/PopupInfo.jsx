@@ -35,7 +35,7 @@ function PopupInfo({ id }) {
                 />
             </styleMui.boxImage>
             <InforDetail textData={textData} screenSlide="popupscreen" />
-            <styleMui.linkBtn color="inherit">
+            <styleMui.linkBtn color="inherit" to={`/plants/${id}`}>
                 Xem thêm thông tin chi tiết về cây
             </styleMui.linkBtn>
         </styleMui.container>
