@@ -1,18 +1,12 @@
 import SignupForm from 'components/SignupForm/SignupForm'
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import * as styleMui from './SignupPage.styled'
 
 function SignupPage() {
-    const location = useLocation()
-    const searchParams = useMemo(() => {
-        return new URLSearchParams(location.search)
-    }, [location.search])
-
     const [typeUser, setTypeUser] = useState('người dùng')
 
-    //trigger animation khi scrollY
+    //trigger scrollY
     useEffect(() => {
         let checkNav = true
 
@@ -24,7 +18,7 @@ function SignupPage() {
         return () => {
             checkNav = false
         }
-    }, [searchParams])
+    }, [])
 
     return (
         <styleMui.container>
