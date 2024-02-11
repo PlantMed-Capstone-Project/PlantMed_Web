@@ -1,12 +1,14 @@
 import SigninForm from 'components/SigninForm/SigninForm'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import * as styleMui from './SigninPage.styled'
 
 function SigninPage() {
     const location = useLocation()
-    const searchParams = new URLSearchParams(location.search)
+    const searchParams = useMemo(() => {
+        return new URLSearchParams(location.search)
+    }, [location.search])
 
     //trigger animation khi scrollY
     useEffect(() => {

@@ -1,13 +1,14 @@
 import SignupForm from 'components/SignupForm/SignupForm'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import * as styleMui from './SignupPage.styled'
 
 function SignupPage() {
     const location = useLocation()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const searchParams = new URLSearchParams(location.search)
+    const searchParams = useMemo(() => {
+        return new URLSearchParams(location.search)
+    }, [location.search])
 
     const [typeUser, setTypeUser] = useState('người dùng')
 

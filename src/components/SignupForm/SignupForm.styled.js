@@ -4,11 +4,11 @@ import {
     Box,
     Typography,
     Button,
-    Link,
     FormControlLabel,
     Tab,
     Checkbox,
 } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 export const Input = styled(TextField)(() => ({
     width: '280',
