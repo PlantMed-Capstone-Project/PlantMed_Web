@@ -171,7 +171,7 @@ export default function SigninForm() {
                 >
                     Đăng nhập
                 </styleMui.button>
-                <styleMui.link href="/register" underline="hover">
+                <styleMui.link to="/register" underline="hover">
                     Tạo tài khoản mới
                 </styleMui.link>
             </styleMui.navPlace>

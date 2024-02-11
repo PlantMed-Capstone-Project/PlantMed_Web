@@ -299,7 +299,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
             <styleMui.button variant="contained" onClick={() => onValidate()}>
                 Đăng ký
             </styleMui.button>
-            <styleMui.link href="/login" underline="hover">
+            <styleMui.link to="/login" underline="hover">
                 Đăng nhập
             </styleMui.link>
         </styleMui.Form>
