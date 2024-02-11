@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import * as styleMui from './Pagination.styled'
 import { formatText } from 'utils'
+import { useNavigate } from 'react-router-dom'
 
 function PaginationLayout({
     data,
@@ -14,6 +15,8 @@ function PaginationLayout({
     const [dataPlants, setDataPlants] = useState(data)
     const [currentPage, setCurrentPage] = useState(1)
     let itemsPerPage = 6
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (serachText.length > 0) {
@@ -34,6 +37,14 @@ function PaginationLayout({
 
     const hoverLeave = () => {
         setIshover(null)
+    }
+
+    const handleClick = (id) => {
+        if (!setIndexData) {
+            navigate(`/plants/${id}`)
+        } else {
+            setIndexData(id)
+        }
     }
 
     // xac dinh so trang
@@ -65,7 +76,7 @@ function PaginationLayout({
                         transition={{
                             duration: 0.2,
                         }}
-                        onClick={() => setIndexData(vl.id)}
+                        onClick={() => handleClick(vl.id)}
                     >
                         <styleMui.title
                             sx={{ opacity: isHover === idx ? '0' : '1' }}
