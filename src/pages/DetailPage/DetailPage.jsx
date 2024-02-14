@@ -5,7 +5,7 @@ import InforDetail from 'components/InforDetail/InforDetail'
 import MapLayout from 'components/MapLayout/MapLayout'
 import MoreBlog from 'components/MoreBlog/MoreBlog'
 import SlideDetail from 'components/SlideDetail/SlideDetail'
-import { useEffect } from 'react'
+import useScrollTo from 'hooks/useScrollTo'
 import { useParams } from 'react-router-dom'
 
 export default function DetailPage() {
@@ -14,10 +14,8 @@ export default function DetailPage() {
     const slideNav = 'topscreen'
     const slideBottom = 'bottomscreen'
 
-    useEffect(() => {
-        // khi navigate sang trang khác phải sử dụng cái này để cho nó up to đầu trang
-        window.scrollTo(0, 0)
-    }, [data])
+    // scroll to top based on data
+    useScrollTo(0, 0, data)
 
     const fakeData = [
         {
