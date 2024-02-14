@@ -16,7 +16,7 @@ const iconStyle = {
     fontSize: '2rem',
 }
 
-export default function SigninForm() {
+export default function LoginForm() {
     const { login, loginFailure } = useActions(authAction)
     const { show } = useActions(snackbarAction)
 

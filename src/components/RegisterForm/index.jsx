@@ -18,7 +18,7 @@ const iconStyle = {
     fontSize: '2rem',
 }
 
-export default function SignupForm({ setTypeUser, typeUser }) {
+export default function RegisterForm({ setTypeUser, typeUser }) {
     const navigate = useNavigate()
     const { show } = useActions(snackbarAction)
 

@@ -7,15 +7,15 @@ import BlogPage from 'pages/BlogPage/BlogPage'
 import DetailPage from 'pages/DetailPage/DetailPage'
 import DetectionPage from 'pages/DetectionPage/DetectionPage'
 import HomePage from 'pages/HomePage'
+import Login from 'pages/Login'
 import PlantPage from 'pages/Plant/PlantPage'
-import SigninPage from 'pages/SigninPage/SigninPage'
-import SignupPage from 'pages/SignupPage/SignupPage'
+import Register from 'pages/Register'
 import VerificationPage from 'pages/VerificationPage/VerificationPage'
 
 const publicRoutes = [
     { path: '/', page: HomePage, layout: MainLayout },
-    { path: '/login', page: SigninPage, layout: LoginLayout },
-    { path: '/register', page: SignupPage, layout: LoginLayout },
+    { path: '/login', page: Login, layout: LoginLayout },
+    { path: '/register', page: Register, layout: LoginLayout },
     { path: '/verification', page: VerificationPage, layout: LoginLayout },
     { path: '/plants', page: PlantPage, layout: MainLayout },
     { path: '/plants/:id', page: DetailPage, layout: MainLayout },

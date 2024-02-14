@@ -1,26 +1,12 @@
 import VerificationForm from 'components/VerificationForm/VerificationForm'
-import * as styleMui from './VerificationPage.styled'
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import useScrollTo from 'hooks/useScrollTo'
+import * as styleMui from './VerificationPage.styled'
 
 function VerificationPage() {
-    const location = useLocation()
-    const searchParams = new URLSearchParams(location.search)
-
     //trigger animation khi scrollY
-    useEffect(() => {
-        let checkNav = true
+    useScrollTo(0, 100)
 
-        if (checkNav) {
-            window.scrollTo(0, 100)
-        }
-
-        // clean up func
-        return () => {
-            checkNav = false
-        }
-    }, [searchParams])
     return (
         <styleMui.container>
             <styleMui.Background>
