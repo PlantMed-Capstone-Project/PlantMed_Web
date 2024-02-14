@@ -4,7 +4,7 @@ import AboutUsPage from 'pages/AboutUsPage'
 import BlogListPage from 'pages/BlogDetail/BlogListPage'
 
 import BlogPage from 'pages/BlogPage/BlogPage'
-import CreateBlog from 'pages/CreateBlog/CreateBlog'
+import CreateBlog from 'pages/CreateBlog'
 import DetailPage from 'pages/DetailPage/DetailPage'
 import DetectionPage from 'pages/DetectionPage/DetectionPage'
 import HomePage from 'pages/HomePage'
