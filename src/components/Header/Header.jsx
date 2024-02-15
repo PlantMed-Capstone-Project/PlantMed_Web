@@ -10,13 +10,15 @@ import {
     Tooltip,
     Typography,
 } from '@mui/material'
-import { motion } from 'framer-motion'
-import { useState } from 'react'
 import avartarImage from 'Images/avatar.jpg'
 import logoImage from 'Images/logo.png'
+import { authAction } from 'app/reducers/auth'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { motion } from 'framer-motion'
+import useActions from 'hooks/useActions'
+import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import * as styleMui from './header.styled'
-import { Link, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
 
 const iconStyle = {
     height: '1.25rem',
@@ -24,13 +26,22 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-export default function Header({ typeHeader }) {
+export default function Header({ isLogin = false }) {
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
     const location = useLocation()
-    const [navItem, setNavItem] = useState()
+    const { logout } = useActions(authAction)
+    const { show } = useActions(snackbarAction)
+    const navigate = useNavigate()
 
-    const handleChange = (event, newValue) => {
+    const [navItem, setNavItem] = useState([
+        { id: 1, lable: 'TRANG CHỦ', link: '/' },
+        { id: 2, lable: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
+        { id: 3, lable: 'THỰC VẬT', link: '/plants' },
+        { id: 4, lable: 'VỀ CHÚNG TÔI', link: '/about-us' },
+    ])
+
+    const handleChange = (_, newValue) => {
         setValue(newValue)
     }
 
@@ -44,65 +55,60 @@ export default function Header({ typeHeader }) {
         }
     }
 
-    // kiểm tra đường dần tồn tại trên header
-    const checkHeader = () => {
-        if (typeHeader) {
-            setNavItem((state) => [
-                {
-                    lable: 'TRANG CHỦ',
-                    link: '/',
-                },
-                {
-                    lable: 'PHÁT HIỆN HÌNH ẢNH',
-                    link: '/predict',
-                },
-                {
-                    lable: 'BÀI VIẾT',
-                    link: '/blog',
-                },
-                {
-                    lable: 'THỰC VẬT',
-                    link: '/plants',
-                },
-                {
-                    lable: 'VỀ CHÚNG TÔI',
-                    link: '/about-us',
-                },
-            ])
-        } else {
-            setNavItem((state) => [
-                {
-                    lable: 'TRANG CHỦ',
-                    link: '/',
-                },
-                {
-                    lable: 'PHÁT HIỆN HÌNH ẢNH',
-                    link: '/predict',
-                },
-                {
-                    lable: 'THỰC VẬT',
-                    link: '/plants',
-                },
-                {
-                    lable: 'VỀ CHÚNG TÔI',
-                    link: '/about-us',
-                },
-            ])
-        }
-    }
-
     useEffect(() => {
         checkPath()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname])
 
     useEffect(() => {
-        checkHeader()
+        if (isLogin) {
+            setNavItem([
+                { id: 1, lable: 'TRANG CHỦ', link: '/' },
+                { id: 2, lable: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
+                { id: 3, lable: 'BÀI VIẾT', link: '/blog' },
+                { id: 4, lable: 'THỰC VẬT', link: '/plants' },
+                { id: 5, lable: 'VỀ CHÚNG TÔI', link: '/about-us' },
+            ])
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const handleLogout = () => {
+        logout()
+        show({
+            message: 'Đăng xuất thành công!',
+            severity: SNACKBAR_SEVERITY.SUCCESS,
+        })
+        navigate('/login')
+    }
+
+    const handleResetPassword = () => {
+        navigate('/reset-password')
+    }
+
+    const goToProfile = () => {
+        navigate('/profile')
+    }
+
     const menuItems = [
-        { icon: <SettingsIcon sx={iconStyle} />, text: 'Cài đặt tài khoản' },
-        { icon: <LockIcon sx={iconStyle} />, text: 'Thay đổi mật khẩu' },
-        { icon: <ExitToAppIcon sx={iconStyle} />, text: 'Đăng xuất' },
+        {
+            id: 1,
+            icon: <SettingsIcon sx={iconStyle} />,
+            text: 'Cài đặt tài khoản',
+            onClick: goToProfile,
+        },
+        {
+            id: 2,
+            icon: <LockIcon sx={iconStyle} />,
+            text: 'Thay đổi mật khẩu',
+            onClick: handleResetPassword,
+        },
+        {
+            id: 3,
+            icon: <ExitToAppIcon sx={iconStyle} />,
+            text: 'Đăng xuất',
+            onClick: handleLogout,
+        },
     ]
 
     return (
@@ -124,11 +130,13 @@ export default function Header({ typeHeader }) {
                 sx={{
                     height: '4.1875rem',
                     width: '7.375rem',
+                    cursor: 'pointer',
                 }}
+                onClick={() => navigate('/')}
             >
                 <img
                     src={logoImage}
-                    alt=""
+                    alt="logo"
                     style={{
                         height: '100%',
                         width: '100%',
@@ -155,11 +163,11 @@ export default function Header({ typeHeader }) {
                             },
                         }}
                     >
-                        {navItem?.map((item, idx) => (
+                        {navItem.map((item) => (
                             <Tab
                                 component={Link}
+                                key={item.id}
                                 to={item.link}
-                                key={idx}
                                 label={item.lable}
                                 sx={{ color: '#214400', fontWeight: '700' }}
                             />
@@ -176,7 +184,7 @@ export default function Header({ typeHeader }) {
                         height: '2.8125rem',
                         cursor: 'pointer',
                     }}
-                    onClick={() => setOpenPf((state) => !state.valueOf)}
+                    onClick={() => setOpenPf((prevState) => !prevState)}
                 />
             </Tooltip>
             {openPf && (
@@ -201,7 +209,7 @@ export default function Header({ typeHeader }) {
                                 color: '#214400',
                             }}
                         >
-                            QiQi
+                            PlantMed
                         </Typography>
                         <Typography
                             variant="caption"
@@ -224,14 +232,15 @@ export default function Header({ typeHeader }) {
                             p: '0.62rem 0 0 0.62rem',
                         }}
                     >
-                        {menuItems.map((item, index) => (
+                        {menuItems.map((item) => (
                             <Stack
-                                key={index}
+                                key={item.id}
                                 direction="row"
                                 alignItems="center"
                                 width="100%"
                                 spacing="0.44rem"
                                 sx={{ cursor: 'pointer' }}
+                                onClick={item.onClick}
                             >
                                 {item.icon}
                                 <Typography

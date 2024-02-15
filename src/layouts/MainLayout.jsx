@@ -1,18 +1,16 @@
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import * as S from './MainLayout.styled'
-import { checkCookie } from 'utils/cookie'
-import { useEffect } from 'react'
 
 const MainLayout = ({ children }) => {
     const spacingTop = 5
-
-    const checkHeader = () => checkCookie(ACCESS_TOKEN, REFRESH_TOKEN)
+    const { isLogin } = useShallowEqualSelector((state) => state.auth)
 
     return (
         <>
             <S.Header>
-                <Header typeHeader={checkHeader} />
+                <Header isLogin={isLogin} />
             </S.Header>
 
             <S.Main>{children}</S.Main>

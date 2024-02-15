@@ -26,28 +26,4 @@ function clearCookie(name) {
     createCookie(name, '', -1)
 }
 
-// lấy ra cookie với tên được truyền vào
-function getCookie(cname) {
-    let name = cname + '='
-    let decodedCookie = decodeURIComponent(document.cookie)
-    let ca = decodedCookie.split(';')
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i]
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1)
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length)
-        }
-    }
-    return ''
-}
-
-// condition cho việc check cookie
-function checkCookie(nameAccessC, nameRefreshC) {
-    let accessC = getCookie(nameAccessC)
-    let refreshC = getCookie(nameRefreshC)
-    return accessC != '' && refreshC != ''
-}
-
-export { createCookie, readCookie, clearCookie, checkCookie }
+export { createCookie, readCookie, clearCookie }
