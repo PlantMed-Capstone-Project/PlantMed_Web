@@ -24,10 +24,11 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-export default function Header() {
+export default function Header({ typeHeader }) {
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
     const location = useLocation()
+    const [navItem, setNavItem] = useState()
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
@@ -43,32 +44,60 @@ export default function Header() {
         }
     }
 
+    // kiểm tra đường dần tồn tại trên header
+    const checkHeader = () => {
+        if (typeHeader) {
+            setNavItem((state) => [
+                {
+                    lable: 'TRANG CHỦ',
+                    link: '/',
+                },
+                {
+                    lable: 'PHÁT HIỆN HÌNH ẢNH',
+                    link: '/predict',
+                },
+                {
+                    lable: 'BÀI VIẾT',
+                    link: '/blog',
+                },
+                {
+                    lable: 'THỰC VẬT',
+                    link: '/plants',
+                },
+                {
+                    lable: 'VỀ CHÚNG TÔI',
+                    link: '/about-us',
+                },
+            ])
+        } else {
+            setNavItem((state) => [
+                {
+                    lable: 'TRANG CHỦ',
+                    link: '/',
+                },
+                {
+                    lable: 'PHÁT HIỆN HÌNH ẢNH',
+                    link: '/predict',
+                },
+                {
+                    lable: 'THỰC VẬT',
+                    link: '/plants',
+                },
+                {
+                    lable: 'VỀ CHÚNG TÔI',
+                    link: '/about-us',
+                },
+            ])
+        }
+    }
+
     useEffect(() => {
         checkPath()
     }, [location.pathname])
 
-    const navItem = [
-        {
-            lable: 'TRANG CHỦ',
-            link: '/',
-        },
-        {
-            lable: 'PHÁT HIỆN HÌNH ẢNH',
-            link: '/predict',
-        },
-        {
-            lable: 'BÀI VIẾT',
-            link: '/blog',
-        },
-        {
-            lable: 'THỰC VẬT',
-            link: '/plants',
-        },
-        {
-            lable: 'VỀ CHÚNG TÔI',
-            link: '/about-us',
-        },
-    ]
+    useEffect(() => {
+        checkHeader()
+    }, [])
 
     const menuItems = [
         { icon: <SettingsIcon sx={iconStyle} />, text: 'Cài đặt tài khoản' },
