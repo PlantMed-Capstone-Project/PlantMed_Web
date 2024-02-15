@@ -22,7 +22,7 @@ function Editor({ value, onChange }) {
     }
 
     const formats = [ 
-        'header','font','size','bold','italic','underline','strike','blockquote','list','bullet','indent','link','image','video','code-block' 
+        'header', 'font', 'size', 'bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet', 'indent', 'link', 'image', 'video', 'code-block' 
     ]
 
     return (
@@ -35,7 +35,7 @@ function Editor({ value, onChange }) {
             value={value}
             onChange={onChange}
             style={{
-                height: '20rem',
+                height: '20rem', 
                 marginBottom: '3.125rem',
             }}
         />

@@ -1,29 +1,28 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { Box, Button, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import Editor from 'components/Editor/Editor'
-import { useEffect, useState } from 'react'
-import * as S from './CreateBlog.styled'
-import useActions from 'hooks/useActions'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import Editor from 'components/Editor/Editor'
+import useActions from 'hooks/useActions'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import * as S from './CreateBlog.styled'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
 
-    const init = {
+    const initialInputs = {
         title: '',
         content: '',
         thumbnail: '',
     }
 
-    const [inputs, setInputs] = useState(init)
-
-    const [error, setError] = useState({})
+    const [inputs, setInputs] = useState(initialInputs)
+    const [titleError, setTitleError] = useState('')
 
     const clearInput = () => {
-        setInputs(init)
+        setInputs(initialInputs)
     }
 
     // handle unload
@@ -65,14 +64,12 @@ function CreateBlog() {
     }
 
     const handleValidate = () => {
+        setTitleError('')
         let flag = true
 
         if (!inputs.title) {
             flag = false
-            setError((prevState) => ({
-                ...prevState,
-                title: 'Tiêu đề bài viết không được để trống!',
-            }))
+            setTitleError('Tiêu đề bài viết không được để trống!')
         } else if (!inputs.content) {
             flag = false
             show({
@@ -117,8 +114,8 @@ function CreateBlog() {
                         fullWidth
                         label="Tiêu đề bài viết"
                         value={inputs.title}
-                        error={error.title && inputs.title === ''}
-                        helperText={inputs.title ? '' : error.title}
+                        error={titleError && inputs.title === ''}
+                        helperText={inputs.title ? '' : titleError}
                         multiline
                         maxRows={4}
                         size="small"
@@ -147,9 +144,7 @@ function CreateBlog() {
                             <S.VisuallyHiddenInput
                                 type="file"
                                 onChange={handleFileChange}
-                                inputProps={{
-                                    accept: 'image/jpeg, image/png',
-                                }}
+                                inputProps={{ accept: 'image/jpeg, image/png' }}
                             />
                         </Button>
                         <Typography sx={{ marginLeft: '1.25rem' }}>
