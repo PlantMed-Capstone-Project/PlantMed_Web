@@ -16,7 +16,7 @@ import { authAction } from 'app/reducers/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import * as styleMui from './header.styled'
 
@@ -26,7 +26,7 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-export default function Header({ isLogin = false }) {
+function Header({ isLogin = false }) {
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
     const location = useLocation()
@@ -261,3 +261,5 @@ export default function Header({ isLogin = false }) {
         </Stack>
     )
 }
+
+export default React.memo(Header)
