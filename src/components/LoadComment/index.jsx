@@ -11,7 +11,7 @@ const styles = {
     },
 }
 
-function index(props) {
+function LoadComment(props) {
     return (
         <Box sx={{ marginTop: '2.125rem', width: '50%' }}>
             <Box sx={{ display: 'flex' }}>
@@ -51,4 +51,4 @@ function index(props) {
     )
 }
 
-export default index
+export default LoadComment

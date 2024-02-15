@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import { getIdBlog } from 'FakeData/plantData'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import imgDemo from 'Images/heroSen.jpg'
 import LoadComment from 'components/LoadComment'
-import Comment from 'components/UserComment'
+import UserComment from 'components/UserComment'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 function BlogDetail() {
     const params = useParams()
@@ -18,12 +18,8 @@ function BlogDetail() {
         setComment(event.target.value)
     }
     const handleSend = () => {
-        //console.log(comment)
+        console.log(comment)
     }
-    useEffect(() => {
-        // khi navigate sang trang khác phải sử dụng cái này để cho nó up to đầu trang
-        //window.scrollTo(0, 0)
-    })
     return (
         <Box
             component="section"
@@ -83,7 +79,7 @@ function BlogDetail() {
                 >
                     Nhận xét của bạn:
                 </Typography>
-                <Comment
+                <UserComment
                     name="Phuong"
                     onInputChange={handleChangeComment}
                     onSendClick={handleSend}

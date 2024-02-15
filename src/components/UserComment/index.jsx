@@ -6,7 +6,7 @@ import SendIcon from '@mui/icons-material/Send'
 import IconButton from '@mui/material/IconButton'
 const ariaLabel = { 'aria-label': 'description' }
 
-function index({ name, onInputChange, onSendClick, ...props }) {
+function UserComment({ name, onInputChange, onSendClick, ...props }) {
     return (
         <Box sx={{ marginTop: '2.125rem', width: '50%' }}>
             <Box sx={{ display: 'flex' }}>
@@ -59,4 +59,4 @@ function index({ name, onInputChange, onSendClick, ...props }) {
     )
 }
 
-export default index
+export default UserComment
