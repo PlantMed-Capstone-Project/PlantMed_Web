@@ -17,8 +17,7 @@ import { v4 as uuidv4 } from 'uuid'
 import * as styleMui from './HomePage.styled'
 
 export default function HomePage() {
-    const spacingTop = 5
-
+  
     const plants = [
         {
             id: 1,
