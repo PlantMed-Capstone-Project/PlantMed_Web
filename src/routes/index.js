@@ -1,29 +1,33 @@
 import LoginLayout from 'layouts/LoginLayout'
 import MainLayout from 'layouts/MainLayout'
+import AboutUsPage from 'pages/AboutUsPage'
+import BlogListPage from 'pages/BlogList'
 
 import BlogPage from 'pages/BlogPage/BlogPage'
 import DetailPage from 'pages/DetailPage/DetailPage'
 import DetectionPage from 'pages/DetectionPage/DetectionPage'
 import HomePage from 'pages/HomePage'
+import Login from 'pages/Login'
 import PlantPage from 'pages/Plant/PlantPage'
-import SigninPage from 'pages/SigninPage/SigninPage'
-import SignupPage from 'pages/SignupPage/SignupPage'
+import Register from 'pages/Register'
+import VerificationPage from 'pages/VerificationPage/VerificationPage'
 
 const publicRoutes = [
     { path: '/', page: HomePage, layout: MainLayout },
-    { path: '/login', page: SigninPage, layout: LoginLayout },
-    { path: '/register', page: SignupPage, layout: LoginLayout },
+    { path: '/login', page: Login, layout: LoginLayout },
+    { path: '/register', page: Register, layout: LoginLayout },
+    { path: '/verification', page: VerificationPage, layout: LoginLayout },
     { path: '/plants', page: PlantPage, layout: MainLayout },
-    { path: '/detail', page: DetailPage, layout: MainLayout },
-    { path: '/about-us', page: 'about us here', layout: MainLayout },
+    { path: '/plants/:id', page: DetailPage, layout: MainLayout },
+    { path: '/about-us', page: AboutUsPage, layout: MainLayout },
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
+    { path: '/bloglist', page: BlogListPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
 ]
 
 const privateRoutes = [
     { path: '/blog', page: BlogPage, layout: MainLayout },
     { path: '/blog/:id', page: 'detail blog here', layout: MainLayout },
-    // { path: '/predict', page: DetectionPage, layout: MainLayout },
     { path: '/profile', page: 'profile page here', layout: MainLayout },
 ]
 
-export { publicRoutes, privateRoutes }
+export { privateRoutes, publicRoutes }

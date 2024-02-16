@@ -1,3 +1,8 @@
+/**
+ * Sử dụng để format string có ký tự utf8
+ * @param {*} str string
+ * @returns string
+ */
 export const formatText = (str) => {
     return str
         .toLowerCase()
@@ -14,9 +19,9 @@ export const formatText = (str) => {
 }
 
 /**
- * For API setup
- * @param {*} obj
- * @returns
+ * Sử dụng cho api yêu cầu multipart
+ * @param {*} obj object
+ * @returns FormData
  */
 export function objectToFormData(obj) {
     const formData = new FormData()
@@ -26,4 +31,51 @@ export function objectToFormData(obj) {
     })
 
     return formData
+}
+
+/**
+ * Dùng chuyển đổi image sang dạng chuỗi base64.
+ * Cách sử dụng:
+ * ```js
+ * imageToBase64(files[0], function(result) {
+ *      setState(result)
+ * })
+ * ```
+ * @param {*} file Image file
+ * @param {*} callback function, useState
+ */
+export const imageToBase64 = (file, callback) => {
+    let xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        let reader = new FileReader()
+        reader.onloadend = function () {
+            callback(reader.result.split(',')[1])
+        }
+        reader.readAsDataURL(xhr.response)
+    }
+    xhr.open('GET', file)
+    xhr.responseType = 'blob'
+    xhr.send()
+}
+
+/**
+ * Chuyển đổi chuỗi base64 thành file hình ảnh
+ * @param {*} str string
+ * @returns Image
+ */
+export const base64ToImage = (str) => {
+    const img = new Image()
+    img.src = `data:image/png;base64,${str}`
+    return img
+}
+
+/**
+ * Chuyển đổi accessToken thành 1 đối tượng
+ * @param {*} token string
+ * @returns object
+ */
+export const parseJwt = (token) => {
+    return token
+        ? JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+        : ''
 }

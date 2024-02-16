@@ -1,4 +1,3 @@
-import CheckIcon from '@mui/icons-material/Check'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import SendIcon from '@mui/icons-material/Send'
 import {
@@ -9,9 +8,9 @@ import {
     Stack,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import axios from 'axios'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { predict } from 'rest/api/predict'
 import * as styleMui from './UploadImage.styled'
 
 const VisuallyHiddenInput = styled('input')({
@@ -30,8 +29,8 @@ function UploadImage() {
     const [imageLoaded, setImageLoaded] = useState()
     const [imaePush, setImagePush] = useState()
     const [loading, setLoading] = useState(false)
-    const [slide, setSlide] = useState(false)
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']
+    // const [slide, setSlide] = useState(false)
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
     const handleFileChange = (event) => {
         if (
@@ -39,23 +38,16 @@ function UploadImage() {
             allowedTypes.includes(event.target.files[0].type)
         ) {
             setImageLoaded(URL.createObjectURL(event.target.files[0]))
+            // đổi thành base64 string rồi quăng lại cho server
             setImagePush(event.target.files[0])
         }
     }
 
     const uploadFile = async () => {
         setLoading(true)
-        setSlide(true)
-        const fd = new FormData()
-        fd.append('file', imaePush)
+        // setSlide(true)
         try {
-            let res = await axios.post(
-                'https://predict-qj5v.onrender.com/upload',
-                fd,
-                {
-                    headers: { 'Content-type': 'multipart/form-data' },
-                }
-            )
+            const res = await predict({ file: imaePush })
             return res
         } catch (error) {
             console.log(error)

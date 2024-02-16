@@ -1,5 +1,5 @@
-import { Box, Typography, styled } from '@mui/material'
-import backgroundImage from 'Images/heroSen.jpg'
+import { Box, styled } from '@mui/material'
+import backgroundImage from 'Images/cannabis.png'
 
 export const Background = styled(Box)(() => ({
     backgroundImage: `url(${backgroundImage})`,
@@ -20,19 +20,11 @@ export const container = styled(Box)(() => ({
     justifyContent: 'center',
 }))
 
-export const Title = styled(Typography)(() => ({
-    textAlign: 'center',
-    fontSize: '2.5rem',
-    fontWeight: '900',
-    color: '#FFF',
-    lineHeight: 'normal',
-    width: '100%',
+export const formContainer = styled(Box)(() => ({
+    paddingLeft: '10rem',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 }))
 
-export const Note = styled(Typography)(() => ({
-    textAlign: 'center',
-    fontSize: '1.5rem',
-    fontWeight: '200',
-    fontStyle: 'italic',
-    color: '#FFF',
-}))
