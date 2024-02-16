@@ -1,7 +1,6 @@
 import { CardContent, CardMedia, Stack, Typography } from '@mui/material'
-import demoImage from 'Images/herogreen.jpg'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import * as muiStyle from './MoreBlog.styled'
 
 const itemWithStagger = {
@@ -69,7 +68,9 @@ export default function MoreBlog({ data }) {
                                 variant="body2"
                                 sx={{ fontSize: '0.6rem' }}
                             >
-                                {vl.des.length <= 120 ? vl.des : vl.des.slice(0, 120) + '...'}
+                                {vl.des.length <= 120
+                                    ? vl.des
+                                    : vl.des.slice(0, 120) + '...'}
                             </Typography>
                         </CardContent>
                     </muiStyle.cardBox>

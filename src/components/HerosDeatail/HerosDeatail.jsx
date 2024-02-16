@@ -2,7 +2,7 @@ import { CardMedia } from '@mui/material'
 import hienNhanImage from 'Images/hiền nhân.jpg'
 import * as styleMui from './heroDetail.styled'
 
-export default function HerosDeatail({}) {
+export default function HerosDeatail() {
     return (
         <styleMui.BoxImg mt="0.88rem" width="72.75rem" height="13.75rem">
             <CardMedia

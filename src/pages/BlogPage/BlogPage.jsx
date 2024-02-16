@@ -7,14 +7,6 @@ import JoinBlog from 'components/JoinBlog/JoinBlog'
 import MyBlog from 'components/MyBlog/MyBlog'
 
 function BlogPage() {
-    const nav = [
-        'TRANG CHỦ',
-        'PHÁT HIỆN HÌNH ẢNH',
-        'BÀI VIẾT',
-        'THỰC VẬT',
-        'VỀ CHÚNG TÔI',
-    ]
-
     const blogData = [
         {
             id: 1,

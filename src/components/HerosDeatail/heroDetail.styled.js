@@ -1,5 +1,4 @@
 import { Box, Typography, styled } from '@mui/material'
-import hienNhan from 'Images/hiền nhân.jpg'
 
 export const BoxImg = styled(Box)(() => ({
     borderRadius: '0.625rem',
@@ -17,5 +16,5 @@ export const TextHero = styled(Typography)(() => ({
     top: ' 50%',
     left: '50%',
     transform: 'translate(-50%,-50%)',
-    width:"40.75rem"
+    width: '40.75rem',
 }))

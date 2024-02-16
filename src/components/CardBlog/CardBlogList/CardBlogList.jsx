@@ -66,7 +66,7 @@ const CardBlogList = ({ item }) => {
                 <styleMui.ctnATag>
                     <styleMui.boxAvatar>
                         {/*Kiểm tra avatar có tồn tại hay khum */}
-                        {item.avartar != '' ? (
+                        {item.avartar !== '' ? (
                             <styleMui.avatarImage
                                 alt="Remy Sharp"
                                 src={item.avartar}
