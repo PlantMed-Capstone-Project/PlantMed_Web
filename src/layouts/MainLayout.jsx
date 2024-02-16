@@ -8,7 +8,7 @@ const MainLayout = ({ children }) => {
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
 
     return (
-        <>
+        <S.Root>
             <S.Header>
                 <Header isLogin={isLogin} />
             </S.Header>
@@ -18,7 +18,7 @@ const MainLayout = ({ children }) => {
             <S.Footer>
                 <Footer topspacing={spacingTop} />
             </S.Footer>
-        </>
+        </S.Root>
     )
 }
 
