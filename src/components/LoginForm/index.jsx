@@ -100,6 +100,10 @@ export default function LoginForm() {
 
     const onSubmit = async () => {
         try {
+            show({
+                message: 'Vui lòng đợi giấy lát!',
+                autoHideDuration: 500,
+            })
             const response = await authLogin(inputs)
             login(response.data)
             show({

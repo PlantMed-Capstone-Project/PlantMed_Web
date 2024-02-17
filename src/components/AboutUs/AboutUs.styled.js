@@ -73,7 +73,7 @@ export const Avatar = styled(Box)({
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    width: '23.5rem',
+    width: '22.5rem',
     height: '17.063rem',
     display: 'flex',
     alignItems: 'center',
