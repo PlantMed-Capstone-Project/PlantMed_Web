@@ -15,7 +15,6 @@ export const Header = styled(Box)({
 export const Main = styled(Box)({
     gridArea: 'main',
     width: '100%',
-    overflowX: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -3,7 +3,6 @@ import presentImage from 'Images/groupImage.png'
 
 export const arrangeContainer = styled(Box)({
     width: '100%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
