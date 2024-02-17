@@ -17,6 +17,17 @@ export default function MapLayout({ data }) {
     const [showShops, setShowShop] = useState(false)
     const ref = useRef()
 
+    const filterLocationOverUser = data.filter((vl) => {
+        const [lat, long] = vl.position
+        const distance = getDistanceFromLatLonInKm(
+            userLocation.coordinate.lat,
+            userLocation.coordinate.lng,
+            lat,
+            long
+        )
+        return distance <= 100000
+    })
+
     const handleShowPlants = () => {
         setShowPlant(true)
         setShowShop(false)
