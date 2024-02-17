@@ -14,10 +14,15 @@ export const Header = styled(Box)({
 
 export const Main = styled(Box)({
     gridArea: 'main',
-    minWidth: '100vh',
+    width: '100%',
+    overflowX: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
 })
 
 export const Footer = styled(Box)({
     gridArea: 'footer',
+    width: '100%',
     // width: 'calc(100vw - 17px)',
 })

@@ -35,6 +35,7 @@ function CardBlog({ data, valueSearch, positions }) {
         return () => {
             searching = false
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valueSearch])
 
     // xử lý các giá trị scroll
@@ -54,6 +55,7 @@ function CardBlog({ data, valueSearch, positions }) {
         return () => {
             window.removeEventListener('scroll', handleScroll)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // xac dinh so trang

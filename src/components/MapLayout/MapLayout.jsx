@@ -7,14 +7,14 @@ import { GestureHandling } from 'leaflet-gesture-handling'
 import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'
 import { useRef, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Bounce, ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import * as muiStyle from './MapLayout.styled'
 import MarkMaps from './MarkMaps/MarkMaps'
-import { ToastContainer, toast, Bounce } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 export default function MapLayout({ data }) {
     const [showPlants, setShowPlant] = useState(false)
-    const [showShops, setShowShop] = useState(false)
+    // const [showShops, setShowShop] = useState(false)
     const ref = useRef()
 
     const filterLocationOverUser = data.filter((vl) => {
@@ -30,12 +30,12 @@ export default function MapLayout({ data }) {
 
     const handleShowPlants = () => {
         setShowPlant(true)
-        setShowShop(false)
+        // setShowShop(false)
     }
 
     const handleShowShops = () => {
         setShowPlant(false)
-        setShowShop(true)
+        // setShowShop(true)
     }
 
     const center = { lat: 14.0583, long: 108.2772 }
