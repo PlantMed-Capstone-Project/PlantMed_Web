@@ -13,10 +13,10 @@ import {
 import avartarImage from 'Images/avatar.jpg'
 import logoImage from 'Images/logo.png'
 import { authAction } from 'app/reducers/auth'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { snackbarAction } from 'app/reducers/snackbar'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import * as styleMui from './header.styled'
 
@@ -26,7 +26,7 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-function Header({ isLogin = false }) {
+function Header({ isLogin }) {
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
     const location = useLocation()
@@ -34,12 +34,7 @@ function Header({ isLogin = false }) {
     const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
 
-    const [navItem, setNavItem] = useState([
-        { id: 1, lable: 'TRANG CHỦ', link: '/' },
-        { id: 2, lable: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
-        { id: 3, lable: 'THỰC VẬT', link: '/plants' },
-        { id: 4, lable: 'VỀ CHÚNG TÔI', link: '/about-us' },
-    ])
+    const [navItem, setNavItem] = useState([])
 
     const handleChange = (_, newValue) => {
         setValue(newValue)
@@ -60,7 +55,7 @@ function Header({ isLogin = false }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname])
 
-    useEffect(() => {
+    const navbars = () => {
         if (isLogin) {
             setNavItem([
                 { id: 1, lable: 'TRANG CHỦ', link: '/' },
@@ -69,16 +64,38 @@ function Header({ isLogin = false }) {
                 { id: 4, lable: 'THỰC VẬT', link: '/plants' },
                 { id: 5, lable: 'VỀ CHÚNG TÔI', link: '/about-us' },
             ])
+        } else {
+            setNavItem([
+                { id: 1, lable: 'TRANG CHỦ', link: '/' },
+                { id: 2, lable: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
+                { id: 3, lable: 'THỰC VẬT', link: '/plants' },
+                { id: 4, lable: 'VỀ CHÚNG TÔI', link: '/about-us' },
+            ])
         }
+    }
+
+    useEffect(() => {
+        navbars()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const Navbars = useMemo(
+        () =>
+            navItem.map((item) => (
+                <Tab
+                    component={Link}
+                    key={item.id}
+                    to={item.link}
+                    label={item.lable}
+                    sx={{ color: '#214400', fontWeight: '700' }}
+                />
+            )),
+        [navItem]
+    )
+
     const handleLogout = () => {
         logout()
-        show({
-            message: 'Đăng xuất thành công!',
-            severity: SNACKBAR_SEVERITY.SUCCESS,
-        })
+        show({ message: 'Đã đăng xuất!' })
         navigate('/login')
     }
 
@@ -163,15 +180,7 @@ function Header({ isLogin = false }) {
                             },
                         }}
                     >
-                        {navItem.map((item) => (
-                            <Tab
-                                component={Link}
-                                key={item.id}
-                                to={item.link}
-                                label={item.lable}
-                                sx={{ color: '#214400', fontWeight: '700' }}
-                            />
-                        ))}
+                        {Navbars}
                     </Tabs>
                 </Box>
             </Stack>

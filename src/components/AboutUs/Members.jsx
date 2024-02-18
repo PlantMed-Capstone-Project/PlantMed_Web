@@ -17,23 +17,21 @@ const RenderAvatar = ({ name, studentId }) => {
 
 const AboutUsMember = ({ title, listTop, listBot }) => {
     return (
-        <>
-            <S.memberPlace>
-                <S.memberTitle>{title}</S.memberTitle>
-                <S.avatarPlace1>
-                    {listTop &&
-                        listTop.map((obj) => (
-                            <RenderAvatar key={obj.id} {...obj} />
-                        ))}
-                </S.avatarPlace1>
-                <S.avatarPlace2>
-                    {listBot &&
-                        listBot.map((obj) => (
-                            <RenderAvatar key={obj.id} {...obj} />
-                        ))}
-                </S.avatarPlace2>
-            </S.memberPlace>
-        </>
+        <S.memberPlace>
+            <S.memberTitle>{title}</S.memberTitle>
+            <S.avatarPlace1>
+                {listTop &&
+                    listTop.map((obj) => (
+                        <RenderAvatar key={obj.id} {...obj} />
+                    ))}
+            </S.avatarPlace1>
+            <S.avatarPlace2>
+                {listBot &&
+                    listBot.map((obj) => (
+                        <RenderAvatar key={obj.id} {...obj} />
+                    ))}
+            </S.avatarPlace2>
+        </S.memberPlace>
     )
 }
 

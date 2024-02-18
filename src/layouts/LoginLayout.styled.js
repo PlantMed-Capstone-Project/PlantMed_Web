@@ -3,7 +3,7 @@ import { Box, styled } from '@mui/material'
 export const Root = styled(Box)({
     display: 'grid',
     gridAutoRows: '100px 1fr',
-    gridTemplateAreas: `"header" " main"`,
+    gridTemplateAreas: `"header" "main"`,
     minHeight: '100vh',
 })
 
