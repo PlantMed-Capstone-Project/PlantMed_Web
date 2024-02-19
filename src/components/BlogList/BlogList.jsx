@@ -1,4 +1,4 @@
-import { Box, CardActionArea, Typography } from '@mui/material'
+import { Box, CardActionArea, Typography, Button } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -87,10 +87,15 @@ function BlogList({ blogData }) {
                     </Grid>
                 ))}
             </Grid>
-            <Box sx={{ textAlign: 'center', marginTop: '1.25rem' }}>
-                <Link component="button" to="/bloglist">
+            <Box sx={{ textAlign: 'center', marginTop: '3.125rem' }}>
+                <Button
+                    variant="contained"
+                    color="success"
+                    component={Link}
+                    to="/bloglist"
+                >
                     Xem thêm bài viết
-                </Link>
+                </Button>
             </Box>
         </Box>
     )

@@ -2,15 +2,16 @@ import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto'
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { useEffect, useRef, useState } from 'react'
-import * as styleMui from './CardBlogList.styled'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import * as styleMui from './CardBlogList.styled'
 
 const CardBlogList = ({ item }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
+    const navigate = useNavigate()
 
     const popupRef = useRef()
 
@@ -34,6 +35,9 @@ const CardBlogList = ({ item }) => {
         console.log(value)
     }
 
+    const handleRedirect = (id) => {
+        navigate(`/blog/${id}`)
+    }
     return (
         <styleMui.container>
             {showPopup && (
@@ -99,33 +103,31 @@ const CardBlogList = ({ item }) => {
             {/* End first phase of this card */}
 
             {/* Start seccond phase of this card */}
-            <Link to={`../blog/${item.id}`} style={{ textDecoration: 'none' }}>
-                <styleMui.ctnBody>
-                    {/* Start phase text */}
-                    <styleMui.containtText>
-                        <styleMui.title>{item.title}</styleMui.title>
-                        <styleMui.description>
-                            {item.description.length > 300
-                                ? item.description.slice(0, 300) + '...'
-                                : item.description}
-                        </styleMui.description>
-                    </styleMui.containtText>
-                    {/* End phase text */}
+            <styleMui.ctnBody onClick={() => handleRedirect(item.id)}>
+                {/* Start phase text */}
+                <styleMui.containtText>
+                    <styleMui.title>{item.title}</styleMui.title>
+                    <styleMui.description>
+                        {item.description.length > 300
+                            ? item.description.slice(0, 300) + '...'
+                            : item.description}
+                    </styleMui.description>
+                </styleMui.containtText>
+                {/* End phase text */}
 
-                    {/* Start phase image */}
-                    <styleMui.boxImage
-                        onMouseEnter={() => setIsHover(true)}
-                        onMouseLeave={() => setIsHover(false)}
-                    >
-                        <styleMui.mainImage
-                            ishover={isHover}
-                            image={item.image}
-                            title="green iguana"
-                        />
-                    </styleMui.boxImage>
-                    {/* End phase image */}
-                </styleMui.ctnBody>
-            </Link>
+                {/* Start phase image */}
+                <styleMui.boxImage
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                >
+                    <styleMui.mainImage
+                        ishover={isHover}
+                        image={item.image}
+                        title="green iguana"
+                    />
+                </styleMui.boxImage>
+                {/* End phase image */}
+            </styleMui.ctnBody>
             {/* End seccond phase of this card */}
 
             {/* Start Third phase of this card */}
@@ -136,14 +138,11 @@ const CardBlogList = ({ item }) => {
                     />
                     <styleMui.quantityLike>100</styleMui.quantityLike>
                 </styleMui.likeContainer>
-                <Link
-                    to={`../blog/${item.id}`}
-                    style={{ display: 'flex', alignItems: 'center' }}
-                >
+                <styleMui.commentBox onClick={() => handleRedirect(item.id)}>
                     <ChatBubbleOutlineIcon
                         sx={{ cursor: 'pointer', color: '#69AD28' }}
                     />
-                </Link>
+                </styleMui.commentBox>
             </styleMui.ctnBottom>
             {/* End Third phase of this card */}
         </styleMui.container>
