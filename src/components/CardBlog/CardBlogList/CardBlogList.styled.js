@@ -44,7 +44,7 @@ export const nameUser = styled(Typography)(() => ({
 export const ctnBody = styled(Box)(() => ({
     display: 'flex',
     width: '100%',
-    height: '12rem',
+    height: '8.5rem',
     gap: '1rem',
 }))
 

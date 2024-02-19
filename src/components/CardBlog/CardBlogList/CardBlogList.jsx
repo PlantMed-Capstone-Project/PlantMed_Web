@@ -5,6 +5,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlogList.styled'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const CardBlogList = ({ item }) => {
     const [showPopup, setShowPopup] = useState(false)
@@ -98,31 +99,33 @@ const CardBlogList = ({ item }) => {
             {/* End first phase of this card */}
 
             {/* Start seccond phase of this card */}
-            <styleMui.ctnBody>
-                {/* Start phase text */}
-                <styleMui.containtText>
-                    <styleMui.title>{item.title}</styleMui.title>
-                    <styleMui.description>
-                        {item.description.length > 300
-                            ? item.description.slice(0, 300) + '...'
-                            : item.description}
-                    </styleMui.description>
-                </styleMui.containtText>
-                {/* End phase text */}
+            <Link to={`../blog/${item.id}`} style={{ textDecoration: 'none' }}>
+                <styleMui.ctnBody>
+                    {/* Start phase text */}
+                    <styleMui.containtText>
+                        <styleMui.title>{item.title}</styleMui.title>
+                        <styleMui.description>
+                            {item.description.length > 300
+                                ? item.description.slice(0, 300) + '...'
+                                : item.description}
+                        </styleMui.description>
+                    </styleMui.containtText>
+                    {/* End phase text */}
 
-                {/* Start phase image */}
-                <styleMui.boxImage
-                    onMouseEnter={() => setIsHover(true)}
-                    onMouseLeave={() => setIsHover(false)}
-                >
-                    <styleMui.mainImage
-                        ishover={isHover}
-                        image={item.image}
-                        title="green iguana"
-                    />
-                </styleMui.boxImage>
-                {/* End phase image */}
-            </styleMui.ctnBody>
+                    {/* Start phase image */}
+                    <styleMui.boxImage
+                        onMouseEnter={() => setIsHover(true)}
+                        onMouseLeave={() => setIsHover(false)}
+                    >
+                        <styleMui.mainImage
+                            ishover={isHover}
+                            image={item.image}
+                            title="green iguana"
+                        />
+                    </styleMui.boxImage>
+                    {/* End phase image */}
+                </styleMui.ctnBody>
+            </Link>
             {/* End seccond phase of this card */}
 
             {/* Start Third phase of this card */}
@@ -133,9 +136,14 @@ const CardBlogList = ({ item }) => {
                     />
                     <styleMui.quantityLike>100</styleMui.quantityLike>
                 </styleMui.likeContainer>
-                <ChatBubbleOutlineIcon
-                    sx={{ cursor: 'pointer', color: '#69AD28' }}
-                />
+                <Link
+                    to={`../blog/${item.id}`}
+                    style={{ display: 'flex', alignItems: 'center' }}
+                >
+                    <ChatBubbleOutlineIcon
+                        sx={{ cursor: 'pointer', color: '#69AD28' }}
+                    />
+                </Link>
             </styleMui.ctnBottom>
             {/* End Third phase of this card */}
         </styleMui.container>

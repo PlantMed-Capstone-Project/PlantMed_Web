@@ -1,13 +1,8 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { Box, CardActionArea, Typography } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
-import Pagination from '@mui/material/Pagination'
-import PaginationItem from '@mui/material/PaginationItem'
-import Stack from '@mui/material/Stack'
 import plant from 'Images/heroSen.jpg'
 import { Link } from 'react-router-dom'
 
@@ -92,24 +87,11 @@ function BlogList({ blogData }) {
                     </Grid>
                 ))}
             </Grid>
-            <Stack
-                spacing={2}
-                sx={{ margin: '3rem 0 6.25rem 0', alignItems: 'center' }}
-            >
-                <Pagination
-                    count={10}
-                    color="success"
-                    renderItem={(item) => (
-                        <PaginationItem
-                            slots={{
-                                previous: ArrowBackIcon,
-                                next: ArrowForwardIcon,
-                            }}
-                            {...item}
-                        />
-                    )}
-                />
-            </Stack>
+            <Box sx={{ textAlign: 'center', marginTop: '1.25rem' }}>
+                <Link component="button" to="/bloglist">
+                    Xem thêm bài viết
+                </Link>
+            </Box>
         </Box>
     )
 }

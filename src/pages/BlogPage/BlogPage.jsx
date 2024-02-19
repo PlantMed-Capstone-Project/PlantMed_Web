@@ -7,14 +7,6 @@ import JoinBlog from 'components/JoinBlog/JoinBlog'
 import MyBlog from 'components/MyBlog/MyBlog'
 
 function BlogPage() {
-    const nav = [
-        'TRANG CHỦ',
-        'PHÁT HIỆN HÌNH ẢNH',
-        'BÀI VIẾT',
-        'THỰC VẬT',
-        'VỀ CHÚNG TÔI',
-    ]
-
     const blogData = [
         {
             id: 1,
@@ -95,20 +87,6 @@ function BlogPage() {
         },
         {
             id: 8,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 9,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 10,
             title: 'Cầu Kỳ Tử',
             image: imgDemo,
             description:
