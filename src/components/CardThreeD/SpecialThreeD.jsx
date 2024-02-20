@@ -62,6 +62,7 @@ function SpecialThreeD({ offset, showArrows, width, height, margin, cards }) {
 
             {btnTriggerSlide.map((vl, idx) => (
                 <styleMui.ContainerIcon
+                    key={vl.id}
                     id={vl.id}
                     ishover={btnHover}
                     onClick={vl.id === 1 ? prvSlide : nextSlide}

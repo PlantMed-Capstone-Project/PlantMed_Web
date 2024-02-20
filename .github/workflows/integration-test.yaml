@@ -1,9 +1,9 @@
-name: Unit Tests
+name: Integration Tests
 
 on:
     pull_request:
         branches: ['develop']
-        paths: ['**.test.js']
+        paths: ['**.spec.js']
 
 jobs:
     build:
