@@ -2,16 +2,10 @@ name: Unit Tests
 
 on:
     pull_request:
-        branches:
-            - 'test/**'
-        paths:
-            - '**/.test.js'
+        branches: ['develop']
 
     pull_request_review_comment:
-        branches:
-            - 'test/**'
-        paths:
-            - '**.test.js'
+        branches: ['develop']
 
 jobs:
     build:
