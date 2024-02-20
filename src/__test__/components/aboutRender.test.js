@@ -1,3 +1,3 @@
-test('first test', () => {
+test('should render about', () => {
     expect(true).toBe(true)
 })

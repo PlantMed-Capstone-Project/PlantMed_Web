@@ -1,3 +1,3 @@
-test('sum numbers', () => {
+test('should render app', () => {
     expect('test').toBe('test')
 })
