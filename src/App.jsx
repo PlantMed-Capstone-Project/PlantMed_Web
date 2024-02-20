@@ -7,7 +7,6 @@ import NotFound from 'components/NotFound'
 import ReduxContainer from 'components/ReduxContainer'
 import { LoginRoute, PrivateRoute } from 'components/Routers'
 import { privateRoutes, publicRoutes } from 'routes'
-import './App.css'
 
 function App() {
     return (
