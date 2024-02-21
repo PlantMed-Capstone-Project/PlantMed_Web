@@ -80,11 +80,12 @@ function CreateBlog() {
     const handleValidate = () => {
         setTitleError('')
         let flag = true
-
-        if (!inputs.title) {
+        if (!inputs.title.trim()) {
             flag = false
             setTitleError('Tiêu đề bài viết không được để trống!')
-        } else if (!inputs.content) {
+        } else if (
+            inputs.content.replace(/<(.|\n)*?>/g, '').trim().length === 0
+        ) {
             flag = false
             show({
                 message: 'Nội dung bài viết không được để trống!',
@@ -128,8 +129,8 @@ function CreateBlog() {
                         fullWidth
                         label="Tiêu đề bài viết"
                         value={inputs.title}
-                        error={titleError && inputs.title === ''}
-                        helperText={inputs.title ? '' : titleError}
+                        error={titleError && inputs.title.trim() === ''}
+                        helperText={inputs.title.trim() ? '' : titleError}
                         multiline
                         maxRows={4}
                         size="small"

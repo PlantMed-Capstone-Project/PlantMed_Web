@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ReactQuill, { Quill } from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import ImageResize from 'quill-image-resize-module-react'
@@ -7,6 +7,18 @@ window.Quill = Quill
 function Editor({ value, onChange }) {
     const reactQuillRef = useRef()
     Quill.register('modules/imageResize', ImageResize)
+    const [editorHeight, setEditorHeight] = useState(200)
+
+    const updateEditorHeight = () => {
+        if (reactQuillRef.current) {
+            const editor = reactQuillRef.current.getEditor()
+            const newHeight = Math.max(editor.root.scrollHeight, 200)
+            setEditorHeight(newHeight)
+        }
+    }
+    useEffect(() => {
+        updateEditorHeight()
+    }, [value])
 
     const modules = {
         toolbar: {
@@ -20,7 +32,7 @@ function Editor({ value, onChange }) {
             ],
         },
         clipboard: {
-            matchVisual: false,
+            matchVisual: true,
         },
         imageResize: {
             parchment: Quill.import('parchment'),
@@ -56,7 +68,7 @@ function Editor({ value, onChange }) {
             value={value}
             onChange={onChange}
             style={{
-                height: 'auto',
+                height: editorHeight,
                 marginBottom: '3.125rem',
             }}
         />

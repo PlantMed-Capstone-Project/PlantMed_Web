@@ -22,7 +22,7 @@ export default function MultipleSelect({ onChange }) {
 
     return (
         <Autocomplete
-            sx={{ m: 1, width: 500 }}
+            sx={{ width: 500, marginBottom: '1.25rem' }}
             multiple
             id="tags-standard"
             options={Object.values(names)}
@@ -39,7 +39,7 @@ export default function MultipleSelect({ onChange }) {
                     {...props}
                 >
                     {option.name}
-                    {selected ? <CheckIcon color="info" /> : null}
+                    {selected && <CheckIcon color="info" />}
                 </MenuItem>
             )}
             renderInput={(params) => (
