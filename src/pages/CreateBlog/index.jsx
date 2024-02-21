@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as S from './CreateBlog.styled'
 import MultipleSelect from 'components/MutipleSelect'
-import { base64ToImage } from 'utils/imageHanlder'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
@@ -17,7 +16,7 @@ function CreateBlog() {
     const initialInputs = {
         title: '',
         content: '',
-        thumbnail: '',
+        image: '',
         tag: '',
     }
 
@@ -46,22 +45,26 @@ function CreateBlog() {
 
     const handleFileChange = (event) => {
         const files = event.target.files
+        console.log(files)
         const reader = new FileReader()
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
-        const isInclude = allowedTypes.includes(files[0].type)
-
-        if (files.length > 0 && isInclude) {
-            reader.onloadend = () => {
-                // The result property contains the base64 representation of the file
-                const base64String = reader.result
-                setInputs((prevState) => ({
-                    ...prevState,
-                    thumbnail: base64String,
-                }))
-                setImageText(files[0].name)
+        try {
+            const isInclude = allowedTypes.includes(files[0].type)
+            if (files.length > 0 && isInclude) {
+                reader.onloadend = () => {
+                    // The result property contains the base64 representation of the file
+                    const base64String = reader.result
+                    setInputs((prevState) => ({
+                        ...prevState,
+                        image: base64String,
+                    }))
+                    setImageText(files[0].name)
+                }
             }
+            reader.readAsDataURL(files[0])
+        } catch (e) {
+            setImageText('')
         }
-        reader.readAsDataURL(files[0])
     }
 
     const handleTextChange = (type, value) => {
@@ -75,17 +78,18 @@ function CreateBlog() {
                 tag: value.map((plantId) => ({ plantId })),
             }))
         }
+        console.log(inputs.image)
     }
 
     const handleValidate = () => {
         setTitleError('')
+        const validContent =
+            inputs.content.replace(/<(.|\n)*?>/g, '').trim().length === 0
         let flag = true
         if (!inputs.title.trim()) {
             flag = false
             setTitleError('Tiêu đề bài viết không được để trống!')
-        } else if (
-            inputs.content.replace(/<(.|\n)*?>/g, '').trim().length === 0
-        ) {
+        } else if (validContent) {
             flag = false
             show({
                 message: 'Nội dung bài viết không được để trống!',
