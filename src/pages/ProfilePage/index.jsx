@@ -13,7 +13,7 @@ function ProfilePage() {
         id: 1,
         username: 'Qiqi',
         email: 'Qiqi123@gmail.com',
-        phone: '0123456789',
+        createdDate: '2/21/2024',
         avatar: avatar,
     }
 
@@ -29,7 +29,7 @@ function ProfilePage() {
 
     // Accessing ProfileSidebar's resetSelection function
     const resetSidebarSelection = () => {
-        sidebarRef.current.resetSelection() 
+        sidebarRef.current.resetSelection()
     }
 
     return (

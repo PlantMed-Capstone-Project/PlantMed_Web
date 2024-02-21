@@ -116,8 +116,8 @@ export const inputPlace = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
     width: '25.875rem',
-    gap: '2rem',
-    marginTop: '3rem',
+    gap: '1rem',
+    marginTop: '2rem',
 }))
 
 export const inputContainer = styled(Box)(() => ({
@@ -154,7 +154,5 @@ export const sidebarButton = styled(Button)(({ isSelected }) => ({
 }))
 
 export const uploadImage = styled(Input)(() => ({
-    display: 'none'
+    display: 'none',
 }))
-
-
