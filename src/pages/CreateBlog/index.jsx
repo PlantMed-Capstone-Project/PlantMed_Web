@@ -63,7 +63,7 @@ function CreateBlog() {
             }
             reader.readAsDataURL(files[0])
         } catch (e) {
-            setImageText('')
+            
         }
     }
 
@@ -78,7 +78,6 @@ function CreateBlog() {
                 tag: value.map((plantId) => ({ plantId })),
             }))
         }
-        console.log(inputs.image)
     }
 
     const handleValidate = () => {
