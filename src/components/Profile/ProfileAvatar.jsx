@@ -10,7 +10,7 @@ const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
         const file = event.target.files[0]
         if (file) {
             imageToBase64(file, (result) => {
-                setSelectedAvatar(avatar)
+                setSelectedAvatar(base64ToImage(result))
                 //console.log(base64ToImage(result))
             })
         }
@@ -28,7 +28,7 @@ const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
                     <styleMui.uploadImage
                         id="avatar-upload"
                         type="file"
-                        accept=".png, .jpeg"
+                        accept={['image/png', 'image/jpeg']}
                         onChange={handleAvatarChange}
                         hidden
                     />
