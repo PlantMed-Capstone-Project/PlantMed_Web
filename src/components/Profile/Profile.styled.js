@@ -79,8 +79,11 @@ export const Camera = styled(IconButton)(() => ({
     boxShadow: '0px 0px 3px 0px rgba(33, 68, 0, 0.30)',
     color: '#214400',
     backgroundColor: '#fff',
+    width: '2.2rem',
+    height: '2.2rem',
     marginTop: '5rem',
     marginLeft: '3.5rem',
+    alignItems: 'center',
     '&:hover, &.Mui-focusVisible': { backgroundColor: '#f2f7f4' },
 }))
 

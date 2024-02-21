@@ -1,48 +1,43 @@
-import { Link, useLocation } from 'react-router-dom';
-import * as styleMui from './Profile.styled';
-import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
+import * as styleMui from './Profile.styled'
+import { useImperativeHandle, forwardRef, useState } from 'react'
 
-const ProfileSidebar = () => {
-    const location = useLocation();
+const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
+    const [selectedButtonId, setSelectedButtonId] = useState(null)
 
-    const [buttons, setButtons] = useState([
+    const buttons = [
         {
             id: 1,
             name: 'Chỉnh sửa thông tin',
-            nav: '/profile/edit',
-            isSelected: location.pathname === '/profile/edit',
+            nav: '/profile',
         },
         {
             id: 2,
             name: 'Thay đổi mật khẩu',
-            nav: '/',
-            isSelected: location.pathname === '/',
+            nav: '/reset-password',
         },
         {
             id: 3,
             name: 'Blog của tôi',
-            nav: '/',
-            isSelected: location.pathname === '/',
+            nav: '/blog',
         },
-    ]);
+    ]
 
     const handleButtonClick = (id) => {
-        const updatedButtons = buttons.map((button) =>
-            button.id === id
-                ? { ...button, isSelected: true }
-                : { ...button, isSelected: false }
-        );
-        setButtons(updatedButtons);
-    };
+        setSelectedButtonId(id)
+        if (id === 1) {
+            onEditButtonClick()
+        }
+    }
 
-    useEffect(() => {
-        // Update isSelected state based on the current URL when it changes
-        const updatedButtons = buttons.map((button) => ({
-            ...button,
-            isSelected: button.nav === location.pathname
-        }));
-        setButtons(updatedButtons);
-    }, [location.pathname]);
+    const resetSelection = () => {
+        setSelectedButtonId(null)
+    }
+
+    // Expose resetSelection function using useImperativeHandle
+    useImperativeHandle(ref, () => ({
+        resetSelection,
+    }))
 
     return (
         <styleMui.sidebarPlace>
@@ -52,14 +47,14 @@ const ProfileSidebar = () => {
                     component={Link}
                     to={item.nav}
                     variant="contained"
-                    isSelected={item.isSelected}
+                    isSelected={selectedButtonId === item.id}
                     onClick={() => handleButtonClick(item.id)}
                 >
                     {item.name}
                 </styleMui.sidebarButton>
             ))}
         </styleMui.sidebarPlace>
-    );
-};
+    )
+})
 
-export default ProfileSidebar;
+export default ProfileSidebar

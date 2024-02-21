@@ -24,7 +24,6 @@ const publicRoutes = [
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
     { path: '/bloglist', page: BlogListPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
     { path: '/profile', page: ProfilePage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
-    { path: '/profile/edit', page: ProfilePage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
 ]
 
 const privateRoutes = [
