@@ -152,3 +152,9 @@ export const sidebarButton = styled(Button)(({ isSelected }) => ({
         color: '#fff',
     },
 }))
+
+export const uploadImage = styled(Input)(() => ({
+    display: 'none'
+}))
+
+

@@ -27,8 +27,9 @@ function ProfilePage() {
         setIsFormDisabled(true)
     }
 
+    // Accessing ProfileSidebar's resetSelection function
     const resetSidebarSelection = () => {
-        sidebarRef.current.resetSelection() // Accessing ProfileSidebar's resetSelection function
+        sidebarRef.current.resetSelection() 
     }
 
     return (
