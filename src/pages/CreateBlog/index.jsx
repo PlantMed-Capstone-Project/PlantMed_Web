@@ -7,6 +7,8 @@ import useActions from 'hooks/useActions'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as S from './CreateBlog.styled'
+import MultipleSelect from 'components/MutipleSelect'
+import { base64ToImage } from 'utils/imageHanlder'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
@@ -16,11 +18,12 @@ function CreateBlog() {
         title: '',
         content: '',
         thumbnail: '',
+        tag: '',
     }
 
     const [inputs, setInputs] = useState(initialInputs)
     const [titleError, setTitleError] = useState('')
-
+    const [imagetext, setImageText] = useState('')
     const clearInput = () => {
         setInputs(initialInputs)
     }
@@ -43,23 +46,34 @@ function CreateBlog() {
 
     const handleFileChange = (event) => {
         const files = event.target.files
-
+        const reader = new FileReader()
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
         const isInclude = allowedTypes.includes(files[0].type)
 
         if (files.length > 0 && isInclude) {
-            setInputs((prevState) => ({
-                ...prevState,
-                thumbnail: files[0],
-            }))
+            reader.onloadend = () => {
+                // The result property contains the base64 representation of the file
+                const base64String = reader.result
+                setInputs((prevState) => ({
+                    ...prevState,
+                    thumbnail: base64String,
+                }))
+                setImageText(files[0].name)
+            }
         }
+        reader.readAsDataURL(files[0])
     }
 
     const handleTextChange = (type, value) => {
         if (type === 'title') {
             setInputs((prevState) => ({ ...prevState, title: value }))
-        } else {
+        } else if (type === 'editor') {
             setInputs((prevState) => ({ ...prevState, content: value }))
+        } else {
+            setInputs((prevState) => ({
+                ...prevState,
+                tag: value.map((plantId) => ({ plantId })),
+            }))
         }
     }
 
@@ -148,9 +162,12 @@ function CreateBlog() {
                             />
                         </Button>
                         <Typography sx={{ marginLeft: '1.25rem' }}>
-                            {inputs.thumbnail.name}
+                            {imagetext}
                         </Typography>
                     </Box>
+                    <MultipleSelect
+                        onChange={(e) => handleTextChange('tag', e)}
+                    />
                     <Editor
                         value={inputs.content}
                         onChange={(value) => handleTextChange('editor', value)}
