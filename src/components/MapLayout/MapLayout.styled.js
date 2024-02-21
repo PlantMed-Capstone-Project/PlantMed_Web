@@ -49,3 +49,45 @@ export const stackButton = styled(Stack)({
     top: '1.5rem',
     left: '1.5rem',
 })
+
+export const boxTime = styled(Box)({
+    backgroundColor: '#69AD28',
+    color: '#FFF',
+    minHeight: '2.5rem',
+    minWidth: '7rem',
+    borderRadius: '0.625rem',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: '0.4rem',
+    alignItems: 'center',
+    padding: '0.2rem 0.8rem 0.2rem 1rem',
+})
+
+export const boxDistance = styled(Box)({
+    backgroundColor: '#69AD28',
+    color: '#FFF',
+    minHeight: '2.5rem',
+    minWidth: '10rem',
+    borderRadius: '0.625rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '0.3rem',
+})
+
+export const textTime = styled(Typography)({
+    fontSize: '0.9rem',
+    fontWeight: '500',
+})
+
+export const containerTimeTogo = styled(Box)({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: '1.5rem',
+    position: 'absolute ',
+    right: '1.5rem',
+    top: '1.5rem',
+    zIndex: '1000',
+})
