@@ -4,7 +4,6 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import {
     Avatar,
     Box,
-    Button,
     Stack,
     Tab,
     Tabs,
@@ -132,11 +131,7 @@ function Header({ isLogin }) {
             text: 'Đăng xuất',
             onClick: handleLogout,
         },
-    ]
-
-    const navigateFunc = (vl) => {
-        vl === 1 ? navigate('/login') : navigate('/register')
-    }
+    ]    
 
     return (
         <Stack
@@ -214,7 +209,8 @@ function Header({ isLogin }) {
                     {loginRegister.map((vl) => (
                         <styleMui.button
                             key={vl.id}
-                            onClick={() => navigateFunc(vl.id)}
+                            component={Link}
+                            to={vl.path}
                         >
                             {vl.lable}
                         </styleMui.button>
