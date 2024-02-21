@@ -4,6 +4,7 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import {
     Avatar,
     Box,
+    Button,
     Stack,
     Tab,
     Tabs,
@@ -74,6 +75,11 @@ function Header({ isLogin }) {
         }
     }
 
+    const loginRegister = [
+        { id: 1, lable: 'Login', path: '/login' },
+        { id: 2, lable: 'register', path: '/register' },
+    ]
+
     useEffect(() => {
         navbars()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,6 +133,10 @@ function Header({ isLogin }) {
             onClick: handleLogout,
         },
     ]
+
+    const navigateFunc = (vl) => {
+        vl === 1 ? navigate('/login') : navigate('/register')
+    }
 
     return (
         <Stack
@@ -184,18 +194,34 @@ function Header({ isLogin }) {
                     </Tabs>
                 </Box>
             </Stack>
-            <Tooltip title="Open settings">
-                <Avatar
-                    alt="Your avatar"
-                    src={avartarImage}
-                    sx={{
-                        width: '2.8125rem',
-                        height: '2.8125rem',
-                        cursor: 'pointer',
-                    }}
-                    onClick={() => setOpenPf((prevState) => !prevState)}
-                />
-            </Tooltip>
+
+            {/* có đăng nhập hay chưa  */}
+            {isLogin ? (
+                <Tooltip title="Open settings">
+                    <Avatar
+                        alt="Your avatar"
+                        src={avartarImage}
+                        sx={{
+                            width: '2.8125rem',
+                            height: '2.8125rem',
+                            cursor: 'pointer',
+                        }}
+                        onClick={() => setOpenPf((prevState) => !prevState)}
+                    />
+                </Tooltip>
+            ) : (
+                <styleMui.containerButton>
+                    {loginRegister.map((vl) => (
+                        <styleMui.button
+                            key={vl.id}
+                            onClick={() => navigateFunc(vl.id)}
+                        >
+                            {vl.lable}
+                        </styleMui.button>
+                    ))}
+                </styleMui.containerButton>
+            )}
+
             {openPf && (
                 <styleMui.CustomBoxPopup
                     component={motion.div}
