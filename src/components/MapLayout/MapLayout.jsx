@@ -23,12 +23,14 @@ export default function MapLayout({ data }) {
     const [distances, setDistances] = useState(null)
     const userLocation = useCurrentLocation()
     const [travelTimes, setTravelTimes] = useState({
-        tralvelWalk: null,
-        tralvelMoto: null,
-        tralvelCar: null,
+        tralvelWalk: 0,
+        tralvelMoto: 0,
+        tralvelCar: 0,
     })
+    const [showTime, setShowTime] = useState(false)
     // const [showShops, setShowShop] = useState(false)
     const ref = useRef()
+
     const list = {
         visible: {
             opacity: 1,
@@ -79,8 +81,30 @@ export default function MapLayout({ data }) {
         travelTimes.tralvelMoto = (distance / motoBike).toFixed(2)
         travelTimes.tralvelCar = (distance / car).toFixed(2)
 
+        setShowTime(true)
+
         setDistances(distance.toFixed(2))
     }
+
+    // Mãng chưa thời gian
+    const timeData = [
+        {
+            id: 1,
+            hour: Math.floor(travelTimes.tralvelWalk),
+            minute: Math.round((travelTimes.tralvelWalk % 1) * 60),
+        },
+        {
+            id: 2,
+            hour: Math.floor(travelTimes.tralvelMoto),
+            minute: Math.round((travelTimes.tralvelMoto % 1) * 60),
+        },
+        {
+            id: 3,
+            hour: Math.floor(travelTimes.tralvelCar),
+            minute: Math.round((travelTimes.tralvelCar % 1) * 60),
+        },
+    ]
+
     const handleShowPlants = () => {
         setShowPlant(true)
         // setShowShop(false)
@@ -164,7 +188,7 @@ export default function MapLayout({ data }) {
                 {/*End Button cover maps */}
 
                 {/* Start showing distance and time to go */}
-                {travelTimes.tralvelCar != null && (
+                {showTime && (
                     <muiStyle.containerTimeTogo
                         component={motion.div}
                         initial="hidden"
@@ -184,33 +208,19 @@ export default function MapLayout({ data }) {
                                 {distances} Km
                             </muiStyle.textTime>
                         </muiStyle.boxDistance>
-                        <muiStyle.boxTime
-                            component={motion.div}
-                            variants={item}
-                        >
-                            <DirectionsRunIcon />
-                            <muiStyle.textTime>
-                                {travelTimes.tralvelWalk} Giờ
-                            </muiStyle.textTime>
-                        </muiStyle.boxTime>
-                        <muiStyle.boxTime
-                            component={motion.div}
-                            variants={item}
-                        >
-                            <MopedIcon />
-                            <muiStyle.textTime>
-                                {travelTimes.tralvelMoto} Giờ
-                            </muiStyle.textTime>
-                        </muiStyle.boxTime>
-                        <muiStyle.boxTime
-                            component={motion.div}
-                            variants={item}
-                        >
-                            <DirectionsCarFilledIcon />
-                            <muiStyle.textTime>
-                                {travelTimes.tralvelCar} Giờ
-                            </muiStyle.textTime>
-                        </muiStyle.boxTime>
+                        {timeData.map((vl) => (
+                            <muiStyle.boxTime
+                                key={vl.id}
+                                component={motion.div}
+                                variants={item}
+                            >
+                                <DirectionsRunIcon />
+                                <muiStyle.textTime>
+                                    {vl.hour} {''} Giờ {''} {vl.minute} {''}{' '}
+                                    Phút
+                                </muiStyle.textTime>
+                            </muiStyle.boxTime>
+                        ))}
                     </muiStyle.containerTimeTogo>
                 )}
                 {/* End showing distance and time to go */}
