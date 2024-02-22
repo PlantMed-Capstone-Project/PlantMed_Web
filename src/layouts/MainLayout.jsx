@@ -9,7 +9,6 @@ const MainLayout = ({ children }) => {
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
     const location = useLocation()
     const isAbout = location.pathname === '/about-us'
-    console.log(isAbout)
 
     return (
         <S.Root>
