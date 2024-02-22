@@ -66,15 +66,16 @@ export default function MapLayout({ data }) {
         const deltaLng =
             (markerLng - userLocation.coordinate.lng) * (Math.PI / 180)
 
-        const a =
+        const perimeter =
             Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
             Math.cos(lat1) *
                 Math.cos(lat2) *
                 Math.sin(deltaLng / 2) *
                 Math.sin(deltaLng / 2)
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        const acceleration =
+            2 * Math.atan2(Math.sqrt(perimeter), Math.sqrt(1 - perimeter))
 
-        const distance = (R * c) / 1000
+        const distance = (R * acceleration) / 1000
 
         // tính thời gian di chuyển theo công thức t = s/v 'vật lý lớp 8, hỏi là ngu' note: chắc chắn sẽ có sai số, vì vận tốc chỉ tính theo tốc độ trung bình
         travelTimes.tralvelWalk = (distance / walk).toFixed(2)
