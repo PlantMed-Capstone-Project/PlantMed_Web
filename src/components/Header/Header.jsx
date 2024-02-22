@@ -34,7 +34,22 @@ function Header({ isLogin }) {
     const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
 
-    const [navItem, setNavItem] = useState([])
+    const nav = isLogin
+        ? [
+              { id: 1, label: 'TRANG CHỦ', link: '/' },
+              { id: 2, label: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
+              { id: 3, label: 'BÀI VIẾT', link: '/blog' },
+              { id: 4, label: 'THỰC VẬT', link: '/plants' },
+              { id: 5, label: 'VỀ CHÚNG TÔI', link: '/about-us' },
+          ]
+        : [
+              { id: 1, label: 'TRANG CHỦ', link: '/' },
+              { id: 2, label: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
+              { id: 3, label: 'THỰC VẬT', link: '/plants' },
+              { id: 4, label: 'VỀ CHÚNG TÔI', link: '/about-us' },
+          ]
+
+    const [navItem] = useState(nav)
 
     const handleChange = (_, newValue) => {
         setValue(newValue)
@@ -55,34 +70,10 @@ function Header({ isLogin }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname])
 
-    const navbars = () => {
-        if (isLogin) {
-            setNavItem([
-                { id: 1, lable: 'TRANG CHỦ', link: '/' },
-                { id: 2, lable: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
-                { id: 3, lable: 'BÀI VIẾT', link: '/blog' },
-                { id: 4, lable: 'THỰC VẬT', link: '/plants' },
-                { id: 5, lable: 'VỀ CHÚNG TÔI', link: '/about-us' },
-            ])
-        } else {
-            setNavItem([
-                { id: 1, lable: 'TRANG CHỦ', link: '/' },
-                { id: 2, lable: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
-                { id: 3, lable: 'THỰC VẬT', link: '/plants' },
-                { id: 4, lable: 'VỀ CHÚNG TÔI', link: '/about-us' },
-            ])
-        }
-    }
-
     const loginRegister = [
-        { id: 1, lable: 'Login', path: '/login' },
-        { id: 2, lable: 'register', path: '/register' },
+        { id: 1, label: 'Login', path: '/login' },
+        { id: 2, label: 'Register', path: '/register' },
     ]
-
-    useEffect(() => {
-        navbars()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     const Navbars = useMemo(
         () =>
@@ -91,7 +82,7 @@ function Header({ isLogin }) {
                     component={Link}
                     key={item.id}
                     to={item.link}
-                    label={item.lable}
+                    label={item.label}
                     sx={{ color: '#214400', fontWeight: '700' }}
                 />
             )),
@@ -131,7 +122,7 @@ function Header({ isLogin }) {
             text: 'Đăng xuất',
             onClick: handleLogout,
         },
-    ]    
+    ]
 
     return (
         <Stack
@@ -212,7 +203,7 @@ function Header({ isLogin }) {
                             component={Link}
                             to={vl.path}
                         >
-                            {vl.lable}
+                            {vl.label}
                         </styleMui.button>
                     ))}
                 </styleMui.containerButton>
