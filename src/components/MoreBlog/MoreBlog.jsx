@@ -41,8 +41,8 @@ export default function MoreBlog({ data }) {
                 flexWrap="wrap"
                 sx={{ columnGap: '0.6rem', rowGap: '1.3rem' }}
             >
-                {/* Sử dụng phương thức ...Array để tạo 1 mãng có 10 phần tử */}
-                {data.slice(0, visible).map((vl, idx) => (
+                {/* Start mapping the data  */}
+                {data.slice(0, 4).map((vl, idx) => (
                     <muiStyle.cardBox
                         key={data}
                         component={motion.div}
@@ -75,13 +75,12 @@ export default function MoreBlog({ data }) {
                         </CardContent>
                     </muiStyle.cardBox>
                 ))}
-                {/* End card */}
+                {/* End mapping the data */}
             </Stack>
-            {visible < data.length && (
-                <muiStyle.Button onClick={() => inCrease()}>
-                    Xem thêm
-                </muiStyle.Button>
-            )}
+            {/* chuyen den trang bai viet */}
+            <muiStyle.Button onClick={() => inCrease()}>
+                Xem thêm
+            </muiStyle.Button>
         </Stack>
     )
 }
