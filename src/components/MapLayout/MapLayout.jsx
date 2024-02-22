@@ -92,16 +92,19 @@ export default function MapLayout({ data }) {
             id: 1,
             hour: Math.floor(travelTimes.tralvelWalk),
             minute: Math.round((travelTimes.tralvelWalk % 1) * 60),
+            icon: <DirectionsRunIcon />,
         },
         {
             id: 2,
             hour: Math.floor(travelTimes.tralvelMoto),
             minute: Math.round((travelTimes.tralvelMoto % 1) * 60),
+            icon: <MopedIcon />,
         },
         {
             id: 3,
             hour: Math.floor(travelTimes.tralvelCar),
             minute: Math.round((travelTimes.tralvelCar % 1) * 60),
+            icon: <DirectionsCarFilledIcon />,
         },
     ]
 
@@ -214,7 +217,7 @@ export default function MapLayout({ data }) {
                                 component={motion.div}
                                 variants={item}
                             >
-                                <DirectionsRunIcon />
+                                {vl.icon}
                                 <muiStyle.textTime>
                                     {vl.hour} {''} Giờ {''} {vl.minute} {''}{' '}
                                     Phút
