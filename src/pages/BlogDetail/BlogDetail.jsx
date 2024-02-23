@@ -1,5 +1,10 @@
 import { Box, Typography } from '@mui/material'
-import { getIdBlog } from 'FakeData/plantData'
+import {
+    createComment,
+    createReply,
+    getCommentByIdBlog,
+    getIdBlog,
+} from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
@@ -14,17 +19,34 @@ function BlogDetail() {
 
     const params = useParams()
     const data = getIdBlog(parseInt(params.id))
-    const commnetList = [
-        { id: '1', name: 'Phương', content: 'Hello mấy cưng' },
-        { id: '2', name: 'Huy', content: 'Lô *** ***' },
-    ]
-    const [comment, setComment] = useState('')
-    const handleChangeComment = (event) => {
-        setComment(event.target.value)
+    const [commentList, setCommentList] = useState(
+        getCommentByIdBlog(params.id)
+    )
+
+    const [activeComment, setActiveComment] = useState(null)
+
+    const handleSend = (value) => {
+        setCommentList([createComment(value), ...commentList])
+        setActiveComment(null)
     }
-    const handleSend = () => {
-        console.log(comment)
+
+    const handleReply = (text, commentId) => {
+        setCommentList((prevComments) => {
+            return prevComments.map((comment) =>
+                comment.id === commentId
+                    ? {
+                          ...comment,
+                          reply_comment: [
+                              ...comment.reply_comment,
+                              createReply(text, commentId),
+                          ],
+                      }
+                    : comment
+            )
+        })
+        setActiveComment(null)
     }
+
     return (
         <Box
             component="section"
@@ -84,19 +106,22 @@ function BlogDetail() {
                 >
                     Nhận xét của bạn:
                 </Typography>
-                <UserComment
-                    name="Phuong"
-                    onInputChange={handleChangeComment}
-                    onSendClick={handleSend}
-                />
-                {commnetList?.map((data) => (
-                    <LoadComment data={data} />
+                <UserComment name="Phuong" onSendClick={handleSend} />
+                {commentList?.map((data) => (
+                    <LoadComment
+                        comment={data}
+                        type="comment"
+                        activeComment={activeComment}
+                        setActiveComment={setActiveComment}
+                        handleReply={handleReply}
+                    />
                 ))}
                 <Typography
                     sx={{
                         textDecoration: 'underline',
                         color: '#69AD28',
                         '&:hover': { color: 'blue', cursor: 'pointer' },
+                        marginTop: '3.125rem',
                     }}
                 >
                     Xem thêm câu trả lời

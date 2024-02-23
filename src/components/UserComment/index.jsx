@@ -4,16 +4,24 @@ import Avatar from '@mui/material/Avatar'
 import Input from '@mui/material/Input'
 import SendIcon from '@mui/icons-material/Send'
 import IconButton from '@mui/material/IconButton'
+import { useState } from 'react'
 const ariaLabel = { 'aria-label': 'description' }
 
-function UserComment({ name, onInputChange, onSendClick, ...props }) {
+function UserComment({ name, onSendClick }) {
+    const [text, setText] = useState('')
+    const isTextDisable = text.length === 0
+
+    const handleSend = () => {
+        onSendClick(text)
+        setText('')
+    }
     return (
-        <Box sx={{ marginTop: '2.125rem', width: '50%' }}>
+        <Box sx={{ marginTop: '1.125rem', width: '50%' }}>
             <Box sx={{ display: 'flex' }}>
                 <Avatar src={imgDemo} />
                 <Box
                     sx={{
-                        width: '31.25rem',
+                        width: '100%',
                         height: 'auto',
                         border: '2px solid #69AD28',
                         borderRadius: 2,
@@ -30,10 +38,13 @@ function UserComment({ name, onInputChange, onSendClick, ...props }) {
                             inputProps={ariaLabel}
                             color="success"
                             fullWidth
-                            onChange={onInputChange}
-                            {...props}
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
                         />
-                        <IconButton onClick={onSendClick}>
+                        <IconButton
+                            onClick={handleSend}
+                            disabled={isTextDisable}
+                        >
                             <SendIcon
                                 sx={{
                                     rotate: '-45deg',
