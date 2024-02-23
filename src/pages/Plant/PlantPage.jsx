@@ -8,10 +8,12 @@ import Searching from 'components/Searching/Searching'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './PlantPage.styled'
+import { allPlant } from 'rest/api/plant'
 
 export default function PlantPage() {
     const [search, setSearch] = useState('')
     const [indexData, setIndexData] = useState()
+    const [allPlants, setAllPlants] = useState([])
 
     const containerPopup = useRef()
 
@@ -22,8 +24,19 @@ export default function PlantPage() {
         }
     }
 
+    const getAllPlant = async () => {
+        try {
+            const response = await allPlant()
+            setAllPlants(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         document.addEventListener('mousedown', handler)
+        getAllPlant()
+        return () => document.removeEventListener('mousedown', handler)
     }, [])
 
     const plants = [
