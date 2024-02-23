@@ -1,9 +1,25 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import * as styleMui from './Profile.styled'
-import { useImperativeHandle, forwardRef, useState } from 'react'
+import { useImperativeHandle, forwardRef, useState, useEffect } from 'react'
 
 const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
     const [selectedButtonId, setSelectedButtonId] = useState(null)
+    const location = useLocation();
+
+    useEffect(() => {
+        const currentButton = buttons.find(button => button.nav === location.pathname);
+        if (currentButton) {
+            if (currentButton.id === 1)
+            {
+                setSelectedButtonId(null);
+            }
+            else {
+                setSelectedButtonId(currentButton.id);
+            }            
+        } else {
+            setSelectedButtonId(null);
+        }
+    }, [location.pathname]);
 
     const buttons = [
         {
