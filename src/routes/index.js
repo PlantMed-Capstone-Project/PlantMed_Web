@@ -13,6 +13,7 @@ import PlantPage from 'pages/Plant/PlantPage'
 import Register from 'pages/Register'
 import ProfilePage from 'pages/ProfilePage'
 import VerificationPage from 'pages/VerificationPage/VerificationPage'
+import ResetPasswordPage from 'pages/ResetPasswordPage'
 
 const publicRoutes = [
     { path: '/', page: HomePage, layout: MainLayout },
@@ -23,6 +24,8 @@ const publicRoutes = [
     { path: '/plants/:id', page: DetailPage, layout: MainLayout },
     { path: '/about-us', page: AboutUsPage, layout: MainLayout },
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
+    { path: '/reset-password', page: ResetPasswordPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
+    { path: '/profile', page: ProfilePage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
 ]
 
 const privateRoutes = [

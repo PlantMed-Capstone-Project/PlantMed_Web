@@ -123,7 +123,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
         },
         {
             field: 'policyCheck',
-            message: 'Phải chấn nhận với điều khoản trước khi đăng ký',
+            message: 'Phải chấp nhận với điều khoản trước khi đăng ký',
             isCheck: false,
         },
     ]
@@ -155,6 +155,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
                 helperText={errors[item.key]}
                 margin="dense"
                 type={item.type}
+                autoComplete='true'
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
