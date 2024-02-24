@@ -1,13 +1,9 @@
-import ProfileAvatar from 'components/Profile/ProfileAvatar'
-import * as styleMui from './ResetPasswordPage.styled'
 import avatar from 'Images/avatar.jpg'
-import ProfileSidebar from 'components/Profile/ProfileSidebar'
-import { useState } from 'react'
+import { ProfileAvatar, ProfileSidebar } from 'components/Profile'
 import ResetPasswordForm from 'components/ResetPassword/ResetPasswordForm'
+import * as styleMui from './ResetPasswordPage.styled'
 
 function ResetPasswordPage() {
-    const [isFormDisabled, setIsFormDisabled] = useState(true)
-
     const profileInfo = {
         id: 1,
         username: 'Qiqi',
@@ -19,11 +15,9 @@ function ResetPasswordPage() {
 
     return (
         <styleMui.container>
-            <ProfileAvatar {...profileInfo} isDisabled={isFormDisabled} />
-            <ResetPasswordForm
-                {...profileInfo}
-            />
-            <ProfileSidebar/>
+            <ProfileAvatar {...profileInfo} isDisabled={true} />
+            <ResetPasswordForm {...profileInfo} />
+            <ProfileSidebar />
         </styleMui.container>
     )
 }

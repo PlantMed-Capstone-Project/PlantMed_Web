@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import * as styleMui from './Profile.styled'
 import { useImperativeHandle, forwardRef, useState, useEffect } from 'react'
 
-const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
+export const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
     const [selectedButtonId, setSelectedButtonId] = useState(null)
     const location = useLocation();
 
@@ -66,5 +66,3 @@ const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
         </styleMui.sidebarPlace>
     )
 })
-
-export default ProfileSidebar

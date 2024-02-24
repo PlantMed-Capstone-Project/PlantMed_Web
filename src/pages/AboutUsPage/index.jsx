@@ -1,5 +1,4 @@
-import AboutUsHero from 'components/AboutUs/Hero'
-import AboutUsMember from 'components/AboutUs/Members'
+import { AboutUsHero, AboutUsMember } from 'components/AboutUs'
 import * as styleMui from './AboutUsPage.styled'
 
 function AboutUsPage() {

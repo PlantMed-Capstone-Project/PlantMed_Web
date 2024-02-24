@@ -15,7 +15,7 @@ const RenderAvatar = ({ name, studentId }) => {
     )
 }
 
-const AboutUsMember = ({ title, listTop, listBot }) => {
+export const AboutUsMember = ({ title, listTop, listBot }) => {
     return (
         <S.memberPlace>
             <S.memberTitle>{title}</S.memberTitle>
@@ -34,5 +34,3 @@ const AboutUsMember = ({ title, listTop, listBot }) => {
         </S.memberPlace>
     )
 }
-
-export default AboutUsMember

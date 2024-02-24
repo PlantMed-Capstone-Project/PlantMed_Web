@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as styleMui from './Profile.styled'
 
-const ProfileForm = ({
+export const ProfileForm = ({
     username,
     email,
     createdDate,
@@ -135,5 +135,3 @@ const ProfileForm = ({
         </styleMui.profilePlace>
     )
 }
-
-export default ProfileForm
