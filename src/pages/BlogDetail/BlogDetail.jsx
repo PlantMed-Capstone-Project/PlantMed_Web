@@ -8,14 +8,12 @@ import {
 import imgDemo from 'Images/heroSen.jpg'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
-import { useEffect, useState } from 'react'
+import useScrollTo from 'hooks/useScrollTo'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 function BlogDetail() {
-    useEffect(() => {
-        // khi navigate sang trang khác phải sử dụng cái này để cho nó up to đầu trang
-        window.scrollTo(0, 0)
-    }, [])
+    useScrollTo(0, 0)
 
     const params = useParams()
     const data = getIdBlog(parseInt(params.id))
