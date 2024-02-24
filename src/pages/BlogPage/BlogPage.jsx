@@ -35,7 +35,7 @@ function BlogPage() {
         },
     ]
 
-    const blogs = [
+    const blogList = [
         {
             id: 1,
             title: 'Cầu Kỳ Tử',
@@ -92,20 +92,6 @@ function BlogPage() {
             description:
                 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         },
-        {
-            id: 9,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 10,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
     ]
 
     return (
@@ -128,9 +114,9 @@ function BlogPage() {
                 mt="3.75rem"
                 sx={{ backgroundColor: '#F4FFEB' }}
             >
-                <DiversityPlant title="BÀI VIẾT NỔI BẬT" data={blogs} />
+                <DiversityPlant title="BÀI VIẾT NỔI BẬT" data={blogData} />
             </Stack>
-            <BlogList blogData={blogData} />
+            <BlogList blogData={blogList} />
         </Box>
     )
 }

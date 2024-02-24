@@ -347,6 +347,92 @@ export const blogDetail = [
     },
 ]
 
+export const commentData = [
+    {
+        id: '1',
+        blogId: '1',
+        userId: '1',
+        comment_content: 'Hello',
+        has_reply: true,
+        reply_comment: [
+            {
+                id: '1',
+                commentId: '1',
+                userId: '2',
+                comment_content: 'Xin chao',
+            },
+            {
+                id: '2',
+                commentId: '1',
+                userId: '3',
+                comment_content: 'Xin chao lan 2',
+            }
+
+        ]
+    },
+    {
+        id: '2',
+        blogId: '1',
+        userId: '2',
+        comment_content: 'Hello may cung',
+        has_reply: true,
+        reply_comment: [
+            {
+                id: '3',
+                commentId: '2',
+                userId: '1',
+                comment_content: 'Xin chao',
+            }
+        ]
+    }
+]
+
+export const user = [
+    {
+        userId: '1',
+        userName: 'Phuong'
+    },
+    {
+        userId: '2',
+        userName: 'Huy'
+    }, {
+        userId: '3',
+        userName: "Nguyen"
+    }
+]
+
 export const getIdPlant = (value) => {
     return plantDetail.filter((vl) => vl.plantID === value)
+}
+
+export const getIdBlog = (value) => {
+    return blogDetail.find((vl) => vl.id === value)
+}
+
+export const getCommentByIdBlog = (value) => {
+    return commentData.filter((vl) => vl.blogId === value)
+}
+
+export const getUserId = (value) => {
+    return user.find((vl) => vl.userId === value)
+}
+
+export const createComment = (text) => {
+    return {
+        id: Math.random().toString(36).substring(2, 9),
+        blogId: '1',
+        userId: '2',
+        comment_content: text,
+        has_reply: false,
+        reply_comment: [],
+    }
+}
+
+export const createReply = (text, commentId) => {
+    return {
+        id: Math.random().toString(36).substring(2, 9),
+        commentId: commentId,
+        userId: '3',
+        comment_content: text,
+    }
 }

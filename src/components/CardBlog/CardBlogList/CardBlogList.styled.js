@@ -44,8 +44,9 @@ export const nameUser = styled(Typography)(() => ({
 export const ctnBody = styled(Box)(() => ({
     display: 'flex',
     width: '100%',
-    height: '12rem',
+    height: '8.5rem',
     gap: '1rem',
+    "&:hover": { cursor: 'pointer' }
 }))
 
 export const containtText = styled(Box)(() => ({
@@ -162,4 +163,9 @@ export const reportTxt = styled(Typography)(() => ({
     fontWeight: '500',
     lineHeight: 'normal',
     userSelect: 'none',
+}))
+
+export const commentBox = styled(Box)(() => ({
+    display: 'flex',
+    alignItems: 'center'
 }))
