@@ -4,16 +4,17 @@ import { useImperativeHandle, forwardRef, useState, useEffect } from 'react'
 
 export const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
     const [selectedButtonId, setSelectedButtonId] = useState(null)
-    const location = useLocation();
+    const location = useLocation()
 
     useEffect(() => {
-        const currentButton = buttons.find(button => button.nav === location.pathname);
+        const currentButton = buttons.find((button) => button.nav === location.pathname)
         if (currentButton && currentButton.id !== 1) {
-            setSelectedButtonId(currentButton.id);
+            setSelectedButtonId(currentButton.id)
         } else {
-            setSelectedButtonId(null);
+            setSelectedButtonId(null)
         }
-    }, [location.pathname]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname])
 
     const buttons = [
         {

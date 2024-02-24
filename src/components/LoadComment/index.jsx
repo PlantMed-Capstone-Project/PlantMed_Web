@@ -26,7 +26,7 @@ function LoadComment({
 
     const isReply =
         activeComment &&
-        activeComment.type == type &&
+        activeComment.type === type &&
         activeComment.id === comment.id
 
     const id = type === 'comment' ? comment.id : comment.commentId
@@ -91,7 +91,7 @@ function LoadComment({
                         onClick={() =>
                             setActiveComment({
                                 id: comment.id,
-                                type: type == 'comment' ? 'comment' : 'reply',
+                                type: type === 'comment' ? 'comment' : 'reply',
                             })
                         }
                         sx={styles.reply}
@@ -117,7 +117,7 @@ function LoadComment({
                     />
                 </Box>
             )}
-            {type == 'comment' && (
+            {type === 'comment' && (
                 <Box>
                     {comment.reply_comment.length > 0 && (
                         <Box sx={{ marginLeft: '3.7rem', width: '90.5%' }}>

@@ -1,6 +1,6 @@
 import { CardContent, CardMedia, Stack, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as muiStyle from './MoreBlog.styled'
 
 const itemWithStagger = {
@@ -20,11 +20,7 @@ const itemWithStagger = {
 }
 
 export default function MoreBlog({ data }) {
-    const [visible, setVisible] = useState(4)
-
-    const inCrease = () => {
-        setVisible((prevVisible) => prevVisible + 4)
-    }
+    const navigate = useNavigate()
 
     return (
         <Stack
@@ -78,7 +74,7 @@ export default function MoreBlog({ data }) {
                 {/* End mapping the data */}
             </Stack>
             {/* chuyen den trang bai viet */}
-            <muiStyle.Button onClick={() => inCrease()}>
+            <muiStyle.Button onClick={() => navigate('/bloglist')}>
                 Xem thêm
             </muiStyle.Button>
         </Stack>

@@ -1,7 +1,13 @@
+import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled'
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ForestIcon from '@mui/icons-material/Forest'
 import LanguageIcon from '@mui/icons-material/Language'
+import MopedIcon from '@mui/icons-material/Moped'
 import StorefrontIcon from '@mui/icons-material/Storefront'
+import { Typography } from '@mui/material'
 import plantsIcon from 'Images/cansaIcon.png'
+import { motion } from 'framer-motion'
+import useCurrentLocation from 'hooks/useCurrentLocation'
 import * as L from 'leaflet'
 import { GestureHandling } from 'leaflet-gesture-handling'
 import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'
@@ -11,18 +17,12 @@ import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import * as muiStyle from './MapLayout.styled'
 import MarkMaps from './MarkMaps/MarkMaps'
-import useCurrentLocation from 'hooks/useCurrentLocation'
-import { Box, Stack, Typography } from '@mui/material'
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
-import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled'
-import MopedIcon from '@mui/icons-material/Moped'
-import { motion } from 'framer-motion'
 
 export default function MapLayout({ data }) {
     const [showPlants, setShowPlant] = useState(false)
     const [distances, setDistances] = useState(null)
     const userLocation = useCurrentLocation()
-    const [travelTimes, setTravelTimes] = useState({
+    const [travelTimes] = useState({
         tralvelWalk: 0,
         tralvelMoto: 0,
         tralvelCar: 0,
