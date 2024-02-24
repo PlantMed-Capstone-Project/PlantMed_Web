@@ -5,9 +5,7 @@ import { IconButton, InputAdornment } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
-const ResetPasswordForm = ({
-    password,
-}) => {
+const ResetPasswordForm = ({password}) => {
     const navigate = useNavigate()
     const [errors, setErrors] = useState({})
 

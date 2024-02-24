@@ -8,14 +8,8 @@ const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
 
     useEffect(() => {
         const currentButton = buttons.find(button => button.nav === location.pathname);
-        if (currentButton) {
-            if (currentButton.id === 1)
-            {
-                setSelectedButtonId(null);
-            }
-            else {
-                setSelectedButtonId(currentButton.id);
-            }            
+        if (currentButton && currentButton.id !== 1) {
+            setSelectedButtonId(currentButton.id);
         } else {
             setSelectedButtonId(null);
         }
