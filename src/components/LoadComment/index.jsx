@@ -3,6 +3,8 @@ import imgDemo from 'Images/avatar.jpg'
 import Avatar from '@mui/material/Avatar'
 import { getUserId } from 'FakeData/plantData'
 import UserComment from 'components/UserComment'
+import ReportModal from 'components/ReportModal'
+import { useState } from 'react'
 
 const styles = {
     reply: {
@@ -28,7 +30,27 @@ function LoadComment({
         activeComment.id === comment.id
 
     const id = type === 'comment' ? comment.id : comment.commentId
-    console.log(comment)
+
+    const checkBoxLabel = [
+        {
+            label: 'Ngôn từ không phù hợp',
+        },
+        {
+            label: 'Chủ đề không liên quan',
+        },
+        {
+            label: 'Thông tin sai sự thật',
+        },
+    ]
+    const [isOpen, setIsOpen] = useState(false)
+    const handleOpen = () => {
+        setIsOpen(!isOpen)
+    }
+
+    const handleReport = (value) => {
+        console.log(value)
+        //hanlde send report label later
+    }
     return (
         <>
             <Box sx={{ marginTop: '1.125rem', width: '50%' }}>
@@ -76,7 +98,15 @@ function LoadComment({
                     >
                         Trả lời
                     </Typography>
-                    <Typography sx={styles.reply}>Báo cáo</Typography>
+                    <Typography sx={styles.reply} onClick={handleOpen}>
+                        Báo cáo
+                    </Typography>
+                    <ReportModal
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        handleReport={handleReport}
+                        checkBoxLabel={checkBoxLabel}
+                    />
                 </Box>
             </Box>
             {isReply && (
