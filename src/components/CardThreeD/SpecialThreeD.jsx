@@ -12,15 +12,9 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-function SpecialThreeD(props) {
+function SpecialThreeD({ offset, showArrows, width, height, margin, cards }) {
     const checkX = useRef()
 
-    // const table = props.cards.map((element, index) => {
-    //     return { ...element, onClick: () => setGoToSlide(index) }
-    // })
-
-    const [offsetRadius, setOffsetRadius] = useState(props.offset)
-    const [showArrows, setShowArrows] = useState(props.showArrows)
     const [goToSlide, setGoToSlide] = useState(null)
     const [btnHover, setBtnHover] = useState(null)
     // const [cards] = useState(table)
@@ -51,16 +45,16 @@ function SpecialThreeD(props) {
     return (
         <Box
             sx={{
-                width: props.width,
-                height: props.height,
-                margin: props.margin,
+                width: width,
+                height: height,
+                margin: margin,
                 position: 'relative',
             }}
         >
             <Carousel
-                slides={props.cards}
+                slides={cards}
                 goToSlide={goToSlide}
-                offsetRadius={offsetRadius}
+                offsetRadius={offset}
                 showNavigation={showArrows}
                 animationConfig={config.gentle}
                 ref={checkX}
@@ -68,6 +62,7 @@ function SpecialThreeD(props) {
 
             {btnTriggerSlide.map((vl, idx) => (
                 <styleMui.ContainerIcon
+                    key={vl.id}
                     id={vl.id}
                     ishover={btnHover}
                     onClick={vl.id === 1 ? prvSlide : nextSlide}

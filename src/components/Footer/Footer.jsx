@@ -6,8 +6,12 @@ import { Stack, Typography } from '@mui/material'
 import * as styleMui from './Footer.styled'
 
 export default function Footer({ topspacing }) {
-
-    const socialData = [<FacebookOutlinedIcon />, <InstagramIcon />, <TelegramIcon />, <CallIcon />]
+    const socialData = [
+        { id: 1, icon: <FacebookOutlinedIcon /> },
+        { id: 2, icon: <InstagramIcon /> },
+        { id: 3, icon: <TelegramIcon /> },
+        { id: 4, icon: <CallIcon /> },
+    ]
 
     return (
         <styleMui.ContainerAll
@@ -22,19 +26,27 @@ export default function Footer({ topspacing }) {
                 justifyContent="center"
                 width="100%"
             >
-                {socialData.map((value) => (
-                    <styleMui.ContainerIcon key={value}>
-                        {value}
+                {socialData.map((item) => (
+                    <styleMui.ContainerIcon key={item.id}>
+                        {item.icon}
                     </styleMui.ContainerIcon>
                 ))}
             </Stack>
-            <Typography sx={{ color: "#FFF", fontSize: "1.25rem", fontWeight: "500", lineHeight: "normal" }}>
+            <Typography
+                sx={{
+                    color: '#FFF',
+                    fontSize: '1.25rem',
+                    fontWeight: '500',
+                    lineHeight: 'normal',
+                }}
+            >
                 LIÊN HỆ CHÚNG TÔI
             </Typography>
             <styleMui.Text>0292 7773 636</styleMui.Text>
             <styleMui.Text>fptu.cantho@fpt.edu.vn</styleMui.Text>
-            <styleMui.Text>Khu vực 6, Phường An Bình, Quận Ninh Kiều, Tp Cần Thơ</styleMui.Text>
-
+            <styleMui.Text>
+                Khu vực 6, Phường An Bình, Quận Ninh Kiều, Tp Cần Thơ
+            </styleMui.Text>
         </styleMui.ContainerAll>
     )
 }

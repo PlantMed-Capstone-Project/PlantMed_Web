@@ -24,6 +24,8 @@ export default function PlantPage() {
 
     useEffect(() => {
         document.addEventListener('mousedown', handler)
+
+        return () => document.removeEventListener('mousedown', handler)
     }, [])
 
     const plants = [

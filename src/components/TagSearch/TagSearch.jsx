@@ -1,4 +1,3 @@
-import { Box } from '@mui/material'
 import titleImage from 'Images/hiền nhân.jpg'
 import presentImage from 'Images/tía tô.jpg'
 import { useEffect, useRef, useState } from 'react'
@@ -67,6 +66,7 @@ function TagSearch({ data, setTagSearch, rightHeight, isFixed, isAbs }) {
             filterStart = false
             window.removeEventListener('scroll', handleScroll)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // xử lý các tag được chọn và handle cancel nếu giá trị trùng lặp giá trị cũ

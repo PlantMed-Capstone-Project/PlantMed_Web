@@ -1,11 +1,11 @@
+import imgHosen from 'Images/avatar.jpg'
+import hoaThom from 'Images/cannabis.png'
+import hoaHoe from 'Images/groupImage.png'
 import imgDemo from 'Images/heroSen.jpg'
 import imageBachBo from 'Images/heroSi.jpg'
 import imageDayLeo from 'Images/herogreen.jpg'
-import imgHosen from 'Images/avatar.jpg'
 import imgHosung from 'Images/hiền nhân.jpg'
 import imgHoacucLon from 'Images/lap.png'
-import hoaThom from 'Images/cannabis.png'
-import hoaHoe from 'Images/groupImage.png'
 import CardThreeD from 'components/CardThreeD/CardThreeDList/CardThreeDList'
 import SpecialThreeD from 'components/CardThreeD/SpecialThreeD'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
@@ -13,12 +13,10 @@ import Heros from 'components/Heros/Heros'
 import Quantity from 'components/Quantity/Quantity'
 import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
-import { v4 as uuidv4 } from 'uuid'
 import * as styleMui from './HomePage.styled'
+import { Stack } from '@mui/material'
 
 export default function HomePage() {
-    const spacingTop = 5
-
     const plants = [
         {
             id: 1,
@@ -132,12 +130,12 @@ export default function HomePage() {
 
     // lib cần phải truyền tải component theo dạng này vào prop của 1 thư viện mới có thể sử dụng
     const manyPlantCard = plants.map((item) => ({
-        key: uuidv4(),
-        content: <CardThreeD key={item} data={item} />,
+        key: item.id,
+        content: <CardThreeD key={item.id} data={item} />,
     }))
 
     return (
-        <styleMui.container component="section">
+        <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
             <Heros />
             <Sologan />
             <FeaturedSearch title="TÌM KIẾM NỔI BẬT" data={searchProducts} />
@@ -159,6 +157,6 @@ export default function HomePage() {
                 <SpecialFeature />
             </styleMui.subContainer>
             <Quantity />
-        </styleMui.container>
+        </Stack>
     )
 }

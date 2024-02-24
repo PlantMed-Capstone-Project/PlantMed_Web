@@ -7,7 +7,6 @@ import herosThImage from 'Images/heroSen.jpg'
 import { Box } from '@mui/material'
 
 export default function Heros() {
-
     const sliderImage = [herosFImage, herosSImage, herosThImage]
 
     // vi ly do su dung thu vien nen se phai su dung class
@@ -29,29 +28,50 @@ export default function Heros() {
                         slider.next()
                     }, 2000)
                 }
-                slider.on("created", () => {
-                    slider.container.addEventListener("mouseover", () => {
+                slider.on('created', () => {
+                    slider.container.addEventListener('mouseover', () => {
                         mouseOver = true
                         clearNextTimeout()
                     })
-                    slider.container.addEventListener("mouseout", () => {
+                    slider.container.addEventListener('mouseout', () => {
                         mouseOver = false
                         nextTimeout()
                     })
                     nextTimeout()
                 })
-                slider.on("dragStarted", clearNextTimeout)
-                slider.on("animationEnded", nextTimeout)
-                slider.on("updated", nextTimeout)
+                slider.on('dragStarted', clearNextTimeout)
+                slider.on('animationEnded', nextTimeout)
+                slider.on('updated', nextTimeout)
             },
         ]
     )
 
     return (
-        <Box ref={sliderRef} className='keen-slider' sx={{ height: '37.5rem', width: "100%", position: "relative", zIndex: "0" }}>
+        <Box
+            ref={sliderRef}
+            className="keen-slider"
+            sx={{
+                height: '37.5rem',
+                width: '100%',
+                position: 'relative',
+                zIndex: '0',
+            }}
+        >
             {sliderImage.map((item, idx) => (
-                <Box key={item} className={`keen-slider__slide number-slide${idx + 1}`} sx={{ width: "100%", height: "100%" }} >
-                    <img src={item} alt="product" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+                <Box
+                    key={item}
+                    className={`keen-slider__slide number-slide${idx + 1}`}
+                    sx={{ width: '100%', height: '100%' }}
+                >
+                    <img
+                        src={item}
+                        alt="product"
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            objectFit: 'cover',
+                        }}
+                    />
                 </Box>
             ))}
         </Box>

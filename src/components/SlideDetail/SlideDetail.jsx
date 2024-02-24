@@ -61,10 +61,10 @@ export default function SlideDetail({ data }) {
         >
             {/* start of slide show on top */}
             <styleMui.BoxStackTop ref={sliderRef} className="keen-slider">
-                {data[0].images?.map((vl, idx) => (
+                {data[0].images?.map((value) => (
                     <Box
-                        key={idx}
-                        className={`keen-slider__slide number-slide${vl.id}`}
+                        key={value.id}
+                        className={`keen-slider__slide number-slide${value.id}`}
                         p="0.5rem"
                     >
                         <CardMedia
@@ -72,7 +72,7 @@ export default function SlideDetail({ data }) {
                                 height: '100%',
                                 borderRadius: 'calc(0.625rem - 0.5rem)',
                             }}
-                            image={vl.image}
+                            image={value.image}
                             title="ảnh chi tiết cây"
                         />
                     </Box>
@@ -87,10 +87,10 @@ export default function SlideDetail({ data }) {
                 ref={thumbnailRef}
                 className="keen-slider thumbnail"
             >
-                {data[0].images?.map((vl, idx) => (
+                {data[0].images?.map((value) => (
                     <Box
-                        key={idx}
-                        className={`keen-slider__slide number-slide${vl.id}`}
+                        key={value.id}
+                        className={`keen-slider__slide number-slide${value.id}`}
                     >
                         <Box
                             className="thum_slide"
@@ -107,7 +107,7 @@ export default function SlideDetail({ data }) {
                                     height: '100%',
                                     borderRadius: '0.625rem',
                                 }}
-                                image={vl.image}
+                                image={value.image}
                                 title="các ảnh khác của cây"
                             />
                         </Box>

@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography, styled } from '@mui/material'
+import { Box, Stack, Typography, styled } from '@mui/material'
 
 export const background = styled(Stack)({
     width: '100%',

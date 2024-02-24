@@ -4,7 +4,6 @@ import {
     Card,
     CardContent,
     CardMedia,
-    Link,
     Typography,
 } from '@mui/material'
 import React, { useState } from 'react'

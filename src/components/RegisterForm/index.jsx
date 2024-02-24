@@ -18,7 +18,7 @@ const iconStyle = {
     fontSize: '2rem',
 }
 
-export default function SignupForm({ setTypeUser, typeUser }) {
+export default function RegisterForm({ setTypeUser, typeUser }) {
     const navigate = useNavigate()
     const { show } = useActions(snackbarAction)
 
@@ -123,7 +123,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
         },
         {
             field: 'policyCheck',
-            message: 'Phải chấn nhận với điều khoản trước khi đăng ký',
+            message: 'Phải chấp nhận với điều khoản trước khi đăng ký',
             isCheck: false,
         },
     ]
@@ -155,6 +155,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
                 helperText={errors[item.key]}
                 margin="dense"
                 type={item.type}
+                autoComplete='true'
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
@@ -299,7 +300,7 @@ export default function SignupForm({ setTypeUser, typeUser }) {
             <styleMui.button variant="contained" onClick={() => onValidate()}>
                 Đăng ký
             </styleMui.button>
-            <styleMui.link href="/login" underline="hover">
+            <styleMui.link to="/login" underline="hover">
                 Đăng nhập
             </styleMui.link>
         </styleMui.Form>

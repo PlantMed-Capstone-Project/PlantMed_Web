@@ -1,7 +1,7 @@
 import { Grid, Link, Stack, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { createSearchParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as styleMui from './FeatureSearch.styled'
 
 function FeaturedSearch({ title, data }) {
@@ -18,12 +18,7 @@ function FeaturedSearch({ title, data }) {
     }
 
     const goDetail = (id) => {
-        navigate({
-            pathname: 'detail',
-            search: createSearchParams({
-                id: id,
-            }).toString(),
-        })
+        navigate(`/plants/${id}`)
     }
 
     return (

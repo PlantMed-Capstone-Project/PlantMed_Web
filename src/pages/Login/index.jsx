@@ -1,26 +1,11 @@
-import SigninForm from 'components/SigninForm/SigninForm'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import useScrollTo from 'hooks/useScrollTo'
 import * as styleMui from './SigninPage.styled'
+import LoginForm from 'components/LoginForm'
 
-function SigninPage() {
-    const location = useLocation()
-    const searchParams = new URLSearchParams(location.search)
-
-    //trigger animation khi scrollY
-    useEffect(() => {
-        let checkNav = true
-
-        if (checkNav) {
-            window.scrollTo(0, 100)
-        }
-
-        // clean up func
-        return () => {
-            checkNav = false
-        }
-    }, [searchParams])
+function Login() {
+    //trigger crollY
+    useScrollTo(0, 100)
 
     return (
         <styleMui.container>
@@ -51,11 +36,11 @@ function SigninPage() {
                     exit={{ opacity: 0, x: '30%' }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
-                    <SigninForm />
+                    <LoginForm />
                 </styleMui.formContainer>
             </styleMui.Background>
         </styleMui.container>
     )
 }
 
-export default SigninPage
+export default Login

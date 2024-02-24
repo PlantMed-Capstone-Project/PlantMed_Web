@@ -1,4 +1,5 @@
-import { Box, CardMedia, Link, styled } from '@mui/material'
+import { Box, CardMedia, styled } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 export const container = styled(Box)({
     display: 'flex',

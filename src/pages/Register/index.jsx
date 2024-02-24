@@ -1,29 +1,14 @@
-import SignupForm from 'components/SignupForm/SignupForm'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import useScrollTo from 'hooks/useScrollTo'
+import { useState } from 'react'
 import * as styleMui from './SignupPage.styled'
+import RegisterForm from 'components/RegisterForm'
 
-function SignupPage() {
-    const location = useLocation()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const searchParams = new URLSearchParams(location.search)
-
+function Register() {
     const [typeUser, setTypeUser] = useState('người dùng')
 
-    //trigger animation khi scrollY
-    useEffect(() => {
-        let checkNav = true
-
-        if (checkNav) {
-            window.scrollTo(0, 100)
-        }
-
-        // clean up func
-        return () => {
-            checkNav = false
-        }
-    }, [searchParams])
+    //trigger scrollY
+    useScrollTo(0, 100)
 
     return (
         <styleMui.container>
@@ -35,7 +20,10 @@ function SignupPage() {
                     exit={{ opacity: 0, x: '-30%' }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
-                    <SignupForm setTypeUser={setTypeUser} typeUser={typeUser} />
+                    <RegisterForm
+                        setTypeUser={setTypeUser}
+                        typeUser={typeUser}
+                    />
                 </styleMui.formContainer>
                 <styleMui.containerTxt
                     component={motion.div}
@@ -59,4 +47,4 @@ function SignupPage() {
     )
 }
 
-export default SignupPage
+export default Register

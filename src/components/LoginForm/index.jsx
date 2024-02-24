@@ -16,7 +16,7 @@ const iconStyle = {
     fontSize: '2rem',
 }
 
-export default function SigninForm() {
+export default function LoginForm() {
     const { login, loginFailure } = useActions(authAction)
     const { show } = useActions(snackbarAction)
 
@@ -100,6 +100,10 @@ export default function SigninForm() {
 
     const onSubmit = async () => {
         try {
+            show({
+                message: 'Vui lòng đợi giấy lát!',
+                autoHideDuration: 500,
+            })
             const response = await authLogin(inputs)
             login(response.data)
             show({
@@ -171,7 +175,7 @@ export default function SigninForm() {
                 >
                     Đăng nhập
                 </styleMui.button>
-                <styleMui.link href="/register" underline="hover">
+                <styleMui.link to="/register" underline="hover">
                     Tạo tài khoản mới
                 </styleMui.link>
             </styleMui.navPlace>
