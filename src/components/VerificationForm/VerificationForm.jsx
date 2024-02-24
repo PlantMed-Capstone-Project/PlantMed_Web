@@ -1,12 +1,12 @@
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import { FORM_REGISTER, VERIFY_CODE } from 'constants'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { register, verifyEmail } from 'rest/api/auth'
 import { clearCookie, createCookie, readCookie } from 'utils/cookie'
 import * as styleMui from './VerificationForm.styled'
+import { FORM_REGISTER, VERIFY_CODE } from 'constant'
 
 export default function VerificationForm() {
     const { show } = useActions(snackbarAction)

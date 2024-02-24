@@ -1,11 +1,10 @@
 import axios from 'axios'
-import { BASE_URL } from 'constants'
-import { ACCESS_TOKEN } from 'constants'
+import { ACCESS_TOKEN, LOCAL_URL } from 'constant'
 import { objectToFormData } from 'utils'
 import { readCookie } from 'utils/cookie'
 
 export default class Client {
-    constructor(server = BASE_URL) {
+    constructor(server = LOCAL_URL) {
         this.baseUrl = server
         this.client = axios.create({
             baseURL: this.baseUrl,
