@@ -1,0 +1,85 @@
+.slick-list,
+.slick-slider,
+.slick-track {
+  padding: 0.46rem 0 2rem 0;
+}
+
+.slick-next,
+.slick-prev {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  top: 47%;
+  display: block;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  cursor: pointer;
+  border: none;
+  z-index: 11;
+}
+
+.slick-prev {
+  left: 1.5rem;
+}
+
+.slick-next {
+  right: 1.5rem;
+}
+
+.slick-next:before,
+.slick-prev:before {
+  font-size: 40px;
+}
+
+.slick-next,
+.slick-next:focus,
+.slick-next:hover,
+.slick-prev,
+.slick-prev:focus,
+.slick-prev:hover {
+  color: transparent;
+  outline: none;
+  background: transparent;
+}
+
+.slick-prev:before {
+  content: "\2190";
+  color: #69AD28;
+}
+
+.slick-next:before,
+[dir=rtl] .slick-prev:before {
+  content: '→';
+  color: #69AD28;
+}
+
+.slick-initialized .slick-slide {
+  padding: 0.5rem 1.3rem;
+}
+
+.slick-slide {
+  width: 18.98344rem;
+  height: 18.48163rem;
+}
+
+.center .slick-center .card_feature {
+  position: relative;
+  transform: scale(1.1);
+  z-index: 10;
+  transition: all ease-in-out 0.2s;
+  pointer-events: all;
+  opacity: 1;
+}
+
+
+
+.center .card_feature {
+  opacity: 0.7;
+  transform: scale(0.9) translateZ(-10px);
+  z-index: 0;
+  transition: all ease-in 0.2s;
+  pointer-events: none;
+}
