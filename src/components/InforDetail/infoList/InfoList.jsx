@@ -4,12 +4,13 @@ import * as styleMui from '../InforDetail.styled'
 
 function InfoList({ label, value, screenSlide }) {
     const [desText, setDesText] = useState('')
+    console.log(value)
 
     // Kiểm tra xem component đang hoạt động trong root nào
     const checkTypeDes = () => {
         if (screenSlide === 'popupscreen') {
             setDesText(() =>
-                value.length > 60 ? value.slice(0, 59) + '...' : value
+                value?.length > 60 ? value.slice(0, 59) + '...' : value
             )
         } else {
             setDesText(value)
@@ -18,7 +19,7 @@ function InfoList({ label, value, screenSlide }) {
 
     useEffect(() => {
         checkTypeDes()
-    }, [])
+    }, [value])
 
     return (
         <styleMui.liContainer screen={screenSlide}>

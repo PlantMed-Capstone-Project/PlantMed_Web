@@ -43,120 +43,132 @@ function FeaturedSearch({ title, data }) {
                 columnSpacing="1.69rem"
                 width="72.69rem"
             >
-                {data?.map((product, idx) => (
-                    <Grid item xs={product.id <= 2 ? 6 : 4} key={idx}>
-                        <styleMui.BoxAllGrid
-                            pt="1.31rem"
-                            product={product.id}
-                            onClick={() => goDetail(product.id)}
-                        >
-                            <styleMui.NameOfProduct
-                                component={motion.p}
-                                product={product.id}
-                                hoverIndex={hoverIndex}
-                                idx={idx}
-                            >
-                                {product.name}
-                            </styleMui.NameOfProduct>
+                {data.length > 0
+                    ? data.slice(0, 5).map((product, idx) => (
+                          <Grid item xs={idx + 1 <= 2 ? 6 : 4} key={product.id}>
+                              <styleMui.BoxAllGrid
+                                  pt="1.31rem"
+                                  product={idx + 1}
+                                  onClick={() => goDetail(product.id)}
+                              >
+                                  <styleMui.NameOfProduct
+                                      component={motion.p}
+                                      product={idx + 1}
+                                      hoverIndex={hoverIndex}
+                                      idx={idx}
+                                  >
+                                      {product.name}
+                                  </styleMui.NameOfProduct>
 
-                            <styleMui.BoxImage
-                                component={motion.div}
-                                product={product.id}
-                                whileHover={{ y: '-14%' }}
-                                onMouseOver={() => handleHover(idx)}
-                                onMouseLeave={handleLeave}
-                            >
-                                <img
-                                    src={product.image}
-                                    alt=""
-                                    style={{
-                                        height: '100%',
-                                        width: '100%',
-                                        objectFit: 'cover',
-                                        borderRadius: '10px',
-                                    }}
-                                />
+                                  <styleMui.BoxImage
+                                      component={motion.div}
+                                      product={idx + 1}
+                                      whileHover={{ y: '-14%' }}
+                                      onMouseOver={() => handleHover(idx)}
+                                      onMouseLeave={handleLeave}
+                                  >
+                                      <img
+                                          //   src={`data:image/png;base64,${product.images[0].data}`}
+                                          //   1tIV8l_0z1Mez4dwSNj-U3Vu9fFAoNVa2
+                                          src={`data:image/png;base64,${product.images[0].data}`}
+                                          alt=""
+                                          style={{
+                                              height: '100%',
+                                              width: '100%',
+                                              objectFit: 'cover',
+                                              borderRadius: '10px',
+                                          }}
+                                      />
 
-                                {/* set hover and show text background black */}
-                                {hoverIndex === idx && (
-                                    <styleMui.BoxBlackHover
-                                        component={motion.div}
-                                        product={product.id}
-                                        initial={{ opacity: 0, scale: 0 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        <Typography
-                                            sx={{
-                                                color: '#FFF',
-                                                fontSize:
-                                                    product.id <= 2
-                                                        ? '1.5625rem'
-                                                        : '1.25rem',
-                                                fontWeight: '500',
-                                            }}
-                                        >
-                                            {product.name}
-                                        </Typography>
-                                        <Stack
-                                            direction="column"
-                                            alignItems="center"
-                                            spacing={
-                                                product.id <= 2
-                                                    ? '2.44rem'
-                                                    : '1.1rem'
-                                            }
-                                            sx={{
-                                                p:
-                                                    product.id <= 2
-                                                        ? '0 5.12rem'
-                                                        : '0 3rem',
-                                                mt:
-                                                    product.id <= 2
-                                                        ? '1.5rem'
-                                                        : '0.7rem',
-                                            }}
-                                        >
-                                            <Typography
-                                                sx={{
-                                                    color: '#FFF',
-                                                    fontSize:
-                                                        product.id <= 2
-                                                            ? '1.25rem'
-                                                            : '0.7rem',
-                                                    fontWeight: '300',
-                                                    textAlign: 'center',
-                                                }}
-                                            >
-                                                {product.description.length <=
-                                                100
-                                                    ? product.description
-                                                    : product.description.slice(
-                                                          0,
-                                                          100
-                                                      ) + '...'}
-                                            </Typography>
+                                      {hoverIndex === idx && (
+                                          <styleMui.BoxBlackHover
+                                              component={motion.div}
+                                              product={idx + 1}
+                                              initial={{
+                                                  opacity: 0,
+                                                  scale: 0,
+                                              }}
+                                              animate={{
+                                                  opacity: 1,
+                                                  scale: 1,
+                                              }}
+                                              exit={{
+                                                  opacity: 0,
+                                                  scale: 0,
+                                              }}
+                                              transition={{ duration: 0.2 }}
+                                          >
+                                              <Typography
+                                                  sx={{
+                                                      color: '#FFF',
+                                                      fontSize:
+                                                          idx + 1 <= 2
+                                                              ? '1.5625rem'
+                                                              : '1.25rem',
+                                                      fontWeight: '500',
+                                                  }}
+                                              >
+                                                  {product.name}
+                                              </Typography>
+                                              <Stack
+                                                  direction="column"
+                                                  alignItems="center"
+                                                  spacing={
+                                                      idx + 1 <= 2
+                                                          ? '2.44rem'
+                                                          : '1.1rem'
+                                                  }
+                                                  sx={{
+                                                      p:
+                                                          idx + 1 <= 2
+                                                              ? '0 5.12rem'
+                                                              : '0 3rem',
+                                                      mt:
+                                                          idx + 1 <= 2
+                                                              ? '1.5rem'
+                                                              : '0.7rem',
+                                                  }}
+                                              >
+                                                  <Typography
+                                                      sx={{
+                                                          color: '#FFF',
+                                                          fontSize:
+                                                              idx + 1 <= 2
+                                                                  ? '1.25rem'
+                                                                  : '0.7rem',
+                                                          fontWeight: '300',
+                                                          textAlign: 'center',
+                                                      }}
+                                                  >
+                                                      {product.usage.length <=
+                                                      100
+                                                          ? product.usage
+                                                          : product.usage.slice(
+                                                                0,
+                                                                100
+                                                            ) + '...'}
+                                                  </Typography>
 
-                                            <Link
-                                                color="inherit"
-                                                sx={{
-                                                    color: '#FFF',
-                                                    fontSize: '1.25rem',
-                                                    fontWeight: '300',
-                                                    textAlign: 'center',
-                                                    cursor: 'pointer',
-                                                }}
-                                            >
-                                                Xem thêm
-                                            </Link>
-                                        </Stack>
-                                    </styleMui.BoxBlackHover>
-                                )}
-                            </styleMui.BoxImage>
-                        </styleMui.BoxAllGrid>
-                    </Grid>
-                ))}
+                                                  <Link
+                                                      color="inherit"
+                                                      sx={{
+                                                          color: '#FFF',
+                                                          fontSize: '1.25rem',
+                                                          fontWeight: '300',
+                                                          textAlign: 'center',
+                                                          cursor: 'pointer',
+                                                      }}
+                                                  >
+                                                      Xem thêm
+                                                  </Link>
+                                              </Stack>
+                                          </styleMui.BoxBlackHover>
+                                      )}
+                                  </styleMui.BoxImage>
+                              </styleMui.BoxAllGrid>
+                          </Grid>
+                      ))
+                    : 'ahsdasd'}
             </Grid>
         </Stack>
     )

@@ -1,20 +1,23 @@
 import imgDemo from 'Images/heroSen.jpg'
 import immageBa from 'Images/heroSi.jpg'
 import imgHai from 'Images/hiền nhân.jpg'
+import { plantAction } from 'app/reducers/plant'
 import HerosDeatail from 'components/HerosDeatail/HerosDeatail'
 import PaginationLayout from 'components/PaginationLayout/PaginationLayout'
 import PopupInfo from 'components/PopupInfo/PopupInfo'
 import Searching from 'components/Searching/Searching'
 import { AnimatePresence } from 'framer-motion'
+import useActions from 'hooks/useActions'
 import { useEffect, useRef, useState } from 'react'
+import { getAllPlant } from 'rest/api/plant'
 import * as styleMui from './PlantPage.styled'
-import { allPlant } from 'rest/api/plant'
 
 export default function PlantPage() {
     const [search, setSearch] = useState('')
     const [indexData, setIndexData] = useState()
-    const [allPlants, setAllPlants] = useState([])
-
+    const { storePlants } = useActions(plantAction)
+    const [allPlant, setAllPlant] = useState([])
+    const [loading, setLoading] = useState(false)
     const containerPopup = useRef()
 
     // kiểm tra khi click có đang click vào popup hay không ?
@@ -24,17 +27,25 @@ export default function PlantPage() {
         }
     }
 
-    const getAllPlant = async () => {
+    const fetchData = async () => {
+        setLoading(true)
         try {
-            const response = await allPlant()
-            setAllPlants(response.data)
+            const response = await getAllPlant()
+            const data = response.data
+            storePlants(data)
+            setAllPlant(data)
         } catch (error) {
             console.log(error)
+        } finally {
+            setTimeout(() => {
+                setLoading(false)
+            }, 2000)
         }
     }
 
     useEffect(() => {
         document.addEventListener('mousedown', handler)
+        fetchData()
 
         return () => document.removeEventListener('mousedown', handler)
     }, [])
@@ -118,9 +129,10 @@ export default function PlantPage() {
                 <HerosDeatail />
                 <Searching setSearch={setSearch} />
                 <PaginationLayout
-                    data={plants}
+                    data={allPlant}
                     serachText={search}
                     setIndexData={setIndexData}
+                    loading={loading}
                 />
             </styleMui.container>
             <styleMui.popupContainer isopen={indexData != null}>

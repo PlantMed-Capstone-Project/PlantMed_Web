@@ -1,17 +1,17 @@
 import axios from 'axios'
 import { BASE_URL } from 'constants'
+import { LOCAL_URL } from 'constants'
 import { ACCESS_TOKEN } from 'constants'
 import { objectToFormData } from 'utils'
 import { readCookie } from 'utils/cookie'
 
 export default class Client {
     constructor(server = BASE_URL) {
-        this.baseUrl = server
+        this.baseUrl = LOCAL_URL
         this.client = axios.create({
             baseURL: this.baseUrl,
             headers: {
                 'Content-Type': 'application/json',
-                'ngrok-skip-browser-warning': '69420',
             },
         })
 

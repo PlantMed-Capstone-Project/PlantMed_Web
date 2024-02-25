@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material'
 import imgHosen from 'Images/avatar.jpg'
 import hoaThom from 'Images/cannabis.png'
 import hoaHoe from 'Images/groupImage.png'
@@ -6,6 +7,7 @@ import imageBachBo from 'Images/heroSi.jpg'
 import imageDayLeo from 'Images/herogreen.jpg'
 import imgHosung from 'Images/hiền nhân.jpg'
 import imgHoacucLon from 'Images/lap.png'
+import { plantAction } from 'app/reducers/plant'
 import CardThreeD from 'components/CardThreeD/CardThreeDList/CardThreeDList'
 import SpecialThreeD from 'components/CardThreeD/SpecialThreeD'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
@@ -13,10 +15,15 @@ import Heros from 'components/Heros/Heros'
 import Quantity from 'components/Quantity/Quantity'
 import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
+import useActions from 'hooks/useActions'
+import { useEffect, useState } from 'react'
+import { getAllPlant } from 'rest/api/plant'
 import * as styleMui from './HomePage.styled'
-import { Stack } from '@mui/material'
 
 export default function HomePage() {
+    const [plantss, setPlantss] = useState([])
+    const { storePlants } = useActions(plantAction)
+    const [loading, setLoading] = useState(false)
     const plants = [
         {
             id: 1,
@@ -90,55 +97,37 @@ export default function HomePage() {
         },
     ]
 
-    const searchProducts = [
-        {
-            id: 1,
-            name: 'Product 1',
-            image: imageBachBo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 2,
-            name: 'Product 2',
-            image: imageDayLeo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 3,
-            name: 'Product 3',
-            image: imageBachBo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 4,
-            name: 'Product 4',
-            image: imageDayLeo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 5,
-            name: 'Product 5',
-            image: imageBachBo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-    ]
-
     // lib cần phải truyền tải component theo dạng này vào prop của 1 thư viện mới có thể sử dụng
-    const manyPlantCard = plants.map((item) => ({
+    const manyPlantCard = plants?.map((item) => ({
         key: item.id,
         content: <CardThreeD key={item.id} data={item} />,
     }))
+
+    const fetchData = async () => {
+        setLoading(true)
+        try {
+            const response = await getAllPlant()
+            const data = response.data
+            storePlants(data)
+            setPlantss(data)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setTimeout(() => {
+                setLoading(false)
+            }, 2000)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     return (
         <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
             <Heros />
             <Sologan />
-            <FeaturedSearch title="TÌM KIẾM NỔI BẬT" data={searchProducts} />
+            <FeaturedSearch title="TÌM KIẾM NỔI BẬT" data={plantss} />
             <styleMui.subContainer direction="column" alignItems="center">
                 <styleMui.alotComponent>
                     <styleMui.slideShowTitle>
