@@ -5,6 +5,7 @@ export const searchBar = styled(TextField)(() => ({
     borderRadius: '0.625rem', // Bo tròn viền
     height: '3.625rem',
     backgroundColor: '#F4FFEB',
+
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
             borderRadius: '0.625rem',

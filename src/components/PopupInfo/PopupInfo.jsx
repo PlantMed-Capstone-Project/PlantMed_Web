@@ -1,16 +1,12 @@
-import { getIdPlant } from 'FakeData/plantData'
-import imgFake from 'Images/hiền nhân.jpg'
 import InforDetail from 'components/InforDetail/InforDetail'
-import { useState } from 'react'
-import * as styleMui from './PopupInfo.styled'
 import { motion } from 'framer-motion'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import { useEffect } from 'react'
+import { useState } from 'react'
+import * as styleMui from './PopupInfo.styled'
 
 function PopupInfo({ id }) {
     const [isHover, setIsHover] = useState(false)
     const { data } = useShallowEqualSelector((state) => state.plant)
-    console.log(data.filter((vl) => vl.id === id))
 
     const textData = {
         images: data.filter((vl) => vl.id === id)[0]?.images[0].data,

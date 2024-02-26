@@ -44,3 +44,20 @@ export const BoxBlackHover = styled(Box)(({ product }) => ({
     alignItems: 'center',
     paddingTop: product <= 2 ? '3.12rem' : '1.94rem',
 }))
+
+export const containerSkeleton = styled(Box)(({ product }) => ({
+    height: product <= 2 ? '22.5rem' : '14.875rem',
+    borderRadius: '0.625rem',
+    padding: '1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+}))
+
+export const nameSkeleton = styled(Box)({
+    width: '100%',
+    height: '2rem',
+    display: 'flex',
+    justifyContent: 'center',
+})

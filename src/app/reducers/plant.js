@@ -1,20 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { PLANT_DATA } from 'constants'
-import { createCookie } from 'utils/cookie'
 
 const initialState = {
     data: [],
+    loading: false,
 }
 
 const plantSlice = createSlice({
     name: 'plant',
     initialState,
     reducers: {
-        storePlants: (state, action) => {
+        storePlant: (state) => {
+            state.loading = true
+        },
+        storePlantSuccessful: (state, action) => {
             state.data = action.payload
+            state.loading = false
         },
         clearPlants: (state) => {
             state.data = initialState.data
+            state.loading = false
         },
     },
 })

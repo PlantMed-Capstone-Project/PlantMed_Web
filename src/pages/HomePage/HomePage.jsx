@@ -7,7 +7,6 @@ import imageBachBo from 'Images/heroSi.jpg'
 import imageDayLeo from 'Images/herogreen.jpg'
 import imgHosung from 'Images/hiền nhân.jpg'
 import imgHoacucLon from 'Images/lap.png'
-import { plantAction } from 'app/reducers/plant'
 import CardThreeD from 'components/CardThreeD/CardThreeDList/CardThreeDList'
 import SpecialThreeD from 'components/CardThreeD/SpecialThreeD'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
@@ -15,15 +14,11 @@ import Heros from 'components/Heros/Heros'
 import Quantity from 'components/Quantity/Quantity'
 import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
-import useActions from 'hooks/useActions'
-import { useEffect, useState } from 'react'
-import { getAllPlant } from 'rest/api/plant'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import * as styleMui from './HomePage.styled'
 
 export default function HomePage() {
-    const [plantss, setPlantss] = useState([])
-    const { storePlants } = useActions(plantAction)
-    const [loading, setLoading] = useState(false)
+    const { data, loading } = useShallowEqualSelector((state) => state.plant)
     const plants = [
         {
             id: 1,
@@ -103,31 +98,15 @@ export default function HomePage() {
         content: <CardThreeD key={item.id} data={item} />,
     }))
 
-    const fetchData = async () => {
-        setLoading(true)
-        try {
-            const response = await getAllPlant()
-            const data = response.data
-            storePlants(data)
-            setPlantss(data)
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setTimeout(() => {
-                setLoading(false)
-            }, 2000)
-        }
-    }
-
-    useEffect(() => {
-        fetchData()
-    }, [])
-
     return (
         <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
             <Heros />
             <Sologan />
-            <FeaturedSearch title="TÌM KIẾM NỔI BẬT" data={plantss} />
+            <FeaturedSearch
+                title="TÌM KIẾM NỔI BẬT"
+                data={data}
+                loading={loading}
+            />
             <styleMui.subContainer direction="column" alignItems="center">
                 <styleMui.alotComponent>
                     <styleMui.slideShowTitle>
