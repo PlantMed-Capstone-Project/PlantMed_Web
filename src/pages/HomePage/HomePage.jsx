@@ -93,6 +93,7 @@ export default function HomePage() {
     ]
 
     // lib cần phải truyền tải component theo dạng này vào prop của 1 thư viện mới có thể sử dụng
+    // phần này đợi designer để remake
     const manyPlantCard = plants?.map((item) => ({
         key: item.id,
         content: <CardThreeD key={item.id} data={item} />,

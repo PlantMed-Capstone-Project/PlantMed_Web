@@ -175,7 +175,7 @@ function FeaturedSearch({ title, data, loading }) {
                             </Grid> // Kết thúc render sản phẩm
                         ) : (
                             // Bắt đầu skeleton loading
-                            <Grid xs={idx + 1 <= 2 ? 6 : 4} key={idx}>
+                            <Grid item xs={idx + 1 <= 2 ? 6 : 4} key={idx}>
                                 <styleMui.containerSkeleton
                                     variant="rectangular"
                                     product={idx + 1}
