@@ -1,7 +1,7 @@
 import { Box, Link, Pagination, Stack, Typography, styled } from '@mui/material'
 
 export const container = styled(Stack)(() => ({
-    marginTop: '3.56rem',
+    marginTop: '2rem',
     columnGap: '1.56rem',
     marginBottom: '4.13rem',
     flexWrap: 'wrap',
@@ -9,10 +9,10 @@ export const container = styled(Stack)(() => ({
     height: '40.31rem',
 }))
 
-export const card = styled(Box)(({ topsearch }) => ({
-    width: topsearch ? '17.75rem' : '23.1875rem  ',
-    height: topsearch ? '14.3125rem' : '14.875rem',
-    backgroundColor: '#F4FFEB',
+export const card = styled(Box)(({ isskeleton }) => ({
+    width: '23.1875rem  ',
+    height: '14.875rem',
+    backgroundColor: isskeleton ? '#F4FFEB' : 'none',
     borderRadius: '0.625rem',
     textAlign: 'center',
     position: 'relative',
@@ -85,3 +85,23 @@ export const pagination = styled(Pagination)({
         borderColor: '#69AD28',
     },
 })
+
+export const containerNotfound = styled(Box)(() => ({
+    width: '100%',
+    height: '40.31rem',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: '4rem',
+}))
+
+export const boxNotFound = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+}))
+
+export const titleNotfound = styled(Typography)(() => ({
+    color: '#214400',
+    fontWeight: '500',
+    fontSize: '2.2rem',
+}))

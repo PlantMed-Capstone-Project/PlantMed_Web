@@ -7,6 +7,7 @@ import MoreBlog from 'components/MoreBlog/MoreBlog'
 import SlideDetail from 'components/SlideDetail/SlideDetail'
 import useScrollTo from 'hooks/useScrollTo'
 import { useParams } from 'react-router-dom'
+import fakeImage from 'Images/heroSen.jpg'
 
 export default function DetailPage() {
     const params = useParams()
@@ -80,13 +81,16 @@ export default function DetailPage() {
         },
     ]
 
-    const textData = [
-        { label: 'Tên quốc tế', value: data[0].title },
-        { label: 'Tên thường gọi', value: data[0].nameEx },
-        { label: 'Họ của cây', value: data[0].hoCay },
-        { label: 'Nơi sinh trưởng', value: data[0].origin },
-        { label: 'Cơ sở bán', value: data[0].shopSell },
-    ]
+    const textData = {
+        images: fakeImage,
+        valueList: [
+            { label: 'Tên quốc tế', value: data[0].title },
+            { label: 'Tên thường gọi', value: data[0].nameEx },
+            { label: 'Họ của cây', value: data[0].hoCay },
+            { label: 'Nơi sinh trưởng', value: data[0].origin },
+            { label: 'Cơ sở bán', value: data[0].shopSell },
+        ],
+    }
 
     return (
         <Box

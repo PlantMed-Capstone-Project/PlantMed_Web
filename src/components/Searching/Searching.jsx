@@ -27,7 +27,7 @@ function Searching({ setSearch }) {
                                 color: '#69AD28',
                                 mr: 1,
                                 pointerEvents: 'none',
-                                height: '2.5rem',
+                                height: '50%',
                                 width: '2.5rem',
                             }}
                         />
