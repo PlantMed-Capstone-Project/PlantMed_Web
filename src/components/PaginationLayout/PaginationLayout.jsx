@@ -1,10 +1,10 @@
-import { Box, Skeleton, Stack, Typography } from '@mui/material'
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
+import { Skeleton, Stack } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { formatText } from 'utils'
 import * as styleMui from './Pagination.styled'
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
 
 function PaginationLayout({
     data,
@@ -46,6 +46,7 @@ function PaginationLayout({
     useEffect(() => {
         loadMoreData()
         searching()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [serachText, data.length, currentPage])
 
     const hoverEnter = (idx) => {
@@ -87,7 +88,7 @@ function PaginationLayout({
                 (vl, idx) => (
                     <styleMui.card
                         component={motion.div}
-                        key={vl && vl.id}
+                        key={vl?.id || idx}
                         isskeleton={vl}
                         initial={{ y: -20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}

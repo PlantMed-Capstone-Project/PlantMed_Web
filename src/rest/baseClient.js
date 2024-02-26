@@ -4,8 +4,8 @@ import { objectToFormData } from 'utils'
 import { readCookie } from 'utils/cookie'
 
 export default class Client {
-    constructor(server = BASE_URL) {
-        this.baseUrl = LOCAL_URL
+    constructor(server = LOCAL_URL) {
+        this.baseUrl = server
         this.client = axios.create({
             baseURL: this.baseUrl,
             headers: {
