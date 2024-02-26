@@ -22,7 +22,7 @@ export default function MapLayout({ data }) {
     const [showPlants, setShowPlant] = useState(false)
     const [distances, setDistances] = useState(null)
     const userLocation = useCurrentLocation()
-    const [travelTimes, setTravelTimes] = useState({
+    const [travelTimes] = useState({
         tralvelWalk: 0,
         tralvelMoto: 0,
         tralvelCar: 0,

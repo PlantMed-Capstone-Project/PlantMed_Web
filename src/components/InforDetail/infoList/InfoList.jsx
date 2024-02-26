@@ -4,7 +4,6 @@ import * as styleMui from '../InforDetail.styled'
 
 function InfoList({ label, value, screenSlide }) {
     const [desText, setDesText] = useState('')
-    console.log(value)
 
     // Kiểm tra xem component đang hoạt động trong root nào
     const checkTypeDes = () => {

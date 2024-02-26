@@ -1,14 +1,10 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { Box, CardActionArea, Typography } from '@mui/material'
+import { Box, CardActionArea, Typography, Button } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
-import Pagination from '@mui/material/Pagination'
-import PaginationItem from '@mui/material/PaginationItem'
-import Stack from '@mui/material/Stack'
 import plant from 'Images/heroSen.jpg'
+import { Link } from 'react-router-dom'
 
 const styles = {
     card: {
@@ -45,64 +41,62 @@ function BlogList({ blogData }) {
                         sx={{ display: 'flex', flexDirection: 'row', flex: 1 }}
                     >
                         <Card sx={styles.card}>
-                            <CardActionArea
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    flex: 1,
-                                    justifyContent: 'flex-start',
-                                    alignItems: 'start',
-                                }}
+                            <Link
+                                to={`${data.id}`}
+                                style={{ textDecoration: 'none' }}
                             >
-                                <CardMedia
-                                    component="img"
-                                    height="200"
-                                    image={plant}
-                                    alt="plant"
-                                />
-                                <CardContent
+                                <CardActionArea
                                     sx={{
-                                        padding: '0.625rem 1.563rem 1.25rem',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        flex: 1,
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'start',
                                     }}
                                 >
-                                    <Typography
-                                        gutterBottom
-                                        variant="h6"
-                                        component="div"
-                                        sx={{ fontWeight: 'bold' }}
+                                    <CardMedia
+                                        component="img"
+                                        height="200"
+                                        image={plant}
+                                        alt="plant"
+                                    />
+                                    <CardContent
+                                        sx={{
+                                            padding:
+                                                '0.625rem 1.563rem 1.25rem',
+                                        }}
                                     >
-                                        {data.name}
-                                    </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                    >
-                                        {data.description}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
+                                        <Typography
+                                            gutterBottom
+                                            variant="h6"
+                                            component="div"
+                                            sx={{ fontWeight: 'bold' }}
+                                        >
+                                            {data.name}
+                                        </Typography>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                        >
+                                            {data.description}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Link>
                         </Card>
                     </Grid>
                 ))}
             </Grid>
-            <Stack
-                spacing={2}
-                sx={{ margin: '3rem 0 6.25rem 0', alignItems: 'center' }}
-            >
-                <Pagination
-                    count={10}
+            <Box sx={{ textAlign: 'center', marginTop: '3.125rem' }}>
+                <Button
+                    variant="contained"
                     color="success"
-                    renderItem={(item) => (
-                        <PaginationItem
-                            slots={{
-                                previous: ArrowBackIcon,
-                                next: ArrowForwardIcon,
-                            }}
-                            {...item}
-                        />
-                    )}
-                />
-            </Stack>
+                    component={Link}
+                    to="/bloglist"
+                >
+                    Xem thêm bài viết
+                </Button>
+            </Box>
         </Box>
     )
 }

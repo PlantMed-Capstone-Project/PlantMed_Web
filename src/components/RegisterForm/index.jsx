@@ -5,13 +5,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton, InputAdornment, Link, Tabs } from '@mui/material'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import { FORM_REGISTER, VERIFY_CODE } from 'constants'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { verifyEmail } from 'rest/api/auth'
 import { createCookie } from 'utils/cookie'
 import * as styleMui from './SignupForm.styled'
+import { FORM_REGISTER, VERIFY_CODE } from 'constant'
 
 const iconStyle = {
     color: '#69AD28',
@@ -123,7 +123,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
         },
         {
             field: 'policyCheck',
-            message: 'Phải chấn nhận với điều khoản trước khi đăng ký',
+            message: 'Phải chấp nhận với điều khoản trước khi đăng ký',
             isCheck: false,
         },
     ]
@@ -155,6 +155,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
                 helperText={errors[item.key]}
                 margin="dense"
                 type={item.type}
+                autoComplete="true"
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">

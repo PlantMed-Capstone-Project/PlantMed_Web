@@ -2,7 +2,7 @@ import Client from 'rest/baseClient'
 
 const http = new Client()
 
-export const getAllPlant = async () => {
+export const getAll = async () => {
     return http.get('plants')
 }
 

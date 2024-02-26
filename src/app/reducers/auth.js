@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { REFRESH_TOKEN } from 'constants'
-import { ACCESS_TOKEN } from 'constants'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constant'
 import { clearCookie, createCookie, readCookie } from 'utils/cookie'
 
 const initialState = () => {

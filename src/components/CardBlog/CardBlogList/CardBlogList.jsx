@@ -2,14 +2,16 @@ import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto'
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { useEffect, useRef, useState } from 'react'
-import * as styleMui from './CardBlogList.styled'
 import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import * as styleMui from './CardBlogList.styled'
 
 const CardBlogList = ({ item }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
+    const navigate = useNavigate()
 
     const popupRef = useRef()
 
@@ -33,6 +35,9 @@ const CardBlogList = ({ item }) => {
         console.log(value)
     }
 
+    const handleRedirect = (id) => {
+        navigate(`/blog/${id}`)
+    }
     return (
         <styleMui.container>
             {showPopup && (
@@ -98,7 +103,7 @@ const CardBlogList = ({ item }) => {
             {/* End first phase of this card */}
 
             {/* Start seccond phase of this card */}
-            <styleMui.ctnBody>
+            <styleMui.ctnBody onClick={() => handleRedirect(item.id)}>
                 {/* Start phase text */}
                 <styleMui.containtText>
                     <styleMui.title>{item.title}</styleMui.title>
@@ -133,9 +138,11 @@ const CardBlogList = ({ item }) => {
                     />
                     <styleMui.quantityLike>100</styleMui.quantityLike>
                 </styleMui.likeContainer>
-                <ChatBubbleOutlineIcon
-                    sx={{ cursor: 'pointer', color: '#69AD28' }}
-                />
+                <styleMui.commentBox onClick={() => handleRedirect(item.id)}>
+                    <ChatBubbleOutlineIcon
+                        sx={{ cursor: 'pointer', color: '#69AD28' }}
+                    />
+                </styleMui.commentBox>
             </styleMui.ctnBottom>
             {/* End Third phase of this card */}
         </styleMui.container>

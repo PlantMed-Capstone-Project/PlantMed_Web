@@ -11,13 +11,13 @@ export const BoxAllGrid = styled(Box)(({ product }) => ({
     alignItems: 'center',
 }))
 
-export const NameOfProduct = styled(Box)(({ product, hoverIndex, idx }) => ({
+export const NameOfProduct = styled(Box)(({ product, hoverindex, idx }) => ({
     color: '#214400',
     fontSize: product <= 2 ? '1.5625rem' : '1.25rem',
     fontWeight: '500',
     fontFamily: ' Roboto Serif',
     transition: 'all 0.1s',
-    opacity: hoverIndex === idx ? '0' : '1',
+    opacity: hoverindex === idx ? '0' : '1',
 }))
 
 export const BoxImage = styled(Box)(({ product }) => ({

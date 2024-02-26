@@ -7,29 +7,29 @@ import * as styleMui from './PopupInfo.styled'
 function PopupInfo({ id }) {
     const [isHover, setIsHover] = useState(false)
     const { data } = useShallowEqualSelector((state) => state.plant)
-
+    const dataFilter = data.filter((vl) => vl.id === id)[0]
     const textData = {
-        images: data.filter((vl) => vl.id === id)[0]?.images[0].data,
+        images: dataFilter?.images[0].data,
         valueList: [
             {
                 label: 'Tên quốc tế',
-                value: data.filter((vl) => vl.id === id)[0]?.internationalName,
+                value: dataFilter?.internationalName,
             },
             {
                 label: 'Tên thường gọi',
-                value: data.filter((vl) => vl.id === id)[0]?.name,
+                value: dataFilter?.name,
             },
             {
                 label: 'Họ của cây',
-                value: data.filter((vl) => vl.id === id)[0]?.surName,
+                value: dataFilter?.surName,
             },
             {
                 label: 'Nguồn gốc',
-                value: data.filter((vl) => vl.id === id)[0]?.origin,
+                value: dataFilter?.origin,
             },
             {
                 label: 'Nơi sinh trưởng',
-                value: data.filter((vl) => vl.id === id)[0]?.placeOfBirth,
+                value: dataFilter?.placeOfBirth,
             },
         ],
     }
@@ -49,7 +49,7 @@ function PopupInfo({ id }) {
                         <styleMui.image
                             ishover={isHover}
                             image={`data:image/png;base64,${textData.images}`}
-                            title="hien nhan cay"
+                            title={textData.valueList[1].value}
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)}
                         />

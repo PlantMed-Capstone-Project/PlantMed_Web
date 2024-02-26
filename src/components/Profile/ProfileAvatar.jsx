@@ -3,7 +3,7 @@ import * as styleMui from './Profile.styled'
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
 import { base64ToImage, imageToBase64 } from 'utils'
 
-const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
+export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
     const [selectedAvatar, setSelectedAvatar] = useState(avatar)
 
     const handleAvatarChange = (event) => {
@@ -39,5 +39,3 @@ const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
         </styleMui.avatarPlace>
     )
 }
-
-export default ProfileAvatar

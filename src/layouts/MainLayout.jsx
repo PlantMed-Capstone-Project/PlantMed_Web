@@ -10,13 +10,15 @@ const MainLayout = ({ children }) => {
     const location = useLocation()
     const isAbout = location.pathname === '/about-us'
 
+    const { chekcOverflow, ...otherProps } = { chekcOverflow: isAbout }
+
     return (
         <S.Root>
             <S.Header>
                 <Header isLogin={isLogin} />
             </S.Header>
 
-            <S.Main chekcOverflow={isAbout}>{children}</S.Main>
+            <S.Main {...otherProps}>{children}</S.Main>
 
             <S.Footer>
                 <Footer topspacing={spacingTop} />

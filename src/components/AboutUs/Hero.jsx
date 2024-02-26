@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from './AboutUs.styled'
 
-const AboutUsHero = ({ title, note }) => {
+export const AboutUsHero = ({ title, note }) => {
     return (
         <S.arrangeContainer>
             <S.contentPlace>
@@ -12,5 +12,3 @@ const AboutUsHero = ({ title, note }) => {
         </S.arrangeContainer>
     )
 }
-
-export default AboutUsHero

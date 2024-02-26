@@ -10,9 +10,11 @@ import DetectionPage from 'pages/DetectionPage/DetectionPage'
 import HomePage from 'pages/HomePage'
 import Login from 'pages/Login'
 import PlantPage from 'pages/Plant/PlantPage'
+import BlogDetail from 'pages/BlogDetail/BlogDetail'
 import Register from 'pages/Register'
 import ProfilePage from 'pages/ProfilePage'
 import VerificationPage from 'pages/VerificationPage/VerificationPage'
+import ResetPasswordPage from 'pages/ResetPasswordPage'
 
 const publicRoutes = [
     { path: '/', page: HomePage, layout: MainLayout },
@@ -23,14 +25,16 @@ const publicRoutes = [
     { path: '/plants/:id', page: DetailPage, layout: MainLayout },
     { path: '/about-us', page: AboutUsPage, layout: MainLayout },
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
+    { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
 ]
 
 const privateRoutes = [
-    { path: '/blog', page: BlogPage, layout: MainLayout },
-    // { path: '/blog/:id', page: 'detail blog here', layout: MainLayout },
-    { path: '/profile', page: ProfilePage, layout: MainLayout },
     { path: '/new-blog', page: CreateBlog, layout: MainLayout },
     { path: '/bloglist', page: BlogListPage, layout: MainLayout },
+    { path: '/blog', page: BlogPage, layout: MainLayout },
+    { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
+    { path: '/profile', page: ProfilePage, layout: MainLayout },
+    { path: '/reset-password', page: ResetPasswordPage, layout: MainLayout },
 ]
 
 export { privateRoutes, publicRoutes }

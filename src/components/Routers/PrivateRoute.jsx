@@ -1,5 +1,5 @@
 import { authAction } from 'app/reducers/auth'
-import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constants'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constant'
 import useActions from 'hooks/useActions'
 import { Navigate, Outlet } from 'react-router-dom'
 import { readCookie } from 'utils/cookie'

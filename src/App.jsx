@@ -8,7 +8,7 @@ import NotFound from 'components/NotFound'
 import { LoginRoute, PrivateRoute } from 'components/Routers'
 import useActions from 'hooks/useActions'
 import { useEffect } from 'react'
-import { getAllPlant } from 'rest/api/plant'
+import { getAll } from 'rest/api/plant'
 import { privateRoutes, publicRoutes } from 'routes'
 
 function App() {
@@ -17,11 +17,9 @@ function App() {
     const fetchData = async () => {
         storePlant()
         try {
-            const response = await getAllPlant()
+            const response = await getAll()
             const data = response.data
-            setTimeout(() => {
-                storePlantSuccessful(data)
-            }, 10000)
+            storePlantSuccessful(data)
         } catch (error) {
             console.log(error)
         }

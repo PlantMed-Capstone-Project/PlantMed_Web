@@ -1,9 +1,7 @@
-import ProfileAvatar from 'components/Profile/ProfileAvatar'
-import * as styleMui from './ProfilePage.styled'
 import avatar from 'Images/avatar.jpg'
-import ProfileForm from 'components/Profile/ProfileForm'
-import ProfileSidebar from 'components/Profile/ProfileSidebar'
 import { useRef, useState } from 'react'
+import * as styleMui from './ProfilePage.styled'
+import { ProfileAvatar, ProfileForm, ProfileSidebar } from 'components/Profile'
 
 function ProfilePage() {
     const [isFormDisabled, setIsFormDisabled] = useState(true)
