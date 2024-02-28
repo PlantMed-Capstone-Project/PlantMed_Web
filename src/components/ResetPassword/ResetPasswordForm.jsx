@@ -50,8 +50,8 @@ const ResetPasswordForm = ({password}) => {
         },
         {
             field: 'newPassword',
-            message: 'Mật khẩu mới không được dưới 5 ký tự',
-            minLength: 5,
+            message: 'Mật khẩu mới không được dưới 6 ký tự',
+            minLength: 6,
         },
         {
             field: 'newPassword',

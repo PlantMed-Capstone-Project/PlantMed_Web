@@ -109,8 +109,8 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
         },
         {
             field: 'password',
-            message: 'Mật khẩu không được dưới 5 ký tự',
-            minLength: 5,
+            message: 'Mật khẩu không được dưới 6 ký tự',
+            minLength: 6,
         },
         {
             field: 'password',
