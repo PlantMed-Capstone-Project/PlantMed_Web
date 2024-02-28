@@ -288,7 +288,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
                 label={
                     <styleMui.policy>
                         Tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính
-                        sách quyền riêng tư của chúng tôi.
+                        sách quyền riêng tư.
                     </styleMui.policy>
                 }
             />
