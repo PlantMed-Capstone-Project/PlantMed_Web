@@ -49,7 +49,6 @@ export const button = styled(Button)(() => ({
     backgroundColor: '#69AD28',
     borderRadius: '0.6rem',
     width: '8rem',
-    marginTop: '1rem',
 }))
 
 export const link = styled(Link)(() => ({

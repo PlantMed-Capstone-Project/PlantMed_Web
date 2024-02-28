@@ -19,8 +19,6 @@ export default function ForgotPasswordForm() {
     const sampleEmail = 'Qiqi123@gmail.com'
     const navigate = useNavigate()
 
-    const [showMessage, setShowMessage] = useState(false)
-
     const [errors, setErrors] = useState({})
 
     const [inputs, setInputs] = useState({
@@ -94,9 +92,10 @@ export default function ForgotPasswordForm() {
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
             */
-            setShowMessage(true)
-            clearInput()
-            return navigate('/forgot-password')
+            if (inputs.email === sampleEmail) {
+                clearInput()
+                return navigate('/login')
+            }
         } catch (error) {
             /*
             loginFailure(error.response.data.message)
@@ -112,28 +111,26 @@ export default function ForgotPasswordForm() {
     //Khai báo input
     const renderInputs = (inputFields) => {
         return (
-            !showMessage && (
-                <styleMui.Input
-                    key={inputFields.key}
-                    placeholder={inputFields.placeholder}
-                    size="small"
-                    value={inputs[inputFields.key]}
-                    error={errors[inputFields.key]}
-                    onChange={(e) =>
-                        handleInputChange(inputFields.key, e.target.value)
-                    }
-                    helperText={errors[inputFields.key]}
-                    margin="dense"
-                    type={inputFields.type}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                {inputFields.icon}
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            )
+            <styleMui.Input
+                key={inputFields.key}
+                placeholder={inputFields.placeholder}
+                size="small"
+                value={inputs[inputFields.key]}
+                error={errors[inputFields.key]}
+                onChange={(e) =>
+                    handleInputChange(inputFields.key, e.target.value)
+                }
+                helperText={errors[inputFields.key]}
+                margin="dense"
+                type={inputFields.type}
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            {inputFields.icon}
+                        </InputAdornment>
+                    ),
+                }}
+            />
         )
     }
 
@@ -142,35 +139,21 @@ export default function ForgotPasswordForm() {
             <styleMui.forgotPassTitle variant="h5" align="center">
                 Quên mật khẩu ?
             </styleMui.forgotPassTitle>
-            {!showMessage && !showMessage ? (
-                <styleMui.containerInput>
-                    <styleMui.Note>
-                        Nhập email để nhận mật khẩu mới
-                    </styleMui.Note>
-                    {/* Start input place */}
-                    <styleMui.inputPlace>
-                        {renderInputs(...inputFields)}
-                    </styleMui.inputPlace>
-                    {/* End input place */}
-                    <styleMui.button
-                        variant="contained"
-                        onClick={() => onValidate()}
-                    >
-                        Nhận mã
-                    </styleMui.button>
-                </styleMui.containerInput>
-            ) : (
-                <styleMui.notifyPlace>
-                    <CheckCircleOutlineIcon
-                        sx={{ color: '#69AD28', fontSize: '6rem' }}
-                    />
-                    <styleMui.Note>
-                        Mật khẩu mới đã được gởi qua email. <br />
-                        Hãy kiểm tra email và đăng nhập lại với mật khẩu mới
-                    </styleMui.Note>
-                </styleMui.notifyPlace>
-            )}
+            <styleMui.containerInput>
+                <styleMui.Note>Nhập email để nhận mật khẩu mới</styleMui.Note>
+                {/* Start input place */}
+                <styleMui.inputPlace>
+                    {renderInputs(...inputFields)}
+                </styleMui.inputPlace>
+                {/* End input place */}
+            </styleMui.containerInput>
             <styleMui.navPlace>
+                <styleMui.button
+                    variant="contained"
+                    onClick={() => onValidate()}
+                >
+                    Nhận mã
+                </styleMui.button>
                 <styleMui.link to="/login" underline="hover">
                     Quay lại đăng nhập
                 </styleMui.link>
