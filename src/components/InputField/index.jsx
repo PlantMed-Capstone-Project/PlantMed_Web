@@ -1,4 +1,3 @@
-import React from 'react'
 import { InputAdornment } from '@mui/material'
 import * as styleMui from './InputField.styled'
 

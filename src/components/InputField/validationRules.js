@@ -1,7 +1,7 @@
 export const validationRules = {
     email: [
         {
-            message: 'Email không hợp lệ',
+            message: 'Email không hợp lệ.',
             regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
         },
         {
@@ -41,7 +41,6 @@ export const validationRules = {
     ],
     username: [
         {
-            field: 'username',
             message: 'Tên hiển thị không được để trống.',
         },
     ],

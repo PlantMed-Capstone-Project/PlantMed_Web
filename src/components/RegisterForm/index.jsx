@@ -96,7 +96,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
             label: 'chuyên gia',
             link: '/',
         },
-    ]    
+    ]
 
     //Khai báo input
     const renderInputs = () => {
@@ -118,13 +118,13 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
 
     //Check validation
     const onValidate = () => {
-        const inputErrors = validateInputs(inputs);
-    
+        const inputErrors = validateInputs(inputs)
+
         if (Object.keys(inputErrors).length > 0) {
-            setErrors(inputErrors);
+            setErrors(inputErrors)
         } else {
-            setErrors({});
-            onSubmit();
+            setErrors({})
+            onSubmit()
         }
     }
 
