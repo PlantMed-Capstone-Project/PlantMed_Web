@@ -77,7 +77,6 @@ function PaginationLayout({
     const handlePagnating = (e, vl) => {
         setCurrentPage(vl)
     }
-
     return (
         <styleMui.container
             direction="row"
