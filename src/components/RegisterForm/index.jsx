@@ -109,8 +109,8 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
         },
         {
             field: 'password',
-            message: 'Mật khẩu không được dưới 5 ký tự',
-            minLength: 5,
+            message: 'Mật khẩu không được dưới 6 ký tự',
+            minLength: 6,
         },
         {
             field: 'password',
@@ -288,7 +288,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
                 label={
                     <styleMui.policy>
                         Tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính
-                        sách quyền riêng tư của chúng tôi.
+                        sách quyền riêng tư.
                     </styleMui.policy>
                 }
             />

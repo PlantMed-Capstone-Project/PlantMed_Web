@@ -43,10 +43,6 @@ const ResetPasswordForm = ({password}) => {
 
     const validationRules = [
         {
-            field: 'oldPassword',
-            message: 'Vui lòng nhập mật khẩu cũ',
-        },
-        {
             field: 'newPassword',
             message:
                 'Mật khẩu mới giống với mật khẩu cũ. Vui lòng nhập mật khẩu mới',
@@ -54,8 +50,8 @@ const ResetPasswordForm = ({password}) => {
         },
         {
             field: 'newPassword',
-            message: 'Mật khẩu mới không được dưới 5 ký tự',
-            minLength: 5,
+            message: 'Mật khẩu mới không được dưới 6 ký tự',
+            minLength: 6,
         },
         {
             field: 'newPassword',
@@ -123,6 +119,7 @@ const ResetPasswordForm = ({password}) => {
                     type={type}
                     error={errors[key]}
                     helperText={errors[key]}
+                    disabled={key && key==='oldPassword'}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">

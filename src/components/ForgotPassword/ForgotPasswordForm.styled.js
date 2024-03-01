@@ -20,7 +20,7 @@ export const Input = styled(TextField)(() => ({
     },
 }))
 
-export const Form = styled(Box)(() => ({
+export const Form = styled(Box)({
     backgroundColor: '#F4FFEB',
     width: '25.125rem',
     height: '23rem',
@@ -31,57 +31,57 @@ export const Form = styled(Box)(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     gap: '1.63rem',
-}))
+})
 
-export const forgotPassTitle = styled(Typography)(() => ({
+export const forgotPassTitle = styled(Typography)({
     fontSize: '2.5rem',
     fontWeight: '900',
     color: '#69AD28',
-}))
+})
 
-export const Note = styled(Typography)(() => ({
+export const Note = styled(Typography)({
     fontSize: '1rem',
     fontWeight: '200',
     color: '#69AD28',
-}))
+})
 
-export const button = styled(Button)(() => ({
+export const button = styled(Button)({
     backgroundColor: '#69AD28',
     borderRadius: '0.6rem',
     width: '8rem',
-}))
+})
 
-export const link = styled(Link)(() => ({
+export const link = styled(Link)({
     fontSize: '0.9rem',
     fontStyle: 'italic',
     fontWeight: '400',
     color: '#214400',
-}))
+})
 
-export const containerInput = styled(Box)(() => ({
+export const containerInput = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     alignItems: 'center',
-}))
+})
 
-export const notifyPlace = styled(Box)(() => ({
+export const notifyPlace = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     width: '75%',
     alignItems: 'center',
     gap: '1rem',
-}))
+})
 
-export const inputPlace = styled(Box)(() => ({
+export const inputPlace = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     width: '17.875rem',
-}))
+})
 
-export const navPlace = styled(Box)(() => ({
+export const navPlace = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '0.69rem',
-}))
+})

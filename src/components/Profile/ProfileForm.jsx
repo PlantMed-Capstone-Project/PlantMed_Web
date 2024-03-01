@@ -27,8 +27,7 @@ export const ProfileForm = ({
         },
         {
             id: 2,
-            type: 'email',
-            header: 'Email',
+            header: `Email: ${email}`,
             key: 'email',
         },
         {
@@ -41,17 +40,13 @@ export const ProfileForm = ({
     const validationRules = [
         {
             field: 'username',
-            message: 'Username không được để trống. Vui lòng nhập username',
+            message:
+                'Tên hiển thị không được để trống. Vui lòng nhập tên hiển thị',
         },
         {
-            field: 'email',
-            message: 'Email không hợp lệ. Vui lòng nhập email',
-            // eslint-disable-next-line no-useless-escape
-            regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        },
-        {
-            field: 'email',
-            message: 'Email không được để trống. Vui lòng nhập email',
+            field: 'username',
+            message: 'Tên hiển thị không hợp lệ. Vui lòng nhập tên hiển thị',
+            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]+$/,
         },
     ]
 
@@ -86,7 +81,7 @@ export const ProfileForm = ({
     }
 
     const renderInputs = ({ id, type, header, key }) => {
-        if (key === 'username' || key === 'email') {
+        if (key === 'username') {
             return (
                 <styleMui.inputContainer key={id}>
                     <styleMui.inputHeader>{header}</styleMui.inputHeader>
@@ -102,7 +97,7 @@ export const ProfileForm = ({
                     />
                 </styleMui.inputContainer>
             )
-        } else if (key === 'createdDate') {
+        } else if (key === 'createdDate' || key === 'email') {
             return (
                 <styleMui.inputContainer key={id}>
                     <styleMui.inputHeader>{header}</styleMui.inputHeader>
