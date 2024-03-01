@@ -1,37 +1,28 @@
-import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { IconButton, InputAdornment } from '@mui/material'
 import { authAction } from 'app/reducers/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { login as authLogin } from 'rest/api/auth'
-import * as styleMui from './SigninForm.styled'
+import * as styleMui from './ForgotPasswordForm.styled'
+import { InputAdornment } from '@mui/material'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 
 const iconStyle = {
     color: '#69AD28',
     fontSize: '2rem',
 }
 
-export default function LoginForm() {
-    const { login, loginFailure } = useActions(authAction)
+export default function ForgotPasswordForm() {
     const { show } = useActions(snackbarAction)
-
+    const sampleEmail = 'Qiqi123@gmail.com'
     const navigate = useNavigate()
-    //Chuyển trạng thái nhìn thấy mật khẩu
-    const [eye, setEye] = useState(false)
-    const handleEye = () => {
-        setEye((prevState) => !prevState)
-    }
 
     const [errors, setErrors] = useState({})
 
     const [inputs, setInputs] = useState({
         email: '',
-        password: '',
     })
 
     const inputFields = [
@@ -41,28 +32,18 @@ export default function LoginForm() {
             type: 'email',
             icon: <PersonIcon sx={iconStyle} />,
         },
-        {
-            key: 'password',
-            placeholder: 'Mật khẩu',
-            type: eye ? 'text' : 'password',
-            icon: <LockRoundedIcon sx={iconStyle} />,
-            eyeIcon: (
-                <IconButton onClick={handleEye}>
-                    {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-            ),
-        },
     ]
 
     //Khai báo array các validation
     const validationRules = [
         {
             field: 'email',
-            message: 'Vui lòng nhập email',
+            message: 'Email không hợp lệ',
+            regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
         },
         {
-            field: 'password',
-            message: 'Vui lòng nhập mật khẩu',
+            field: 'email',
+            message: 'Vui lòng nhập email',
         },
     ]
 
@@ -71,8 +52,8 @@ export default function LoginForm() {
         setErrors({})
         let isValid = true
 
-        validationRules.forEach(({ field, message }) => {
-            if (!inputs[field]) {
+        validationRules.forEach(({ field, message, regex }) => {
+            if (!inputs[field] || (regex && !inputs[field].match(regex))) {
                 isValid = false
                 handleError(message, field)
             }
@@ -94,12 +75,12 @@ export default function LoginForm() {
     const clearInput = () => {
         setInputs({
             email: '',
-            password: '',
         })
     }
 
     const onSubmit = async () => {
         try {
+            /*
             show({
                 message: 'Vui lòng đợi giấy lát!',
                 autoHideDuration: 500,
@@ -110,73 +91,71 @@ export default function LoginForm() {
                 message: 'Đăng nhập thành công!!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
-            clearInput()
-            return navigate('/')
+            */
+            if (inputs.email === sampleEmail) {
+                clearInput()
+                return navigate('/login')
+            }
         } catch (error) {
+            /*
             loginFailure(error.response.data.message)
             show({
                 message: error.response.data.message,
                 severity: SNACKBAR_SEVERITY.ERROR,
                 autoHideDuration: 2000,
             })
+            */
         }
     }
 
     //Khai báo input
-    const renderInputs = () => {
-        return inputFields.map((item, indx) => (
+    const renderInputs = (inputFields) => {
+        return (
             <styleMui.Input
-                key={indx}
-                placeholder={item.placeholder}
+                key={inputFields.key}
+                placeholder={inputFields.placeholder}
                 size="small"
-                value={inputs[item.key]}
-                error={errors[item.key]}
-                onChange={(e) => handleInputChange(item.key, e.target.value)}
-                helperText={errors[item.key]}
+                value={inputs[inputFields.key]}
+                error={errors[inputFields.key]}
+                onChange={(e) =>
+                    handleInputChange(inputFields.key, e.target.value)
+                }
+                helperText={errors[inputFields.key]}
                 margin="dense"
-                type={item.type}
+                type={inputFields.type}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">
-                            {item.icon}
-                        </InputAdornment>
-                    ),
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            {item.eyeIcon}
+                            {inputFields.icon}
                         </InputAdornment>
                     ),
                 }}
             />
-        ))
+        )
     }
 
     return (
         <styleMui.Form>
-            <styleMui.signinTitle variant="h5" align="center">
-                Đăng nhập
-            </styleMui.signinTitle>
-
+            <styleMui.forgotPassTitle variant="h5" align="center">
+                Quên mật khẩu ?
+            </styleMui.forgotPassTitle>
             <styleMui.containerInput>
+                <styleMui.Note>Nhập email để nhận mật khẩu mới</styleMui.Note>
                 {/* Start input place */}
-                <styleMui.inputPlace>{renderInputs()}</styleMui.inputPlace>
+                <styleMui.inputPlace>
+                    {renderInputs(...inputFields)}
+                </styleMui.inputPlace>
                 {/* End input place */}
-
-                <styleMui.passSection>
-                    <styleMui.forgetPass to='/forgot-password' underline="hover">
-                        Quên mật khẩu?
-                    </styleMui.forgetPass>
-                </styleMui.passSection>
             </styleMui.containerInput>
             <styleMui.navPlace>
                 <styleMui.button
                     variant="contained"
                     onClick={() => onValidate()}
                 >
-                    Đăng nhập
+                    Nhận mã
                 </styleMui.button>
-                <styleMui.link to="/register" underline="hover">
-                    Tạo tài khoản mới
+                <styleMui.link to="/login" underline="hover">
+                    Quay lại đăng nhập
                 </styleMui.link>
             </styleMui.navPlace>
         </styleMui.Form>
