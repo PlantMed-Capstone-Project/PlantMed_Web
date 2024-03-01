@@ -23,7 +23,8 @@ function LeafletRoutingMachine(props, ref) {
 
     // Bắt đầu tạo ra đường di chuyển khi click vào các vùng
     const routingStart = (currentLocation, newRoute) => {
-        if (newRoute.lat === null && newRoute.lng === null) {
+        const isRouting = newRoute.lat && newRoute.lng
+        if (!isRouting) {
             routing.setWaypoints([])
             refContrl.current._container.style.display = 'None'
         } else {
