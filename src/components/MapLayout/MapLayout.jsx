@@ -2,6 +2,8 @@ import ForestIcon from '@mui/icons-material/Forest'
 import LanguageIcon from '@mui/icons-material/Language'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import plantsIcon from 'Images/cansaIcon.png'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import useActions from 'hooks/useActions'
 import useCurrentLocation from 'hooks/useCurrentLocation'
 import * as L from 'leaflet'
 import { GestureHandling } from 'leaflet-gesture-handling'
@@ -9,7 +11,7 @@ import 'leaflet-gesture-handling/dist/leaflet-gesture-handling.css'
 import 'leaflet-routing-machine'
 import { useEffect, useRef, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
-import { Bounce, ToastContainer, toast } from 'react-toastify'
+import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import * as muiStyle from './MapLayout.styled'
 import MarkMaps from './MarkMaps/MarkMaps'
@@ -17,15 +19,15 @@ import LeafletRoutingMachine from './RoutineMachine/LeafletRoutingMachine'
 
 export default function MapLayout({ data }) {
     const currrentLocation = useCurrentLocation()
-
+    const { show } = useActions(snackbarAction)
     const [showPlants, setShowPlant] = useState(false)
     const [newRoute, setNewRoute] = useState({
         lat: '',
         lng: '',
     })
     const currentLocaiton = {
-        lat: currrentLocation.coordinate.lat,
-        lng: currrentLocation.coordinate.lng,
+        lat: currrentLocation.coordinate?.lat,
+        lng: currrentLocation.coordinate?.lng,
     }
     // const [showShops, setShowShop] = useState(false)
     const ref = useRef()
@@ -56,6 +58,17 @@ export default function MapLayout({ data }) {
 
     // Kiểm tra xem khi click vào marker có bị trùng tung độ và vĩ độ hay không
     const checkRouting = (lat, lng) => {
+        console.log(currentLocaiton)
+        if (
+            currentLocaiton.lat === undefined ||
+            currentLocaiton.lng === undefined
+        ) {
+            show({
+                message: 'Bạn cần bật định vị của trình duyệt!!',
+                severity: SNACKBAR_SEVERITY.WARNING,
+            })
+            return
+        }
         setNewRoute((prev) =>
             prev.lat !== lat || prev.lng !== lng
                 ? { lat: lat, lng: lng }
@@ -70,22 +83,6 @@ export default function MapLayout({ data }) {
         }
         findWay.current.getRouting(currentLocaiton, newRoute)
     }, [newRoute])
-
-    const locationPermission = (value) => {
-        if (value) {
-            toast.info('🦄 Vui lòng bật định vị !', {
-                position: 'top-right',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'colored',
-                transition: Bounce,
-            })
-        }
-    }
 
     return (
         <muiStyle.container>
@@ -144,10 +141,7 @@ export default function MapLayout({ data }) {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
-                    <MarkMaps
-                        ref={ref}
-                        locationPermission={locationPermission}
-                    />
+                    <MarkMaps ref={ref} />
                     {showPlants &&
                         data[0].locations?.map((value, idx) => (
                             <Marker

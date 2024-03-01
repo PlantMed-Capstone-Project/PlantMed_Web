@@ -2,10 +2,12 @@ import useCurrentLocation from 'hooks/useCurrentLocation'
 import React, { useImperativeHandle, useState } from 'react'
 import { Marker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import useActions from 'hooks/useActions'
 
 function MarkMaps(props, ref) {
-    const { locationPermission } = props
     const map = useMap()
+    const { show } = useActions(snackbarAction)
     const currrentLocation = useCurrentLocation()
     const [circleAdded, setCircleAdded] = useState(false)
     const radius = 10000
@@ -36,9 +38,15 @@ function MarkMaps(props, ref) {
                 ],
                 12
             )
-            locationPermission(false)
+            show({
+                message: 'Đã xác định được vị trí của bạn',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
         } else {
-            locationPermission(true)
+            show({
+                message: 'Bạn cần bật định vị của trình duyệt!!',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
         }
     }
 
