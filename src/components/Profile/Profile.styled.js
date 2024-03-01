@@ -1,13 +1,6 @@
-import {
-    Box,
-    Typography,
-    IconButton,
-    styled,
-    TextField,
-    Button,
-} from '@mui/material'
+import { Box, Typography, IconButton, styled, Button, Input, TextField } from '@mui/material'
 
-export const Input = styled(TextField)(() => ({
+export const InputField = styled(TextField)(() => ({
     borderRadius: '0.625rem', // Bo tròn viền
     backgroundColor: '#FFF',
     '& .MuiOutlinedInput-root': {
@@ -24,6 +17,7 @@ export const Input = styled(TextField)(() => ({
         },
     },
 }))
+
 
 export const avatarPlace = styled(Box)(() => ({
     width: '20%',

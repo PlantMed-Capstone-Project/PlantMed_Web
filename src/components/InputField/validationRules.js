@@ -41,8 +41,12 @@ export const validationRules = {
     ],
     username: [
         {
-            message: 'Tên hiển thị không được để trống.',
+            message: 'Tên hiển thị không hợp lệ.',
+            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]+$/,
         },
+        {
+            message: 'Tên hiển thị không được để trống.',
+        },        
     ],
 }
 

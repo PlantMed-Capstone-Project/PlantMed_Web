@@ -10,6 +10,7 @@ const InputField = ({
     error,
     onChange,
     helperText,
+    disabled,
 }) => {
     return (
         <styleMui.Input
@@ -22,6 +23,7 @@ const InputField = ({
             helperText={helperText}
             margin="dense"
             type={type}
+            disabled={disabled}
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">{icon}</InputAdornment>

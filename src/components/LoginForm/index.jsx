@@ -7,7 +7,7 @@ import { authAction } from 'app/reducers/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { login as authLogin } from 'rest/api/auth'
 import * as styleMui from './SigninForm.styled'
 import InputField from 'components/InputField'
@@ -128,7 +128,7 @@ export default function LoginForm() {
                 {/* End input place */}
 
                 <styleMui.passSection>
-                    <styleMui.forgetPass href="/" underline="hover">
+                    <styleMui.forgetPass to='/forgot-password' underline="hover">
                         Quên mật khẩu?
                     </styleMui.forgetPass>
                 </styleMui.passSection>
