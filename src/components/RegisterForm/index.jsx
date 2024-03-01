@@ -3,7 +3,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { IconButton, InputAdornment, Link, Tabs } from '@mui/material'
+import { IconButton, Link, Tabs } from '@mui/material'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
@@ -12,11 +12,8 @@ import { verifyEmail } from 'rest/api/auth'
 import { createCookie } from 'utils/cookie'
 import * as styleMui from './SignupForm.styled'
 import { FORM_REGISTER, VERIFY_CODE } from 'constant'
-
-const iconStyle = {
-    color: '#69AD28',
-    fontSize: '2rem',
-}
+import InputField from 'components/InputField'
+import { validateInputs } from 'components/InputField/validationRules'
 
 export default function RegisterForm({ setTypeUser, typeUser }) {
     const navigate = useNavigate()
@@ -50,28 +47,28 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
             key: 'email',
             placeholder: 'Email',
             type: 'email',
-            icon: <PersonIcon sx={iconStyle} />,
+            icon: <PersonIcon sx={styleMui.iconStyle} />,
         },
         {
             id: 2,
             key: 'lastName',
             placeholder: 'Họ',
             type: 'text',
-            icon: <BadgeIcon sx={iconStyle} />,
+            icon: <BadgeIcon sx={styleMui.iconStyle} />,
         },
         {
             id: 3,
             key: 'firstName',
             placeholder: 'Tên',
             type: 'text',
-            icon: <BadgeIcon sx={iconStyle} />,
+            icon: <BadgeIcon sx={styleMui.iconStyle} />,
         },
         {
             id: 4,
             key: 'password',
             placeholder: 'Mật khẩu',
             type: eye ? 'text' : 'password',
-            icon: <LockRoundedIcon sx={iconStyle} />,
+            icon: <LockRoundedIcon sx={styleMui.iconStyle} />,
             eyeIcon: (
                 <IconButton onClick={handleEye}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
@@ -83,48 +80,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
             key: 'confirmPassword',
             placeholder: 'Xác thực mật khẩu',
             type: eye ? 'text' : 'password',
-            icon: <LockRoundedIcon sx={iconStyle} />,
-        },
-    ]
-
-    //Khai báo array các validation
-    const validationRules = [
-        {
-            field: 'email',
-            message: 'Email không hợp lệ',
-            // eslint-disable-next-line no-useless-escape
-            regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        },
-        {
-            field: 'email',
-            message: 'Vui lòng nhập email',
-        },
-        {
-            field: 'lastName',
-            message: 'Vui lòng nhập họ',
-        },
-        {
-            field: 'firstName',
-            message: 'Vui lòng nhập tên',
-        },
-        {
-            field: 'password',
-            message: 'Mật khẩu không được dưới 5 ký tự',
-            minLength: 5,
-        },
-        {
-            field: 'password',
-            message: 'Vui lòng nhập mật khẩu',
-        },
-        {
-            field: 'confirmPassword',
-            message: 'Mật khẩu xác thực không trùng khớp',
-            compareField: 'password',
-        },
-        {
-            field: 'policyCheck',
-            message: 'Phải chấp nhận với điều khoản trước khi đăng ký',
-            isCheck: false,
+            icon: <LockRoundedIcon sx={styleMui.iconStyle} />,
         },
     ]
 
@@ -140,65 +96,36 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
             label: 'chuyên gia',
             link: '/',
         },
-    ]
+    ]    
 
     //Khai báo input
     const renderInputs = () => {
         return inputFields.map((item) => (
-            <styleMui.Input
+            <InputField
                 key={item.id}
+                type={item.type}
+                icon={item.icon}
+                eyeIcon={item.eyeIcon}
+                handleEye={handleEye}
                 placeholder={item.placeholder}
-                size="small"
                 value={inputs[item.key]}
                 error={errors[item.key]}
                 onChange={(e) => handleInputChange(item.key, e.target.value)}
                 helperText={errors[item.key]}
-                margin="dense"
-                type={item.type}
-                autoComplete="true"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            {item.icon}
-                        </InputAdornment>
-                    ),
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            {item.eyeIcon}
-                        </InputAdornment>
-                    ),
-                }}
             />
         ))
     }
 
     //Check validation
     const onValidate = () => {
-        setErrors({})
-        let isValid = true
-
-        validationRules.forEach(
-            ({ field, message, regex, minLength, compareField, isCheck }) => {
-                if (
-                    !inputs[field] ||
-                    (regex && !inputs[field].match(regex)) ||
-                    (minLength && inputs[field].length < minLength) ||
-                    (compareField && inputs[field] !== inputs[compareField]) ||
-                    (isCheck && !inputs.policyCheck)
-                ) {
-                    isValid = false
-                    handleError(message, field)
-                }
-            }
-        )
-
-        if (isValid) {
-            onSubmit()
+        const inputErrors = validateInputs(inputs);
+    
+        if (Object.keys(inputErrors).length > 0) {
+            setErrors(inputErrors);
+        } else {
+            setErrors({});
+            onSubmit();
         }
-    }
-
-    const handleError = (errorMess, input) => {
-        setErrors((prevState) => ({ ...prevState, [input]: errorMess }))
     }
 
     const handleInputChange = (key, value) => {
