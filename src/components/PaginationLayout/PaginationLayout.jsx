@@ -189,7 +189,7 @@ function PaginationLayout({
                     </styleMui.boxNotFound>
                 </styleMui.containerNotfound>
             )}
-            {!topSearch && (
+            {topSearch && (
                 <styleMui.pagination
                     count={pageCount}
                     onChange={handlePagnating}
