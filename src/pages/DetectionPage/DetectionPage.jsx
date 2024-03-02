@@ -6,6 +6,7 @@ import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 export default function DetectionPage() {
     const { data } = useShallowEqualSelector((state) => state.plant)
     const search = ''
+    const dataPlant = data.slice().sort((a, b) => b.totalSearch - a.totalSearch)
 
     return (
         <Box
@@ -32,7 +33,11 @@ export default function DetectionPage() {
                 >
                     Tìm kiếm nổi bật
                 </Typography>
-                <PaginationLayout data={data} serachText={search} topsearch />
+                <PaginationLayout
+                    data={dataPlant}
+                    serachText={search}
+                    topsearch
+                />
             </Stack>
         </Box>
     )
