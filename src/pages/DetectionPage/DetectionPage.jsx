@@ -7,7 +7,6 @@ export default function DetectionPage() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
     const search = ''
     const dataPlant = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
-
     return (
         <Box
             sx={{
@@ -36,7 +35,7 @@ export default function DetectionPage() {
                 <PaginationLayout
                     data={dataPlant}
                     serachText={search}
-                    topsearch
+                    topSearch
                     loading={loading}
                 />
             </Stack>
