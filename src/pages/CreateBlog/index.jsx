@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as S from './CreateBlog.styled'
 import MultipleSelect from 'components/MutipleSelect'
+import { PostBlog } from 'rest/api/blog'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const initialInputs = {
@@ -35,7 +37,6 @@ function CreateBlog() {
             event.returnValue = message
             return message
         }
-
         window.addEventListener('beforeunload', handleBeforeUnload)
 
         return () => {
@@ -62,9 +63,7 @@ function CreateBlog() {
                 }
             }
             reader.readAsDataURL(files[0])
-        } catch (e) {
-            
-        }
+        } catch (e) {}
     }
 
     const handleTextChange = (type, value) => {
@@ -101,15 +100,19 @@ function CreateBlog() {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        setLoading(true)
         try {
-            // show({
-            //     message: 'Vui long chờ trong giây lát!',
-            //     autoHideDuration: 2000,
-            // })
+            const response = await PostBlog({
+                title: inputs.title,
+                content: inputs.content,
+                image: inputs.image,
+                tagsPlant: inputs.tag,
+            })
             show({
-                message: 'Bài viết của bạn đã được đưa vào hàng chờ!',
+                message: 'Bài đăng của bạn đã được đưa vào hàng chờ',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
+                autoHideDuration: 2000,
             })
             clearInput()
             navigate('/')
@@ -119,7 +122,10 @@ function CreateBlog() {
                     err.response.data.message ??
                     'Lỗi hệ thống! Vui lòng thử lại sau!',
                 severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
             })
+        } finally {
+            setLoading(false)
         }
     }
 
