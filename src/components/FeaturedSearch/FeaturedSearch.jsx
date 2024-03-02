@@ -6,6 +6,8 @@ import * as styleMui from './FeatureSearch.styled'
 
 function FeaturedSearch({ title, data, loading }) {
     const [hoverIndex, setHoverIndex] = useState(null)
+    const plantData = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
+    console.log(plantData)
 
     const navigate = useNavigate()
 
@@ -43,170 +45,167 @@ function FeaturedSearch({ title, data, loading }) {
                 columnSpacing="1.69rem"
                 width="72.69rem"
             >
-                {(loading ? Array.from(new Array(5)) : data.slice(0, 5)).map(
-                    (product, idx) =>
-                        product ? (
-                            // Bắt đâu render ra sản phẩm nếu có data
-                            <Grid
-                                item
-                                xs={idx + 1 <= 2 ? 6 : 4}
-                                key={product.id}
+                {(loading
+                    ? Array.from(new Array(5))
+                    : plantData.slice(0, 5)
+                ).map((product, idx) =>
+                    product ? (
+                        // Bắt đâu render ra sản phẩm nếu có data
+                        <Grid item xs={idx + 1 <= 2 ? 6 : 4} key={product.id}>
+                            <styleMui.BoxAllGrid
+                                pt="1.31rem"
+                                product={idx + 1}
+                                onClick={() => goDetail(product.id)}
                             >
-                                <styleMui.BoxAllGrid
-                                    pt="1.31rem"
+                                <styleMui.NameOfProduct
+                                    component={motion.p}
                                     product={idx + 1}
-                                    onClick={() => goDetail(product.id)}
+                                    hoverIndex={hoverIndex}
+                                    idx={idx}
                                 >
-                                    <styleMui.NameOfProduct
-                                        component={motion.p}
-                                        product={idx + 1}
-                                        hoverIndex={hoverIndex}
-                                        idx={idx}
-                                    >
-                                        {product.name}
-                                    </styleMui.NameOfProduct>
+                                    {product.name}
+                                </styleMui.NameOfProduct>
 
-                                    <styleMui.BoxImage
-                                        component={motion.div}
-                                        product={idx + 1}
-                                        whileHover={{ y: '-14%' }}
-                                        onMouseOver={() => handleHover(idx)}
-                                        onMouseLeave={handleLeave}
-                                    >
-                                        <img
-                                            //   src={`data:image/png;base64,${product.images[0].data}`}
-                                            //   1tIV8l_0z1Mez4dwSNj-U3Vu9fFAoNVa2
-                                            src={`data:image/png;base64,${product.images[0].data}`}
-                                            alt=""
-                                            style={{
-                                                height: '100%',
-                                                width: '100%',
-                                                objectFit: 'cover',
-                                                borderRadius: '10px',
+                                <styleMui.BoxImage
+                                    component={motion.div}
+                                    product={idx + 1}
+                                    whileHover={{ y: '-14%' }}
+                                    onMouseOver={() => handleHover(idx)}
+                                    onMouseLeave={handleLeave}
+                                >
+                                    <img
+                                        //   src={`data:image/png;base64,${product.images[0].data}`}
+                                        //   1tIV8l_0z1Mez4dwSNj-U3Vu9fFAoNVa2
+                                        src={`data:image/png;base64,${product.images[0].data}`}
+                                        alt=""
+                                        style={{
+                                            height: '100%',
+                                            width: '100%',
+                                            objectFit: 'cover',
+                                            borderRadius: '10px',
+                                        }}
+                                    />
+
+                                    {hoverIndex === idx && (
+                                        <styleMui.BoxBlackHover
+                                            component={motion.div}
+                                            product={idx + 1}
+                                            initial={{
+                                                opacity: 0,
+                                                scale: 0,
                                             }}
-                                        />
-
-                                        {hoverIndex === idx && (
-                                            <styleMui.BoxBlackHover
-                                                component={motion.div}
-                                                product={idx + 1}
-                                                initial={{
-                                                    opacity: 0,
-                                                    scale: 0,
+                                            animate={{
+                                                opacity: 1,
+                                                scale: 1,
+                                            }}
+                                            exit={{
+                                                opacity: 0,
+                                                scale: 0,
+                                            }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <Typography
+                                                sx={{
+                                                    color: '#FFF',
+                                                    fontSize:
+                                                        idx + 1 <= 2
+                                                            ? '1.5625rem'
+                                                            : '1.25rem',
+                                                    fontWeight: '500',
                                                 }}
-                                                animate={{
-                                                    opacity: 1,
-                                                    scale: 1,
+                                            >
+                                                {product.name}
+                                            </Typography>
+                                            <Stack
+                                                direction="column"
+                                                alignItems="center"
+                                                spacing={
+                                                    idx + 1 <= 2
+                                                        ? '2.44rem'
+                                                        : '1.1rem'
+                                                }
+                                                sx={{
+                                                    p:
+                                                        idx + 1 <= 2
+                                                            ? '0 5.12rem'
+                                                            : '0 3rem',
+                                                    mt:
+                                                        idx + 1 <= 2
+                                                            ? '1.5rem'
+                                                            : '0.7rem',
                                                 }}
-                                                exit={{
-                                                    opacity: 0,
-                                                    scale: 0,
-                                                }}
-                                                transition={{ duration: 0.2 }}
                                             >
                                                 <Typography
                                                     sx={{
                                                         color: '#FFF',
                                                         fontSize:
                                                             idx + 1 <= 2
-                                                                ? '1.5625rem'
-                                                                : '1.25rem',
-                                                        fontWeight: '500',
-                                                    }}
-                                                >
-                                                    {product.name}
-                                                </Typography>
-                                                <Stack
-                                                    direction="column"
-                                                    alignItems="center"
-                                                    spacing={
-                                                        idx + 1 <= 2
-                                                            ? '2.44rem'
-                                                            : '1.1rem'
-                                                    }
-                                                    sx={{
-                                                        p:
-                                                            idx + 1 <= 2
-                                                                ? '0 5.12rem'
-                                                                : '0 3rem',
-                                                        mt:
-                                                            idx + 1 <= 2
-                                                                ? '1.5rem'
+                                                                ? '1.25rem'
                                                                 : '0.7rem',
+                                                        fontWeight: '300',
+                                                        textAlign: 'center',
                                                     }}
                                                 >
-                                                    <Typography
-                                                        sx={{
-                                                            color: '#FFF',
-                                                            fontSize:
-                                                                idx + 1 <= 2
-                                                                    ? '1.25rem'
-                                                                    : '0.7rem',
-                                                            fontWeight: '300',
-                                                            textAlign: 'center',
-                                                        }}
-                                                    >
-                                                        {product.usage.length <=
-                                                        100
-                                                            ? product.usage
-                                                            : product.usage.slice(
-                                                                  0,
-                                                                  100
-                                                              ) + '...'}
-                                                    </Typography>
+                                                    {product.usage.length <= 100
+                                                        ? product.usage
+                                                        : product.usage.slice(
+                                                              0,
+                                                              100
+                                                          ) + '...'}
+                                                </Typography>
 
-                                                    <Link
-                                                        color="inherit"
-                                                        sx={{
-                                                            color: '#FFF',
-                                                            fontSize: '1.25rem',
-                                                            fontWeight: '300',
-                                                            textAlign: 'center',
-                                                            cursor: 'pointer',
-                                                        }}
-                                                    >
-                                                        Xem thêm
-                                                    </Link>
-                                                </Stack>
-                                            </styleMui.BoxBlackHover>
-                                        )}
-                                    </styleMui.BoxImage>
-                                </styleMui.BoxAllGrid>
-                            </Grid> // Kết thúc render sản phẩm
-                        ) : (
-                            // Bắt đầu skeleton loading
-                            <Grid item xs={idx + 1 <= 2 ? 6 : 4} key={idx}>
-                                <styleMui.containerSkeleton
-                                    variant="rectangular"
-                                    product={idx + 1}
-                                >
-                                    <styleMui.nameSkeleton>
-                                        <Skeleton
-                                            variant="text"
-                                            sx={{
-                                                fontSize:
-                                                    idx + 1 <= 2
-                                                        ? '1.5625rem'
-                                                        : '1.25rem',
-                                                width: '20%',
-                                            }}
-                                        />
-                                    </styleMui.nameSkeleton>
-                                    <Box width="100%" height="80%">
-                                        <Skeleton
-                                            variant="rectangular"
-                                            animation="wave"
-                                            sx={{
-                                                width: '100%',
-                                                height: '100%',
-                                                borderRadius: '0.625rem',
-                                            }}
-                                        />
-                                    </Box>
-                                </styleMui.containerSkeleton>
-                            </Grid>
-                            // Kết thúc skeleton loading
-                        )
+                                                <Link
+                                                    color="inherit"
+                                                    sx={{
+                                                        color: '#FFF',
+                                                        fontSize: '1.25rem',
+                                                        fontWeight: '300',
+                                                        textAlign: 'center',
+                                                        cursor: 'pointer',
+                                                    }}
+                                                >
+                                                    Xem thêm
+                                                </Link>
+                                            </Stack>
+                                        </styleMui.BoxBlackHover>
+                                    )}
+                                </styleMui.BoxImage>
+                            </styleMui.BoxAllGrid>
+                        </Grid> // Kết thúc render sản phẩm
+                    ) : (
+                        // Bắt đầu skeleton loading
+                        <Grid item xs={idx + 1 <= 2 ? 6 : 4} key={idx}>
+                            <styleMui.containerSkeleton
+                                variant="rectangular"
+                                product={idx + 1}
+                            >
+                                <styleMui.nameSkeleton>
+                                    <Skeleton
+                                        variant="text"
+                                        sx={{
+                                            fontSize:
+                                                idx + 1 <= 2
+                                                    ? '1.5625rem'
+                                                    : '1.25rem',
+                                            width: '20%',
+                                        }}
+                                    />
+                                </styleMui.nameSkeleton>
+                                <Box width="100%" height="80%">
+                                    <Skeleton
+                                        variant="rectangular"
+                                        animation="wave"
+                                        sx={{
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: '0.625rem',
+                                        }}
+                                    />
+                                </Box>
+                            </styleMui.containerSkeleton>
+                        </Grid>
+                        // Kết thúc skeleton loading
+                    )
                 )}
             </Grid>
         </Stack>
