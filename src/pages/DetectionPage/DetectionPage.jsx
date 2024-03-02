@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from '@mui/material'
-import { plants } from 'FakeData/plantData'
 import PaginationLayout from 'components/PaginationLayout/PaginationLayout'
 import UploadImage from 'components/UploadImage/UploadImage'
-import React from 'react'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
 export default function DetectionPage() {
-    const data = plants
+    const { data, loading } = useShallowEqualSelector((state) => state.plant)
     const search = ''
+    const dataPlant = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
 
     return (
         <Box
@@ -34,10 +34,10 @@ export default function DetectionPage() {
                     Tìm kiếm nổi bật
                 </Typography>
                 <PaginationLayout
-                    data={data}
+                    data={dataPlant}
                     serachText={search}
                     topsearch
-                    topSearch
+                    loading={loading}
                 />
             </Stack>
         </Box>
