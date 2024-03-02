@@ -6,13 +6,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login as authLogin } from 'rest/api/auth'
 import * as styleMui from './ForgotPasswordForm.styled'
-import { InputAdornment } from '@mui/material'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
-
-const iconStyle = {
-    color: '#69AD28',
-    fontSize: '2rem',
-}
+import InputField from 'components/InputField'
+import { validateInputs } from 'components/InputField/validationRules'
 
 export default function ForgotPasswordForm() {
     const { show } = useActions(snackbarAction)
@@ -30,42 +25,20 @@ export default function ForgotPasswordForm() {
             key: 'email',
             placeholder: 'Email',
             type: 'email',
-            icon: <PersonIcon sx={iconStyle} />,
-        },
-    ]
-
-    //Khai báo array các validation
-    const validationRules = [
-        {
-            field: 'email',
-            message: 'Email không hợp lệ',
-            regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        },
-        {
-            field: 'email',
-            message: 'Vui lòng nhập email',
+            icon: <PersonIcon sx={styleMui.iconStyle} />,
         },
     ]
 
     //Check validation
     const onValidate = () => {
-        setErrors({})
-        let isValid = true
+        const inputErrors = validateInputs(inputs)
 
-        validationRules.forEach(({ field, message, regex }) => {
-            if (!inputs[field] || (regex && !inputs[field].match(regex))) {
-                isValid = false
-                handleError(message, field)
-            }
-        })
-
-        if (isValid) {
+        if (Object.keys(inputErrors).length > 0) {
+            setErrors(inputErrors)
+        } else {
+            setErrors({})
             onSubmit()
         }
-    }
-
-    const handleError = (errorMess, input) => {
-        setErrors((prevState) => ({ ...prevState, [input]: errorMess }))
     }
 
     const handleInputChange = (key, value) => {
@@ -110,28 +83,18 @@ export default function ForgotPasswordForm() {
 
     //Khai báo input
     const renderInputs = (inputFields) => {
-        return (
-            <styleMui.Input
-                key={inputFields.key}
-                placeholder={inputFields.placeholder}
-                size="small"
-                value={inputs[inputFields.key]}
-                error={errors[inputFields.key]}
-                onChange={(e) =>
-                    handleInputChange(inputFields.key, e.target.value)
-                }
-                helperText={errors[inputFields.key]}
-                margin="dense"
-                type={inputFields.type}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            {inputFields.icon}
-                        </InputAdornment>
-                    ),
-                }}
+        return inputFields.map((item) => (
+            <InputField
+                key={item.id}
+                type={item.type}
+                icon={item.icon}
+                placeholder={item.placeholder}
+                value={inputs[item.key]}
+                error={errors[item.key]}
+                onChange={(e) => handleInputChange(item.key, e.target.value)}
+                helperText={errors[item.key]}
             />
-        )
+        ))
     }
 
     return (
@@ -143,7 +106,7 @@ export default function ForgotPasswordForm() {
                 <styleMui.Note>Nhập email để nhận mật khẩu mới</styleMui.Note>
                 {/* Start input place */}
                 <styleMui.inputPlace>
-                    {renderInputs(...inputFields)}
+                    {renderInputs(inputFields)}
                 </styleMui.inputPlace>
                 {/* End input place */}
             </styleMui.containerInput>

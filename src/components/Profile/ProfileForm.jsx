@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import InputField from 'components/InputField'
 import * as styleMui from './Profile.styled'
+import { validateInputs } from 'components/InputField/validationRules'
 
 export const ProfileForm = ({
     username,
@@ -23,6 +25,7 @@ export const ProfileForm = ({
             id: 1,
             type: 'text',
             header: 'Tên hiển thị',
+            placeholder: 'Tên người dùng',
             key: 'username',
         },
         {
@@ -37,62 +40,39 @@ export const ProfileForm = ({
         },
     ]
 
-    const validationRules = [
-        {
-            field: 'username',
-            message:
-                'Tên hiển thị không được để trống. Vui lòng nhập tên hiển thị',
-        },
-        {
-            field: 'username',
-            message: 'Tên hiển thị không hợp lệ. Vui lòng nhập tên hiển thị',
-            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]+$/,
-        },
-    ]
-
     const [inputs, setInputs] = useState({
         username: username || '',
-        email: email || '',
     })
 
     //Check validation
     const onValidate = () => {
-        setErrors({})
-        let isValid = true
+        const inputErrors = validateInputs(inputs)
 
-        validationRules.forEach(({ field, message, regex }) => {
-            if (!inputs[field] || (regex && !inputs[field].match(regex))) {
-                isValid = false
-                handleError(message, field)
-            }
-        })
-
-        if (isValid) {
+        if (Object.keys(inputErrors).length > 0) {
+            setErrors(inputErrors)
+        } else {
+            setErrors({})
             handleOnSubmit()
         }
-    }
-
-    const handleError = (errorMess, input) => {
-        setErrors((prevState) => ({ ...prevState, [input]: errorMess }))
     }
 
     const handleInputChange = (key, value) => {
         setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
     }
 
-    const renderInputs = ({ id, type, header, key }) => {
+    const renderInputs = ({ id, type, header, key, placeholder }) => {
         if (key === 'username') {
             return (
                 <styleMui.inputContainer key={id}>
                     <styleMui.inputHeader>{header}</styleMui.inputHeader>
-                    <styleMui.Input
-                        size="small"
-                        value={inputs[key]}
-                        onChange={(e) => handleInputChange(key, e.target.value)}
-                        margin="dense"
+                    <InputField
+                        key={id}
                         type={type}
-                        disabled={isDisabled}
+                        placeholder={placeholder}
+                        value={inputs[key]}
                         error={errors[key]}
+                        disabled={isDisabled}
+                        onChange={(e) => handleInputChange(key, e.target.value)}
                         helperText={errors[key]}
                     />
                 </styleMui.inputContainer>

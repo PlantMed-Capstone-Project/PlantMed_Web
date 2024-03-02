@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as styleMui from './ResetPasswordForm.styled'
-import { IconButton, InputAdornment } from '@mui/material'
+import { IconButton } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import InputField from 'components/InputField'
+import { validateInputs } from 'components/InputField/validationRules'
 
-const ResetPasswordForm = ({password}) => {
+const ResetPasswordForm = ({ password }) => {
     const navigate = useNavigate()
     const [errors, setErrors] = useState({})
 
@@ -32,101 +34,53 @@ const ResetPasswordForm = ({password}) => {
             type: eye ? 'text' : 'password',
             header: 'Mật khẩu mới',
             key: 'newPassword',
+            placeholder: 'Mật khẩu mới',
         },
         {
             id: 3,
             type: eye ? 'text' : 'password',
             header: 'Nhập lại mật khẩu mới',
             key: 'confirmPassword',
-        },
-    ]
-
-    const validationRules = [
-        {
-            field: 'newPassword',
-            message:
-                'Mật khẩu mới giống với mật khẩu cũ. Vui lòng nhập mật khẩu mới',
-            compareField: 'oldPassword',
-        },
-        {
-            field: 'newPassword',
-            message: 'Mật khẩu mới không được dưới 6 ký tự',
-            minLength: 6,
-        },
-        {
-            field: 'newPassword',
-            message: 'Vui lòng nhập mật khẩu mới',
-        },
-        {
-            field: 'confirmPassword',
-            message: 'Mật khẩu xác thực không trùng khớp',
-            compareField: 'newPassword',
+            placeholder: 'Mật khẩu xác thực',
         },
     ]
 
     const [inputs, setInputs] = useState({
-        oldPassword: password || '',
+        oldPassword: password,
         newPassword: '',
         confirmPassword: '',
     })
 
     //Check validation
     const onValidate = () => {
-        setErrors({})
-        let isValid = true
+        const inputErrors = validateInputs(inputs)
 
-        validationRules.forEach(
-            ({ field, message, regex, compareField, minLength }) => {
-                if (
-                    !inputs[field] ||
-                    (regex && !inputs[field].match(regex)) ||
-                    (minLength && inputs[field].length < minLength) ||
-                    (compareField &&
-                        field === 'newPassword' &&
-                        inputs[field] === inputs[compareField]) ||
-                    (compareField &&
-                        field === 'confirmPassword' &&
-                        inputs[field] !== inputs[compareField])
-                ) {
-                    isValid = false
-                    handleError(message, field)
-                }
-            }
-        )
-
-        if (isValid) {
+        if (Object.keys(inputErrors).length > 0) {
+            setErrors(inputErrors)
+        } else {
+            setErrors({})
             handleOnSubmit()
         }
-    }
-
-    const handleError = (errorMess, input) => {
-        setErrors((prevState) => ({ ...prevState, [input]: errorMess }))
     }
 
     const handleInputChange = (key, value) => {
         setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
     }
 
-    const renderInputs = ({ id, type, header, key, eyeIcon }) => {
+    const renderInputs = ({ id, type, header, key, eyeIcon, placeholder }) => {
         return (
             <styleMui.inputContainer key={id}>
                 <styleMui.inputHeader>{header}</styleMui.inputHeader>
-                <styleMui.Input
-                    size="small"
-                    value={inputs[key]}
-                    onChange={(e) => handleInputChange(key, e.target.value)}
-                    margin="dense"
+                <InputField
+                    key={id}
                     type={type}
+                    eyeIcon={eyeIcon}
+                    handleEye={handleEye}
+                    placeholder={placeholder}
+                    value={inputs[key]}
                     error={errors[key]}
+                    onChange={(e) => handleInputChange(key, e.target.value)}
                     helperText={errors[key]}
-                    disabled={key && key==='oldPassword'}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                {eyeIcon}
-                            </InputAdornment>
-                        ),
-                    }}
                 />
             </styleMui.inputContainer>
         )

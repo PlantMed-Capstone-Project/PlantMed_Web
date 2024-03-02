@@ -1,4 +1,4 @@
-import ForgotPasswordForm from 'components/ForgotPassword/ForgotPasswordForm'
+import ForgotPasswordForm from 'components/ForgotPassword'
 import * as styleMui from './ForgotPasswordPage.styled'
 import { motion } from 'framer-motion'
 import useScrollTo from 'hooks/useScrollTo'

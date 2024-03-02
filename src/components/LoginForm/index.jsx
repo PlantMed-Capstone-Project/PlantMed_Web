@@ -2,7 +2,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import PersonIcon from '@mui/icons-material/Person'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { IconButton, InputAdornment } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { authAction } from 'app/reducers/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
@@ -10,11 +10,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login as authLogin } from 'rest/api/auth'
 import * as styleMui from './SigninForm.styled'
-
-const iconStyle = {
-    color: '#69AD28',
-    fontSize: '2rem',
-}
+import InputField from 'components/InputField'
+import { validateInputs } from 'components/InputField/validationRules'
 
 export default function LoginForm() {
     const { login, loginFailure } = useActions(authAction)
@@ -39,13 +36,13 @@ export default function LoginForm() {
             key: 'email',
             placeholder: 'Email',
             type: 'email',
-            icon: <PersonIcon sx={iconStyle} />,
+            icon: <PersonIcon sx={styleMui.iconStyle} />,
         },
         {
             key: 'password',
             placeholder: 'Mật khẩu',
             type: eye ? 'text' : 'password',
-            icon: <LockRoundedIcon sx={iconStyle} />,
+            icon: <LockRoundedIcon sx={styleMui.iconStyle} />,
             eyeIcon: (
                 <IconButton onClick={handleEye}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
@@ -54,37 +51,34 @@ export default function LoginForm() {
         },
     ]
 
-    //Khai báo array các validation
-    const validationRules = [
-        {
-            field: 'email',
-            message: 'Vui lòng nhập email',
-        },
-        {
-            field: 'password',
-            message: 'Vui lòng nhập mật khẩu',
-        },
-    ]
+    //Khai báo input
+    const renderInputs = () => {
+        return inputFields.map((item) => (
+            <InputField
+                key={item.id}
+                type={item.type}
+                icon={item.icon}
+                eyeIcon={item.eyeIcon}
+                handleEye={handleEye}
+                placeholder={item.placeholder}
+                value={inputs[item.key]}
+                error={errors[item.key]}
+                onChange={(e) => handleInputChange(item.key, e.target.value)}
+                helperText={errors[item.key]}
+            />
+        ))
+    }
 
     //Check validation
     const onValidate = () => {
-        setErrors({})
-        let isValid = true
-
-        validationRules.forEach(({ field, message }) => {
-            if (!inputs[field]) {
-                isValid = false
-                handleError(message, field)
-            }
-        })
-
-        if (isValid) {
-            onSubmit()
+        const inputErrors = validateInputs(inputs);
+    
+        if (Object.keys(inputErrors).length > 0) {
+            setErrors(inputErrors);
+        } else {
+            setErrors({});
+            onSubmit();
         }
-    }
-
-    const handleError = (errorMess, input) => {
-        setErrors((prevState) => ({ ...prevState, [input]: errorMess }))
     }
 
     const handleInputChange = (key, value) => {
@@ -120,36 +114,7 @@ export default function LoginForm() {
                 autoHideDuration: 2000,
             })
         }
-    }
-
-    //Khai báo input
-    const renderInputs = () => {
-        return inputFields.map((item, indx) => (
-            <styleMui.Input
-                key={indx}
-                placeholder={item.placeholder}
-                size="small"
-                value={inputs[item.key]}
-                error={errors[item.key]}
-                onChange={(e) => handleInputChange(item.key, e.target.value)}
-                helperText={errors[item.key]}
-                margin="dense"
-                type={item.type}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            {item.icon}
-                        </InputAdornment>
-                    ),
-                    endAdornment: (
-                        <InputAdornment position="end">
-                            {item.eyeIcon}
-                        </InputAdornment>
-                    ),
-                }}
-            />
-        ))
-    }
+    }    
 
     return (
         <styleMui.Form>

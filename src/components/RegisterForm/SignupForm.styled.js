@@ -1,6 +1,5 @@
 import {
     styled,
-    TextField,
     Box,
     Typography,
     Button,
@@ -10,23 +9,10 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-export const Input = styled(TextField)(() => ({
-    width: '280',
-    backgroundColor: '#FFF',
-    '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-            borderRadius: '0.625rem',
-            borderWidth: '2px',
-            borderColor: '#69AD28', // Màu viền
-        },
-        '&:hover fieldset': {
-            borderColor: '#69AD28', // Màu viền khi hover
-        },
-        '&.Mui-focused fieldset': {
-            borderColor: '#69AD28',
-        },
-    },
-}))
+export const iconStyle = {
+    color: '#69AD28',
+    fontSize: '2rem',
+}
 
 export const typeUserTab = styled(Tab)(() => ({
     color: '#214400',
