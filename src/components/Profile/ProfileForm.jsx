@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InputField from 'components/InputField'
 import * as styleMui from './Profile.styled'
@@ -43,10 +43,6 @@ export const ProfileForm = ({
     const [inputs, setInputs] = useState({
         username: username || '',
     })
-
-    useEffect(() => {
-        console.log('Errors:', errors);
-    }, [errors]);
 
     //Check validation
     const onValidate = () => {
