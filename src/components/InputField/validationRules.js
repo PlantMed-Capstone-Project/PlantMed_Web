@@ -30,7 +30,7 @@ export const validationRules = {
     confirmPassword: [
         {
             message: 'Mật khẩu xác thực không trùng khớp.',
-            compareField: 'password',
+            compareField: 'password' || 'newPassword',
         },
     ],
     policyCheck: [
@@ -46,26 +46,47 @@ export const validationRules = {
         },
         {
             message: 'Tên hiển thị không được để trống.',
-        },        
+        },
+    ],
+    newPassword: [
+        {
+            message:
+                'Mật khẩu mới giống với mật khẩu cũ. Vui lòng nhập mật khẩu mới.',
+            compareField: 'oldPassword',
+        },
+        {
+            message: 'Mật khẩu mới không được dưới 6 ký tự.',
+            minLength: 6,
+        },
+        {
+            message: 'Vui lòng nhập mật khẩu mới.',
+        },
     ],
 }
 
 export const validateInputs = (inputs) => {
     const errors = {}
 
-    Object.entries(validationRules).forEach(([fieldName, rules]) => {
-        rules.forEach((rule) => {
-            if (
-                !inputs[fieldName] ||
-                (rule.regex && !inputs[fieldName].match(rule.regex)) ||
-                (rule.minLength && inputs[fieldName].length < rule.minLength) ||
-                (rule.compareField &&
-                    inputs[fieldName] !== inputs[rule.compareField]) ||
-                (rule.isCheck && !inputs.policyCheck)
-            ) {
-                errors[fieldName] = rule.message
-            }
-        })
+    Object.keys(inputs).forEach((fieldName) => {
+        if (validationRules[fieldName]) {
+            validationRules[fieldName].forEach((rule) => {
+                if (
+                    !inputs[fieldName] ||
+                    (rule.regex && !inputs[fieldName].match(rule.regex)) ||
+                    (rule.minLength &&
+                        inputs[fieldName].length < rule.minLength) ||
+                    (fieldName === 'confirmPassword' &&
+                        inputs[fieldName] !== inputs['password'] &&
+                        inputs[fieldName] !== inputs['newPassword']) ||
+                    (rule.compareField &&
+                        fieldName === 'newPassword' &&
+                        inputs[fieldName] === inputs[rule.compareField]) ||
+                    (rule.isCheck && !inputs.policyCheck)
+                ) {
+                    errors[fieldName] = rule.message
+                }
+            })
+        }
     })
 
     return errors

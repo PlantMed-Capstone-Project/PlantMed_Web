@@ -30,8 +30,6 @@ function ProfilePage() {
         sidebarRef.current.resetSelection()
     }
 
-    console.log(isFormDisabled)
-
     return (
         <styleMui.container>
             <ProfileAvatar {...profileInfo} isDisabled={isFormDisabled} />
