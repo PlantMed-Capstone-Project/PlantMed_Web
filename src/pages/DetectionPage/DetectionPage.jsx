@@ -4,9 +4,9 @@ import UploadImage from 'components/UploadImage/UploadImage'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
 export default function DetectionPage() {
-    const { data } = useShallowEqualSelector((state) => state.plant)
+    const { data, loading } = useShallowEqualSelector((state) => state.plant)
     const search = ''
-    const dataPlant = data.slice().sort((a, b) => b.totalSearch - a.totalSearch)
+    const dataPlant = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
 
     return (
         <Box
@@ -37,6 +37,7 @@ export default function DetectionPage() {
                     data={dataPlant}
                     serachText={search}
                     topsearch
+                    loading={loading}
                 />
             </Stack>
         </Box>
