@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
 import { MenuItem, Autocomplete, TextField } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check'
-
-// read from storage after
-const names = [
-    { id: 1, name: 'Dinh huong' },
-    { id: 2, name: 'Bạc hà' },
-    { id: 3, name: 'Câu cầu tử' },
-    { id: 4, name: 'Cần sa' },
-    { id: 5, name: 'Đinh lăng' },
-]
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
 export default function MultipleSelect({ onChange }) {
+    const { data } = useShallowEqualSelector((state) => state.plant)
     const [selectedValues, setSelectedValues] = useState([])
 
     const handleAutocompleteChange = (_, newValues) => {
@@ -25,7 +18,7 @@ export default function MultipleSelect({ onChange }) {
             sx={{ width: 500, marginBottom: '1.25rem' }}
             multiple
             id="tags-standard"
-            options={Object.values(names)}
+            options={Object.values(data)}
             getOptionLabel={(option) => option.name}
             value={selectedValues}
             onChange={handleAutocompleteChange}
