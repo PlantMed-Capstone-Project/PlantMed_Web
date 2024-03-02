@@ -109,15 +109,13 @@ function CreateBlog() {
                 image: inputs.image,
                 tagsPlant: inputs.tag,
             })
-            if (response.status === 200) {
-                show({
-                    message: 'Bài đăng của bạn đã được đưa vào hàng chờ',
-                    severity: SNACKBAR_SEVERITY.SUCCESS,
-                    autoHideDuration: 2000,
-                })
-                clearInput()
-                navigate('/')
-            }
+            show({
+                message: 'Bài đăng của bạn đã được đưa vào hàng chờ',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+                autoHideDuration: 2000,
+            })
+            clearInput()
+            navigate('/')
         } catch (err) {
             show({
                 message:
