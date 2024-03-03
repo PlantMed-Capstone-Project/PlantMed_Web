@@ -45,7 +45,6 @@ function CreateBlog() {
 
     const handleFileChange = (event) => {
         const files = event.target.files
-        console.log(files)
         const reader = new FileReader()
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
         try {
@@ -62,9 +61,7 @@ function CreateBlog() {
                 }
             }
             reader.readAsDataURL(files[0])
-        } catch (e) {
-            
-        }
+        } catch (e) {}
     }
 
     const handleTextChange = (type, value) => {
