@@ -12,7 +12,6 @@ import { PostBlog } from 'rest/api/blog'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
-    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const initialInputs = {
@@ -100,9 +99,8 @@ function CreateBlog() {
     }
 
     const handleSubmit = async () => {
-        setLoading(true)
         try {
-            const response = await PostBlog({
+            await PostBlog({
                 title: inputs.title,
                 content: inputs.content,
                 image: inputs.image,
@@ -123,8 +121,6 @@ function CreateBlog() {
                 severity: SNACKBAR_SEVERITY.ERROR,
                 autoHideDuration: 2000,
             })
-        } finally {
-            setLoading(false)
         }
     }
 
