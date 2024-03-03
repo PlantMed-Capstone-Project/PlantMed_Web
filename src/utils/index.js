@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer'
 /**
  * Sử dụng để format string có ký tự utf8
  * @param {*} str string
