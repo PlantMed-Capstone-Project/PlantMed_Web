@@ -1,7 +1,8 @@
 import { Box, Button, Typography } from '@mui/material'
 import girlComputer from 'Images/girl-computer.png'
 
-function HeroBlog() {
+function HeroBlog(props) {
+    const { approvalPage = false } = props
     return (
         <Box
             sx={{
