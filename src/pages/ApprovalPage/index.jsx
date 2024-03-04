@@ -5,7 +5,7 @@ import React from 'react'
 export default function ApprovalPage() {
     return (
         <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
-            <HeroBlog ApprovalPage />
+            <HeroBlog approvalPage />
         </Stack>
     )
 }
