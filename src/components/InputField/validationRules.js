@@ -39,7 +39,7 @@ export const validationRules = {
             isCheck: false,
         },
     ],
-    username: [
+    fullname: [
         {
             message: 'Tên hiển thị không hợp lệ.',
             regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]+$/,

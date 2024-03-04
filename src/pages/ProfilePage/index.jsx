@@ -5,7 +5,7 @@ import { ProfileAvatar, ProfileForm, ProfileSidebar } from 'components/Profile'
 function ProfilePage() {
     const profileInfo = {
         id: 1,
-        username: 'Qiqi',
+        fullname: 'Qiqi',
         email: 'Qiqi123@gmail.com',
         createdDate: '21/2/2024',
         role: 'Người dùng',

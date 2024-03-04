@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { imageToBase64 } from 'utils'
 import * as styleMui from './Profile.styled'
 
-export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
+export const ProfileAvatar = ({ avatar, fullname, email, isDisabled }) => {
     const [selectedAvatar, setSelectedAvatar] = useState(avatar)
 
     const handleAvatarChange = (event) => {
@@ -33,7 +33,7 @@ export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
                     />
                 </styleMui.Camera>
             </styleMui.Avatar>
-            <styleMui.Username>{username}</styleMui.Username>
+            <styleMui.Username>{fullname}</styleMui.Username>
             <styleMui.personalEmail>{email}</styleMui.personalEmail>
         </styleMui.avatarPlace>
     )

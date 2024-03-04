@@ -6,7 +6,7 @@ import useScrollTo from 'hooks/useScrollTo'
 
 function ResetPasswordPage() {
     //trigger crollY
-    useScrollTo(0)
+    useScrollTo(0, 0)
 
     const profileInfo = {
         id: 1,
