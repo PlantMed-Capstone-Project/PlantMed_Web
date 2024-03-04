@@ -3,11 +3,11 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as styleMui from './FeatureSearch.styled'
+import { parseImg } from 'utils'
 
 function FeaturedSearch({ title, data, loading }) {
     const [hoverIndex, setHoverIndex] = useState(null)
     const plantData = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
-    console.log(plantData)
 
     const navigate = useNavigate()
 
@@ -74,10 +74,8 @@ function FeaturedSearch({ title, data, loading }) {
                                     onMouseLeave={handleLeave}
                                 >
                                     <img
-                                        //   src={`data:image/png;base64,${product.images[0].data}`}
-                                        //   1tIV8l_0z1Mez4dwSNj-U3Vu9fFAoNVa2
-                                        src={`data:image/png;base64,${product.images[0].data}`}
-                                        alt=""
+                                        src={parseImg(product.images[0].data)}
+                                        alt={product.name}
                                         style={{
                                             height: '100%',
                                             width: '100%',
