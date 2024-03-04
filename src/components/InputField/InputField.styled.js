@@ -14,5 +14,8 @@ export const Input = styled(TextField)(() => ({
         '&.Mui-focused fieldset': {
             borderColor: '#69AD28',
         },
+        '& .MuiInputBase-input.Mui-disabled': {
+            WebkitTextFillColor: '#000',
+        },
     },
 }))
