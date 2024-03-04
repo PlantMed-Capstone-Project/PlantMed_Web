@@ -11,7 +11,9 @@ export const ProfileSidebar = () => {
 
     useEffect(() => {
         const currentButton = buttons.find(
-            (button) => button.nav === location.pathname || (location.pathname === '/reset-password')
+            (button) =>
+                button.nav === location.pathname ||
+                location.pathname === '/reset-password'
         )
         if (currentButton) {
             setSelectedButtonId(currentButton.id)
@@ -48,19 +50,21 @@ export const ProfileSidebar = () => {
 
     return (
         <styleMui.sidebarPlace>
-            {buttons.map((item) => (
-                <styleMui.sidebarButton
-                    key={item.id}
-                    component={Link}
-                    to={item.nav}
-                    variant="contained"
-                    isSelected={selectedButtonId === item.id}
-                    onClick={() => handleButtonClick(item.id)}
-                >
-                    {item.icon}
-                    <styleMui.buttonName>{item.name}</styleMui.buttonName>
-                </styleMui.sidebarButton>
-            ))}
+            <styleMui.sidebarContainer>
+                {buttons.map((item) => (
+                    <styleMui.sidebarButton
+                        key={item.id}
+                        component={Link}
+                        to={item.nav}
+                        variant="contained"
+                        isSelected={selectedButtonId === item.id}
+                        onClick={() => handleButtonClick(item.id)}
+                    >
+                        {item.icon}
+                        <styleMui.buttonName>{item.name}</styleMui.buttonName>
+                    </styleMui.sidebarButton>
+                ))}
+            </styleMui.sidebarContainer>
         </styleMui.sidebarPlace>
     )
 }

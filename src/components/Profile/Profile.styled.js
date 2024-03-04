@@ -17,6 +17,7 @@ export const avatarPlace = styled(Box)(() => ({
     backgroundColor: '#f4ffeb',
     borderRadius: '0.825rem',
     border: 'solid 0.1rem #dff0e9',
+    marginTop: '1rem',
 }))
 
 export const profilePlace = styled(Box)(() => ({
@@ -29,6 +30,7 @@ export const profilePlace = styled(Box)(() => ({
     backgroundColor: '#f4ffeb',
     borderRadius: '0.825rem',
     border: 'solid 0.1rem #dff0e9',
+    marginTop: '1rem',
 }))
 
 export const sidebarPlace = styled(Box)(() => ({
@@ -175,6 +177,10 @@ export const button = styled(Button)(({ width }) => ({
     },
 }))
 
+export const sidebarContainer = styled(Box)(() => ({
+    marginTop: '1rem',
+}))
+
 export const sidebarButton = styled(IconButton)(({ isSelected }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -198,13 +204,13 @@ export const uploadImage = styled(Input)(() => ({
 }))
 
 export const buttonName = styled(Typography)(() => ({
-    marginRight: '1rem',
+    paddingRight: '2rem',
 }))
 
 export const iconStyle = {
     color: '#69AD28',
     fontSize: 50,
-    marginRight: '1rem',
+    marginRight: '2rem',
 }
 
 export const editIconStyle = {
