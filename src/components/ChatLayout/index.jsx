@@ -28,20 +28,10 @@ function ChatLayout({ handleCloseChat }) {
     const [emailExpert, setEmailExpert] = useState('')
     const user = parseJwt(readCookie(ACCESS_TOKEN))
     const requestRef = collection(db, 'requests')
+    const expertRef = collection(db, 'expertOnline')
     const [requestList, setRequestList] = useState([])
     const [userStatus, setUserStatus] = useState([])
-    const expertOnline = [
-        {
-            name: 'Phuong',
-            email: 'phuongtvt11@gmail.com',
-            image: AvatarUser,
-        },
-        {
-            name: 'Phuong',
-            email: 'phuongtvt11@gmail.com',
-            image: AvatarUser,
-        },
-    ]
+    const [expertList, setExpertList] = useState([])
     const handleChange = (email) => {
         setEmailExpert(email)
     }
@@ -60,6 +50,20 @@ function ChatLayout({ handleCloseChat }) {
             setRequestList(messages)
         })
         return () => unsubscribe()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        const queryMessage = query(expertRef, where('status', '==', 'isOnline'))
+        const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
+            let messages = []
+            snapshot.forEach((doc) => {
+                messages.push({ ...doc.data(), id: doc.id })
+            })
+            setExpertList(messages)
+        })
+        return () => unsubscribe()
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -108,9 +112,16 @@ function ChatLayout({ handleCloseChat }) {
 
     const updateRequest = async (id) => {
         const randomRoom = Math.random().toString(36).substring(2, 8)
+        const expertStatus = expertList.find(
+            ({ expert }) => expert.Email === user.Email
+        )
         await updateDoc(doc(requestRef, id), {
             status: 'active',
             room: randomRoom,
+        })
+
+        await updateDoc(doc(expertRef, expertStatus.id), {
+            status: 'isChatting',
         })
         setRoom(randomRoom)
         setIsSelect(true)
@@ -221,47 +232,56 @@ function ChatLayout({ handleCloseChat }) {
                                     </Box>
                                 </Box>
                             ) : (
-                                expertOnline.map((data) => (
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between',
-                                            marginBottom: '0.625rem',
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <Avatar src={AvatarUser} />
-                                            <Typography
+                                // eslint-disable-next-line array-callback-return
+                                expertList.map((data) => {
+                                    if (data.status === 'isOnline') {
+                                        return (
+                                            <Box
                                                 sx={{
-                                                    marginLeft: '0.625rem',
-                                                    fontWeight: 'bold',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent:
+                                                        'space-between',
+                                                    marginBottom: '0.625rem',
                                                 }}
                                             >
-                                                {data.name}
-                                            </Typography>
-                                        </Box>
-                                        <Button
-                                            color="success"
-                                            sx={{
-                                                '& .css-1lg55su-MuiButtonBase-root-MuiButton-root':
-                                                    {
-                                                        lineHeight: 0,
-                                                    },
-                                            }}
-                                            onClick={() =>
-                                                handleChange(data.email)
-                                            }
-                                        >
-                                            Yêu cầu
-                                        </Button>
-                                    </Box>
-                                ))
+                                                <Box
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    <Avatar src={AvatarUser} />
+                                                    <Typography
+                                                        sx={{
+                                                            marginLeft:
+                                                                '0.625rem',
+                                                            fontWeight: 'bold',
+                                                        }}
+                                                    >
+                                                        {data.expert.FullName}
+                                                    </Typography>
+                                                </Box>
+                                                <Button
+                                                    color="success"
+                                                    sx={{
+                                                        '& .css-1lg55su-MuiButtonBase-root-MuiButton-root':
+                                                            {
+                                                                lineHeight: 0,
+                                                            },
+                                                    }}
+                                                    onClick={() =>
+                                                        handleChange(
+                                                            data.expert.Email
+                                                        )
+                                                    }
+                                                >
+                                                    Yêu cầu
+                                                </Button>
+                                            </Box>
+                                        )
+                                    }
+                                })
                             )}
                         </Box>
                     ) : (

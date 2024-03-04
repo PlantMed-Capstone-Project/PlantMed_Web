@@ -98,6 +98,14 @@ function Chat({ room, user, removeRequest, userStatus }) {
         setNewMessage('')
     }
 
+    const handleEnter = (e) => {
+        if (e.key === 'Enter') {
+            handleSend()
+            e.preventDefault()
+        }
+    }
+
+    // eslint-disable-next-line no-unused-vars
     const endChat = async () => {
         //gửi mail cái rồi làm gì làm
         for (const data of messages) {
@@ -169,6 +177,7 @@ function Chat({ room, user, removeRequest, userStatus }) {
                         fullWidth
                         value={newMessage}
                         size="small"
+                        onKeyDown={handleEnter}
                     />
                     <Button
                         variant="contained"
