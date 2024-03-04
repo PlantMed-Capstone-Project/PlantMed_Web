@@ -32,7 +32,7 @@ export const profilePlace = styled(Box)(() => ({
 }))
 
 export const sidebarPlace = styled(Box)(() => ({
-    width: '8%',
+    width: '6%',
     height: '58rem',
     display: 'flex',
     flexDirection: 'column',
@@ -130,7 +130,7 @@ export const inputPlace = styled(Box)(() => ({
 export const hearderContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.5rem',
+    gap: '1.7rem',
     paddingTop: '0.7rem',
     width: '30%',
 }))
@@ -167,7 +167,6 @@ export const buttonAccountContainer = styled(Box)(() => ({
 export const button = styled(Button)(({ width }) => ({
     backgroundColor: '#69AD28',
     color: '#FFF',
-    borderRadius: '0.313rem',
     width: width,
     textTransform: 'capitalize',
     '&:hover': {
@@ -180,16 +179,16 @@ export const sidebarButton = styled(IconButton)(({ isSelected }) => ({
     display: 'flex',
     flexDirection: 'column',
     background: isSelected
-        ? 'linear-gradient(90deg, rgba(198,223,173,1) 0%, rgba(255,255,255,1) 60.39%)'
+        ? 'linear-gradient(90deg, rgba(219,241,201,1) 50%, rgba(255,255,255,1) 80.39%)'
         : '#fff',
     color: isSelected ? '#214400' : '#000',
-    borderRadius: '0.6rem',
+    borderRadius: 0,
     width: '9.375rem',
-    height: '5.375rem',
-    marginLeft: '2.2rem',
+    height: '6rem',
+    marginLeft: '4rem',
     '&:hover': {
         background:
-            'linear-gradient(90deg, rgba(198,223,173,1) 0%, rgba(255,255,255,1) 60.39%)',
+            'linear-gradient(90deg, rgba(219,241,201,1) 50%, rgba(255,255,255,1) 80.39%)',
         color: '#69AD28',
     },
 }))
@@ -198,9 +197,14 @@ export const uploadImage = styled(Input)(() => ({
     display: 'none',
 }))
 
+export const buttonName = styled(Typography)(() => ({
+    marginRight: '1rem',
+}))
+
 export const iconStyle = {
     color: '#69AD28',
     fontSize: 50,
+    marginRight: '1rem',
 }
 
 export const editIconStyle = {

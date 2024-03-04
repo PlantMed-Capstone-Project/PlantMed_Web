@@ -3,7 +3,6 @@ import * as styleMui from './Profile.styled'
 import PersonIcon from '@mui/icons-material/Person'
 import DescriptionIcon from '@mui/icons-material/Description'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 export const ProfileSidebar = () => {
@@ -59,7 +58,7 @@ export const ProfileSidebar = () => {
                     onClick={() => handleButtonClick(item.id)}
                 >
                     {item.icon}
-                    <Typography>{item.name}</Typography>
+                    <styleMui.buttonName>{item.name}</styleMui.buttonName>
                 </styleMui.sidebarButton>
             ))}
         </styleMui.sidebarPlace>
