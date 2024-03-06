@@ -50,21 +50,19 @@ export const ProfileSidebar = () => {
 
     return (
         <styleMui.sidebarPlace>
-            <styleMui.sidebarContainer>
-                {buttons.map((item) => (
-                    <styleMui.sidebarButton
-                        key={item.id}
-                        component={Link}
-                        to={item.nav}
-                        variant="contained"
-                        isSelected={selectedButtonId === item.id}
-                        onClick={() => handleButtonClick(item.id)}
-                    >
-                        {item.icon}
-                        <styleMui.buttonName>{item.name}</styleMui.buttonName>
-                    </styleMui.sidebarButton>
-                ))}
-            </styleMui.sidebarContainer>
+            {buttons.map((item) => (
+                <styleMui.sidebarButton
+                    key={item.id}
+                    component={Link}
+                    to={item.nav}
+                    variant="contained"
+                    isSelected={selectedButtonId === item.id}
+                    onClick={() => handleButtonClick(item.id)}
+                >
+                    {item.icon}
+                    <styleMui.buttonName>{item.name}</styleMui.buttonName>
+                </styleMui.sidebarButton>
+            ))}
         </styleMui.sidebarPlace>
     )
 }

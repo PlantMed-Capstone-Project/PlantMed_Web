@@ -9,7 +9,7 @@ import {
 
 export const avatarPlace = styled(Box)(() => ({
     width: '15%',
-    height: '30rem',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -18,11 +18,11 @@ export const avatarPlace = styled(Box)(() => ({
     borderRadius: '0.825rem',
     border: 'solid 0.1rem #dff0e9',
     marginTop: '1rem',
+    padding: '1rem',
 }))
 
 export const profilePlace = styled(Box)(() => ({
-    width: '65%',
-    height: '58rem',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -30,17 +30,18 @@ export const profilePlace = styled(Box)(() => ({
     backgroundColor: '#f4ffeb',
     borderRadius: '0.825rem',
     border: 'solid 0.1rem #dff0e9',
-    marginTop: '1rem',
+    padding: '1.5rem 0',
 }))
 
 export const sidebarPlace = styled(Box)(() => ({
     width: '6%',
-    height: '58rem',
+    height: 'calc(100vh + 1rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
     borderLeft: '0.313rem solid #69AD28',
+    padding: '1rem 0 0 0',
 }))
 
 export const infoPlace = styled(Box)(() => ({
@@ -51,6 +52,7 @@ export const infoPlace = styled(Box)(() => ({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     borderBottom: '0.188rem solid #214400',
+    paddingBottom: '2rem',
 }))
 
 export const accountPlace = styled(Box)(() => ({
@@ -60,6 +62,16 @@ export const accountPlace = styled(Box)(() => ({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
+}))
+
+export const profileContainer = styled(Box)(() => ({
+    marginTop: '1rem',
+    overflowY: 'auto',
+    height: '100%',
+    '&::-webkit-scrollbar': {
+        width: '0',
+    },
+    scrollbarWidth: 'none',
 }))
 
 export const profileFormContainer = styled(Box)(() => ({
@@ -161,8 +173,7 @@ export const buttonAccountContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
     gap: '1rem',
-    paddingTop: '15rem',
-    paddingLeft: '9rem',
+    padding: '15rem 0 0 9rem',
     width: '30%',
 }))
 
@@ -178,7 +189,11 @@ export const button = styled(Button)(({ width }) => ({
 }))
 
 export const sidebarContainer = styled(Box)(() => ({
-    marginTop: '1rem',
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '1rem',
+    paddingTop: '25rem',
+    width: '30%',
 }))
 
 export const sidebarButton = styled(IconButton)(({ isSelected }) => ({
@@ -191,7 +206,7 @@ export const sidebarButton = styled(IconButton)(({ isSelected }) => ({
     borderRadius: 0,
     width: '9.375rem',
     height: '6rem',
-    marginLeft: '4rem',
+    marginLeft: '4.1rem',
     '&:hover': {
         background:
             'linear-gradient(90deg, rgba(219,241,201,1) 50%, rgba(255,255,255,1) 80.39%)',

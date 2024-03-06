@@ -132,51 +132,57 @@ export const ProfileForm = ({
     )
 
     return (
-        <styleMui.profilePlace>
-            <styleMui.infoPlace>
-                <styleMui.profileFormContainer>
-                    <styleMui.Title variant="h2">
-                        Thông tin người dùng
-                    </styleMui.Title>
-                    <styleMui.inputPlace>
-                        <styleMui.hearderContainer>
-                            {editFields
-                                .filter((obj) => obj.id !== 5)
-                                .map(renderHeaders)}
-                        </styleMui.hearderContainer>
-                        <styleMui.inputContainer>
-                            {editFields
-                                .filter((obj) => obj.id !== 5)
-                                .map(renderInputs)}
-                        </styleMui.inputContainer>
-                    </styleMui.inputPlace>
-                </styleMui.profileFormContainer>
-                <styleMui.buttonInfoContainer>
-                    {buttons.filter((obj) => obj.id !== 3).map(renderButtons)}
-                </styleMui.buttonInfoContainer>
-            </styleMui.infoPlace>
-            <styleMui.accountPlace>
-                <styleMui.profileFormContainer>
-                    <styleMui.Title variant="h2">
-                        Tài khoản cá nhân
-                    </styleMui.Title>
-                    <styleMui.inputPlace>
-                        <styleMui.hearderContainer>
-                            {editFields
-                                .filter((obj) => obj.id === 5)
-                                .map(renderHeaders)}
-                        </styleMui.hearderContainer>
-                        <styleMui.inputContainer>
-                            {editFields
-                                .filter((obj) => obj.id === 5)
-                                .map(renderInputs)}
-                        </styleMui.inputContainer>
-                    </styleMui.inputPlace>
-                </styleMui.profileFormContainer>
-                <styleMui.buttonAccountContainer>
-                    {buttons.filter((obj) => obj.id === 3).map(renderButtons)}
-                </styleMui.buttonAccountContainer>
-            </styleMui.accountPlace>
-        </styleMui.profilePlace>
+        <styleMui.profileContainer>
+            <styleMui.profilePlace>
+                <styleMui.infoPlace>
+                    <styleMui.profileFormContainer>
+                        <styleMui.Title variant="h2">
+                            Thông tin người dùng
+                        </styleMui.Title>
+                        <styleMui.inputPlace>
+                            <styleMui.hearderContainer>
+                                {editFields
+                                    .filter((obj) => obj.id !== 5)
+                                    .map(renderHeaders)}
+                            </styleMui.hearderContainer>
+                            <styleMui.inputContainer>
+                                {editFields
+                                    .filter((obj) => obj.id !== 5)
+                                    .map(renderInputs)}
+                            </styleMui.inputContainer>
+                        </styleMui.inputPlace>
+                    </styleMui.profileFormContainer>
+                    <styleMui.buttonInfoContainer>
+                        {buttons
+                            .filter((obj) => obj.id !== 3)
+                            .map(renderButtons)}
+                    </styleMui.buttonInfoContainer>
+                </styleMui.infoPlace>
+                <styleMui.accountPlace>
+                    <styleMui.profileFormContainer>
+                        <styleMui.Title variant="h2">
+                            Tài khoản cá nhân
+                        </styleMui.Title>
+                        <styleMui.inputPlace>
+                            <styleMui.hearderContainer>
+                                {editFields
+                                    .filter((obj) => obj.id === 5)
+                                    .map(renderHeaders)}
+                            </styleMui.hearderContainer>
+                            <styleMui.inputContainer>
+                                {editFields
+                                    .filter((obj) => obj.id === 5)
+                                    .map(renderInputs)}
+                            </styleMui.inputContainer>
+                        </styleMui.inputPlace>
+                    </styleMui.profileFormContainer>
+                    <styleMui.buttonAccountContainer>
+                        {buttons
+                            .filter((obj) => obj.id === 3)
+                            .map(renderButtons)}
+                    </styleMui.buttonAccountContainer>
+                </styleMui.accountPlace>
+            </styleMui.profilePlace>
+        </styleMui.profileContainer>
     )
 }
