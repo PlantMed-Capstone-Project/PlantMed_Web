@@ -13,7 +13,6 @@ function UserComment({ name, onSendClick }) {
 
     const handleSend = () => {
         onSendClick(text)
-        console.log('hể')
         setText('')
     }
     return (

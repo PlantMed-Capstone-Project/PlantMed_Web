@@ -3,7 +3,7 @@ import { Skeleton, Stack } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { formatText } from 'utils'
+import { formatText, parseImg } from 'utils'
 import * as styleMui from './Pagination.styled'
 
 function PaginationLayout({
@@ -109,7 +109,7 @@ function PaginationLayout({
                                 onMouseLeave={hoverLeave}
                             >
                                 <img
-                                    src={`data:image/png;base64,${vl.images[0].data}`}
+                                    src={parseImg(vl.images[0].data)}
                                     alt=""
                                     style={{
                                         height: '100%',

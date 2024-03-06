@@ -59,17 +59,6 @@ export const imageToBase64 = (file, callback) => {
 }
 
 /**
- * Chuyển đổi chuỗi base64 thành file hình ảnh
- * @param {*} str string
- * @returns Image
- */
-export const base64ToImage = (str) => {
-    const img = new Image()
-    img.src = `data:image/png;base64,${str}`
-    return img
-}
-
-/**
  * Chuyển đổi accessToken thành 1 đối tượng
  * @param {*} token string
  * @returns object
@@ -78,4 +67,12 @@ export const parseJwt = (token) => {
     return token
         ? JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
         : ''
+}
+
+export const parseImg = (img) => {
+    if (img.includes('https')) {
+        return img
+    } else {
+        return `data:image/png;base64,${img}`
+    }
 }
