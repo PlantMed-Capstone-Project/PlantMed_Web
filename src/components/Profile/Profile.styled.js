@@ -5,6 +5,7 @@ import {
     styled,
     Button,
     Input,
+    Avatar,
 } from '@mui/material'
 
 export const avatarPlace = styled(Box)(() => ({
@@ -80,18 +81,20 @@ export const profileFormContainer = styled(Box)(() => ({
     flexDirection: 'column',
 }))
 
-export const Avatar = styled(Box)(() => ({
+export const avatarContainer = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'row',
+    padding: '2rem 0 0 2.5rem',
+}))
+
+export const avatar = styled(Avatar)(() => ({
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     width: '7rem',
     height: '7rem',
-    borderRadius: '50%',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     boxShadow: '0px 0px 3px 0px rgba(33, 68, 0, 0.30)',
-    marginTop: '4rem',
 }))
 
 export const Camera = styled(IconButton)(() => ({
@@ -100,9 +103,9 @@ export const Camera = styled(IconButton)(() => ({
     backgroundColor: '#fff',
     width: '2.2rem',
     height: '2.2rem',
-    marginTop: '6rem',
-    marginLeft: '4.5rem',
+    display: 'flex',
     alignItems: 'center',
+    transform: 'translate(-2.5rem, 5rem)',
     '&:hover, &.Mui-focusVisible': { backgroundColor: '#f2f7f4' },
 }))
 

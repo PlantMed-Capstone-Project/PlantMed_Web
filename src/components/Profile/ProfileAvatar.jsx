@@ -17,7 +17,8 @@ export const ProfileAvatar = ({ avatar, fullname, email, isDisabled }) => {
 
     return (
         <styleMui.avatarPlace>
-            <styleMui.Avatar sx={{ backgroundImage: `url(${selectedAvatar})` }}>
+            <styleMui.avatarContainer>
+                <styleMui.avatar src={selectedAvatar} />
                 <styleMui.Camera
                     disabled={isDisabled}
                     component="label"
@@ -32,7 +33,7 @@ export const ProfileAvatar = ({ avatar, fullname, email, isDisabled }) => {
                         hidden
                     />
                 </styleMui.Camera>
-            </styleMui.Avatar>
+            </styleMui.avatarContainer>
             <styleMui.Username>{fullname}</styleMui.Username>
             <styleMui.personalEmail>{email}</styleMui.personalEmail>
         </styleMui.avatarPlace>
