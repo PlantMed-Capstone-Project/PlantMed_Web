@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import * as S from './CreateBlog.styled'
 import MultipleSelect from 'components/MutipleSelect'
 import { PostBlog } from 'rest/api/blog'
+import { imageToBase64 } from 'utils'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
@@ -45,23 +46,21 @@ function CreateBlog() {
 
     const handleFileChange = (event) => {
         const files = event.target.files
-        const reader = new FileReader()
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
         try {
             const isInclude = allowedTypes.includes(files[0].type)
             if (files.length > 0 && isInclude) {
-                reader.onloadend = () => {
-                    // The result property contains the base64 representation of the file
-                    const base64String = reader.result
+                imageToBase64(files[0], (result) => {
                     setInputs((prevState) => ({
                         ...prevState,
-                        image: base64String,
+                        image: result,
                     }))
-                    setImageText(files[0].name)
-                }
+                })
+                setImageText(files[0].name)
             }
-            reader.readAsDataURL(files[0])
-        } catch (e) {}
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const handleTextChange = (type, value) => {
