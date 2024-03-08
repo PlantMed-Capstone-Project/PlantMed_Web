@@ -446,35 +446,35 @@ export const blogCardData = [
     },
     {
         id: 2,
-        title: 'Cây Đinh Lăng',
+        title: 'Cây Oải Hương',
         author: 'Qiqi',
         description:
             'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
     },
     {
         id: 3,
-        title: 'Cây Đinh Lăng',
+        title: 'Cây Chanh Xả',
         author: 'Qiqi',
         description:
             'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
     },
     {
         id: 4,
-        title: 'Cây Đinh Lăng',
+        title: 'Cây Tùng',
         author: 'Qiqi',
         description:
             'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
     },
     {
         id: 5,
-        title: 'Cây Đinh Lăng',
+        title: 'Cây Cổ Thụ',
         author: 'Qiqi',
         description:
             'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
     },
     {
         id: 6,
-        title: 'Cây Đinh Lăng',
+        title: 'Cây Quế',
         author: 'Qiqi',
         description:
             'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',

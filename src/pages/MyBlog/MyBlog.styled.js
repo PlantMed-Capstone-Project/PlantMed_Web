@@ -19,6 +19,16 @@ export const blogContainer = styled(Box)(() => ({
     gap: '4rem',
 }))
 
+export const likedBlogContainer = styled(Box)(() => ({
+    width: '82%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    gap: '4rem',
+    marginTop: '-4rem',
+}))
+
 export const tabContainer = styled(Tabs)(() => ({
     '& .MuiTabs-indicator': {
         backgroundColor: '#214400',
@@ -44,9 +54,9 @@ export const blogCardList = styled(Box)(() => ({
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingLeft: '4rem',
+    padding: '0 0 2rem 4rem',
     gap: '5rem',
     paddingTop: '1rem',
     overflowY: 'auto',
