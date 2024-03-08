@@ -5,13 +5,13 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton } from '@mui/material'
 import { authAction } from 'app/reducers/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import useActions from 'hooks/useActions'
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { login as authLogin } from 'rest/api/auth'
-import * as styleMui from './SigninForm.styled'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
+import useActions from 'hooks/useActions'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { login as authLogin } from 'rest/api/auth'
+import * as styleMui from './SigninForm.styled'
 
 export default function LoginForm() {
     const { login, loginFailure } = useActions(authAction)
