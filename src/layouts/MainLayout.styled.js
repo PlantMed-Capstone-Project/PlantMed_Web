@@ -15,7 +15,7 @@ export const Header = styled(Box)({
 export const Main = styled(Box)(({ chekcOverflow }) => ({
     gridArea: 'main',
     width: '100%',
-    overflowX: chekcOverflow ? 'unset' : 'hidden',
+    overflowY: chekcOverflow ? 'unset' : 'hidden',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

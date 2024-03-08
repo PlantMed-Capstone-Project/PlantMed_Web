@@ -14,7 +14,7 @@ function InforDetail({ textData, screenSlide }) {
             spacing={2}
         >
             <styleMui.TxtListHead screen={screenSlide}>
-                ĐINH LĂNG – CÂY SÂM CỦA NGƯỜI NGHÈO
+                {textData.valueList[1].value}
             </styleMui.TxtListHead>
             <List
                 component="nav"
@@ -24,14 +24,16 @@ function InforDetail({ textData, screenSlide }) {
                 }}
             >
                 {/* Hứng danh mục list và dữ liệu data trả về vào một mãng object sau đó pass đi vào component khác */}
-                {textData.map((item, idx) => (
-                    <InfoList
-                        key={idx}
-                        label={item.label}
-                        value={item.value}
-                        screenSlide={screenSlide}
-                    />
-                ))}
+                {textData.valueList.length
+                    ? textData.valueList.map((item, idx) => (
+                          <InfoList
+                              key={idx}
+                              label={item.label}
+                              value={item.value}
+                              screenSlide={screenSlide}
+                          />
+                      ))
+                    : 'no data here'}
                 {/* End list */}
             </List>
         </styleMui.container>

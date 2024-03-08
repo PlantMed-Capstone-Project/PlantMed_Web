@@ -71,8 +71,8 @@ function Header({ isLogin }) {
     }, [location.pathname])
 
     const loginRegister = [
-        { id: 1, label: 'Login', path: '/login' },
-        { id: 2, label: 'Register', path: '/register' },
+        { id: 1, label: 'Đăng nhập', path: '/login' },
+        { id: 2, label: 'Đăng ký', path: '/register' },
     ]
 
     const Navbars = useMemo(

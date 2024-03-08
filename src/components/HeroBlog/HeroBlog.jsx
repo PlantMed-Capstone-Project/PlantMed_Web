@@ -1,7 +1,10 @@
 import { Box, Button, Typography } from '@mui/material'
 import girlComputer from 'Images/girl-computer.png'
+import { useNavigate } from 'react-router-dom'
 
 function HeroBlog() {
+    const navigate = useNavigate()
+
     return (
         <Box
             sx={{
@@ -46,6 +49,7 @@ function HeroBlog() {
                         fontSize: '1rem',
                         ':hover': { bgcolor: 'success.main' },
                     }}
+                    onClick={() => navigate('/new-blog')}
                 >
                     Viết bài
                 </Button>
