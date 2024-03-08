@@ -10,6 +10,8 @@ export default class Client {
             baseURL: this.baseUrl,
             headers: {
                 'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': '69420',
+                'Cache-Control': 'max-age=172800'
             },
         })
 

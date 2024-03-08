@@ -29,7 +29,7 @@ const publicRoutes = [
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
     { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
     { path: '/forgot-password', page: ForgotPasswordPage, layout: MainLayout },
-    { path: '/approval', page: ApprovalPage, layout: MainLayout },
+    { path: '/blog/approval', page: ApprovalPage, layout: MainLayout },
 ]
 
 const privateRoutes = [

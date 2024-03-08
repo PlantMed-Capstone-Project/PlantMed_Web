@@ -16,8 +16,8 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-            let { accessToken, refreshToken, expires } = action.payload
-            createCookie(ACCESS_TOKEN, accessToken, expires)
+            let { accessToken, refreshToken, expiresIn } = action.payload
+            createCookie(ACCESS_TOKEN, accessToken, expiresIn)
             createCookie(REFRESH_TOKEN, refreshToken)
             state.isLogin = true
             state.error = null

@@ -57,7 +57,7 @@ function HeroBlog(props) {
                             ':hover': { bgcolor: 'success.main' },
                         }}
                         onClick={() => navigate('/new-blog')}
-                >
+                    >
                         Viết bài
                     </Button>
                 )}

@@ -1,7 +1,7 @@
 import { Box, CardMedia, styled } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-export const container = styled(Box)({
+export const container = styled(Box)(({ approvalpage }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -9,12 +9,12 @@ export const container = styled(Box)({
     zIndex: '3',
     top: '50%',
     left: '50%',
-    width: '34.75rem',
+    width: approvalpage ? '45rem' : '34.75rem',
     height: '41.75rem',
     borderRadius: '0.625rem',
-    backgroundColor: '#214400',
+    backgroundColor: approvalpage ? '#e7ffd4' : '#214400',
     padding: '2.31rem 3.25rem 0 3.25rem',
-})
+}))
 
 export const boxImage = styled(Box)({
     border: '2px solid #FFF',

@@ -3,41 +3,47 @@ import { motion } from 'framer-motion'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useState } from 'react'
 import * as styleMui from './PopupInfo.styled'
+import fakeImg from 'Images/heroSi.jpg'
+import { blogDetail } from 'FakeData/plantData'
 
-function PopupInfo({ id }) {
+function PopupInfo({ id, approvalPage = false }) {
     const [isHover, setIsHover] = useState(false)
     const { data } = useShallowEqualSelector((state) => state.plant)
-    const dataFilter = data.filter((vl) => vl.id === id)[0]
-    const textData = {
-        images: dataFilter?.images[0].data,
-        valueList: [
-            {
-                label: 'Tên quốc tế',
-                value: dataFilter?.internationalName,
-            },
-            {
-                label: 'Tên thường gọi',
-                value: dataFilter?.name,
-            },
-            {
-                label: 'Họ của cây',
-                value: dataFilter?.surName,
-            },
-            {
-                label: 'Nguồn gốc',
-                value: dataFilter?.origin,
-            },
-            {
-                label: 'Nơi sinh trưởng',
-                value: dataFilter?.placeOfBirth,
-            },
-        ],
-    }
-
+    const conditionData = approvalPage ? blogDetail : data
+    const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
+    const textData = approvalPage
+        ? dataFilter
+        : {
+              images: dataFilter?.images[0].data,
+              valueList: [
+                  {
+                      label: 'Tên quốc tế',
+                      value: dataFilter?.internationalName,
+                  },
+                  {
+                      label: 'Tên thường gọi',
+                      value: dataFilter?.name,
+                  },
+                  {
+                      label: 'Họ của cây',
+                      value: dataFilter?.surName,
+                  },
+                  {
+                      label: 'Nguồn gốc',
+                      value: dataFilter?.origin,
+                  },
+                  {
+                      label: 'Nơi sinh trưởng',
+                      value: dataFilter?.placeOfBirth,
+                  },
+              ],
+          }
+    console.log(approvalPage)
     return (
         <>
             {data && (
                 <styleMui.container
+                    approvalpage={approvalPage}
                     key="modal"
                     component={motion.div}
                     initial={{ opacity: 0, scale: 0, x: '-50%', y: '-50%' }}
@@ -48,7 +54,11 @@ function PopupInfo({ id }) {
                     <styleMui.boxImage>
                         <styleMui.image
                             ishover={isHover}
-                            image={`data:image/png;base64,${textData.images}`}
+                            image={
+                                approvalPage
+                                    ? `${fakeImg}`
+                                    : `data:image/png;base64,${textData.images}`
+                            }
                             title={textData.valueList[1].value}
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)}
