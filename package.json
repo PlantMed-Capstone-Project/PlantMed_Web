@@ -26,6 +26,7 @@
     "react-countup": "^6.5.0",
     "react-dom": "^18.2.0",
     "react-google-font-loader": "^1.1.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-leaflet": "^4.2.1",
     "react-quill": "^2.0.0",
     "react-redux": "^9.1.0",

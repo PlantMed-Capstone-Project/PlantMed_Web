@@ -48,6 +48,7 @@ export const blogCardList = styled(Box)(() => ({
     justifyContent: 'flex-start',
     paddingLeft: '4rem',
     gap: '6rem',
+    paddingTop: '1rem',
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
         width: '0',

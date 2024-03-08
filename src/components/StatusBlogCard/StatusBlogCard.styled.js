@@ -15,8 +15,12 @@ export const blogCard = styled(Box)(() => ({
     gap: '3rem',
     '&:hover': {
         '& > *:nth-child(1) > *:nth-child(1)': {
-            transform: 'translate(-2rem, -2rem)',
+            transform: 'translate(-1rem, -1rem)',
             opacity: 1,
+        },
+        '& > *:nth-child(1) > *:nth-child(2)': {
+            transform: 'translate(1rem, 1rem)',
+            opacity: 0.8,
         },
     },
 }))
@@ -60,13 +64,13 @@ export const thumbnailContainer = styled(Box)(() => ({
 export const Thumbnail1 = styled(Box)(({ thumbnail }) => ({
     flex: 1,
     width: '100%',
-    translate: '2rem 2rem',
+    translate: '2rem 0rem',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundImage: `url('${thumbnail}')`,
-    borderRadius: '0.625rem',
+    backgroundImage: `url('${thumbnail}')`,    
     boxShadow: '0px 4px 5px 2px #21440080',
+    borderRadius: '0.625rem',
     transition: 'all 0.3s ease',
     opacity: 0,
     zIndex: 1,
@@ -76,13 +80,13 @@ export const Thumbnail2 = styled(Box)(({ thumbnail }) => ({
     flex: 1,
     width: '100%',
     marginLeft: '-14.3rem',
-    translate: '0rem 2rem',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundImage: `url('${thumbnail}')`,
     boxShadow: '0px 4px 5px 2px #21440080',
     borderRadius: '0.625rem',
+    transition: 'all 0.3s ease',
     opacity: 0.8,
     zIndex: 0,
 }))

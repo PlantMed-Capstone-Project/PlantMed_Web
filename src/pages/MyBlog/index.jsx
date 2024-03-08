@@ -26,7 +26,7 @@ function MyBlog() {
     ]
 
     //Khai báo array các bài blog
-    const blogCard = [
+    const blogCardData = [
         {
             id: 1,
             title: 'Cây Đinh Lăng',
@@ -69,7 +69,7 @@ function MyBlog() {
                     ))}
                 </styleMui.tabContainer>
                 <styleMui.blogCardList>
-                    {blogCard?.map((item) => (
+                    {blogCardData?.map((item) => (
                         <StatusBlogCard
                             key={item.id}
                             title={item.title}
