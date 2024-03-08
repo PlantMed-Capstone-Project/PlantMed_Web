@@ -3,7 +3,7 @@ import thumbnail from 'Images/tía tô.jpg'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
 
-export const StatusBlogCard = ({ title, author, description, isLoading }) => {
+export const StatusBlogCard = ({ title, author, description }) => {
     return (
         <styleMui.blogCard>
             <styleMui.thumbnailContainer>

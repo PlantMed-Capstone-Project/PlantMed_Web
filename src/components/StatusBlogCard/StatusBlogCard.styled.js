@@ -12,6 +12,7 @@ export const blogCard = styled(Box)(() => ({
     justifyContent: 'flex-start',
     width: '62rem',
     height: '13.875rem',
+    borderRadius: '0.625rem',
     gap: '3rem',
     '&:hover': {
         '& > *:nth-child(1) > *:nth-child(1)': {
@@ -29,7 +30,7 @@ export const blogCardBox = styled(Card)(() => ({
     display: 'flex',
     height: '100%',
     width: '41.063rem',
-    background: '##F4FFEB',
+    background: '#F4FFEB',
     boxShadow: '0px 4px 4px 0px #00000040',
 }))
 
@@ -68,7 +69,7 @@ export const Thumbnail1 = styled(Box)(({ thumbnail }) => ({
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundImage: `url('${thumbnail}')`,    
+    backgroundImage: `url('${thumbnail}')`,
     boxShadow: '0px 4px 5px 2px #21440080',
     borderRadius: '0.625rem',
     transition: 'all 0.3s ease',

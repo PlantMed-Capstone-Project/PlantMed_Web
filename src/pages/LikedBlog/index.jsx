@@ -1,35 +1,15 @@
-import * as styleMui from './MyBlog.styled'
+import * as styleMui from 'pages/MyBlog/MyBlog.styled'
 import { ProfileSidebar } from 'components/Profile'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { StatusBlogCard } from 'components/StatusBlogCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { blogCardData } from 'FakeData/plantData'
 
-function MyBlog() {
-    const [blogStatus, setblogStatus] = useState('Chờ phê duyệt')
+function LikedBlog() {
     const [data, setData] = useState(blogCardData.slice(0, 3))
     const [lengData, setLengthData] = useState(2)
     const returnData = 3
     const [hasMore, setHasMore] = useState(true)
-
-    const handleChange = (event, newValue) => {
-        setblogStatus(newValue)
-    }
-
-    //Khai báo array các tab
-    const nabItem = [
-        {
-            id: 1,
-            label: 'Chờ phê duyệt',
-            link: '',
-        },
-        {
-            id: 2,
-            label: 'Đã đăng',
-            link: '',
-        },
-    ]
 
     const fetchMoreData = () => {
         setTimeout(() => {
@@ -44,21 +24,6 @@ function MyBlog() {
     return (
         <styleMui.container>
             <styleMui.blogContainer>
-                <styleMui.tabContainer
-                    value={blogStatus}
-                    onChange={handleChange}
-                    aria-label="basic tabs example"
-                >
-                    {nabItem?.map((item) => (
-                        <styleMui.statusTab
-                            component={Link}
-                            to={item.link}
-                            key={item.id}
-                            label={item.label}
-                            value={item.label}
-                        />
-                    ))}
-                </styleMui.tabContainer>
                 <InfiniteScroll
                     dataLength={data.length}
                     next={fetchMoreData}
@@ -83,4 +48,4 @@ function MyBlog() {
     )
 }
 
-export default MyBlog
+export default LikedBlog

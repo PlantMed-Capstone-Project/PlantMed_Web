@@ -1,8 +1,8 @@
-import { Box, Tab, Tabs, styled } from '@mui/material'
+import { Box, Tab, Tabs, Typography, styled } from '@mui/material'
 
 export const container = styled(Box)(() => ({
     width: '100%',
-    height: 'calc(100vh - 5.94rem)',
+    height: 'calc(100vh + 10.94rem)',
     display: 'flex',
     justifyContent: 'center',
     gap: '1rem',
@@ -15,7 +15,7 @@ export const blogContainer = styled(Box)(() => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    paddingTop: '3rem',
+    paddingTop: '1rem',
     gap: '4rem',
 }))
 
@@ -41,17 +41,25 @@ export const statusTab = styled(Tab)(() => ({
 
 export const blogCardList = styled(Box)(() => ({
     width: '100%',
-    height: 'calc(100vh - 5.94rem)',
+    height: '100vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     paddingLeft: '4rem',
-    gap: '6rem',
+    gap: '5rem',
     paddingTop: '1rem',
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
         width: '0',
     },
     scrollbarWidth: 'none',
+}))
+
+export const loadingText = styled(Typography)(() => ({
+    color: '#214400',
+    fontWeight: '600',
+    fontSize: '1.75rem',
+    textTransform: 'capitalize',
+    textAlign: 'center',
 }))
