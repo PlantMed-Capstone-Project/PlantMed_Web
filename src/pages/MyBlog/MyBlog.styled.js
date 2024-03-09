@@ -2,7 +2,7 @@ import { Box, Tab, Tabs, Typography, styled } from '@mui/material'
 
 export const container = styled(Box)(() => ({
     width: '100%',
-    height: 'calc(100vh + 10.94rem)',
+    height: 'calc(100vh + 5.94rem)',
     display: 'flex',
     justifyContent: 'center',
     gap: '1rem',
@@ -26,7 +26,7 @@ export const likedBlogContainer = styled(Box)(() => ({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     gap: '4rem',
-    marginTop: '-4rem',
+    marginTop: '4rem',
 }))
 
 export const tabContainer = styled(Tabs)(() => ({
@@ -51,7 +51,7 @@ export const statusTab = styled(Tab)(() => ({
 
 export const blogCardList = styled(Box)(() => ({
     width: '100%',
-    height: '100vh',
+    height: 'calc(100vh - 5.94rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

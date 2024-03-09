@@ -11,34 +11,21 @@ function LikedBlog() {
     const [data, setData] = useState(blogCardData.slice(0, 3))
     const [lengData, setLengthData] = useState(2)    
     const [hasMore, setHasMore] = useState(true)
-    const [search, setSearch] = useState('')
     const returnData = 3
-
-    const filteredData = blogCardData.filter((item) =>
-        formatText(item.title).includes(formatText(search))
-    )
 
     const fetchMoreData = () => {
         setTimeout(() => {
-            setData(filteredData.slice(0, lengData + returnData))
+            setData(blogCardData.slice(0, lengData + returnData))
             setLengthData(lengData + returnData)
-            if (lengData + returnData >= filteredData.length) {
+            if (lengData + returnData >= blogCardData.length) {
                 setHasMore(false)
             }
         }, 1000)
     }
 
-    const handleSearchChange = (value) => {
-        setSearch(value)
-        setData(filteredData.slice(0, 3))
-        setLengthData(2)
-        setHasMore(true)
-    }
-
     return (
         <styleMui.container>
             <styleMui.likedBlogContainer>
-                <Searching setSearch={handleSearchChange} />
                 <InfiniteScroll
                     dataLength={data.length}
                     next={fetchMoreData}
