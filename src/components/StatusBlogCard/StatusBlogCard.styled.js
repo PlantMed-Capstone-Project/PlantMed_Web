@@ -62,10 +62,9 @@ export const thumbnailContainer = styled(Box)(() => ({
     height: '100%',
 }))
 
-export const Thumbnail1 = styled(Box)(({ thumbnail }) => ({
+export const Thumbnail = styled(Box)(({ thumbnail, opacity, zIndex }) => ({
     flex: 1,
     width: '100%',
-    translate: '2rem 0rem',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
@@ -73,23 +72,8 @@ export const Thumbnail1 = styled(Box)(({ thumbnail }) => ({
     boxShadow: '0px 4px 5px 2px #21440080',
     borderRadius: '0.625rem',
     transition: 'all 0.3s ease',
-    opacity: 0,
-    zIndex: 1,
-}))
-
-export const Thumbnail2 = styled(Box)(({ thumbnail }) => ({
-    flex: 1,
-    width: '100%',
-    marginLeft: '-14.3rem',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundImage: `url('${thumbnail}')`,
-    boxShadow: '0px 4px 5px 2px #21440080',
-    borderRadius: '0.625rem',
-    transition: 'all 0.3s ease',
-    opacity: 0.8,
-    zIndex: 0,
+    opacity: opacity,
+    zIndex: zIndex,
 }))
 
 export const Title = styled(Typography)(() => ({

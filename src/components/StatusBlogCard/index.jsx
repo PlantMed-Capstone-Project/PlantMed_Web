@@ -7,8 +7,18 @@ export const StatusBlogCard = ({ title, author, description }) => {
     return (
         <styleMui.blogCard>
             <styleMui.thumbnailContainer>
-                <styleMui.Thumbnail1 thumbnail={thumbnail} />
-                <styleMui.Thumbnail2 thumbnail={thumbnail} />
+                <styleMui.Thumbnail
+                    thumbnail={thumbnail}
+                    opacity="0"
+                    zIndex="1"
+                    sx={{ translate: '2rem 0rem' }}
+                />
+                <styleMui.Thumbnail
+                    thumbnail={thumbnail}
+                    opacity="0.8"
+                    zIndex="0"
+                    sx={{ marginLeft: '-14.3rem' }}
+                />
             </styleMui.thumbnailContainer>
             <styleMui.blogCardBox>
                 <styleMui.blogCardContent>
