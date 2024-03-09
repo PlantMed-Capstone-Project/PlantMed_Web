@@ -1,17 +1,15 @@
 import { Stack } from '@mui/material'
-import { blogDetail } from 'FakeData/plantData'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
-import ApprovalCard from 'components/approvalCard'
-import React, { useEffect, useRef, useState } from 'react'
-import * as styleFromPlant from 'pages/Plant/PlantPage.styled'
-import { AnimatePresence } from 'framer-motion'
 import PopupInfo from 'components/PopupInfo/PopupInfo'
+import ApprovalCard from 'components/approvalCard'
+import { AnimatePresence } from 'framer-motion'
+import * as styleFromPlant from 'pages/Plant/PlantPage.styled'
+import { useEffect, useRef, useState } from 'react'
 import { getApproval } from 'rest/api/blog'
 
 export default function ApprovalPage() {
     const [indexData, setIndexData] = useState()
-
-    let data
+    const [data, setData] = useState([])
 
     const containerPopup = useRef()
 
@@ -25,8 +23,7 @@ export default function ApprovalPage() {
     const getBlog = async () => {
         try {
             const response = await getApproval()
-            console.log('blog pending:', response.data)
-            data = response
+            setData(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -35,8 +32,6 @@ export default function ApprovalPage() {
     useEffect(() => {
         document.addEventListener('mousedown', handler)
         getBlog()
-
-        return () => document.removeEventListener('mousedown', handler)
     }, [])
 
     return (

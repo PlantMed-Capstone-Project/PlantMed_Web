@@ -19,7 +19,7 @@ function CreateBlog() {
         title: '',
         content: '',
         image: '',
-        tag: '',
+        tag: [],
     }
 
     const [inputs, setInputs] = useState(initialInputs)

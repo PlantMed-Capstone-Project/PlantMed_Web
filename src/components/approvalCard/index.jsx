@@ -1,21 +1,25 @@
 import { Stack } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ApprovalCardList from './approvalCardList'
 import SkeletonLoading from './skeletonLoading'
 
 function ApprovalCard({ data, setIndexData }) {
-    const [item, setItems] = useState(data?.slice(0, 5))
+    const [item, setItems] = useState(data.slice(0, 5))
     const [dataSlice, setDataSlice] = useState(4)
 
     const maxRecordsReturned = 5
 
+    useEffect(() => {
+        setItems(data.slice(0, 5))
+    }, [data])
+
     // Hàm này sẽ kích hoạt mỗi khi thư viện cuộn đến thằng cuối cùng trong data
     const fetchMoreData = () => {
         setTimeout(() => {
-            setItems(data?.slice(0, dataSlice + maxRecordsReturned))
+            setItems(data.slice(0, dataSlice + maxRecordsReturned))
             setDataSlice(dataSlice + maxRecordsReturned)
-        }, 500)
+        }, 1000)
     }
 
     return (
@@ -37,7 +41,7 @@ function ApprovalCard({ data, setIndexData }) {
                     padding: '1rem 8rem',
                 }}
             >
-                {item.length &&
+                {item?.length &&
                     item.map((vl, idx) => (
                         <ApprovalCardList
                             key={vl.id}

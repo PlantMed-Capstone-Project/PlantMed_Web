@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 function ApprovalCardList({ item, idx, setIndexData }) {
     const [isHover, setIsHover] = useState(null)
+
     const hoverEnter = (idx) => {
         setIsHover(true)
     }
@@ -41,6 +42,11 @@ function ApprovalCardList({ item, idx, setIndexData }) {
             children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
         }
     }
+
+    const content =
+        item.content.length > 300
+            ? item.content.slice(0, 300) + '...'
+            : item.content
     return (
         <Box
             component={motion.div}
@@ -108,7 +114,7 @@ function ApprovalCardList({ item, idx, setIndexData }) {
                         alignItems: 'center',
                     }}
                 >
-                    Cây Tú linh
+                    {item.title}
                 </Typography>
                 <Box
                     sx={{
@@ -129,39 +135,38 @@ function ApprovalCardList({ item, idx, setIndexData }) {
                             textAlign: 'justify',
                         }}
                     >
-                        {item.description.length > 300
-                            ? item.description.slice(0, 300) + '...'
-                            : item.description}
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
                     </Typography>
                     <Box sx={{ display: 'flex', gap: '0.3rem' }}>
-                        {item.tags.length &&
-                            item.tags.map((vl, idx) => (
-                                <Box
-                                    key={item}
-                                    sx={{
-                                        backgroundColor: '#69AD28',
-                                        borderRadius: '0.6rem',
-                                        boxShadow: 3,
-                                        height: '2rem',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        padding: '0 1rem',
-                                        cursor: 'pointer',
-                                    }}
-                                >
-                                    <Typography
-                                        sx={{
-                                            color: '#FFF',
-                                            fontSize: '0.9rem',
-                                            fontWeight: '300',
-                                            lineHeight: 'normal',
-                                        }}
-                                    >
-                                        {vl.tagName}
-                                    </Typography>
-                                </Box>
-                            ))}
+                        {item.tags.length
+                            ? item.tags.map((vl, idx) => (
+                                  <Box
+                                      key={item}
+                                      sx={{
+                                          backgroundColor: '#69AD28',
+                                          borderRadius: '0.6rem',
+                                          boxShadow: 3,
+                                          height: '2rem',
+                                          display: 'flex',
+                                          justifyContent: 'center',
+                                          alignItems: 'center',
+                                          padding: '0 1rem',
+                                          cursor: 'pointer',
+                                      }}
+                                  >
+                                      <Typography
+                                          sx={{
+                                              color: '#FFF',
+                                              fontSize: '0.9rem',
+                                              fontWeight: '300',
+                                              lineHeight: 'normal',
+                                          }}
+                                      >
+                                          {vl.plant}
+                                      </Typography>
+                                  </Box>
+                              ))
+                            : ''}
                     </Box>
                 </Box>
             </Box>
