@@ -7,7 +7,7 @@ const initialState = () => {
     let access_token = readCookie(ACCESS_TOKEN)
 
     return {
-        isLogin: access_token ? true : false,
+        isLogin: Boolean(access_token),
         error: null,
     }
 }
@@ -41,7 +41,7 @@ const authSlice = createSlice({
             let { accessToken, expiresIn } = action.payload
             let days = parseDiffDays(expiresIn)
             createCookie(ACCESS_TOKEN, accessToken, days)
-            state.isLogin = false
+            state.isLogin = true
             state.error = null
         },
     },
