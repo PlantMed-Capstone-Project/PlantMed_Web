@@ -1,3 +1,6 @@
+import { Buffer } from 'buffer'
+import moment from 'moment'
+
 /**
  * Sử dụng để format string có ký tự utf8
  * @param {*} str string
@@ -75,4 +78,11 @@ export const parseImg = (img) => {
     } else {
         return `data:image/png;base64,${img}`
     }
+}
+
+export const parseDiffDays = (timestamp) => {
+    let parsedDate = moment(Date.parse(timestamp))
+    let currentDay = moment()
+
+    return parsedDate.diff(currentDay, 'days') + 1
 }
