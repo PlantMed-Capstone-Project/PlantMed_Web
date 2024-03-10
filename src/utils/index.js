@@ -1,4 +1,6 @@
 import { Buffer } from 'buffer'
+import { onSnapshot, query } from 'firebase/firestore'
+import { useEffect } from 'react'
 /**
  * Sử dụng để format string có ký tự utf8
  * @param {*} str string
@@ -80,3 +82,27 @@ export const parseJwt = (token) => {
         ? JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
         : ''
 }
+
+/**
+ * Lấy dữ liệu từ firebase
+ * @param {*} collectionRef dtb firebase
+ * @param {*} conditions điều kiện query
+ * @param {*} setDataCallback trả về usestate dữ liệu
+ * @returns useState
+ */
+
+export const useFirestoreQuery = (collectionRef, conditions, setDataCallback) => {
+    useEffect(() => {
+        const queryMessage = query(collectionRef, ...conditions);
+        const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
+            let messages = [];
+            snapshot.forEach((doc) => {
+                messages.push({ ...doc.data(), id: doc.id });
+            });
+            setDataCallback(messages);
+        });
+
+        return () => unsubscribe();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+};
