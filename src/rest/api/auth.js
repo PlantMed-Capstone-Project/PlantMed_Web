@@ -13,3 +13,7 @@ export const register = async (payload) => {
 export const verifyEmail = async (payload) => {
     return http.post('auth/verify', payload)
 }
+
+export const refreshToken = async (payload) => {
+    return http.put('auth/refresh', payload)
+}
