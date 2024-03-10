@@ -9,10 +9,10 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import EditIcon from '@mui/icons-material/Edit'
 
 export const ProfileForm = ({
-    fullname,
-    email,
+    FullName,
+    Email,
     createdDate,
-    role,
+    Role,
     password,
 }) => {
     const navigate = useNavigate()
@@ -20,10 +20,10 @@ export const ProfileForm = ({
     const [eye, setEye] = useState(false)
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
-        fullname: fullname || '',
-        email,
+        fullname: FullName,
+        email: Email,
         createdDate,
-        role,
+        role: Role,
         password,
     })
 

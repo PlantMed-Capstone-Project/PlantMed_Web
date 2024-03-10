@@ -15,9 +15,9 @@ export const StatusBlogCard = ({ title, author, description }) => {
                 />
                 <styleMui.Thumbnail
                     thumbnail={thumbnail}
-                    opacity="0.8"
-                    zIndex="0"
-                    sx={{ marginLeft: '-14.3rem' }}
+                    opacity="1"
+                    zIndex="0"                    
+                    sx={{ marginLeft: '-14.3rem', filter: 'grayscale(50%)' }}
                 />
             </styleMui.thumbnailContainer>
             <styleMui.blogCardBox>
