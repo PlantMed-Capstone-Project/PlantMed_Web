@@ -6,10 +6,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
-import { refreshToken, resetPassword } from 'rest/api/auth'
+import { resetPassword } from 'rest/api/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
-import { REFRESH_TOKEN } from 'constant'
+import { createCookie } from 'utils/cookie'
+import { FORM_REGISTER } from 'constant'
 
 const ResetPasswordForm = () => {
     const navigate = useNavigate()
@@ -57,8 +58,8 @@ const ResetPasswordForm = () => {
     const clearInput = () => {
         setInputs({
             oldPassword: '',
-        newPassword: '',
-        confirmPassword: '',
+            newPassword: '',
+            confirmPassword: '',
         })
     }
 
@@ -78,7 +79,7 @@ const ResetPasswordForm = () => {
         setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
     }
 
-    const renderInputs = ({ id, type, header, key, eyeIcon, placeholder }) => {
+    const renderInputs = ({ id, type, key, eyeIcon, placeholder }) => {
         return (
             <InputField
                 key={id}
@@ -97,17 +98,20 @@ const ResetPasswordForm = () => {
     const handleOnSubmit = async () => {
         try {
             show({
-                message: 'Vui long chờ trong giây lát',
+                message: 'Vui lòng chờ trong giây lát',
                 autoHideDuration: 2000,
             })
-            const response = await resetPassword({ Password: inputs.newPassword })
+            await resetPassword({ newPassword: inputs.newPassword })
             show({
                 message: 'Cập nhật mật khẩu thành công!!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
-            refreshToken(REFRESH_TOKEN, JSON.stringify(response.data.data))
+            const data = {
+                password: inputs.newPassword,
+            }
+            createCookie(FORM_REGISTER, JSON.stringify(data))
             clearInput()
-            return navigate('/reset-password')
+            return navigate('/profile')
         } catch (error) {
             show({
                 message:
@@ -115,7 +119,7 @@ const ResetPasswordForm = () => {
                     'Lỗi hệ thống! Vui lòng thử lại sau!',
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
-        }        
+        }
     }
 
     const buttons = [

@@ -7,28 +7,24 @@ import { IconButton } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import EditIcon from '@mui/icons-material/Edit'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import { updateInfo } from 'rest/api/user'
-import useActions from 'hooks/useActions'
+import { readCookie } from 'utils/cookie'
+import { FORM_REGISTER } from 'constant'
 
-export const ProfileForm = ({
-    FullName,
-    Email,
-    CreatedDate,
-    Role,
-    Password,
-}) => {
+export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
     const navigate = useNavigate()
-    const { show } = useActions(snackbarAction)
+    const currentPass = JSON.parse(readCookie(FORM_REGISTER))
 
     const [eye, setEye] = useState(false)
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
-        fullname: FullName,
-        email: Email,
-        createdDate: CreatedDate,
-        role: (Role === 'user') ? 'Người dùng' : 'Chuyên gia',
-        password: Password,
+        fullname: userInfo?.FullName,
+        email: userInfo?.Email,
+        createdDate: userInfo?.CreatedDate,
+        role:
+            userInfo?.Role === 'user'
+                ? 'Người Dùng'
+                : 'Chuyên Gia Về Cây Thuốc',
+        password: currentPass.password,
     })
 
     const handleEye = () => setEye((prevState) => !prevState)
@@ -67,31 +63,19 @@ export const ProfileForm = ({
         }
     }
 
-    const handleOnSubmit = async () => {
-        try {
-            show({
-                message: 'Vui long chờ trong giây lát',
-                autoHideDuration: 2000,
-            })
-            await updateInfo({ FullName: inputs.fullname })
-            show({
-                message: 'Cập nhật thông tin thành công!!',
-                severity: SNACKBAR_SEVERITY.SUCCESS,
-            })
-            return navigate('/profile')
-        } catch (error) {
-            show({
-                message:
-                    error.response.data.message ??
-                    'Lỗi hệ thống! Vui lòng thử lại sau!',
-                severity: SNACKBAR_SEVERITY.ERROR,
-            })
-        }        
+    const handleOnSubmit = () => {
+        onUpdateInfo({ FullName: inputs.fullname })
+        return navigate('/profile')
     }
 
     const buttons = [
         { id: 1, value: 'Thay đổi', width: '7rem', onClick: onValidate },
-        { id: 2, value: 'Hủy thay đổi', width: '8rem', onClick: handleInputChange },
+        {
+            id: 2,
+            value: 'Hủy thay đổi',
+            width: '8rem',
+            onClick: handleInputChange,
+        },
         { id: 3, value: 'Đổi mật khẩu', width: '8rem', nav: '/reset-password' },
     ]
 

@@ -37,10 +37,10 @@ const privateRoutes = [
     { path: '/bloglist', page: BlogListPage, layout: MainLayout },
     { path: '/blog', page: BlogPage, layout: MainLayout },
     { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
-    { path: '/profile', page: ProfilePage, layout: MainLayout },
-    { path: '/reset-password', page: ResetPasswordPage, layout: MainLayout },
-    { path: '/my-blog', page: MyBlog, layout: MainLayout },
-    { path: '/liked-blog', page: LikedBlog, layout: MainLayout },
+    { path: '/profile', page: ProfilePage, layout: LoginLayout },
+    { path: '/reset-password', page: ResetPasswordPage, layout: LoginLayout },
+    { path: '/my-blog', page: MyBlog, layout: LoginLayout },
+    { path: '/liked-blog', page: LikedBlog, layout: LoginLayout },
 ]
 
 export { privateRoutes, publicRoutes }

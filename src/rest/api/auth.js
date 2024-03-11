@@ -1,6 +1,6 @@
 import Client from 'rest/baseClient'
 
-const http = new Client()
+const http = new Client('https://neutral-weevil-formerly.ngrok-free.app/api/v1/')
 
 export const login = async (payload) => {
     return http.post('auth/login', payload)
