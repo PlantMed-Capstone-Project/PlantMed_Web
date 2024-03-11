@@ -1,7 +1,7 @@
 import { Box, Typography, styled, Button } from '@mui/material'
 
 export const passwordPlace = styled(Box)(() => ({
-    width: '65%',
+    width: '66%',
     height: '30rem',
     display: 'flex',
     flexDirection: 'column',
@@ -10,6 +10,7 @@ export const passwordPlace = styled(Box)(() => ({
     backgroundColor: '#f4ffeb',
     borderRadius: '0.825rem',
     border: 'solid 0.1rem #dff0e9',
+    marginTop: '1rem',
 }))
 
 export const inputContainer = styled(Box)(() => ({

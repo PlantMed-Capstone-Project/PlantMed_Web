@@ -7,7 +7,6 @@ import { ACCESS_TOKEN } from 'constant'
 function ProfilePage() {
     const accessToken = readCookie(ACCESS_TOKEN)
     const tokenInfo = accessToken ? parseJwt(accessToken) : null
-    console.log(parseJwt(accessToken))
 
     return (
         <styleMui.container>

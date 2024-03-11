@@ -6,9 +6,14 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
+import { refreshToken, resetPassword } from 'rest/api/auth'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import useActions from 'hooks/useActions'
+import { REFRESH_TOKEN } from 'constant'
 
-const ResetPasswordForm = ({ password }) => {
+const ResetPasswordForm = () => {
     const navigate = useNavigate()
+    const { show } = useActions(snackbarAction)
     const [errors, setErrors] = useState({})
 
     //Chuyển trạng thái nhìn thấy mật khẩu
@@ -49,6 +54,14 @@ const ResetPasswordForm = ({ password }) => {
         confirmPassword: '',
     })
 
+    const clearInput = () => {
+        setInputs({
+            oldPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+        })
+    }
+
     //Check validation
     const onValidate = () => {
         const inputErrors = validateInputs(inputs)
@@ -81,8 +94,28 @@ const ResetPasswordForm = ({ password }) => {
         )
     }
 
-    const handleOnSubmit = () => {
-        return navigate('/reset-password')
+    const handleOnSubmit = async () => {
+        try {
+            show({
+                message: 'Vui long chờ trong giây lát',
+                autoHideDuration: 2000,
+            })
+            const response = await resetPassword({ Password: inputs.newPassword })
+            show({
+                message: 'Cập nhật mật khẩu thành công!!',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+            refreshToken(REFRESH_TOKEN, JSON.stringify(response.data.data))
+            clearInput()
+            return navigate('/reset-password')
+        } catch (error) {
+            show({
+                message:
+                    error.response.data.message ??
+                    'Lỗi hệ thống! Vui lòng thử lại sau!',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        }        
     }
 
     const buttons = [
