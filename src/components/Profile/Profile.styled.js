@@ -10,7 +10,7 @@ import {
 
 export const avatarPlace = styled(Box)(() => ({
     width: '15%',
-    height: '100%',
+    height: '30rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -23,7 +23,8 @@ export const avatarPlace = styled(Box)(() => ({
 }))
 
 export const profilePlace = styled(Box)(() => ({
-    width: '100%',
+    width: '66%',
+    height: '30rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -31,12 +32,12 @@ export const profilePlace = styled(Box)(() => ({
     backgroundColor: '#f4ffeb',
     borderRadius: '0.825rem',
     border: 'solid 0.1rem #dff0e9',
-    padding: '1.5rem 0',
+    marginTop: '1rem',
 }))
 
 export const sidebarPlace = styled(Box)(() => ({
     width: '6%',
-    height: 'calc(100vh + 1rem)',
+    height: 'calc(100vh - 5.94rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -45,38 +46,7 @@ export const sidebarPlace = styled(Box)(() => ({
     padding: '1rem 0 0 0',
 }))
 
-export const infoPlace = styled(Box)(() => ({
-    width: '90%',
-    height: '55%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    borderBottom: '0.188rem solid #214400',
-    paddingBottom: '2rem',
-}))
-
-export const accountPlace = styled(Box)(() => ({
-    width: '90%',
-    height: '25%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-}))
-
 export const profileContainer = styled(Box)(() => ({
-    marginTop: '1rem',
-    overflowY: 'auto',
-    height: '100%',
-    '&::-webkit-scrollbar': {
-        width: '0',
-    },
-    scrollbarWidth: 'none',
-}))
-
-export const profileFormContainer = styled(Box)(() => ({
-    width: '70%',
     display: 'flex',
     flexDirection: 'column',
 }))
@@ -164,20 +134,11 @@ export const inputHeader = styled(Typography)(() => ({
     color: '#214400',
 }))
 
-export const buttonInfoContainer = styled(Box)(() => ({
+export const buttonContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
     gap: '1rem',
-    paddingTop: '25rem',
-    width: '30%',
-}))
-
-export const buttonAccountContainer = styled(Box)(() => ({
-    display: 'flex',
-    flexDirection: 'row',
-    gap: '1rem',
-    padding: '15rem 0 0 9rem',
-    width: '30%',
+    padding: '3rem 0 0 28rem',
 }))
 
 export const button = styled(Button)(({ width }) => ({

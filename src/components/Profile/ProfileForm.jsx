@@ -1,20 +1,12 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import InputField from 'components/InputField'
 import * as styleMui from './Profile.styled'
 import { validateInputs } from 'components/InputField/validationRules'
-import { IconButton } from '@mui/material'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import EditIcon from '@mui/icons-material/Edit'
-import { readCookie } from 'utils/cookie'
-import { FORM_REGISTER } from 'constant'
 
 export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
     const navigate = useNavigate()
-    const currentPass = JSON.parse(readCookie(FORM_REGISTER))
-
-    const [eye, setEye] = useState(false)
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
         fullname: userInfo?.FullName,
@@ -24,10 +16,7 @@ export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
             userInfo?.Role === 'user'
                 ? 'Người Dùng'
                 : 'Chuyên Gia Về Cây Thuốc',
-        password: currentPass.password,
     })
-
-    const handleEye = () => setEye((prevState) => !prevState)
 
     const handleInputChange = (key, value) =>
         setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
@@ -91,106 +80,57 @@ export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
         </styleMui.button>
     )
 
-    const editFields = useMemo(
-        () => [
-            {
-                id: 1,
-                type: 'text',
-                header: 'Tên Người Dùng',
-                placeholder: 'Tên người dùng',
-                key: 'fullname',
-                isDisabled: false,
-                icon: <EditIcon sx={styleMui.editIconStyle} />,
-            },
-            {
-                id: 2,
-                type: 'text',
-                header: 'Email',
-                key: 'email',
-                isDisabled: true,
-            },
-            {
-                id: 3,
-                type: 'text',
-                header: 'Ngày Tạo Tài Khoản',
-                key: 'createdDate',
-                isDisabled: true,
-            },
-            {
-                id: 4,
-                type: 'text',
-                header: 'Chức Nghiệp',
-                key: 'role',
-                isDisabled: true,
-            },
-            {
-                id: 5,
-                type: eye ? 'text' : 'password',
-                header: 'Mật Khẩu',
-                key: 'password',
-                icon: (
-                    <IconButton onClick={handleEye}>
-                        {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                    </IconButton>
-                ),
-                isDisabled: true,
-            },
-        ],
-        [eye]
-    )
+    const editFields = [
+        {
+            id: 1,
+            type: 'text',
+            header: 'Tên Người Dùng',
+            placeholder: 'Tên người dùng',
+            key: 'fullname',
+            isDisabled: false,
+            icon: <EditIcon sx={styleMui.editIconStyle} />,
+        },
+        {
+            id: 2,
+            type: 'text',
+            header: 'Email',
+            key: 'email',
+            isDisabled: true,
+        },
+        {
+            id: 3,
+            type: 'text',
+            header: 'Ngày Tạo Tài Khoản',
+            key: 'createdDate',
+            isDisabled: true,
+        },
+        {
+            id: 4,
+            type: 'text',
+            header: 'Chức Nghiệp',
+            key: 'role',
+            isDisabled: true,
+        },
+    ]
 
     return (
-        <styleMui.profileContainer>
-            <styleMui.profilePlace>
-                <styleMui.infoPlace>
-                    <styleMui.profileFormContainer>
-                        <styleMui.Title variant="h2">
-                            Thông tin người dùng
-                        </styleMui.Title>
-                        <styleMui.inputPlace>
-                            <styleMui.hearderContainer>
-                                {editFields
-                                    .filter((obj) => obj.id !== 5)
-                                    .map(renderHeaders)}
-                            </styleMui.hearderContainer>
-                            <styleMui.inputContainer>
-                                {editFields
-                                    .filter((obj) => obj.id !== 5)
-                                    .map(renderInputs)}
-                            </styleMui.inputContainer>
-                        </styleMui.inputPlace>
-                    </styleMui.profileFormContainer>
-                    <styleMui.buttonInfoContainer>
-                        {buttons
-                            .filter((obj) => obj.id !== 3)
-                            .map(renderButtons)}
-                    </styleMui.buttonInfoContainer>
-                </styleMui.infoPlace>
-                <styleMui.accountPlace>
-                    <styleMui.profileFormContainer>
-                        <styleMui.Title variant="h2">
-                            Tài khoản cá nhân
-                        </styleMui.Title>
-                        <styleMui.inputPlace>
-                            <styleMui.hearderContainer>
-                                {editFields
-                                    .filter((obj) => obj.id === 5)
-                                    .map(renderHeaders)}
-                            </styleMui.hearderContainer>
-                            <styleMui.inputContainer>
-                                {editFields
-                                    .filter((obj) => obj.id === 5)
-                                    .map(renderInputs)}
-                            </styleMui.inputContainer>
-                        </styleMui.inputPlace>
-                    </styleMui.profileFormContainer>
-                    <styleMui.buttonAccountContainer>
-                        {buttons
-                            .filter((obj) => obj.id === 3)
-                            .map(renderButtons)}
-                    </styleMui.buttonAccountContainer>
-                </styleMui.accountPlace>
-            </styleMui.profilePlace>
-        </styleMui.profileContainer>
+        <styleMui.profilePlace>
+            <styleMui.profileContainer>
+                <styleMui.Title variant="h2">
+                    Thông tin người dùng
+                </styleMui.Title>
+                <styleMui.inputPlace>
+                    <styleMui.hearderContainer>
+                        {editFields.map(renderHeaders)}
+                    </styleMui.hearderContainer>
+                    <styleMui.inputContainer>
+                        {editFields.map(renderInputs)}
+                    </styleMui.inputContainer>
+                </styleMui.inputPlace>
+            </styleMui.profileContainer>
+            <styleMui.buttonContainer>
+                {buttons.map(renderButtons)}
+            </styleMui.buttonContainer>
+        </styleMui.profilePlace>
     )
 }

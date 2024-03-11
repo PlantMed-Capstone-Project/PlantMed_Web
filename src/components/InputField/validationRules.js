@@ -1,6 +1,3 @@
-import { FORM_REGISTER } from 'constant'
-import { readCookie } from 'utils/cookie'
-
 export const validationRules = {
     email: [
         {
@@ -51,16 +48,7 @@ export const validationRules = {
             message: 'Tên hiển thị không được để trống.',
         },
     ],
-    oldPassword: [
-        {
-            message: 'Vui lòng nhập mật khẩu hiện tại của bạn.',
-        },
-    ],
     newPassword: [
-        {
-            message: 'Mật khẩu mới không được giống với mật khẩu cũ.',
-            compareField: 'oldPassword',
-        },
         {
             message: 'Mật khẩu mới không được dưới 6 ký tự.',
             minLength: 6,
@@ -73,7 +61,6 @@ export const validationRules = {
 
 export const validateInputs = (inputs) => {
     const errors = {}
-    const currentPass = JSON.parse(readCookie(FORM_REGISTER))
 
     Object.keys(inputs).forEach((fieldName) => {
         if (validationRules[fieldName]) {
@@ -86,11 +73,6 @@ export const validateInputs = (inputs) => {
                     (fieldName === 'confirmPassword' &&
                         inputs[fieldName] !== inputs['password'] &&
                         inputs[fieldName] !== inputs['newPassword']) ||
-                    (fieldName === 'oldPassword' &&
-                        inputs[fieldName] !== currentPass.password) ||
-                    (rule.compareField &&
-                        fieldName === 'newPassword' &&
-                        inputs[fieldName] === inputs[rule.compareField]) ||
                     (rule.isCheck && !inputs.policyCheck)
                 ) {
                     errors[fieldName] = rule.message

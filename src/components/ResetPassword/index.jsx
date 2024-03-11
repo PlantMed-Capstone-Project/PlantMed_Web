@@ -27,22 +27,16 @@ const ResetPasswordForm = () => {
         {
             id: 1,
             type: eye ? 'text' : 'password',
-            key: 'oldPassword',
+            key: 'newPassword',
             eyeIcon: (
                 <IconButton onClick={handleEye}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             ),
-            placeholder: 'Nhập mật khẩu cũ của bạn...',
-        },
-        {
-            id: 2,
-            type: eye ? 'text' : 'password',
-            key: 'newPassword',
             placeholder: 'Nhập mật khẩu mới...',
         },
         {
-            id: 3,
+            id: 2,
             type: eye ? 'text' : 'password',
             key: 'confirmPassword',
             placeholder: 'Xác nhận mật khẩu mới...',
