@@ -3,12 +3,12 @@ import { Box, Button, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import Editor from 'components/Editor/Editor'
+import MultipleSelect from 'components/MutipleSelect'
 import useActions from 'hooks/useActions'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as S from './CreateBlog.styled'
-import MultipleSelect from 'components/MutipleSelect'
 import { PostBlog } from 'rest/api/blog'
+import * as S from './CreateBlog.styled'
 import { imageToBase64 } from 'utils'
 
 function CreateBlog() {
@@ -51,8 +51,8 @@ function CreateBlog() {
             const isInclude = allowedTypes.includes(files[0].type)
             if (files.length > 0 && isInclude) {
                 imageToBase64(files[0], (result) => {
-                    setInputs((prevState) => ({
-                        ...prevState,
+                    setInputs((prev) => ({
+                        ...prev,
                         image: result,
                     }))
                 })
@@ -88,6 +88,12 @@ function CreateBlog() {
             flag = false
             show({
                 message: 'Nội dung bài viết không được để trống!',
+                severity: SNACKBAR_SEVERITY.WARNING,
+            })
+        } else if (!inputs.image) {
+            flag = false
+            show({
+                message: 'Ảnh nền không được để trống!',
                 severity: SNACKBAR_SEVERITY.WARNING,
             })
         }
