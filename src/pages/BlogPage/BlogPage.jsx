@@ -1,5 +1,4 @@
 import { Box, Stack } from '@mui/material'
-import { user } from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
 import BlogList from 'components/BlogList/BlogList'
 import DiversityPlant from 'components/DiversityPlant/DiversityPlant'
@@ -20,12 +19,9 @@ function BlogPage() {
         }
     }
 
-    
-
     useEffect(() => {
         getUserBlog()
     }, [])
-
     const blogData = [
         {
             id: 1,

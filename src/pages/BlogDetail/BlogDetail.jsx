@@ -3,20 +3,30 @@ import {
     createComment,
     createReply,
     getCommentByIdBlog,
-    getIdBlog,
 } from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
 import useScrollTo from 'hooks/useScrollTo'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import { getIdBlog } from 'rest/api/blog'
 function BlogDetail() {
     useScrollTo(0, 0)
-
     const params = useParams()
-    const data = getIdBlog(parseInt(params.id))
+    const [blog, setBlog] = useState()
+    const getBlogById = async () => {
+        try {
+            const res = await getIdBlog(params.id)
+            setBlog(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        getBlogById()
+    }, [])
     const [commentList, setCommentList] = useState(
         getCommentByIdBlog(params.id)
     )
@@ -73,7 +83,7 @@ function BlogDetail() {
                     marginTop: '3.125rem',
                 }}
             >
-                {data.title}
+                {blog && blog.title}
             </Typography>
             <Typography
                 sx={{
@@ -82,18 +92,19 @@ function BlogDetail() {
                     fontSize: '1.25rem',
                 }}
             >
-                {data.user}
+                Tác giả: {blog && blog.user.fullName}
             </Typography>
 
-            <Box sx={{ margin: '3.125rem 6.25rem' }}>
+            <Box sx={{ padding: '3.125rem 6.25rem', width: '100%' }}>
                 <Typography
                     sx={{
                         color: '#214400',
                         fontSize: '1.25rem',
                     }}
-                >
-                    {data.description}
-                </Typography>
+                    dangerouslySetInnerHTML={{
+                        __html: blog && blog.content,
+                    }}
+                ></Typography>
                 <Typography
                     sx={{
                         color: '#214400',
@@ -104,7 +115,10 @@ function BlogDetail() {
                 >
                     Nhận xét của bạn:
                 </Typography>
-                <UserComment name="Phuong" onSendClick={handleSend} />
+                <UserComment
+                    name={blog && blog.user.fullName}
+                    onSendClick={handleSend}
+                />
                 {commentList?.map((data) => (
                     <LoadComment
                         comment={data}
