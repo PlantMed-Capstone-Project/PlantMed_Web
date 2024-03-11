@@ -28,15 +28,13 @@ function ProfilePage() {
                 autoHideDuration: 2000,
             })
             const response = await updateInfo(userInfo)
-            if (response === 200) {
-                setUserInfo({ ...userInfo, FullName: userInfo.FullName })
-                await authRefreshToken(JSON.stringify(userInfo))
-                refreshToken(response.data)
-                show({
-                    message: 'Cập nhật thông tin thành công!!',
-                    severity: SNACKBAR_SEVERITY.SUCCESS,
-                })
-            }
+            setUserInfo({ ...userInfo, FullName: userInfo.FullName })
+            await authRefreshToken(JSON.stringify(userInfo))
+            refreshToken(response.data)
+            show({
+                message: 'Cập nhật thông tin thành công!!',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
         } catch (error) {
             show({
                 message:
