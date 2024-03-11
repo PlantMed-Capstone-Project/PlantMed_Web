@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { CardActionArea } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { parseImg } from 'utils'
 
 const styles = {
     card: {
@@ -30,12 +31,18 @@ const styles = {
     },
 }
 
-function MyBlog({ blogData }) {
+function MyBlog({ userBlog }) {
+    const base64ToImage = (data) => {
+        let img = new Image()
+        img.src = parseImg(data)
+        return img
+    }
+
     return (
         <Box sx={styles.containerBlog}>
             <Typography sx={styles.myBlogTitle}>Bài viết của bạn</Typography>
             <Grid container spacing={2}>
-                {blogData.map((data) => (
+                {userBlog.map((data) => (
                     <Grid
                         item
                         xs={4}
@@ -58,7 +65,7 @@ function MyBlog({ blogData }) {
                                     <CardMedia
                                         component="img"
                                         height="150"
-                                        image={data.image}
+                                        image={parseImg(data.images[0].data)}
                                         alt="plant"
                                     />
                                     <CardContent
@@ -76,13 +83,13 @@ function MyBlog({ blogData }) {
                                                 color: 'black',
                                             }}
                                         >
-                                            {data.name}
+                                            {data.title}
                                         </Typography>
                                         <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
-                                            {data.description}
+                                            {data.content}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>

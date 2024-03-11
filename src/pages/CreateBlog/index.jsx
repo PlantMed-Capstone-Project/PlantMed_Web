@@ -79,7 +79,9 @@ function CreateBlog() {
     const handleValidate = () => {
         setTitleError('')
         const validContent =
-            inputs.content.replace(/<(.|\n)*?>/g, '').trim().length === 0
+            inputs.content &&
+            inputs.content.replace(/<[^>]*>/g, '').trim().length === 0
+
         let flag = true
         if (!inputs.title.trim()) {
             flag = false

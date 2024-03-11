@@ -1,12 +1,31 @@
 import { Box, Stack } from '@mui/material'
+import { user } from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
 import BlogList from 'components/BlogList/BlogList'
 import DiversityPlant from 'components/DiversityPlant/DiversityPlant'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
 import JoinBlog from 'components/JoinBlog/JoinBlog'
 import MyBlog from 'components/MyBlog/MyBlog'
+import { useEffect, useState } from 'react'
+import { getByUser } from 'rest/api/blog'
 
 function BlogPage() {
+    const [userBlog, setUserBlog] = useState()
+    const getUserBlog = async () => {
+        try {
+            const res = await getByUser()
+            setUserBlog(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    
+
+    useEffect(() => {
+        getUserBlog()
+    }, [])
+
     const blogData = [
         {
             id: 1,
@@ -105,7 +124,7 @@ function BlogPage() {
             }}
         >
             <HeroBlog />
-            <MyBlog blogData={blogData} />
+            {userBlog && <MyBlog userBlog={userBlog} />}
             <JoinBlog />
             <Stack
                 direction="column"
