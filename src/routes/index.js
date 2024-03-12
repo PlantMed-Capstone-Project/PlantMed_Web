@@ -29,10 +29,10 @@ const publicRoutes = [
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
     { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
     { path: '/forgot-password', page: ForgotPasswordPage, layout: MainLayout },
-    { path: '/blog/approval', page: ApprovalPage, layout: MainLayout },
 ]
 
 const privateRoutes = [
+    { path: '/blog/approval', page: ApprovalPage, layout: MainLayout },
     { path: '/new-blog', page: CreateBlog, layout: MainLayout },
     { path: '/bloglist', page: BlogListPage, layout: MainLayout },
     { path: '/blog', page: BlogPage, layout: MainLayout },

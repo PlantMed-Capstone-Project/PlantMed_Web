@@ -36,7 +36,7 @@ function ApprovalCard({ setIndexData }) {
                 alignItems="center"
                 spacing="3rem"
             >
-                {data ? (
+                {data.length > 0 ? (
                     (loading ? Array.from(new Array(2)) : item).map((vl, idx) =>
                         vl ? (
                             <ApprovalCardList
