@@ -57,12 +57,6 @@ export const avatarContainer = styled(Box)(() => ({
     padding: '2rem 0 0 2.5rem',
 }))
 
-export const infoContainer = styled(Box)(() => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-}))
-
 export const avatar = styled(Avatar)(() => ({
     backgroundPosition: 'center',
     backgroundSize: 'cover',
