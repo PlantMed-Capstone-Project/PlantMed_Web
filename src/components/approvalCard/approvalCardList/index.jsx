@@ -1,6 +1,10 @@
 import { Avatar, Box, CardMedia, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import * as styleMui from './approvalCardList.styled'
+import { convert } from 'html-to-text'
+import { parseImg } from 'utils'
+
 function ApprovalCardList({ item, idx, setIndexData }) {
     const [isHover, setIsHover] = useState(null)
 
@@ -14,41 +18,25 @@ function ApprovalCardList({ item, idx, setIndexData }) {
     const cardClick = (id) => {
         setIndexData(id)
     }
-    function stringToColor(string) {
-        let hash = 0
-        let i
 
-        /* eslint-disable no-bitwise */
-        for (i = 0; i < string.length; i += 1) {
-            hash = string.charCodeAt(i) + ((hash << 5) - hash)
-        }
-
-        let color = '#'
-
-        for (i = 0; i < 3; i += 1) {
-            const value = (hash >> (i * 8)) & 0xff
-            color += `00${value.toString(16)}`.slice(-2)
-        }
-        /* eslint-enable no-bitwise */
-
-        return color
+    const options = {
+        wordwrap: 130,
+        // ...
     }
 
-    function stringAvatar(name) {
-        return {
-            sx: {
-                bgcolor: stringToColor(name),
-            },
-            children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-        }
+    // Hàm loại bỏ ảnh khỏi chuỗi trả về
+    const sliceImg = (string) => {
+        const startIndex = string.indexOf('<img')
+        const endIndex = string.indexOf('>', startIndex)
+        return string.substring(0, startIndex) + string.substring(endIndex + 1)
     }
 
     const content =
-        item.content.length > 300
-            ? item.content.slice(0, 300) + '...'
-            : item.content
+        convert(sliceImg(item.content), options).length > 200
+            ? convert(sliceImg(item.content), options).slice(0, 200) + '...'
+            : convert(sliceImg(item.content), options)
     return (
-        <Box
+        <styleMui.container
             component={motion.div}
             initial={{ x: -200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -57,147 +45,55 @@ function ApprovalCardList({ item, idx, setIndexData }) {
                 delay: idx * 0.1,
             }}
             onClick={() => cardClick(item.id)}
-            sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                height: '18rem',
-                width: '100%',
-                backgroundColor: '#F4FFEB',
-                borderRadius: '0.625rem',
-                boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
-                padding: '1rem',
-                cursor: 'pointer',
-            }}
         >
+            {/* Start image element */}
             <Box sx={{ flex: '2' }}>
-                <Box
-                    sx={{
-                        height: '100%',
-                        width: '100%',
-                        borderRadius: '0.625rem',
-                        boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
-                        overflow: 'hidden',
-                    }}
+                <styleMui.imageBox
                     onMouseEnter={() => hoverEnter(idx)}
                     onMouseLeave={hoverLeave}
                 >
-                    <CardMedia
-                        sx={{
-                            height: '100%',
-                            width: '100%',
-                            borderRadius: '0.625rem',
-                            scale: isHover ? '1.2' : '1 ',
-                            transition: 'all 0.2s',
-                        }}
-                        image={item.image}
-                        title="green iguana"
+                    <styleMui.image
+                        ishover={isHover}
+                        image={parseImg(item.images[0].data)}
+                        title={item.title}
                     />
-                </Box>
+                </styleMui.imageBox>
             </Box>
-            <Box
-                sx={{
-                    flex: '3',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    gap: '3rem',
-                    padding: '0 2rem 0 1rem ',
-                }}
-            >
-                <Typography
-                    sx={{
-                        color: '#214400',
-                        fontSize: '1.5rem',
-                        fontWeight: '800',
-                        flex: '1',
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}
-                >
-                    {item.title}
-                </Typography>
-                <Box
-                    sx={{
-                        flex: '9',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-start',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    <Typography
-                        sx={{
-                            width: '100%',
-                            color: '#505050',
-                            fontSize: '1.05rem',
-                            fontWeight: '500',
-                            lineHeight: '1.6',
-                            textAlign: 'justify',
-                        }}
-                    >
-                        <div dangerouslySetInnerHTML={{ __html: content }} />
-                    </Typography>
+            {/* End image element */}
+
+            {/*Start title element */}
+            <styleMui.txtBox>
+                <styleMui.title>{item.title}</styleMui.title>
+                <styleMui.subTitleBox>
+                    <styleMui.subTitle
+                        dangerouslySetInnerHTML={{ __html: content }}
+                    />
                     <Box sx={{ display: 'flex', gap: '0.3rem' }}>
                         {item.tags.length
                             ? item.tags.map((vl, idx) => (
-                                  <Box
-                                      key={item}
-                                      sx={{
-                                          backgroundColor: '#69AD28',
-                                          borderRadius: '0.6rem',
-                                          boxShadow: 3,
-                                          height: '2rem',
-                                          display: 'flex',
-                                          justifyContent: 'center',
-                                          alignItems: 'center',
-                                          padding: '0 1rem',
-                                          cursor: 'pointer',
-                                      }}
-                                  >
-                                      <Typography
-                                          sx={{
-                                              color: '#FFF',
-                                              fontSize: '0.9rem',
-                                              fontWeight: '300',
-                                              lineHeight: 'normal',
-                                          }}
-                                      >
+                                  <styleMui.tagsBox key={item}>
+                                      <styleMui.tagsTxt>
                                           {vl.plant}
-                                      </Typography>
-                                  </Box>
+                                      </styleMui.tagsTxt>
+                                  </styleMui.tagsBox>
                               ))
                             : ''}
                     </Box>
-                </Box>
-            </Box>
-            <Box
-                sx={{
-                    flex: '1',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start',
-                    gap: '0.4rem',
-                    paddingTop: '1rem',
-                }}
-            >
+                </styleMui.subTitleBox>
+            </styleMui.txtBox>
+            {/*End title element */}
+
+            {/*Start avatar element */}
+            <styleMui.avatarBox>
                 <Avatar
-                    {...stringAvatar('Tim Neutkens')}
+                    alt={item.user.fullName}
+                    src={parseImg(item.user.image.data)}
                     sx={{ width: 80, height: 80, backgroundColor: '#214400' }}
                 />
-                <Typography
-                    sx={{
-                        color: '#214400',
-                        fontSize: '1rem',
-                        fontWeight: '800',
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}
-                >
-                    Tim Neutkens
-                </Typography>
-            </Box>
-        </Box>
+                <styleMui.avatarName>{item.user.fullName}</styleMui.avatarName>
+            </styleMui.avatarBox>
+            {/*End avatar element */}
+        </styleMui.container>
     )
 }
 

@@ -1,13 +1,15 @@
-import { Stack } from '@mui/material'
+import { Skeleton, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ApprovalCardList from './approvalCardList'
 import SkeletonLoading from './skeletonLoading'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import * as styleMui from './approvalCard.styled'
 
-function ApprovalCard({ data, setIndexData }) {
-    const [item, setItems] = useState(data.slice(0, 5))
+function ApprovalCard({ setIndexData }) {
+    const { data, loading } = useShallowEqualSelector((state) => state.approval)
+    const [item, setItems] = useState([])
     const [dataSlice, setDataSlice] = useState(4)
-
     const maxRecordsReturned = 5
 
     useEffect(() => {
@@ -25,32 +27,43 @@ function ApprovalCard({ data, setIndexData }) {
     return (
         <InfiniteScroll
             dataLength={item.length - 1}
-            // style={{ display: 'flex', flexDirection: 'column-reverse' }}
             next={fetchMoreData}
             hasMore={item.length < data.length}
             loader={<SkeletonLoading />}
         >
-            <Stack
+            <styleMui.container
                 direction="column"
                 alignItems="center"
                 spacing="3rem"
-                sx={{
-                    height: 'auto',
-                    width: '90rem',
-                    marginTop: '8rem',
-                    padding: '1rem 8rem',
-                }}
             >
-                {item?.length &&
-                    item.map((vl, idx) => (
-                        <ApprovalCardList
-                            key={vl.id}
-                            item={vl}
-                            idx={idx}
-                            setIndexData={setIndexData}
-                        />
-                    ))}
-            </Stack>
+                {data ? (
+                    (loading ? Array.from(new Array(2)) : item).map((vl, idx) =>
+                        vl ? (
+                            <ApprovalCardList
+                                key={vl.id}
+                                item={vl}
+                                idx={idx}
+                                setIndexData={setIndexData}
+                            />
+                        ) : (
+                            <Skeleton
+                                key={idx}
+                                variant="rectangular"
+                                animation="wave"
+                                sx={{
+                                    height: '18rem',
+                                    width: '100%',
+                                    borderRadius: '0.625rem',
+                                }}
+                            />
+                        )
+                    )
+                ) : (
+                    <styleMui.text>
+                        Không có bài viết cần phê duyệt
+                    </styleMui.text>
+                )}
+            </styleMui.container>
         </InfiniteScroll>
     )
 }

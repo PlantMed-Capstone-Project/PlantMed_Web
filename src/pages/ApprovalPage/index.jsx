@@ -1,16 +1,17 @@
 import { Stack } from '@mui/material'
+import { approvalAction } from 'app/reducers/blogApproval'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
 import PopupInfo from 'components/PopupInfo/PopupInfo'
 import ApprovalCard from 'components/approvalCard'
 import { AnimatePresence } from 'framer-motion'
+import useActions from 'hooks/useActions'
 import * as styleFromPlant from 'pages/Plant/PlantPage.styled'
 import { useEffect, useRef, useState } from 'react'
 import { getApproval } from 'rest/api/blog'
 
 export default function ApprovalPage() {
-    const [indexData, setIndexData] = useState()
-    const [data, setData] = useState([])
-
+    const [indexData, setIndexData] = useState(null)
+    const { storeBlog, storeBlogSuccessfull } = useActions(approvalAction)
     const containerPopup = useRef()
 
     // kiểm tra khi click có đang click vào popup hay không ?
@@ -21,9 +22,10 @@ export default function ApprovalPage() {
     }
 
     const getBlog = async () => {
+        storeBlog()
         try {
             const response = await getApproval()
-            setData(response.data)
+            storeBlogSuccessfull(response.data)
         } catch (error) {
             console.log(error)
         }
@@ -42,15 +44,23 @@ export default function ApprovalPage() {
                 sx={{ width: '100%' }}
             >
                 <HeroBlog approvalPage />
-                <ApprovalCard data={data} setIndexData={setIndexData} />
+                <ApprovalCard setIndexData={setIndexData} />
             </Stack>
-            <styleFromPlant.popupContainer isopen={indexData}>
+            <styleFromPlant.popupContainer
+                isopen={indexData !== null ? true : undefined}
+            >
                 <styleFromPlant.activePopup
                     ref={containerPopup}
-                    isopen={indexData}
+                    isopen={indexData !== null ? true : undefined}
                 >
                     <AnimatePresence>
-                        {indexData && <PopupInfo id={indexData} approvalPage />}
+                        {indexData !== null && (
+                            <PopupInfo
+                                id={indexData}
+                                approvalPage
+                                setIndexData={setIndexData}
+                            />
+                        )}
                     </AnimatePresence>
                 </styleFromPlant.activePopup>
             </styleFromPlant.popupContainer>

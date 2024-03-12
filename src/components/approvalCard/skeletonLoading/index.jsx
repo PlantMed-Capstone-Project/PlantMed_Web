@@ -13,7 +13,7 @@ function SkeletonLoading() {
                 padding: '1rem 8rem',
             }}
         >
-            {Array.from(new Array(3)).map((vl, idx) => (
+            {Array.from(new Array(2)).map((vl, idx) => (
                 <Skeleton
                     variant="rectangular"
                     animation="wave"

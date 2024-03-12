@@ -1,15 +1,27 @@
+import { Box, Button, Divider, Typography } from '@mui/material'
+import fakeImg from 'Images/heroSi.jpg'
+import { approvalAction } from 'app/reducers/blogApproval'
 import InforDetail from 'components/InforDetail/InforDetail'
 import { motion } from 'framer-motion'
+import useActions from 'hooks/useActions'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useState } from 'react'
+import { approvalBlog, rejectBlog } from 'rest/api/blog'
 import * as styleMui from './PopupInfo.styled'
-import fakeImg from 'Images/heroSi.jpg'
-import { blogDetail } from 'FakeData/plantData'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { parseImg } from 'utils'
 
-function PopupInfo({ id, approvalPage = false }) {
+function PopupInfo({ id, approvalPage = false, setIndexData }) {
+    const { storeBlogSuccessfull } = useActions(approvalAction)
+    const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
+    const { data: dataApproval } = useShallowEqualSelector(
+        (state) => state.approval
+    )
+    const { show } = useActions(snackbarAction)
+
     const [isHover, setIsHover] = useState(false)
-    const { data } = useShallowEqualSelector((state) => state.plant)
-    const conditionData = approvalPage ? blogDetail : data
+
+    const conditionData = approvalPage ? dataApproval : dataPlant
     const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
     const textData = approvalPage
         ? dataFilter
@@ -38,10 +50,48 @@ function PopupInfo({ id, approvalPage = false }) {
                   },
               ],
           }
-    console.log(approvalPage)
+    // trigger active các bài viết theo id
+    const acceptBlog = async (id) => {
+        try {
+            await approvalBlog(id)
+            storeBlogSuccessfull(dataApproval.filter((vl) => vl.id !== id))
+            show({
+                message: 'Phê duyệt thành công',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error)
+            show({
+                message: 'Có sự cố khi phê duyệt, xin thử lại sau',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        } finally {
+            setIndexData((state) => null)
+        }
+    }
+    // trigger không duyệt các bài viết theo id
+    const rejectBlogs = async (id) => {
+        try {
+            await rejectBlog(id)
+            storeBlogSuccessfull(dataApproval.filter((vl) => vl.id !== id))
+            show({
+                message: 'Đã từ chối duyệt bài viết thành công',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error)
+            show({
+                message: 'Đã có sự cố khi phê duyệt ',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        } finally {
+            setIndexData((state) => null)
+        }
+    }
+
     return (
         <>
-            {data && (
+            {textData && (
                 <styleMui.container
                     approvalpage={approvalPage}
                     key="modal"
@@ -53,24 +103,76 @@ function PopupInfo({ id, approvalPage = false }) {
                 >
                     <styleMui.boxImage>
                         <styleMui.image
-                            ishover={isHover}
+                            ishover={isHover ? true : undefined}
                             image={
                                 approvalPage
-                                    ? `${fakeImg}`
+                                    ? `${parseImg(textData.images[0].data)}`
                                     : `data:image/png;base64,${textData.images}`
                             }
-                            title={textData.valueList[1].value}
+                            title={
+                                approvalPage
+                                    ? `${textData.title}`
+                                    : textData.valueList[1].value
+                            }
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)}
                         />
                     </styleMui.boxImage>
-                    <InforDetail
-                        textData={textData}
-                        screenSlide="popupscreen"
-                    />
-                    <styleMui.linkBtn color="inherit" to={`/plants/${id}`}>
-                        Xem thêm thông tin chi tiết về cây
-                    </styleMui.linkBtn>
+
+                    {!approvalPage ? (
+                        <>
+                            <InforDetail
+                                textData={textData}
+                                screenSlide="popupscreen"
+                            />
+                            <styleMui.linkBtn
+                                color="inherit"
+                                to={`/plants/${id}`}
+                            >
+                                Xem thêm thông tin chi tiết về cây
+                            </styleMui.linkBtn>
+                        </>
+                    ) : (
+                        <>
+                            <styleMui.containerBlog>
+                                <styleMui.boxTitle>
+                                    <styleMui.title>
+                                        {textData.title}
+                                    </styleMui.title>
+                                    <styleMui.title>
+                                        Tác giả: {textData.user.fullName}
+                                    </styleMui.title>
+                                </styleMui.boxTitle>
+                                <styleMui.diver />
+                                <styleMui.boxContent>
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                        }}
+                                    >
+                                        <styleMui.blogContent
+                                            dangerouslySetInnerHTML={{
+                                                __html: textData.content,
+                                            }}
+                                        />
+                                    </Box>
+                                </styleMui.boxContent>
+                                <styleMui.diver isbottom="true" />
+                                <styleMui.boxBtn>
+                                    <styleMui.btn
+                                        onClick={() => acceptBlog(textData.id)}
+                                    >
+                                        Duyệt
+                                    </styleMui.btn>
+                                    <styleMui.btn
+                                        onClick={() => rejectBlogs(textData.id)}
+                                    >
+                                        Không duyệt
+                                    </styleMui.btn>
+                                </styleMui.boxBtn>
+                            </styleMui.containerBlog>
+                        </>
+                    )}
                 </styleMui.container>
             )}
         </>
