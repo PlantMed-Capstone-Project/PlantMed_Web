@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material'
-import { approvalAction } from 'app/reducers/blogApproval'
+import { approvalAction } from 'app/reducers/blog'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
 import PopupInfo from 'components/PopupInfo/PopupInfo'
 import ApprovalCard from 'components/approvalCard'

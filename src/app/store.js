@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import snackbar from './reducers/snackbar'
 import auth from './reducers/auth'
 import plant from './reducers/plant'
-import approval from './reducers/blogApproval'
+import approval from './reducers/blog'
 
 const reducers = { snackbar, auth, plant, approval }
 const rootReducer = combineReducers(reducers)

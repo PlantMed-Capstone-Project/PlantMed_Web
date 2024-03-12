@@ -1,15 +1,14 @@
-import { Box, Button, Divider, Typography } from '@mui/material'
-import fakeImg from 'Images/heroSi.jpg'
-import { approvalAction } from 'app/reducers/blogApproval'
+import { Box } from '@mui/material'
+import { approvalAction } from 'app/reducers/blog'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import InforDetail from 'components/InforDetail/InforDetail'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useState } from 'react'
 import { approvalBlog, rejectBlog } from 'rest/api/blog'
-import * as styleMui from './PopupInfo.styled'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import { parseImg } from 'utils'
+import * as styleMui from './PopupInfo.styled'
 
 function PopupInfo({ id, approvalPage = false, setIndexData }) {
     const { storeBlogSuccessfull } = useActions(approvalAction)

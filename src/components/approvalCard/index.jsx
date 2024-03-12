@@ -1,10 +1,10 @@
-import { Skeleton, Stack, Typography } from '@mui/material'
+import { Skeleton } from '@mui/material'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import * as styleMui from './approvalCard.styled'
 import ApprovalCardList from './approvalCardList'
 import SkeletonLoading from './skeletonLoading'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import * as styleMui from './approvalCard.styled'
 
 function ApprovalCard({ setIndexData }) {
     const { data, loading } = useShallowEqualSelector((state) => state.approval)
