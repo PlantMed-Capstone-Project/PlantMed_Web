@@ -1,3 +1,6 @@
+import { Buffer } from 'buffer'
+import moment from 'moment'
+
 import { convert } from 'html-to-text'
 
 /**
@@ -47,17 +50,11 @@ export function objectToFormData(obj) {
  * @param {*} callback function, useState
  */
 export const imageToBase64 = (file, callback) => {
-    let xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-        let reader = new FileReader()
-        reader.onloadend = function () {
-            callback(reader.result.split(',')[1])
-        }
-        reader.readAsDataURL(xhr.response)
+    let reader = new FileReader()
+    reader.onloadend = function () {
+        callback(reader.result.split(',')[1])
     }
-    xhr.open('GET', file)
-    xhr.responseType = 'blob'
-    xhr.send()
+    reader.readAsDataURL(file)
 }
 
 /**
@@ -78,6 +75,14 @@ export const parseImg = (img) => {
         return `data:image/png;base64,${img}`
     }
 }
+
+export const parseDiffDays = (timestamp) => {
+    let parsedDate = moment(Date.parse(timestamp))
+    let currentDay = moment()
+
+    return parsedDate.diff(currentDay, 'days') + 1
+}
+
 
 const options = {
     wordwrap: 130,

@@ -106,7 +106,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
                             image={
                                 approvalPage
                                     ? `${parseImg(textData.images[0].data)}`
-                                    : `data:image/png;base64,${textData.images}`
+                                    : `${parseImg(textData.images)}`
                             }
                             title={
                                 approvalPage

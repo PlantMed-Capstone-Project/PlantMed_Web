@@ -2,7 +2,7 @@ function createCookie(name, value, days) {
     let expires
     if (days) {
         let date = new Date()
-        date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
         expires = ';expires=' + date.toGMTString()
     } else expires = ''
     document.cookie = name + '=' + value + expires + '; path=/'
@@ -26,4 +26,4 @@ function clearCookie(name) {
     createCookie(name, '', -1)
 }
 
-export { createCookie, readCookie, clearCookie }
+export { clearCookie, createCookie, readCookie }
