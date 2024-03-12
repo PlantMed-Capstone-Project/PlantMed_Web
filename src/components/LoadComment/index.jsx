@@ -22,8 +22,6 @@ function LoadComment({
     setActiveComment,
     handleReply,
 }) {
-    const user = getUserId(comment.userId)
-
     const isReply =
         activeComment &&
         activeComment.type === type &&
@@ -69,10 +67,12 @@ function LoadComment({
                         <Typography
                             sx={{ fontWeight: '700', color: '#214400' }}
                         >
-                            {user.userName}
+                            {comment.user.fullName}
                         </Typography>
                         <Typography sx={{ fontWeight: '300' }}>
-                            {comment.comment_content}
+                            {type === 'comment'
+                                ? comment.commentContent
+                                : comment.content}
                         </Typography>
                     </Box>
                 </Box>
@@ -119,9 +119,9 @@ function LoadComment({
             )}
             {type === 'comment' && (
                 <Box>
-                    {comment.reply_comment.length > 0 && (
+                    {comment.replyComments.length > 0 && (
                         <Box sx={{ marginLeft: '3.7rem', width: '90.5%' }}>
-                            {comment.reply_comment?.map((data) => (
+                            {comment.replyComments?.map((data) => (
                                 <LoadComment
                                     comment={data}
                                     type="reply"

@@ -1,20 +1,23 @@
 import { Box, Typography } from '@mui/material'
-import {
-    createComment,
-    createReply,
-    getCommentByIdBlog,
-} from 'FakeData/plantData'
+import { createReply } from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
+import { ACCESS_TOKEN } from 'constant'
 import useScrollTo from 'hooks/useScrollTo'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getIdBlog } from 'rest/api/blog'
+import { createComment, getCommentByBlog } from 'rest/api/comment'
+import { parseJwt } from 'utils'
+import { readCookie } from 'utils/cookie'
 function BlogDetail() {
     useScrollTo(0, 0)
+    const user = parseJwt(readCookie(ACCESS_TOKEN))
+    console.log(user)
     const params = useParams()
     const [blog, setBlog] = useState()
+    const [commentList, setCommentList] = useState()
     const getBlogById = async () => {
         try {
             const res = await getIdBlog(params.id)
@@ -24,16 +27,28 @@ function BlogDetail() {
         }
     }
 
+    const getComment = async () => {
+        try {
+            const res = await getCommentByBlog(params.id)
+            setCommentList(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         getBlogById()
+        getComment()
     }, [])
-    const [commentList, setCommentList] = useState(
-        getCommentByIdBlog(params.id)
-    )
 
     const [activeComment, setActiveComment] = useState(null)
 
-    const handleSend = (value) => {
+    const handleSend = async (value) => {
+        try {
+            //Đợi id user in ACCESS_TOKEN
+        } catch (e) {
+            console.log(e)
+        }
         setCommentList([createComment(value), ...commentList])
         setActiveComment(null)
     }
@@ -115,10 +130,7 @@ function BlogDetail() {
                 >
                     Nhận xét của bạn:
                 </Typography>
-                <UserComment
-                    name={blog && blog.user.fullName}
-                    onSendClick={handleSend}
-                />
+                <UserComment name={user.FullName} onSendClick={handleSend} />
                 {commentList?.map((data) => (
                     <LoadComment
                         comment={data}
