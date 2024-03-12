@@ -2,7 +2,7 @@ import { Box, Typography, styled, Button } from '@mui/material'
 
 export const passwordPlace = styled(Box)(() => ({
     width: '66%',
-    height: '30rem',
+    height: 'calc(100vh - 5.94rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

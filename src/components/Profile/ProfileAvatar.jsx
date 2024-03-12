@@ -30,8 +30,12 @@ export const ProfileAvatar = ({ userInfo, avatar }) => {
                     />
                 </styleMui.Camera>
             </styleMui.avatarContainer>
-            <styleMui.Username>{userInfo?.FullName}</styleMui.Username>
-            <styleMui.personalEmail>{userInfo?.Email}</styleMui.personalEmail>
+            <styleMui.infoContainer>
+                <styleMui.Username>{userInfo?.FullName}</styleMui.Username>
+                <styleMui.personalEmail>
+                    {userInfo?.Email}
+                </styleMui.personalEmail>
+            </styleMui.infoContainer>
         </styleMui.avatarPlace>
     )
 }

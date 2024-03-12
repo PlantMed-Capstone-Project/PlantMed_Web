@@ -10,7 +10,7 @@ import {
 
 export const avatarPlace = styled(Box)(() => ({
     width: '15%',
-    height: '30rem',
+    height: 'calc(100vh - 5.94rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -24,7 +24,7 @@ export const avatarPlace = styled(Box)(() => ({
 
 export const profilePlace = styled(Box)(() => ({
     width: '66%',
-    height: '30rem',
+    height: 'calc(100vh - 5.94rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -57,6 +57,12 @@ export const avatarContainer = styled(Box)(() => ({
     padding: '2rem 0 0 2.5rem',
 }))
 
+export const infoContainer = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+}))
+
 export const avatar = styled(Avatar)(() => ({
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -80,19 +86,23 @@ export const Camera = styled(IconButton)(() => ({
 }))
 
 export const Username = styled(Typography)(() => ({
-    textAlign: 'justify',
+    display: 'flex',
+    textAlign: 'center',
     fontSize: '1.875rem',
     fontWeight: '500',
     color: '#214400',
     paddingTop: '1rem',
+    overflowWrap: 'anywhere',
 }))
 
 export const personalEmail = styled(Typography)(() => ({
-    textAlign: 'justify',
+    display: 'flex',
+    textAlign: 'center',
     fontStyle: 'italic',
     fontSize: '1rem',
     fontWeight: '300',
     color: '#214400',
+    overflowWrap: 'anywhere',
 }))
 
 export const Title = styled(Typography)(() => ({
