@@ -7,7 +7,7 @@ export const container = styled(Box)(() => ({
     gap: '3rem',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    minHeight: '25rem',
+    minHeight: '50rem',
 }))
 
 export const mainTitle = styled(Box)(() => ({
@@ -35,6 +35,7 @@ export const listBlog = styled(Box)(() => ({
     flexDirection: 'column',
     gap: '1.5rem',
     alignItems: 'flex-start',
+    minHeight: '30rem',
 }))
 
 export const pagination = styled(Pagination)(() => ({
