@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import * as styleMui from './approvalCardList.styled'
 import { convert } from 'html-to-text'
-import { parseImg } from 'utils'
+import { convertString, parseImg } from 'utils'
 
 function ApprovalCardList({ item, idx, setIndexData }) {
     const [isHover, setIsHover] = useState(null)
@@ -19,22 +19,8 @@ function ApprovalCardList({ item, idx, setIndexData }) {
         setIndexData(id)
     }
 
-    const options = {
-        wordwrap: 130,
-        // ...
-    }
+    const content = convertString(item.content, 200)
 
-    // Hàm loại bỏ ảnh khỏi chuỗi trả về
-    const sliceImg = (string) => {
-        const startIndex = string.indexOf('<img')
-        const endIndex = string.indexOf('>', startIndex)
-        return string.substring(0, startIndex) + string.substring(endIndex + 1)
-    }
-
-    const content =
-        convert(sliceImg(item.content), options).length > 200
-            ? convert(sliceImg(item.content), options).slice(0, 200) + '...'
-            : convert(sliceImg(item.content), options)
     return (
         <styleMui.container
             component={motion.div}

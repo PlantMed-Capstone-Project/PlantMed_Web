@@ -34,7 +34,32 @@ export default function ApprovalPage() {
     useEffect(() => {
         document.addEventListener('mousedown', handler)
         getBlog()
+        return () => {
+            document.removeEventListener('mousedown', handler)
+        }
     }, [])
+
+    // Hủy scroll khi mở popup
+    const disableScroll = () => {
+        const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop
+        const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft
+
+        window.onscroll = () => {
+            window.scrollTo(scrollLeft, scrollTop)
+        }
+    }
+
+    // mở scroll khi đóng popup
+    const enableScroll = () => {
+        window.onscroll = () => {}
+    }
+
+    useEffect(() => {
+        if (indexData !== null) disableScroll()
+        return () => enableScroll()
+    }, [indexData])
 
     return (
         <>
