@@ -2,6 +2,7 @@ export const validationRules = {
     email: [
         {
             message: 'Email không hợp lệ.',
+            // eslint-disable-next-line no-useless-escape
             regex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
         },
         {

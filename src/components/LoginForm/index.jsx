@@ -5,9 +5,11 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton } from '@mui/material'
 import { authAction } from 'app/reducers/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import InputField from 'components/InputField'
+import { validateInputs } from 'components/InputField/validationRules'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { login as authLogin } from 'rest/api/auth'
 import * as styleMui from './SigninForm.styled'
 import { parseJwt } from 'utils'
@@ -84,13 +86,13 @@ export default function LoginForm() {
 
     //Check validation
     const onValidate = () => {
-        const inputErrors = validateInputs(inputs);
-    
+        const inputErrors = validateInputs(inputs)
+
         if (Object.keys(inputErrors).length > 0) {
-            setErrors(inputErrors);
+            setErrors(inputErrors)
         } else {
-            setErrors({});
-            onSubmit();
+            setErrors({})
+            onSubmit()
         }
     }
 
@@ -128,7 +130,7 @@ export default function LoginForm() {
                 autoHideDuration: 2000,
             })
         }
-    }    
+    }
 
     return (
         <styleMui.Form>
@@ -142,7 +144,10 @@ export default function LoginForm() {
                 {/* End input place */}
 
                 <styleMui.passSection>
-                    <styleMui.forgetPass to='/forgot-password' underline="hover">
+                    <styleMui.forgetPass
+                        to="/forgot-password"
+                        underline="hover"
+                    >
                         Quên mật khẩu?
                     </styleMui.forgetPass>
                 </styleMui.passSection>
