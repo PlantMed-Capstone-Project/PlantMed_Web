@@ -86,7 +86,7 @@ function LikedBlog() {
                     </styleMui.blogCardList>
                 </InfiniteScroll>
             </styleMui.likedBlogContainer>
-            <ProfileSidebar />
+            <ProfileSidebar height={'calc(100vh - 8rem)'} />
         </styleMui.container>
     )
 }
