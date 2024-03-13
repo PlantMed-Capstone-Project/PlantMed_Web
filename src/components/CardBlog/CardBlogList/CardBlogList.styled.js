@@ -46,7 +46,7 @@ export const ctnBody = styled(Box)(() => ({
     width: '100%',
     height: '8.5rem',
     gap: '1rem',
-    "&:hover": { cursor: 'pointer' }
+    '&:hover': { cursor: 'pointer' },
 }))
 
 export const containtText = styled(Box)(() => ({
@@ -165,7 +165,17 @@ export const reportTxt = styled(Typography)(() => ({
     userSelect: 'none',
 }))
 
+export const txtNotFound = styled(Typography)(() => ({
+    color: '#214400',
+    fontWeight: '500',
+    fontSize: '2.2rem',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+}))
+
 export const commentBox = styled(Box)(() => ({
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
 }))

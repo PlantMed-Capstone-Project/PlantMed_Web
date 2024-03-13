@@ -366,9 +366,8 @@ export const commentData = [
                 commentId: '1',
                 userId: '3',
                 comment_content: 'Xin chao lan 2',
-            }
-
-        ]
+            },
+        ],
     },
     {
         id: '2',
@@ -382,23 +381,24 @@ export const commentData = [
                 commentId: '2',
                 userId: '1',
                 comment_content: 'Xin chao',
-            }
-        ]
-    }
+            },
+        ],
+    },
 ]
 
 export const user = [
     {
         userId: '1',
-        userName: 'Phuong'
+        userName: 'Phuong',
     },
     {
         userId: '2',
-        userName: 'Huy'
-    }, {
+        userName: 'Huy',
+    },
+    {
         userId: '3',
-        userName: "Nguyen"
-    }
+        userName: 'Nguyen',
+    },
 ]
 
 export const getIdPlant = (value) => {
