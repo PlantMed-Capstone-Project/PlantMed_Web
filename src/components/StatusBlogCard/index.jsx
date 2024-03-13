@@ -2,10 +2,19 @@ import * as styleMui from './StatusBlogCard.styled'
 import thumbnail from 'Images/tía tô.jpg'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
+import { motion } from 'framer-motion'
 
-export const StatusBlogCard = ({ title, author, description }) => {
+export const StatusBlogCard = ({ title, author, description,idx }) => {
     return (
-        <styleMui.blogCard>
+        <styleMui.blogCard
+            component={motion.div}
+            initial={{ x: -200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{
+                duration: 0.5,
+                delay: idx * 0.1,
+            }}
+        >
             <styleMui.thumbnailContainer>
                 <styleMui.Thumbnail
                     thumbnail={thumbnail}
@@ -16,7 +25,7 @@ export const StatusBlogCard = ({ title, author, description }) => {
                 <styleMui.Thumbnail
                     thumbnail={thumbnail}
                     opacity="1"
-                    zIndex="0"                    
+                    zIndex="0"
                     sx={{ marginLeft: '-14.3rem', filter: 'grayscale(50%)' }}
                 />
             </styleMui.thumbnailContainer>

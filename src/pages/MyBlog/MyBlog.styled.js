@@ -35,7 +35,6 @@ export const tabContainer = styled(Tabs)(() => ({
         height: '0.2rem',
     },
     '& .Mui-selected': {
-        color: '#214400 !important',
         fontSize: '2rem',
     },
 }))
@@ -45,7 +44,7 @@ export const statusTab = styled(Tab)(() => ({
     fontWeight: '700',
     fontSize: '1.75rem',
     width: '16.5rem',
-    height: '1rem',
+    height: '2rem',
     textTransform: 'capitalize',
 }))
 

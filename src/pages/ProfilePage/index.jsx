@@ -16,6 +16,7 @@ function ProfilePage() {
     const [userInfo, setUserInfo] = useState(null)
     const accessToken = readCookie(ACCESS_TOKEN)
     const tokenInfo = accessToken ? parseJwt(accessToken) : null
+    const [isFormDisabled, setIsFormDisabled] = useState(true)
 
     useState(() => {
         setUserInfo(tokenInfo)
@@ -45,14 +46,21 @@ function ProfilePage() {
         }
     }
 
+    //If click on 'Chỉnh sửa thông tin' button, the profile will be abled to edit
+    const handleEditButtonClick = () => {
+        setIsFormDisabled(false)       
+    }
+
     return (
         <styleMui.container>
-            <ProfileAvatar userInfo={userInfo} />
+            <ProfileAvatar userInfo={userInfo} isDisabled={isFormDisabled}/>
             <ProfileForm
                 userInfo={userInfo}
+                isDisabled={isFormDisabled}
                 onUpdateInfo={updateUserInformation}
+                handleEditButtonClick={handleEditButtonClick}
             />
-            <ProfileSidebar />
+            <ProfileSidebar height={'calc(100vh - 3.94rem)'}/>
         </styleMui.container>
     )
 }

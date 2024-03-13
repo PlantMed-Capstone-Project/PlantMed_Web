@@ -1,7 +1,7 @@
 import * as styleMui from './MyBlog.styled'
 import { ProfileSidebar } from 'components/Profile'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { StatusBlogCard } from 'components/StatusBlogCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { blogCardData } from 'FakeData/plantData'
@@ -12,6 +12,7 @@ function MyBlog() {
     const [lengData, setLengthData] = useState(2)
     const returnData = 3
     const [hasMore, setHasMore] = useState(true)
+    const blogCardListRef = useRef(null)
 
     const handleChange = (event, newValue) => {
         setblogStatus(newValue)
@@ -41,6 +42,45 @@ function MyBlog() {
         }, 1000)
     }
 
+    const handleMouseEnter = () => {
+        disableScroll()
+    }
+
+    const handleMouseLeave = () => {
+        enableScroll()
+    }
+
+    // Hủy scroll khi mở popup
+    const disableScroll = () => {
+        const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop
+        const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft
+
+        window.onscroll = () => {
+            window.scrollTo(scrollLeft, scrollTop)
+        }
+    }
+
+    // mở scroll khi đóng popup
+    const enableScroll = () => {
+        window.onscroll = () => {}
+    }
+
+    useEffect(() => {
+        const blogCardList = blogCardListRef.current
+        if (blogCardList) {
+            blogCardList.addEventListener('mouseenter', handleMouseEnter)
+            blogCardList.addEventListener('mouseleave', handleMouseLeave)
+
+            return () => {
+                blogCardList.removeEventListener('mouseenter', handleMouseEnter)
+                blogCardList.removeEventListener('mouseleave', handleMouseLeave)
+                enableScroll()
+            }
+        }
+    }, [blogCardListRef])
+
     return (
         <styleMui.container>
             <styleMui.blogContainer>
@@ -48,6 +88,8 @@ function MyBlog() {
                     value={blogStatus}
                     onChange={handleChange}
                     aria-label="basic tabs example"
+                    textColor="#214400"
+                    variant="fullWidth"
                 >
                     {nabItem?.map((item) => (
                         <styleMui.statusTab
@@ -63,12 +105,15 @@ function MyBlog() {
                     dataLength={data.length}
                     next={fetchMoreData}
                     hasMore={hasMore}
-                    loader={<styleMui.loadingText>Loading...</styleMui.loadingText>}
+                    loader={
+                        <styleMui.loadingText>Loading...</styleMui.loadingText>
+                    }
                 >
-                    <styleMui.blogCardList>
+                    <styleMui.blogCardList ref={blogCardListRef}>
                         {data.length &&
-                            data.map((item) => (
+                            data.map((item, idx) => (
                                 <StatusBlogCard
+                                    idx={idx}
                                     key={item.id}
                                     title={item.title}
                                     author={item.author}
@@ -78,7 +123,7 @@ function MyBlog() {
                     </styleMui.blogCardList>
                 </InfiniteScroll>
             </styleMui.blogContainer>
-            <ProfileSidebar />
+            <ProfileSidebar height={'calc(100vh + 5.94rem)'} />
         </styleMui.container>
     )
 }

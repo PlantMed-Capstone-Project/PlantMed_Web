@@ -5,18 +5,34 @@ import * as styleMui from './Profile.styled'
 import { validateInputs } from 'components/InputField/validationRules'
 import EditIcon from '@mui/icons-material/Edit'
 
-export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
+export const ProfileForm = ({
+    userInfo,
+    onUpdateInfo,
+    handleEditButtonClick,
+    isDisabled,
+}) => {
     const navigate = useNavigate()
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
         fullname: userInfo?.FullName,
         email: userInfo?.Email,
-        createdDate: userInfo?.CreatedDate,
+        createdDate: userInfo?.Date,
         role:
             userInfo?.Role === 'user'
                 ? 'Người Dùng'
                 : 'Chuyên Gia Về Cây Thuốc',
     })
+    const [displayButtons, setDisplayButtons] = useState(1)
+
+    const onSwitch = (buttonSet) => {
+        if (buttonSet === 1) {
+            setDisplayButtons(2)
+            handleEditButtonClick()
+        } else {
+            setDisplayButtons(1)
+            isDisabled(true)
+        }
+    }
 
     const handleInputChange = (key, value) =>
         setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
@@ -30,7 +46,7 @@ export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
             key={obj.id}
             type={obj.type}
             placeholder={obj.placeholder}
-            eyeIcon={obj.icon}
+            eyeIcon={!isDisabled ? obj.icon : null}
             value={inputs[obj.key]}
             error={errors[obj.key]}
             disabled={obj.isDisabled}
@@ -54,16 +70,33 @@ export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
 
     const handleOnSubmit = () => {
         onUpdateInfo({ FullName: inputs.fullname })
+        onSwitch(2)
         return navigate('/profile')
     }
 
-    const buttons = [
-        { id: 1, value: 'Thay đổi', width: '7rem', onClick: onValidate },
+    const buttonsSet1 = [
+        {
+            id: 1,
+            value: 'Thay đổi',
+            width: '7rem',
+            onClick: () => onSwitch(1),
+        },
         {
             id: 2,
             value: 'Hủy thay đổi',
             width: '8rem',
-            onClick: handleInputChange,
+            onClick: () => onSwitch(2),
+        },
+        { id: 3, value: 'Đổi mật khẩu', width: '8rem', nav: '/reset-password' },
+    ]
+
+    const buttonsSet2 = [
+        { id: 1, value: 'Lưu thông tin', width: '8rem', onClick: onValidate },
+        {
+            id: 2,
+            value: 'Hủy thay đổi',
+            width: '8rem',
+            onClick: () => onSwitch(2),
         },
         { id: 3, value: 'Đổi mật khẩu', width: '8rem', nav: '/reset-password' },
     ]
@@ -87,7 +120,7 @@ export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
             header: 'Tên Người Dùng',
             placeholder: 'Tên người dùng',
             key: 'fullname',
-            isDisabled: false,
+            isDisabled: isDisabled,
             icon: <EditIcon sx={styleMui.editIconStyle} />,
         },
         {
@@ -129,7 +162,9 @@ export const ProfileForm = ({ userInfo, onUpdateInfo }) => {
                 </styleMui.inputPlace>
             </styleMui.profileContainer>
             <styleMui.buttonContainer>
-                {buttons.map(renderButtons)}
+                {displayButtons === 1
+                    ? buttonsSet1.map(renderButtons)
+                    : buttonsSet2.map(renderButtons)}
             </styleMui.buttonContainer>
         </styleMui.profilePlace>
     )

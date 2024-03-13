@@ -4,12 +4,10 @@ import { useState } from 'react'
 import { StatusBlogCard } from 'components/StatusBlogCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { blogCardData } from 'FakeData/plantData'
-import Searching from 'components/Searching/Searching'
-import { formatText } from 'utils'
 
 function LikedBlog() {
     const [data, setData] = useState(blogCardData.slice(0, 3))
-    const [lengData, setLengthData] = useState(2)    
+    const [lengData, setLengthData] = useState(2)
     const [hasMore, setHasMore] = useState(true)
     const returnData = 3
 
@@ -36,8 +34,9 @@ function LikedBlog() {
                 >
                     <styleMui.blogCardList>
                         {data.length &&
-                            data.map((item) => (
+                            data.map((item, idx) => (
                                 <StatusBlogCard
+                                    idx={idx}
                                     key={item.id}
                                     title={item.title}
                                     author={item.author}

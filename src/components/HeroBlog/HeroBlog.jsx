@@ -1,10 +1,12 @@
 import { Box, Button, Typography } from '@mui/material'
 import girlComputer from 'Images/girl-computer.png'
 import { useNavigate } from 'react-router-dom'
+import girlBook from 'Images/girlBook.png'
 
-function HeroBlog() {
+function HeroBlog(props) {
     const navigate = useNavigate()
 
+    const { approvalPage = false } = props
     return (
         <Box
             sx={{
@@ -25,7 +27,9 @@ function HeroBlog() {
                         fontFamily: 'Roboto Serif',
                     }}
                 >
-                    TẠO BÀI VIẾT CỦA BẠN
+                    {!approvalPage
+                        ? 'TẠO BÀI VIẾT CỦA BẠN'
+                        : 'DUYỆT BÀI VIẾT NGHIÊN CỨU '}
                 </Typography>
                 <Typography
                     sx={{
@@ -36,28 +40,33 @@ function HeroBlog() {
                         marginTop: '1.25rem',
                     }}
                 >
-                    Với sự hiểu biết của bạn về các loại thực vật, hãy chia sẻ
+                    {!approvalPage
+                        ? `Với sự hiểu biết của bạn về các loại thực vật, hãy chia sẻ
                     những kiến thức đó với mọi người thông qua bài viết của
-                    riêng mình.
+                    riêng mình.`
+                        : 'Với sự hiểu biết của bạn về các loại thực vật, hãy cân nhắc duyệt các bài viết nghiên cứu có nội dung phù hợp và đúng với tính chất của loài thực vật đó. '}
                 </Typography>
-                <Button
-                    variant="contained"
-                    sx={{
-                        backgroundColor: '#69AD28',
-                        marginTop: '6.25rem',
-                        padding: '0.375rem 1.875rem !important',
-                        fontSize: '1rem',
-                        ':hover': { bgcolor: 'success.main' },
-                    }}
-                    onClick={() => navigate('/new-blog')}
-                >
-                    Viết bài
-                </Button>
+                {!approvalPage && (
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: '#69AD28',
+                            marginTop: '6.25rem',
+                            padding: '0.375rem 1.875rem !important',
+                            fontSize: '1rem',
+                            ':hover': { bgcolor: 'success.main' },
+                        }}
+                        onClick={() => navigate('/new-blog')}
+                    >
+                        Viết bài
+                    </Button>
+                )}
             </Box>
+
             <Box
                 component="img"
                 alt="girl-computer"
-                src={girlComputer}
+                src={!approvalPage ? girlComputer : girlBook}
                 sx={{
                     height: 450,
                     width: 690,

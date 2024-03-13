@@ -35,9 +35,9 @@ export const profilePlace = styled(Box)(() => ({
     marginTop: '1rem',
 }))
 
-export const sidebarPlace = styled(Box)(() => ({
+export const sidebarPlace = styled(Box)(({height}) => ({
     width: '6%',
-    height: 'calc(100vh - 5.94rem)',
+    height: {height},
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
