@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import InputField from 'components/InputField'
 import * as styleMui from './Profile.styled'
@@ -23,7 +23,16 @@ export const ProfileForm = ({
                 : 'Chuyên Gia Về Cây Thuốc',
     })
     const [displayButtons, setDisplayButtons] = useState(1)
+    //Quay về thông tin cũ khi hủy thay đổi
+    const [initialNameInput, setInitialNameInput] = useState({})
 
+    useEffect(() => {
+        setInitialNameInput({
+            fullname: userInfo?.FullName,
+        });
+    }, [userInfo]);
+
+    //Switch set button 
     const onSwitch = (buttonSet) => {
         if (buttonSet === 1) {
             setDisplayButtons(2)
@@ -31,6 +40,7 @@ export const ProfileForm = ({
         } else {
             setDisplayButtons(1)
             isDisabled(true)
+            setInputs(initialNameInput)
         }
     }
 
