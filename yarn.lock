@@ -7576,11 +7576,6 @@ osrm-text-instructions@^0.13.2:
   resolved "https://registry.yarnpkg.com/osrm-text-instructions/-/osrm-text-instructions-0.13.4.tgz#78bedabd84cbcabce9c9fd0fbb6b0fd9f06c7f9f"
   integrity sha512-ge4ZTIetMQKAHKq2MwWf83ntzdJN20ndRKRaVNoZ3SkDkBNO99Qddz7r6+hrVx38I+ih6Rk5T1yslczAB6Q9Pg==
 
-otp-input-react@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/otp-input-react/-/otp-input-react-0.2.0.tgz#722966d800ca60ddd32d5613a202d0cad7cb3cd6"
-  integrity sha512-YzqsIEJ3/YSAMehjABFv4LPqvpwDZL7lyDyA4vFtt0CPtdXrJu2i+hWT96UHAjBEq2e4zDpw3osgRT/6FQ6JKw==
-
 p-limit@^2.0.0, p-limit@^2.2.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/p-limit/-/p-limit-2.3.0.tgz"

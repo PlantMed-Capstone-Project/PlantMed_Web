@@ -18,6 +18,7 @@ export const container = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
 }))
 
 export const formContainer = styled(Box)(() => ({
@@ -27,4 +28,3 @@ export const formContainer = styled(Box)(() => ({
     alignItems: 'center',
     justifyContent: 'center',
 }))
-
