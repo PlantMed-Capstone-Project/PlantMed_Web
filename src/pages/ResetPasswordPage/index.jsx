@@ -1,6 +1,6 @@
 import avatar from 'Images/avatar.jpg'
 import { ProfileAvatar, ProfileSidebar } from 'components/Profile'
-import ResetPasswordForm from 'components/ResetPassword/ResetPasswordForm'
+import ResetPasswordForm from 'components/ResetPassword'
 import * as styleMui from './ResetPasswordPage.styled'
 
 function ResetPasswordPage() {

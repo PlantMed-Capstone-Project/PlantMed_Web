@@ -20,6 +20,7 @@ function App() {
         storePlant()
         try {
             const response = await getAll()
+
             const data = response.data
             storePlantSuccessful(data)
         } catch (error) {

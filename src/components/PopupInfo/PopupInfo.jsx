@@ -1,43 +1,98 @@
+import { Box } from '@mui/material'
+import { approvalAction } from 'app/reducers/blog'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import InforDetail from 'components/InforDetail/InforDetail'
 import { motion } from 'framer-motion'
+import useActions from 'hooks/useActions'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useState } from 'react'
+import { approvalBlog, rejectBlog } from 'rest/api/blog'
+import { parseImg } from 'utils'
 import * as styleMui from './PopupInfo.styled'
 
-function PopupInfo({ id }) {
+function PopupInfo({ id, approvalPage = false, setIndexData }) {
+    const { storeBlogSuccessfull } = useActions(approvalAction)
+    const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
+    const { data: dataApproval } = useShallowEqualSelector(
+        (state) => state.approval
+    )
+    const { show } = useActions(snackbarAction)
+
     const [isHover, setIsHover] = useState(false)
-    const { data } = useShallowEqualSelector((state) => state.plant)
-    const dataFilter = data.filter((vl) => vl.id === id)[0]
-    const textData = {
-        images: dataFilter?.images[0].data,
-        valueList: [
-            {
-                label: 'Tên quốc tế',
-                value: dataFilter?.internationalName,
-            },
-            {
-                label: 'Tên thường gọi',
-                value: dataFilter?.name,
-            },
-            {
-                label: 'Họ của cây',
-                value: dataFilter?.surName,
-            },
-            {
-                label: 'Nguồn gốc',
-                value: dataFilter?.origin,
-            },
-            {
-                label: 'Nơi sinh trưởng',
-                value: dataFilter?.placeOfBirth,
-            },
-        ],
+
+    const conditionData = approvalPage ? dataApproval : dataPlant
+    const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
+    const textData = approvalPage
+        ? dataFilter
+        : {
+              images: dataFilter?.images[0].data,
+              valueList: [
+                  {
+                      label: 'Tên quốc tế',
+                      value: dataFilter?.internationalName,
+                  },
+                  {
+                      label: 'Tên thường gọi',
+                      value: dataFilter?.name,
+                  },
+                  {
+                      label: 'Họ của cây',
+                      value: dataFilter?.surName,
+                  },
+                  {
+                      label: 'Nguồn gốc',
+                      value: dataFilter?.origin,
+                  },
+                  {
+                      label: 'Nơi sinh trưởng',
+                      value: dataFilter?.placeOfBirth,
+                  },
+              ],
+          }
+    // trigger active các bài viết theo id
+    const acceptBlog = async (id) => {
+        try {
+            await approvalBlog(id)
+            storeBlogSuccessfull(dataApproval.filter((vl) => vl.id !== id))
+            show({
+                message: 'Phê duyệt thành công',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error)
+            show({
+                message: 'Có sự cố khi phê duyệt, xin thử lại sau',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        } finally {
+            setIndexData((state) => null)
+        }
+    }
+    // trigger không duyệt các bài viết theo id
+    const rejectBlogs = async (id) => {
+        try {
+            await rejectBlog(id)
+            storeBlogSuccessfull(dataApproval.filter((vl) => vl.id !== id))
+            show({
+                message: 'Đã từ chối duyệt bài viết thành công',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error)
+            show({
+                message: 'Đã có sự cố khi phê duyệt ',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        } finally {
+            setIndexData((state) => null)
+        }
     }
 
     return (
         <>
-            {data && (
+            {textData && (
                 <styleMui.container
+                    approvalpage={approvalPage}
                     key="modal"
                     component={motion.div}
                     initial={{ opacity: 0, scale: 0, x: '-50%', y: '-50%' }}
@@ -47,20 +102,76 @@ function PopupInfo({ id }) {
                 >
                     <styleMui.boxImage>
                         <styleMui.image
-                            ishover={isHover}
-                            image={`data:image/png;base64,${textData.images}`}
-                            title={textData.valueList[1].value}
+                            ishover={isHover ? true : undefined}
+                            image={
+                                approvalPage
+                                    ? `${parseImg(textData.images[0].data)}`
+                                    : `${parseImg(textData.images)}`
+                            }
+                            title={
+                                approvalPage
+                                    ? `${textData.title}`
+                                    : textData.valueList[1].value
+                            }
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)}
                         />
                     </styleMui.boxImage>
-                    <InforDetail
-                        textData={textData}
-                        screenSlide="popupscreen"
-                    />
-                    <styleMui.linkBtn color="inherit" to={`/plants/${id}`}>
-                        Xem thêm thông tin chi tiết về cây
-                    </styleMui.linkBtn>
+
+                    {!approvalPage ? (
+                        <>
+                            <InforDetail
+                                textData={textData}
+                                screenSlide="popupscreen"
+                            />
+                            <styleMui.linkBtn
+                                color="inherit"
+                                to={`/plants/${id}`}
+                            >
+                                Xem thêm thông tin chi tiết về cây
+                            </styleMui.linkBtn>
+                        </>
+                    ) : (
+                        <>
+                            <styleMui.containerBlog>
+                                <styleMui.boxTitle>
+                                    <styleMui.title>
+                                        {textData.title}
+                                    </styleMui.title>
+                                    <styleMui.title>
+                                        Tác giả: {textData.user.fullName}
+                                    </styleMui.title>
+                                </styleMui.boxTitle>
+                                <styleMui.diver />
+                                <styleMui.boxContent>
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                        }}
+                                    >
+                                        <styleMui.blogContent
+                                            dangerouslySetInnerHTML={{
+                                                __html: textData.content,
+                                            }}
+                                        />
+                                    </Box>
+                                </styleMui.boxContent>
+                                <styleMui.diver isbottom="true" />
+                                <styleMui.boxBtn>
+                                    <styleMui.btn
+                                        onClick={() => acceptBlog(textData.id)}
+                                    >
+                                        Duyệt
+                                    </styleMui.btn>
+                                    <styleMui.btn
+                                        onClick={() => rejectBlogs(textData.id)}
+                                    >
+                                        Không duyệt
+                                    </styleMui.btn>
+                                </styleMui.boxBtn>
+                            </styleMui.containerBlog>
+                        </>
+                    )}
                 </styleMui.container>
             )}
         </>

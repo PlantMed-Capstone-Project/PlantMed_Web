@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import * as styleMui from './Profile.styled'
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
-import { base64ToImage, imageToBase64 } from 'utils'
+import { useState } from 'react'
+import { imageToBase64 } from 'utils'
+import * as styleMui from './Profile.styled'
 
 export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
     const [selectedAvatar, setSelectedAvatar] = useState(avatar)
@@ -10,8 +10,7 @@ export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
         const file = event.target.files[0]
         if (file) {
             imageToBase64(file, (result) => {
-                setSelectedAvatar(base64ToImage(result))
-                //console.log(base64ToImage(result))
+                setSelectedAvatar(result)
             })
         }
     }

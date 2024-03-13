@@ -3,11 +3,13 @@ import { Box, Button, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import Editor from 'components/Editor/Editor'
+import MultipleSelect from 'components/MutipleSelect'
 import useActions from 'hooks/useActions'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { PostBlog } from 'rest/api/blog'
 import * as S from './CreateBlog.styled'
-import MultipleSelect from 'components/MutipleSelect'
+import { imageToBase64 } from 'utils'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
@@ -17,7 +19,7 @@ function CreateBlog() {
         title: '',
         content: '',
         image: '',
-        tag: '',
+        tag: [],
     }
 
     const [inputs, setInputs] = useState(initialInputs)
@@ -35,7 +37,6 @@ function CreateBlog() {
             event.returnValue = message
             return message
         }
-
         window.addEventListener('beforeunload', handleBeforeUnload)
 
         return () => {
@@ -45,25 +46,20 @@ function CreateBlog() {
 
     const handleFileChange = (event) => {
         const files = event.target.files
-        console.log(files)
-        const reader = new FileReader()
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
         try {
             const isInclude = allowedTypes.includes(files[0].type)
             if (files.length > 0 && isInclude) {
-                reader.onloadend = () => {
-                    // The result property contains the base64 representation of the file
-                    const base64String = reader.result
-                    setInputs((prevState) => ({
-                        ...prevState,
-                        image: base64String,
+                imageToBase64(files[0], (result) => {
+                    setInputs((prev) => ({
+                        ...prev,
+                        image: result,
                     }))
-                    setImageText(files[0].name)
-                }
+                })
+                setImageText(files[0].name)
             }
-            reader.readAsDataURL(files[0])
         } catch (e) {
-            
+            console.log(e)
         }
     }
 
@@ -94,6 +90,12 @@ function CreateBlog() {
                 message: 'Nội dung bài viết không được để trống!',
                 severity: SNACKBAR_SEVERITY.WARNING,
             })
+        } else if (!inputs.image) {
+            flag = false
+            show({
+                message: 'Ảnh nền không được để trống!',
+                severity: SNACKBAR_SEVERITY.WARNING,
+            })
         }
 
         if (flag) {
@@ -101,15 +103,18 @@ function CreateBlog() {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         try {
-            // show({
-            //     message: 'Vui long chờ trong giây lát!',
-            //     autoHideDuration: 2000,
-            // })
+            await PostBlog({
+                title: inputs.title,
+                content: inputs.content,
+                image: inputs.image,
+                tagsPlant: inputs.tag,
+            })
             show({
-                message: 'Bài viết của bạn đã được đưa vào hàng chờ!',
+                message: 'Bài đăng của bạn đã được đưa vào hàng chờ',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
+                autoHideDuration: 2000,
             })
             clearInput()
             navigate('/')
@@ -119,6 +124,7 @@ function CreateBlog() {
                     err.response.data.message ??
                     'Lỗi hệ thống! Vui lòng thử lại sau!',
                 severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
             })
         }
     }
