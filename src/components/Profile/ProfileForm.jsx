@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import InputField from 'components/InputField'
-import * as styleMui from './Profile.styled'
-import { validateInputs } from 'components/InputField/validationRules'
 import EditIcon from '@mui/icons-material/Edit'
+import InputField from 'components/InputField'
+import { validateInputs } from 'components/InputField/validationRules'
+import { useEffect, useState } from 'react'
+import * as styleMui from './Profile.styled'
+import { useNavigate } from 'react-router-dom'
 
 export const ProfileForm = ({
     userInfo,
@@ -11,7 +11,6 @@ export const ProfileForm = ({
     handleEditButtonClick,
     isDisabled,
 }) => {
-    const navigate = useNavigate()
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
         fullname: userInfo?.FullName,
@@ -32,6 +31,8 @@ export const ProfileForm = ({
         })
     }, [userInfo])
 
+    const navigate = useNavigate()
+
     //Switch set button
     const onSwitch = (buttonSet) => {
         if (buttonSet === 1) {
@@ -39,7 +40,7 @@ export const ProfileForm = ({
             handleEditButtonClick()
         } else {
             setDisplayButtons(1)
-            isDisabled(true)
+            isDisabled = false
             setInputs(initialNameInput)
         }
     }
@@ -49,7 +50,9 @@ export const ProfileForm = ({
 
     //Khai báo header cho mỗi input
     const renderHeaders = (obj) => (
-        <styleMui.inputHeader key={obj.id}>{obj.header}</styleMui.inputHeader>
+        <styleMui.inputHeader key={obj.id} disabled={obj.isDisabled} {...obj}>
+            {obj.header}
+        </styleMui.inputHeader>
     )
 
     //Khai báo input
@@ -63,8 +66,8 @@ export const ProfileForm = ({
             error={errors[obj.key]}
             disabled={obj.isDisabled}
             onChange={(e) => handleInputChange(obj.key, e.target.value)}
-            height={'3rem'}
-            fontSize={'1.25rem'}
+            height="3rem"
+            fontSize="1.25rem"
             helperText={
                 <styleMui.helperTextStyle>
                     {errors[obj.key]}
@@ -85,15 +88,14 @@ export const ProfileForm = ({
     const handleOnSubmit = () => {
         onUpdateInfo({ FullName: inputs.fullname })
         onSwitch(2)
-        return navigate('/profile')
     }
 
-    const buttonsSet1 = [
+    const buttonsSet = [
         {
             id: 1,
-            value: 'Thay đổi',
-            width: '7rem',
-            onClick: () => onSwitch(1),
+            value: 'Lưu thông tin',
+            width: '8rem',
+            onClick: () => onValidate(),
         },
         {
             id: 2,
@@ -101,28 +103,10 @@ export const ProfileForm = ({
             width: '8rem',
             onClick: () => onSwitch(2),
         },
-        { id: 3, value: 'Đổi mật khẩu', width: '8rem', nav: '/reset-password' },
-    ]
-
-    const buttonsSet2 = [
-        { id: 1, value: 'Lưu thông tin', width: '8rem', onClick: onValidate },
-        {
-            id: 2,
-            value: 'Hủy thay đổi',
-            width: '8rem',
-            onClick: () => onSwitch(2),
-        },
-        { id: 3, value: 'Đổi mật khẩu', width: '8rem', nav: '/reset-password' },
     ]
 
     const renderButtons = (obj) => (
-        <styleMui.button
-            component={Link}
-            key={obj.id}
-            onClick={obj.onClick}
-            width={obj.width}
-            to={obj.nav}
-        >
+        <styleMui.button key={obj.id} onClick={obj.onClick} width={obj.width}>
             {obj.value}
         </styleMui.button>
     )
@@ -176,9 +160,19 @@ export const ProfileForm = ({
                 </styleMui.inputPlace>
             </styleMui.profileContainer>
             <styleMui.buttonContainer>
-                {displayButtons === 1
-                    ? buttonsSet1.map(renderButtons)
-                    : buttonsSet2.map(renderButtons)}
+                {displayButtons === 1 ? (
+                    <styleMui.button width="7rem" onClick={() => onSwitch(1)}>
+                        Thay đổi
+                    </styleMui.button>
+                ) : (
+                    buttonsSet.map(renderButtons)
+                )}
+                <styleMui.button
+                    width="8rem"
+                    onClick={() => navigate('/reset-password')}
+                >
+                    Đổi mật khẩu
+                </styleMui.button>
             </styleMui.buttonContainer>
         </styleMui.profilePlace>
     )

@@ -10,7 +10,7 @@ function ResetPasswordPage() {
     const [userInfo, setUserInfo] = useState(null)
     const accessToken = readCookie(ACCESS_TOKEN)
     const tokenInfo = accessToken ? parseJwt(accessToken) : null
-    const [isFormDisabled, setIsFormDisabled] = useState(true)
+    const [isFormDisabled] = useState(true)
 
     useState(() => {
         setUserInfo(tokenInfo)

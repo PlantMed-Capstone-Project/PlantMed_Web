@@ -2,7 +2,7 @@ import * as styleMui from './ProfilePage.styled'
 import { ProfileAvatar, ProfileForm, ProfileSidebar } from 'components/Profile'
 import { readCookie } from 'utils/cookie'
 import { parseJwt } from 'utils'
-import { ACCESS_TOKEN } from 'constant'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from 'constant'
 import { useState } from 'react'
 import { updateInfo } from 'rest/api/user'
 import { refreshToken as authRefreshToken } from 'rest/api/auth'
@@ -14,9 +14,10 @@ function ProfilePage() {
     const { refreshToken } = useActions(authAction)
     const { show } = useActions(snackbarAction)
     const [userInfo, setUserInfo] = useState(null)
+    const [isFormDisabled, setIsFormDisabled] = useState(true)
+
     const accessToken = readCookie(ACCESS_TOKEN)
     const tokenInfo = accessToken ? parseJwt(accessToken) : null
-    const [isFormDisabled, setIsFormDisabled] = useState(true)
 
     useState(() => {
         setUserInfo(tokenInfo)
@@ -28,9 +29,13 @@ function ProfilePage() {
                 message: 'Vui lòng chờ trong giây lát',
                 autoHideDuration: 2000,
             })
-            const response = await updateInfo(userInfo)
+            await updateInfo(userInfo)
             setUserInfo({ ...userInfo, FullName: userInfo.FullName })
-            await authRefreshToken(JSON.stringify(userInfo))
+            console.log(userInfo)
+            const response = await authRefreshToken({
+                refreshToken: readCookie(REFRESH_TOKEN),
+            })
+            console.log('refreshToken:', response)
             refreshToken(response.data)
             show({
                 message: 'Cập nhật thông tin thành công!!',
