@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, styled } from '@mui/material'
+import { Stack, Typography, styled } from '@mui/material'
 
 export const container = styled(Stack)({
     minHeight: '30rem',
