@@ -1,6 +1,6 @@
 import * as styleMui from 'pages/MyBlog/MyBlog.styled'
 import { ProfileSidebar } from 'components/Profile'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { StatusBlogCard } from 'components/StatusBlogCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { blogCardData } from 'FakeData/plantData'
@@ -10,6 +10,7 @@ function LikedBlog() {
     const [lengData, setLengthData] = useState(2)
     const [hasMore, setHasMore] = useState(true)
     const returnData = 3
+    const blogCardListRef = useRef(null)
 
     const fetchMoreData = () => {
         setTimeout(() => {
@@ -20,6 +21,45 @@ function LikedBlog() {
             }
         }, 1000)
     }
+
+    const handleMouseEnter = () => {
+        disableScroll()
+    }
+
+    const handleMouseLeave = () => {
+        enableScroll()
+    }
+
+    // Hủy scroll khi mở popup
+    const disableScroll = () => {
+        const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop
+        const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft
+
+        window.onscroll = () => {
+            window.scrollTo(scrollLeft, scrollTop)
+        }
+    }
+
+    // mở scroll khi đóng popup
+    const enableScroll = () => {
+        window.onscroll = () => {}
+    }
+
+    useEffect(() => {
+        const blogCardList = blogCardListRef.current
+        if (blogCardList) {
+            blogCardList.addEventListener('mouseenter', handleMouseEnter)
+            blogCardList.addEventListener('mouseleave', handleMouseLeave)
+
+            return () => {
+                blogCardList.removeEventListener('mouseenter', handleMouseEnter)
+                blogCardList.removeEventListener('mouseleave', handleMouseLeave)
+                enableScroll()
+            }
+        }
+    }, [blogCardListRef])
 
     return (
         <styleMui.container>
@@ -32,7 +72,7 @@ function LikedBlog() {
                         <styleMui.loadingText>Loading...</styleMui.loadingText>
                     }
                 >
-                    <styleMui.blogCardList>
+                    <styleMui.blogCardList ref={blogCardListRef}>
                         {data.length &&
                             data.map((item, idx) => (
                                 <StatusBlogCard
