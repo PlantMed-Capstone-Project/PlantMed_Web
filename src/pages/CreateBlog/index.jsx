@@ -3,12 +3,13 @@ import { Box, Button, Typography } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import Editor from 'components/Editor/Editor'
+import MultipleSelect from 'components/MutipleSelect'
 import useActions from 'hooks/useActions'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as S from './CreateBlog.styled'
-import MultipleSelect from 'components/MutipleSelect'
 import { PostBlog } from 'rest/api/blog'
+import * as S from './CreateBlog.styled'
+import { imageToBase64 } from 'utils'
 
 function CreateBlog() {
     const { show } = useActions(snackbarAction)
@@ -18,7 +19,7 @@ function CreateBlog() {
         title: '',
         content: '',
         image: '',
-        tag: '',
+        tag: [],
     }
 
     const [inputs, setInputs] = useState(initialInputs)
@@ -45,23 +46,21 @@ function CreateBlog() {
 
     const handleFileChange = (event) => {
         const files = event.target.files
-        const reader = new FileReader()
         const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
         try {
             const isInclude = allowedTypes.includes(files[0].type)
             if (files.length > 0 && isInclude) {
-                reader.onloadend = () => {
-                    // The result property contains the base64 representation of the file
-                    const base64String = reader.result
-                    setInputs((prevState) => ({
-                        ...prevState,
-                        image: base64String,
+                imageToBase64(files[0], (result) => {
+                    setInputs((prev) => ({
+                        ...prev,
+                        image: result,
                     }))
-                    setImageText(files[0].name)
-                }
+                })
+                setImageText(files[0].name)
             }
-            reader.readAsDataURL(files[0])
-        } catch (e) {}
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const handleTextChange = (type, value) => {
@@ -89,6 +88,12 @@ function CreateBlog() {
             flag = false
             show({
                 message: 'Nội dung bài viết không được để trống!',
+                severity: SNACKBAR_SEVERITY.WARNING,
+            })
+        } else if (!inputs.image) {
+            flag = false
+            show({
+                message: 'Ảnh nền không được để trống!',
                 severity: SNACKBAR_SEVERITY.WARNING,
             })
         }
