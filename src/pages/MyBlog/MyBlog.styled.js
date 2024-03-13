@@ -50,7 +50,7 @@ export const statusTab = styled(Tab)(() => ({
 
 export const blogCardList = styled(Box)(() => ({
     width: '100%',
-    height: 'calc(100vh - 12.94rem)',
+    height: 'calc(100vh - 12rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

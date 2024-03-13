@@ -1,8 +1,8 @@
 import { Box, Typography, styled, Button } from '@mui/material'
 
 export const passwordPlace = styled(Box)(() => ({
-    width: '66%',
-    height: 'calc(100vh - 5.94rem)',
+    width: '65.9%',
+    height: 'calc(100vh - 9rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -27,14 +27,14 @@ export const inputHeader = styled(Typography)(() => ({
 
 export const Title = styled(Typography)(() => ({
     textTransform: 'capitalize',
-    fontSize: '2rem',
-    fontWeight: '500',
+    fontSize: '1.8rem',
+    fontWeight: '600',
     color: '#214400',
-    marginTop: '1rem',
+    marginTop: '3rem',
 }))
 
 export const Note = styled(Typography)(() => ({
-    fontSize: '1rem',
+    fontSize: '1.25rem',
     fontWeight: '300',
     color: '#214400',
     marginTop: '1rem',

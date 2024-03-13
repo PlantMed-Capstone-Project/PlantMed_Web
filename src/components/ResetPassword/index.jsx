@@ -85,6 +85,8 @@ const ResetPasswordForm = () => {
                 error={errors[key]}
                 onChange={(e) => handleInputChange(key, e.target.value)}
                 helperText={errors[key]}
+                height={'3rem'}
+                fontSize={'1.25rem'}
             />
         )
     }

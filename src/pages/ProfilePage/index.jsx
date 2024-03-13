@@ -48,19 +48,19 @@ function ProfilePage() {
 
     //If click on 'Chỉnh sửa thông tin' button, the profile will be abled to edit
     const handleEditButtonClick = () => {
-        setIsFormDisabled(false)       
+        setIsFormDisabled(false)
     }
 
     return (
         <styleMui.container>
-            <ProfileAvatar userInfo={userInfo} isDisabled={isFormDisabled}/>
+            <ProfileAvatar userInfo={userInfo} isDisabled={isFormDisabled} />
             <ProfileForm
                 userInfo={userInfo}
                 isDisabled={isFormDisabled}
                 onUpdateInfo={updateUserInformation}
                 handleEditButtonClick={handleEditButtonClick}
             />
-            <ProfileSidebar height={'calc(100vh - 3.94rem)'}/>
+            <ProfileSidebar />
         </styleMui.container>
     )
 }

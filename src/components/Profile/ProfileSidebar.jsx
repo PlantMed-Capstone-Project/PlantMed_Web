@@ -5,7 +5,7 @@ import DescriptionIcon from '@mui/icons-material/Description'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useEffect, useState } from 'react'
 
-export const ProfileSidebar = (height) => {
+export const ProfileSidebar = () => {
     const [selectedButtonId, setSelectedButtonId] = useState(null)
     const location = useLocation()
 
@@ -49,7 +49,7 @@ export const ProfileSidebar = (height) => {
     }
 
     return (
-        <styleMui.sidebarPlace height={height}>
+        <styleMui.sidebarPlace>
             {buttons.map((item) => (
                 <styleMui.sidebarButton
                     key={item.id}

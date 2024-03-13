@@ -23,16 +23,16 @@ export const ProfileForm = ({
                 : 'Chuyên Gia Về Cây Thuốc',
     })
     const [displayButtons, setDisplayButtons] = useState(1)
-    //Quay về thông tin cũ khi hủy thay đổi
+    //Lưu thông tin cũ khi hủy thay đổi
     const [initialNameInput, setInitialNameInput] = useState({})
 
     useEffect(() => {
         setInitialNameInput({
             fullname: userInfo?.FullName,
-        });
-    }, [userInfo]);
+        })
+    }, [userInfo])
 
-    //Switch set button 
+    //Switch set button
     const onSwitch = (buttonSet) => {
         if (buttonSet === 1) {
             setDisplayButtons(2)
@@ -47,10 +47,12 @@ export const ProfileForm = ({
     const handleInputChange = (key, value) =>
         setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
 
+    //Khai báo header cho mỗi input
     const renderHeaders = (obj) => (
         <styleMui.inputHeader key={obj.id}>{obj.header}</styleMui.inputHeader>
     )
 
+    //Khai báo input
     const renderInputs = (obj) => (
         <InputField
             key={obj.id}
@@ -61,6 +63,8 @@ export const ProfileForm = ({
             error={errors[obj.key]}
             disabled={obj.isDisabled}
             onChange={(e) => handleInputChange(obj.key, e.target.value)}
+            height={'3rem'}
+            fontSize={'1.25rem'}
             helperText={
                 <styleMui.helperTextStyle>
                     {errors[obj.key]}

@@ -123,7 +123,7 @@ function MyBlog() {
                     </styleMui.blogCardList>
                 </InfiniteScroll>
             </styleMui.blogContainer>
-            <ProfileSidebar height={'calc(100vh - 8rem)'} />
+            <ProfileSidebar />
         </styleMui.container>
     )
 }

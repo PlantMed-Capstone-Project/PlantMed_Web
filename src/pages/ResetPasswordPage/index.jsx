@@ -1,19 +1,16 @@
 import { ProfileAvatar, ProfileSidebar } from 'components/Profile'
 import ResetPasswordForm from 'components/ResetPassword'
 import * as styleMui from './ResetPasswordPage.styled'
-import useScrollTo from 'hooks/useScrollTo'
 import { readCookie } from 'utils/cookie'
 import { ACCESS_TOKEN } from 'constant'
 import { parseJwt } from 'utils'
 import { useState } from 'react'
 
 function ResetPasswordPage() {
-    //trigger crollY
-    useScrollTo(0, 0)
-
     const [userInfo, setUserInfo] = useState(null)
     const accessToken = readCookie(ACCESS_TOKEN)
     const tokenInfo = accessToken ? parseJwt(accessToken) : null
+    const [isFormDisabled, setIsFormDisabled] = useState(true)
 
     useState(() => {
         setUserInfo(tokenInfo)
@@ -21,7 +18,7 @@ function ResetPasswordPage() {
 
     return (
         <styleMui.container>
-            <ProfileAvatar userInfo={userInfo} />
+            <ProfileAvatar userInfo={userInfo} isDisabled={isFormDisabled} />
             <ResetPasswordForm />
             <ProfileSidebar />
         </styleMui.container>

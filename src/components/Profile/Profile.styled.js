@@ -10,7 +10,7 @@ import {
 
 export const avatarPlace = styled(Box)(() => ({
     width: '15%',
-    height: 'calc(100vh - 5.94rem)',
+    height: 'calc(100vh - 9rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -23,8 +23,8 @@ export const avatarPlace = styled(Box)(() => ({
 }))
 
 export const profilePlace = styled(Box)(() => ({
-    width: '66%',
-    height: 'calc(100vh - 5.94rem)',
+    width: '65.9%',
+    height: 'calc(100vh - 9rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -35,9 +35,9 @@ export const profilePlace = styled(Box)(() => ({
     marginTop: '1rem',
 }))
 
-export const sidebarPlace = styled(Box)(({height}) => ({
+export const sidebarPlace = styled(Box)(() => ({
     width: '6%',
-    height: {height},
+    height: 'calc(100vh - 7rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -100,9 +100,9 @@ export const personalEmail = styled(Typography)(() => ({
 }))
 
 export const Title = styled(Typography)(() => ({
-    textAlign: 'justify',
+    textAlign: 'center',
     textTransform: 'capitalize',
-    fontSize: '1.5rem',
+    fontSize: '1.8rem',
     fontWeight: '700',
     color: '#214400',
     paddingTop: '3.375rem',
@@ -112,7 +112,7 @@ export const Title = styled(Typography)(() => ({
 export const inputPlace = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
-    width: '40.875rem',
+    width: '39.875rem',
     marginTop: '2rem',
     marginLeft: '3.25rem',
     gap: '2rem',
@@ -121,7 +121,7 @@ export const inputPlace = styled(Box)(() => ({
 export const hearderContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.7rem',
+    gap: '3.3rem',
     paddingTop: '0.7rem',
     width: '30%',
 }))
@@ -129,7 +129,8 @@ export const hearderContainer = styled(Box)(() => ({
 export const inputContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
-    width: '45%',
+    width: '70%',
+    gap: '1rem',
 }))
 
 export const inputHeader = styled(Typography)(() => ({
