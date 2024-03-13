@@ -10,6 +10,9 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login as authLogin } from 'rest/api/auth'
 import * as styleMui from './SigninForm.styled'
+import { parseJwt } from 'utils'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from 'firebase.js'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
 
@@ -50,6 +53,16 @@ export default function LoginForm() {
             ),
         },
     ]
+
+    const expertRef = collection(db, 'expertOnline')
+    const handleOnline = async (data) => {
+        if (data.Role === 'expert') {
+            await addDoc(expertRef, {
+                expert: data,
+                status: 'isOnline',
+            })
+        }
+    }
 
     //Khai báo input
     const renderInputs = () => {
@@ -100,6 +113,7 @@ export default function LoginForm() {
             })
             const response = await authLogin(inputs)
             login(response.data)
+            handleOnline(parseJwt(response.data.accessToken))
             show({
                 message: 'Đăng nhập thành công!!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
