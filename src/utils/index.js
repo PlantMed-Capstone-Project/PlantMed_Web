@@ -1,6 +1,8 @@
 import { Buffer } from 'buffer'
 import moment from 'moment'
 
+import { convert } from 'html-to-text'
+
 /**
  * Sử dụng để format string có ký tự utf8
  * @param {*} str string
@@ -79,4 +81,23 @@ export const parseDiffDays = (timestamp) => {
     let currentDay = moment()
 
     return parsedDate.diff(currentDay, 'days') + 1
+}
+
+
+const options = {
+    wordwrap: 130,
+    // ...
+}
+
+// Hàm loại bỏ ảnh khỏi chuỗi trả về
+const sliceImg = (string) => {
+    const startIndex = string.indexOf('<img')
+    const endIndex = string.indexOf('>', startIndex)
+    return string.substring(0, startIndex) + string.substring(endIndex + 1)
+}
+
+export const convertString = (string, stringLength) => {
+    return convert(sliceImg(string), options).length > stringLength
+        ? convert(sliceImg(string), options).slice(0, stringLength) + '...'
+        : convert(sliceImg(string), options)
 }
