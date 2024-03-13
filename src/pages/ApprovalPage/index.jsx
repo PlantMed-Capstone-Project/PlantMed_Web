@@ -37,6 +37,7 @@ export default function ApprovalPage() {
         return () => {
             document.removeEventListener('mousedown', handler)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Hủy scroll khi mở popup
