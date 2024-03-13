@@ -1,7 +1,7 @@
+import { Skeleton } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
-import { Skeleton, Typography } from '@mui/material'
 
 function CardBlog({ data, valueSearch, positions, loading }) {
     const [dataBlog, setDataBlog] = useState([])

@@ -1,4 +1,4 @@
-import { Box, CardMedia, Stack, Typography, styled } from '@mui/material'
+import { Box, CardMedia, Typography, styled } from '@mui/material'
 
 export const container = styled(Box)({
     display: 'flex',
