@@ -18,6 +18,10 @@ export const getApproval = async () => {
     return http.get('blogs/pending')
 }
 
+export const getActiveBlog = async () => {
+    return http.get('blogs')
+}
+
 /**
  * payload: {id: input.id}
  * approvalBlog(input.id)
