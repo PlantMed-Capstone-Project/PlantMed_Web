@@ -10,10 +10,12 @@ import useActions from 'hooks/useActions'
 import { useEffect } from 'react'
 import { getAll } from 'rest/api/plant'
 import { privateRoutes, publicRoutes } from 'routes'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import ChatBox from 'components/ChatBox'
 
 function App() {
     const { storePlant, storePlantSuccessful } = useActions(plantAction)
-
+    const { isLogin } = useShallowEqualSelector((state) => state.auth)
     const fetchData = async () => {
         storePlant()
         try {
@@ -51,6 +53,7 @@ function App() {
                 ]}
             />
             <CustomSnackbar />
+            {isLogin && <ChatBox />}
             <BrowserRouter>
                 <Routes>
                     <Route element={<LoginRoute />}>
