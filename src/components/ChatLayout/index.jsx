@@ -14,10 +14,11 @@ import {
     deleteDoc,
     doc,
     updateDoc,
-    where
+    where,
 } from 'firebase/firestore'
+import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
 import { useEffect, useState } from 'react'
-import { parseJwt, useFirestoreQuery } from 'utils'
+import { parseJwt } from 'utils'
 import { readCookie } from 'utils/cookie'
 
 function ChatLayout({ handleCloseChat }) {

@@ -1,28 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Button, TextField, Box, Typography } from '@mui/material'
+import { Paper } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
+import CloseIcon from '@mui/icons-material/Close'
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
+import SendIcon from '@mui/icons-material/Send'
+import { Box, Button, TextField, Typography } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
+import AlertDialog from 'components/AlertDialog'
+import { MessageLeft, MessageRight } from 'components/Message'
 import { db } from 'firebase.js'
 import {
     addDoc,
     collection,
-    serverTimestamp,
-    query,
-    onSnapshot,
-    where,
-    orderBy,
     deleteDoc,
     doc,
+    orderBy,
+    serverTimestamp,
     updateDoc,
+    where,
 } from 'firebase/firestore'
-import { Paper } from '@material-ui/core'
-import SendIcon from '@mui/icons-material/Send'
-import { MessageLeft, MessageRight } from 'components/Message'
-import CloseIcon from '@mui/icons-material/Close'
-import IconButton from '@mui/material/IconButton'
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
-import Avatar from '@mui/material/Avatar'
-import AlertDialog from 'components/AlertDialog'
-import { useFirestoreQuery } from 'utils'
+import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
+import { useEffect, useRef, useState } from 'react'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -76,23 +74,12 @@ function Chat({ room, user, closeChat, userStatus }) {
     const messageRef = collection(db, 'messages')
     const messagesBodyRef = useRef(null)
     const userChat = userStatus.find(({ status }) => status === 'active')
-    useEffect(() => {
-        const queryMessage = query(
-            messageRef,
-            where('room', '==', room),
-            orderBy('createAt')
-        )
 
-        const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
-            let messages = []
-            snapshot.forEach((doc) => {
-                messages.push({ ...doc.data(), id: doc.id })
-            })
-            setMessages(messages)
-        })
-        return () => unsubscribe()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    useFirestoreQuery(
+        messageRef,
+        [where('room', '==', room), orderBy('createAt')],
+        setMessages
+    )
 
     const type = user.Role === 'user' ? 'userRequest.Email' : 'expertEmail'
     useFirestoreQuery(
