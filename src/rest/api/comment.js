@@ -13,3 +13,11 @@ export const createComment = async (id, payload) => {
 export const replyComment = async (payload) => {
     return http.post('comments/reply', payload)
 }
+
+export const deleteComment = async (id) => {
+    return http.patch(`comments/comment/${id}`)
+}
+
+export const deleteReplyComment = async (id) => {
+    return http.patch(`comments/reply/${id}`)
+}

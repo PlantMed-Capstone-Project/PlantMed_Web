@@ -7,6 +7,8 @@ import { useState } from 'react'
 import { parseJwt } from 'utils'
 import { readCookie } from 'utils/cookie'
 import { ACCESS_TOKEN } from 'constant'
+import AlertDialog from 'components/AlertDialog'
+import { deleteComment, deleteReplyComment } from 'rest/api/comment'
 
 const styles = {
     reply: {
@@ -23,12 +25,21 @@ function LoadComment({
     activeComment,
     setActiveComment,
     handleReply,
+    getComment,
 }) {
     const user = parseJwt(readCookie(ACCESS_TOKEN))
+
+    const [openDialog, setOpenDialog] = useState(false)
+    const alert = {
+        title: 'Xóa bình luận',
+        content: 'Bạn có chắc chắn muốn xóa bình luận của mình?',
+    }
     const isReply =
         activeComment &&
         activeComment.type === type &&
         activeComment.id === comment.id
+
+    const isDelete = user.Email === comment.user.email
 
     const id = type === 'comment' ? comment.id : comment.commentId
 
@@ -52,8 +63,33 @@ function LoadComment({
         console.log(value)
         //hanlde send report label later
     }
+
+    const handleDeleteComment = async () => {
+        try {
+            if (type === 'comment') {
+                await deleteComment(comment.id)
+            } else {
+                await deleteReplyComment(comment.id)
+            }
+            getComment()
+        } catch (e) {
+            console.log(e)
+        }
+    }
     return (
         <>
+            {openDialog && (
+                <AlertDialog
+                    openDialog={openDialog}
+                    setOpenDialog={setOpenDialog}
+                    title={alert.title}
+                    content={alert.content}
+                    callBack={handleDeleteComment}
+                    cancelButton={true}
+                    cancelTitle="Xóa"
+                    closeTitle="Hủy bỏ"
+                />
+            )}
             <Box sx={{ marginTop: '1.125rem', width: '50%' }}>
                 <Box sx={{ display: 'flex' }}>
                     <Avatar src={imgDemo} />
@@ -106,6 +142,14 @@ function LoadComment({
                             Báo cáo
                         </Typography>
                     )}
+                    {isDelete && (
+                        <Typography
+                            onClick={() => setOpenDialog(true)}
+                            sx={styles.reply}
+                        >
+                            Xóa
+                        </Typography>
+                    )}
                     <ReportModal
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
@@ -133,6 +177,7 @@ function LoadComment({
                                     activeComment={activeComment}
                                     setActiveComment={setActiveComment}
                                     handleReply={handleReply}
+                                    getComment={getComment}
                                 />
                             ))}
                         </Box>

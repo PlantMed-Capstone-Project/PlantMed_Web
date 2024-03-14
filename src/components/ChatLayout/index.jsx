@@ -187,6 +187,8 @@ function ChatLayout({ handleCloseChat }) {
                             title={alert.title}
                             content={alert.content}
                             cancelButton={false}
+                            cancelTitle="Kết thúc"
+                            closeTitle="Đồng ý"
                         />
                     )}
                     <Paper

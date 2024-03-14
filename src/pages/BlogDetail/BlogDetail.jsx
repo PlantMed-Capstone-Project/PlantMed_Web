@@ -147,18 +147,9 @@ function BlogDetail() {
                         activeComment={activeComment}
                         setActiveComment={setActiveComment}
                         handleReply={handleReply}
+                        getComment={getComment}
                     />
                 ))}
-                <Typography
-                    sx={{
-                        textDecoration: 'underline',
-                        color: '#69AD28',
-                        '&:hover': { color: 'blue', cursor: 'pointer' },
-                        marginTop: '3.125rem',
-                    }}
-                >
-                    Xem thêm câu trả lời
-                </Typography>
             </Box>
         </Box>
     )
