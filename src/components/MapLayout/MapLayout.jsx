@@ -76,6 +76,7 @@ export default function MapLayout({ data }) {
             return
         }
         findWay.current.getRouting(currentLocaiton, newRoute)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newRoute])
 
     return (

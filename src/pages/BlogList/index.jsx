@@ -4,6 +4,8 @@ import TagSearch from 'components/TagSearch/TagSearch'
 import { useState } from 'react'
 import * as styleMui from './BlogListPage.styled'
 import { useEffect } from 'react'
+import { getActiveBlog } from 'rest/api/blog'
+import useScrollTo from 'hooks/useScrollTo'
 
 function BlogListPage() {
     const [tagSearch, setTagSearch] = useState('')
@@ -19,7 +21,9 @@ function BlogListPage() {
     })
     const [isFixed, setIsFixed] = useState(false)
     const [isAbs, setIsAbs] = useState(false)
-
+    const [dataBlog, setDataBlog] = useState([])
+    const [loading, setLoading] = useState(false)
+    useScrollTo(0, 0)
     const data = blogDetail
 
     const scrollValue = () => {
@@ -45,8 +49,21 @@ function BlogListPage() {
         }
     }
 
+    const fetchBlog = async () => {
+        setLoading(true)
+        try {
+            const response = await getActiveBlog()
+            setDataBlog(response.data)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
         window.addEventListener('scroll', scrollValue, { passive: true })
+        fetchBlog()
         // cleanup side effect
         return () => {
             window.removeEventListener('scroll', scrollValue)
@@ -64,9 +81,10 @@ function BlogListPage() {
         >
             <styleMui.ctnComponent>
                 <CardBlog
-                    data={data}
+                    data={dataBlog}
                     valueSearch={tagSearch}
                     positions={positions}
+                    loading={loading}
                 />
                 <TagSearch
                     data={data}

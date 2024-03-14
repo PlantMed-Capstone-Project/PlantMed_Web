@@ -163,9 +163,7 @@ function PaginationLayout({
                                 sx={{
                                     position: 'absolute',
                                     bottom: '-1.12rem',
-                                    width: topSearch
-                                        ? '15.9925rem'
-                                        : '21.43rem',
+                                    width: '21.43rem',
                                     height: topSearch
                                         ? '12.375rem'
                                         : '12.9375rem',
