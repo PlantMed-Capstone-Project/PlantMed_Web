@@ -14,6 +14,8 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
     const { data } = props
     return (
         <Card
+            onMouseOver={() => setHoverImg(true)}
+            onMouseOut={() => setHoverImg(false)}
             sx={{
                 width: '20rem',
                 height: '22.5rem',
@@ -23,7 +25,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                 transition: 'all 0.2s ease',
             }}
         >
-            <Box sx={{ height: '12.5rem', width: '100%'}}>
+            <Box sx={{ height: '12.5rem', width: '100%' }}>
                 <CardMedia
                     sx={{
                         height: '100%',
@@ -31,8 +33,6 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     }}
                     image={data.image}
                     title="green iguana"
-                    onMouseEnter={() => setHoverImg(true)}
-                    onMouseLeave={() => setHoverImg(false)}
                 />
             </Box>
             <CardContent sx={{ padding: '0.5rem 1rem 0 1rem' }}>
