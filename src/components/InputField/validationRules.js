@@ -43,7 +43,7 @@ export const validationRules = {
     fullname: [
         {
             message: 'Tên hiển thị không hợp lệ.',
-            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]+$/,
+            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]{1,30}$/,
         },
         {
             message: 'Tên hiển thị không được để trống.',

@@ -13,25 +13,19 @@ import { authAction } from 'app/reducers/auth'
 function ProfilePage() {
     const { refreshToken } = useActions(authAction)
     const { show } = useActions(snackbarAction)
-    const [userInfo, setUserInfo] = useState(null)
+    const [userInfo, setUserInfo] = useState(parseJwt(readCookie(ACCESS_TOKEN)))
     const [isFormDisabled, setIsFormDisabled] = useState(true)
-
-    const accessToken = readCookie(ACCESS_TOKEN)
-    const tokenInfo = accessToken ? parseJwt(accessToken) : null
-
-    useState(() => {
-        setUserInfo(tokenInfo)
-    }, [tokenInfo])
 
     const updateUserInformation = async (userInfo) => {
         show({ message: 'Vui lòng chờ trong giây lát' })
         try {
             await updateInfo(userInfo)
-            setUserInfo({ ...userInfo, FullName: userInfo.FullName })
             const response = await authRefreshToken({
                 refreshToken: readCookie(REFRESH_TOKEN),
             })
+
             refreshToken(response.data)
+            setUserInfo(parseJwt(readCookie(ACCESS_TOKEN)))
             show({
                 message: 'Cập nhật thông tin thành công!!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
@@ -46,9 +40,14 @@ function ProfilePage() {
         }
     }
 
-    //If click on 'Chỉnh sửa thông tin' button, the profile will be abled to edit
+    //If click on 'Thay đổi' button, the profile will be abled to edit
     const handleEditButtonClick = () => {
         setIsFormDisabled(false)
+    }
+
+    //If click on 'Hủy thay đổi' button, the profile will be disabled to edit
+    const handleCancelButtonClick = () => {
+        setIsFormDisabled(true)
     }
 
     return (
@@ -59,6 +58,7 @@ function ProfilePage() {
                 isDisabled={isFormDisabled}
                 onUpdateInfo={updateUserInformation}
                 handleEditButtonClick={handleEditButtonClick}
+                handleCancelButtonClick={handleCancelButtonClick}
             />
             <ProfileSidebar />
         </styleMui.container>

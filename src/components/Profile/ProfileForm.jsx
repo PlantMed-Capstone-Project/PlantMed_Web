@@ -9,6 +9,7 @@ export const ProfileForm = ({
     userInfo,
     onUpdateInfo,
     handleEditButtonClick,
+    handleCancelButtonClick,
     isDisabled,
 }) => {
     const [errors, setErrors] = useState({})
@@ -29,6 +30,7 @@ export const ProfileForm = ({
         setInitialNameInput({
             fullname: userInfo?.FullName,
         })
+        setInputs({ ...inputs, fullname: userInfo?.FullName })
     }, [userInfo])
 
     const navigate = useNavigate()
@@ -40,7 +42,7 @@ export const ProfileForm = ({
             handleEditButtonClick()
         } else {
             setDisplayButtons(1)
-            // isDisabled(true)
+            handleCancelButtonClick()
             setInputs(initialNameInput)
         }
     }
@@ -168,7 +170,7 @@ export const ProfileForm = ({
                     buttonsSet.map(renderButtons)
                 )}
                 <styleMui.button
-                    width="8rem"
+                    width="9rem"
                     onClick={() => navigate('/reset-password')}
                 >
                     Đổi mật khẩu

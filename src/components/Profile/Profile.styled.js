@@ -148,6 +148,7 @@ export const buttonContainer = styled(Box)(() => ({
 
 export const button = styled(Button)(({ width }) => ({
     backgroundColor: '#69AD28',
+    fontSize: '1rem',
     color: '#FFF',
     width: width,
     textTransform: 'capitalize',
