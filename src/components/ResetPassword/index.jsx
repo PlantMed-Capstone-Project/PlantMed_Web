@@ -1,16 +1,14 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import * as styleMui from './ResetPasswordForm.styled'
-import { IconButton } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { IconButton } from '@mui/material'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
-import { resetPassword } from 'rest/api/auth'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
-import { createCookie } from 'utils/cookie'
-import { FORM_REGISTER } from 'constant'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { resetPassword } from 'rest/api/auth'
+import * as styleMui from './ResetPasswordForm.styled'
 
 const ResetPasswordForm = () => {
     const navigate = useNavigate()
@@ -102,12 +100,8 @@ const ResetPasswordForm = () => {
                 message: 'Cập nhật mật khẩu thành công!!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
-            const data = {
-                password: inputs.newPassword,
-            }
-            createCookie(FORM_REGISTER, JSON.stringify(data))
             clearInput()
-            return navigate('/profile')
+            navigate('/profile')
         } catch (error) {
             show({
                 message:
