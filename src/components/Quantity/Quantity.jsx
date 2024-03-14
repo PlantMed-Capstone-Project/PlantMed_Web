@@ -27,10 +27,10 @@ export default function Quantity() {
         <Stack
             direction="column"
             sx={{
-                mt: '12rem',
-                height: '54rem',
+                height: '56rem',
                 width: '90rem',
                 backgroundColor: 'FFF',
+                paddingBottom: '5rem',
             }}
         >
             <Box

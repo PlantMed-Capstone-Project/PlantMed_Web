@@ -2,9 +2,10 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { Box } from '@mui/material'
 import { useRef, useState } from 'react'
-import { config } from 'react-spring'
-import Carousel from 'react-spring-3d-carousel'
 import * as styleMui from './SpecialThreeD.styled'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const iconStyle = {
     height: '4rem',
@@ -12,7 +13,7 @@ const iconStyle = {
     color: '#69AD28',
 }
 
-function SpecialThreeD({ offset, showArrows, width, height, margin, cards }) {
+function SpecialThreeD({ showArrows, width, height, cards }) {
     const checkX = useRef()
 
     const [goToSlide, setGoToSlide] = useState(null)
@@ -31,15 +32,29 @@ function SpecialThreeD({ offset, showArrows, width, height, margin, cards }) {
     ]
 
     const nextSlide = () => {
-        setGoToSlide((state) => state + 1)
+        checkX.current.slickNext()
     }
 
     const prvSlide = () => {
-        setGoToSlide((state) => state - 1)
+        checkX.current.slickPrev()
     }
 
     const handleHoverBtn = (idx) => {
         setBtnHover(idx)
+    }
+
+    const settings = {
+        dots: false,
+        arrows: showArrows,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        slickNext: goToSlide,
+        centerMode: true,
+        afterChange: (index) => {
+            setGoToSlide(index)
+        },
     }
 
     return (
@@ -47,18 +62,12 @@ function SpecialThreeD({ offset, showArrows, width, height, margin, cards }) {
             sx={{
                 width: width,
                 height: height,
-                margin: margin,
                 position: 'relative',
             }}
         >
-            <Carousel
-                slides={cards}
-                goToSlide={goToSlide}
-                offsetRadius={offset}
-                showNavigation={showArrows}
-                animationConfig={config.gentle}
-                ref={checkX}
-            />
+            <Slider {...settings} ref={checkX} style={{ margin: '0 10rem' }}>
+                {cards}
+            </Slider>
 
             {btnTriggerSlide.map((vl, idx) => (
                 <styleMui.ContainerIcon
@@ -66,7 +75,7 @@ function SpecialThreeD({ offset, showArrows, width, height, margin, cards }) {
                     id={vl.id}
                     ishover={btnHover}
                     onClick={vl.id === 1 ? prvSlide : nextSlide}
-                    onMouseEnter={() => handleHoverBtn(idx + 1)}
+                    onMouseEnter={() => handleHoverBtn(idx)}
                     onMouseLeave={() => setBtnHover(null)}
                 >
                     {vl.icon}
