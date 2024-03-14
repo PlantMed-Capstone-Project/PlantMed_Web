@@ -23,6 +23,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                 boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
                 scale: hoverImg && '1.1',
                 transition: 'all 0.2s ease',
+                marginTop: '1rem',
             }}
         >
             <Box sx={{ height: '12.5rem', width: '100%' }}>

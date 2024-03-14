@@ -65,7 +65,7 @@ function SpecialThreeD({ showArrows, width, height, cards }) {
                 position: 'relative',
             }}
         >
-            <Slider {...settings} ref={checkX} style={{ margin: '1rem 10rem' }}>
+            <Slider {...settings} ref={checkX} style={{ margin: '0 10rem' }}>
                 {cards}
             </Slider>
 
