@@ -7,11 +7,6 @@ export default function Quantity() {
     // dữ liệu giả
     const dataQuntity = [
         {
-            quantity: 2,
-            typeQuntity: 'K+',
-            typeName: 'Cửa hàng liên kết',
-        },
-        {
             quantity: 30,
             typeQuntity: 'K+',
             typeName: 'Cây thực vật làm thuốc',
@@ -68,7 +63,12 @@ export default function Quantity() {
                             Nhờ sự tín nhiệm của hàng triệu người dùng
                         </Typography>
                     </Box>
-                    <Box sx={{ width: '31.5625rem', color: '#214400' }}>
+                    <Box
+                        sx={{
+                            width: '31.5625rem',
+                            color: '#214400',
+                        }}
+                    >
                         <Typography
                             component="p"
                             sx={{
@@ -110,7 +110,11 @@ export default function Quantity() {
                 alignItems="center"
                 justifyContent="center"
                 spacing="8.14rem"
-                sx={{ width: '100%', paddingTop: '4.5rem' }}
+                sx={{
+                    width: '100%',
+                    padding: '4.5rem 0 0 8rem',
+                    justifyContent: 'flex-start',
+                }}
             >
                 {dataQuntity.map((obj) => (
                     <Stack

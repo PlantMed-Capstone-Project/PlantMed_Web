@@ -17,8 +17,8 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
             onMouseOver={() => setHoverImg(true)}
             onMouseOut={() => setHoverImg(false)}
             sx={{
-                width: '20rem',
-                height: '22.5rem',
+                width: '24.875rem',
+                height: '20.125rem',
                 borderRadius: '0.625rem',
                 boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
                 scale: hoverImg && '1.1',
