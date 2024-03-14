@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
 import plant from 'Images/heroSen.jpg'
 import { Link } from 'react-router-dom'
+import { parseImg } from 'utils'
 
 const styles = {
     card: {
@@ -16,7 +17,7 @@ const styles = {
     },
     containerBlog: {
         flexGrow: 1,
-        marginTop: '6.25rem',
+        marginTop: '2.125rem',
         width: '100%',
         padding: '0 6.25rem',
     },
@@ -57,7 +58,11 @@ function BlogList({ blogData }) {
                                     <CardMedia
                                         component="img"
                                         height="200"
-                                        image={plant}
+                                        image={
+                                            data.images[0] === undefined
+                                                ? plant
+                                                : parseImg(data.images[0].data)
+                                        }
                                         alt="plant"
                                     />
                                     <CardContent
@@ -70,15 +75,18 @@ function BlogList({ blogData }) {
                                             gutterBottom
                                             variant="h6"
                                             component="div"
-                                            sx={{ fontWeight: 'bold' }}
+                                            sx={{
+                                                fontWeight: 'bold',
+                                                color: 'black',
+                                            }}
                                         >
-                                            {data.name}
+                                            {data.title}
                                         </Typography>
                                         <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
-                                            {data.description}
+                                            {data.content}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>

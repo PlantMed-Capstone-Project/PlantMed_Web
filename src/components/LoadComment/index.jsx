@@ -1,10 +1,12 @@
 import { Box, Typography } from '@mui/material'
 import imgDemo from 'Images/avatar.jpg'
 import Avatar from '@mui/material/Avatar'
-import { getUserId } from 'FakeData/plantData'
 import UserComment from 'components/UserComment'
 import ReportModal from 'components/ReportModal'
 import { useState } from 'react'
+import { parseJwt } from 'utils'
+import { readCookie } from 'utils/cookie'
+import { ACCESS_TOKEN } from 'constant'
 
 const styles = {
     reply: {
@@ -22,6 +24,7 @@ function LoadComment({
     setActiveComment,
     handleReply,
 }) {
+    const user = parseJwt(readCookie(ACCESS_TOKEN))
     const isReply =
         activeComment &&
         activeComment.type === type &&
@@ -98,9 +101,11 @@ function LoadComment({
                     >
                         Trả lời
                     </Typography>
-                    <Typography sx={styles.reply} onClick={handleOpen}>
-                        Báo cáo
-                    </Typography>
+                    {user.Email !== comment.user.email && (
+                        <Typography sx={styles.reply} onClick={handleOpen}>
+                            Báo cáo
+                        </Typography>
+                    )}
                     <ReportModal
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
@@ -112,7 +117,7 @@ function LoadComment({
             {isReply && (
                 <Box sx={{ marginLeft: '3.125rem', width: '92%' }}>
                     <UserComment
-                        name="Phuong"
+                        name={user.FullName}
                         onSendClick={(text) => handleReply(text, id)}
                     />
                 </Box>

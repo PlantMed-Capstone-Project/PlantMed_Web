@@ -101,3 +101,7 @@ export const convertString = (string, stringLength) => {
         ? convert(sliceImg(string), options).slice(0, stringLength) + '...'
         : convert(sliceImg(string), options)
 }
+
+export const sortComment = (data) => {
+    data.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
+}

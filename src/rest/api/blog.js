@@ -29,3 +29,7 @@ export const getByUser = async () => {
 export const getIdBlog = async (id) => {
     return http.get(`blogs/${id}`)
 }
+
+export const getTop = async (num) => {
+    return http.get(`blogs/top?number=${num}`)
+}

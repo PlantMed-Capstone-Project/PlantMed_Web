@@ -1,23 +1,24 @@
 import { Box, Typography } from '@mui/material'
-import { createReply } from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
 import { ACCESS_TOKEN } from 'constant'
+import useActions from 'hooks/useActions'
 import useScrollTo from 'hooks/useScrollTo'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getIdBlog } from 'rest/api/blog'
-import { createComment, getCommentByBlog } from 'rest/api/comment'
-import { parseJwt } from 'utils'
+import { createComment, getCommentByBlog, replyComment } from 'rest/api/comment'
+import { parseJwt, sortComment } from 'utils'
 import { readCookie } from 'utils/cookie'
 function BlogDetail() {
     useScrollTo(0, 0)
     const user = parseJwt(readCookie(ACCESS_TOKEN))
-    console.log(user)
     const params = useParams()
     const [blog, setBlog] = useState()
     const [commentList, setCommentList] = useState()
+    const { show } = useActions(snackbarAction)
     const getBlogById = async () => {
         try {
             const res = await getIdBlog(params.id)
@@ -30,6 +31,7 @@ function BlogDetail() {
     const getComment = async () => {
         try {
             const res = await getCommentByBlog(params.id)
+            sortComment(res.data)
             setCommentList(res.data)
         } catch (e) {
             console.log(e)
@@ -39,36 +41,43 @@ function BlogDetail() {
     useEffect(() => {
         getBlogById()
         getComment()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [activeComment, setActiveComment] = useState(null)
 
     const handleSend = async (value) => {
         try {
-            //Đợi id user in ACCESS_TOKEN
+            await createComment(params.id, { content: value })
+            getComment()
+            setActiveComment(null)
         } catch (e) {
-            console.log(e)
+            show({
+                message: e.response.data.message,
+                severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
+            })
         }
-        setCommentList([createComment(value), ...commentList])
-        setActiveComment(null)
     }
 
-    const handleReply = (text, commentId) => {
-        setCommentList((prevComments) => {
-            return prevComments.map((comment) =>
-                comment.id === commentId
-                    ? {
-                          ...comment,
-                          reply_comment: [
-                              ...comment.reply_comment,
-                              createReply(text, commentId),
-                          ],
-                      }
-                    : comment
-            )
-        })
-        setActiveComment(null)
+    const handleReply = async (text, commentId) => {
+        try {
+            await replyComment({
+                content: text,
+                commentId: commentId,
+            })
+            getComment()
+            setActiveComment(null)
+        } catch (e) {
+            show({
+                message: e.response.data.message,
+                severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
+            })
+        }
     }
+
+
 
     return (
         <Box
@@ -119,7 +128,7 @@ function BlogDetail() {
                     dangerouslySetInnerHTML={{
                         __html: blog && blog.content,
                     }}
-                ></Typography>
+                />
                 <Typography
                     sx={{
                         color: '#214400',
