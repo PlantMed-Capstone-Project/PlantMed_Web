@@ -28,11 +28,9 @@ function ProfilePage() {
         try {
             await updateInfo(userInfo)
             setUserInfo({ ...userInfo, FullName: userInfo.FullName })
-            console.log(userInfo)
             const response = await authRefreshToken({
                 refreshToken: readCookie(REFRESH_TOKEN),
             })
-            console.log('refreshToken:', response)
             refreshToken(response.data)
             show({
                 message: 'Cập nhật thông tin thành công!!',
