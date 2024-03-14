@@ -40,7 +40,7 @@ export const ProfileForm = ({
             handleEditButtonClick()
         } else {
             setDisplayButtons(1)
-            isDisabled = false
+            // isDisabled(true)
             setInputs(initialNameInput)
         }
     }
