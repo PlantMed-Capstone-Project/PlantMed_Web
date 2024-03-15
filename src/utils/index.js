@@ -83,7 +83,6 @@ export const parseDiffDays = (timestamp) => {
     return parsedDate.diff(currentDay, 'days') + 1
 }
 
-
 const options = {
     wordwrap: 130,
     // ...
@@ -100,6 +99,16 @@ export const convertString = (string, stringLength) => {
     return convert(sliceImg(string), options).length > stringLength
         ? convert(sliceImg(string), options).slice(0, stringLength) + '...'
         : convert(sliceImg(string), options)
+}
+
+/**
+ * slice content
+ * @param {*} str string
+ * @param {*} limit Number
+ * @returns new string
+ */
+export const limitStr = (str, limit) => {
+    return str.length <= limit ? str : str.slice(0, limit) + '...'
 }
 
 export const sortComment = (data) => {

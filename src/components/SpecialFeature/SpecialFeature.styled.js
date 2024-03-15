@@ -6,7 +6,7 @@ export const BoxContainer = styled(Stack)(() => ({
     height: '50rem',
     backgroundColor: '#FFF',
     boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
-    marginTop: '3.38rem',
+    marginTop: '8.38rem',
 }))
 
 export const Boxtitle = styled(Typography)(() => ({

@@ -49,10 +49,18 @@ export const validationRules = {
             message: 'Tên hiển thị không được để trống.',
         },
     ],
+    oldPassword: [
+        {
+            message: 'Mật khẩu cũ không được dưới 6 ký tự.',
+            minLength: 6,
+        },
+        {
+            message: 'Vui lòng nhập mật khẩu của bạn.',
+        },
+    ],
     newPassword: [
         {
-            message:
-                'Mật khẩu mới giống với mật khẩu cũ. Vui lòng nhập mật khẩu mới.',
+            message: 'Mật khẩu mới không được giống với mật khẩu cũ.',
             compareField: 'oldPassword',
         },
         {

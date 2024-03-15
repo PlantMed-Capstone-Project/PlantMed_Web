@@ -16,6 +16,7 @@ import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import * as styleMui from './HomePage.styled'
+import BlogQuantity from 'components/BlogQuantity'
 
 export default function HomePage() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
@@ -94,10 +95,9 @@ export default function HomePage() {
 
     // lib cần phải truyền tải component theo dạng này vào prop của 1 thư viện mới có thể sử dụng
     // phần này đợi designer để remake
-    const manyPlantCard = plants?.map((item) => ({
-        key: item.id,
-        content: <CardThreeD key={item.id} data={item} />,
-    }))
+    const manyPlantCard = plants?.map((item) => (
+        <CardThreeD key={item.id} data={item} />
+    ))
 
     return (
         <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
@@ -115,17 +115,15 @@ export default function HomePage() {
                     </styleMui.slideShowTitle>
                     <SpecialThreeD
                         cards={manyPlantCard}
-                        height="25rem"
-                        width="95%"
-                        margin="0 0 6rem 0"
-                        offset={3}
+                        height="26rem"
+                        width="100%"
                         showArrows={false}
                     />
                 </styleMui.alotComponent>
-
                 <SpecialFeature />
             </styleMui.subContainer>
             <Quantity />
+            <BlogQuantity />
         </Stack>
     )
 }

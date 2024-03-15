@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import * as styleMui from './ResetPasswordForm.styled'
 import { IconButton } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
@@ -21,32 +21,30 @@ const ResetPasswordForm = ({ password }) => {
         {
             id: 1,
             type: eye ? 'text' : 'password',
-            header: 'Mật khẩu cũ',
             key: 'oldPassword',
             eyeIcon: (
                 <IconButton onClick={handleEye}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             ),
+            placeholder: 'Nhập mật khẩu cũ của bạn...',
         },
         {
             id: 2,
             type: eye ? 'text' : 'password',
-            header: 'Mật khẩu mới',
             key: 'newPassword',
-            placeholder: 'Mật khẩu mới',
+            placeholder: 'Nhập mật khẩu mới...',
         },
         {
             id: 3,
             type: eye ? 'text' : 'password',
-            header: 'Nhập lại mật khẩu mới',
             key: 'confirmPassword',
-            placeholder: 'Mật khẩu xác thực',
+            placeholder: 'Xác nhận mật khẩu mới...',
         },
     ]
 
     const [inputs, setInputs] = useState({
-        oldPassword: password,
+        oldPassword: '',
         newPassword: '',
         confirmPassword: '',
     })
@@ -69,20 +67,17 @@ const ResetPasswordForm = ({ password }) => {
 
     const renderInputs = ({ id, type, header, key, eyeIcon, placeholder }) => {
         return (
-            <styleMui.inputContainer key={id}>
-                <styleMui.inputHeader>{header}</styleMui.inputHeader>
-                <InputField
-                    key={id}
-                    type={type}
-                    eyeIcon={eyeIcon}
-                    handleEye={handleEye}
-                    placeholder={placeholder}
-                    value={inputs[key]}
-                    error={errors[key]}
-                    onChange={(e) => handleInputChange(key, e.target.value)}
-                    helperText={errors[key]}
-                />
-            </styleMui.inputContainer>
+            <InputField
+                key={id}
+                type={type}
+                eyeIcon={eyeIcon}
+                handleEye={handleEye}
+                placeholder={placeholder}
+                value={inputs[key]}
+                error={errors[key]}
+                onChange={(e) => handleInputChange(key, e.target.value)}
+                helperText={errors[key]}
+            />
         )
     }
 
@@ -90,15 +85,47 @@ const ResetPasswordForm = ({ password }) => {
         return navigate('/reset-password')
     }
 
+    const buttons = [
+        {
+            id: 1,
+            value: 'Tiếp tục',
+            width: '7rem',
+            onClick: onValidate,
+        },
+        {
+            id: 2,
+            value: 'Quay lại',
+            width: '7rem',
+            nav: '/profile',
+        },
+    ]
+
+    const renderButtons = ({ id, value, onClick, width, nav }) => {
+        return (
+            <styleMui.button
+                component={Link}
+                key={id}
+                onClick={onClick}
+                width={width}
+                to={nav}
+            >
+                {value}
+            </styleMui.button>
+        )
+    }
+
     return (
         <styleMui.passwordPlace>
             <styleMui.Title>Thay đổi mật khẩu</styleMui.Title>
+            <styleMui.Note>
+                Mật khẩu của bạn đã hết hạn. Hãy nhập mật khẩu mới
+            </styleMui.Note>
             <styleMui.inputPlace>
                 {editFields.map((obj) => renderInputs({ ...obj }))}
             </styleMui.inputPlace>
-            <styleMui.button variant="contained" onClick={onValidate}>
-                Lưu thông tin
-            </styleMui.button>
+            <styleMui.buttonPasswordContainer>
+                {buttons.map((obj) => renderButtons({ ...obj }))}
+            </styleMui.buttonPasswordContainer>
         </styleMui.passwordPlace>
     )
 }

@@ -14,29 +14,35 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
     const { data } = props
     return (
         <Card
+            onMouseOver={() => setHoverImg(true)}
+            onMouseOut={() => setHoverImg(false)}
             sx={{
-                width: '30rem',
-                height: '22.125rem',
+                width: '24.875rem',
+                height: '20.125rem',
                 borderRadius: '0.625rem',
                 boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
+                scale: hoverImg && '1.1',
+                transition: 'all 0.2s ease',
+                marginTop: '1rem',
             }}
         >
-            <Box sx={{ height: '12.5rem', width: '100%', overflow: 'hidden' }}>
+            <Box sx={{ height: '12.5rem', width: '100%' }}>
                 <CardMedia
                     sx={{
                         height: '100%',
                         with: '100%',
-                        scale: hoverImg && '1.2',
-                        transition: 'all 0.2s',
                     }}
                     image={data.image}
                     title="green iguana"
-                    onMouseEnter={() => setHoverImg(true)}
-                    onMouseLeave={() => setHoverImg(false)}
                 />
             </Box>
-            <CardContent sx={{ padding: '0.4rem 0.4rem 0 0.4rem' }}>
-                <Typography gutterBottom variant="h5" component="div">
+            <CardContent sx={{ padding: '0.5rem 1rem 0 1rem' }}>
+                <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    sx={{ fontWeight: '600' }}
+                >
                     {data.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -51,7 +57,6 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '0.4rem',
                 }}
             >
                 <Button sx={{ color: '#69AD28' }}>Xem thêm</Button>
