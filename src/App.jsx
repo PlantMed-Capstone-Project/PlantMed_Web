@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { plantAction } from 'app/reducers/plant'
 import CustomSnackbar from 'components/CustomSnackbar'
 import NotFound from 'components/NotFound'
-import { LoginRoute, PrivateRoute } from 'components/Routers'
+import { PublicRoute, PrivateRoute } from 'components/Routers'
 import useActions from 'hooks/useActions'
 import { useEffect } from 'react'
 import { getAll } from 'rest/api/plant'
@@ -56,7 +56,7 @@ function App() {
             {isLogin && <ChatBox />}
             <BrowserRouter>
                 <Routes>
-                    <Route element={<LoginRoute />}>
+                    <Route element={<PublicRoute />}>
                         {publicRoutes.map((route) => {
                             const Page = route.page
                             const Layout = route.layout

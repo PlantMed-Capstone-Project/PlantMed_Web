@@ -1,2 +1,2 @@
-export * from './LoginRoute'
+export * from './PublicRoute'
 export * from './PrivateRoute'
