@@ -31,6 +31,7 @@ export const ProfileForm = ({
             fullname: userInfo?.FullName,
         })
         setInputs({ ...inputs, fullname: userInfo?.FullName })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userInfo])
 
     const navigate = useNavigate()
