@@ -108,5 +108,5 @@ export const convertString = (string, stringLength) => {
  * @returns new string
  */
 export const limitStr = (str, limit) => {
-    return str <= limit ? str : str.slice(0, limit) + '...'
+    return str.length <= limit ? str : str.slice(0, limit) + '...'
 }
