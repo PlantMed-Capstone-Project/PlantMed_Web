@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
 import plant from 'Images/heroSen.jpg'
 import { Link } from 'react-router-dom'
-import { parseImg } from 'utils'
+import { convertString, parseImg } from 'utils'
 
 const styles = {
     card: {
@@ -44,7 +44,10 @@ function BlogList({ blogData }) {
                         <Card sx={styles.card}>
                             <Link
                                 to={`${data.id}`}
-                                style={{ textDecoration: 'none' }}
+                                style={{
+                                    textDecoration: 'none',
+                                    height: '100%',
+                                }}
                             >
                                 <CardActionArea
                                     sx={{
@@ -53,6 +56,7 @@ function BlogList({ blogData }) {
                                         flex: 1,
                                         justifyContent: 'flex-start',
                                         alignItems: 'start',
+                                        height: '100%',
                                     }}
                                 >
                                     <CardMedia
@@ -86,7 +90,7 @@ function BlogList({ blogData }) {
                                             variant="body2"
                                             color="text.secondary"
                                         >
-                                            {data.content}
+                                            {convertString(data.content, 150)}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>

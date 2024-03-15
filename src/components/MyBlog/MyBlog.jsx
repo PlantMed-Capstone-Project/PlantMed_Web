@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { CardActionArea } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { parseImg } from 'utils'
+import { convertString, parseImg } from 'utils'
 import heroSen from 'Images/heroSen.jpg'
 const styles = {
     card: {
@@ -45,7 +45,10 @@ function MyBlog({ userBlog }) {
                         <Card sx={styles.card} key={data.id}>
                             <Link
                                 to={`${data.id}`}
-                                style={{ textDecoration: 'none' }}
+                                style={{
+                                    textDecoration: 'none',
+                                    height: '100%',
+                                }}
                             >
                                 <CardActionArea
                                     sx={{
@@ -54,6 +57,7 @@ function MyBlog({ userBlog }) {
                                         flex: 1,
                                         justifyContent: 'flex-start',
                                         alignItems: 'start',
+                                        height: '100%',
                                     }}
                                 >
                                     <CardMedia
@@ -88,7 +92,7 @@ function MyBlog({ userBlog }) {
                                             color="text.secondary"
                                             sx={{ wordBreak: 'break-word' }}
                                         >
-                                            {data.content}
+                                            {convertString(data.content, 150)}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
