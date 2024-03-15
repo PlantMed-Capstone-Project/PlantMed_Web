@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { imageToBase64 } from 'utils'
 import * as styleMui from './Profile.styled'
 
-export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
+export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
     const [selectedAvatar, setSelectedAvatar] = useState(avatar)
 
     const handleAvatarChange = (event) => {
@@ -17,11 +17,12 @@ export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
 
     return (
         <styleMui.avatarPlace>
-            <styleMui.Avatar sx={{ backgroundImage: `url(${selectedAvatar})` }}>
+            <styleMui.avatarContainer>
+                <styleMui.avatar src={selectedAvatar} />
                 <styleMui.Camera
-                    disabled={isDisabled}
                     component="label"
                     htmlFor="avatar-upload"
+                    disabled={isDisabled}
                 >
                     <CameraAltIcon />
                     <styleMui.uploadImage
@@ -32,9 +33,9 @@ export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
                         hidden
                     />
                 </styleMui.Camera>
-            </styleMui.Avatar>
-            <styleMui.Username>{username}</styleMui.Username>
-            <styleMui.personalEmail>{email}</styleMui.personalEmail>
+            </styleMui.avatarContainer>
+            <styleMui.Username>{userInfo?.FullName}</styleMui.Username>
+            <styleMui.personalEmail>{userInfo?.Email}</styleMui.personalEmail>
         </styleMui.avatarPlace>
     )
 }
