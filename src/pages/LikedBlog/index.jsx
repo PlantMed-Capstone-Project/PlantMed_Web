@@ -1,15 +1,13 @@
-import * as styleMui from 'pages/MyBlog/MyBlog.styled'
-import { ProfileSidebar } from 'components/Profile'
-import { useState } from 'react'
-import { StatusBlogCard } from 'components/StatusBlogCard'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import { blogCardData } from 'FakeData/plantData'
-import Searching from 'components/Searching/Searching'
-import { formatText } from 'utils'
+import { ProfileSidebar } from 'components/Profile'
+import { StatusBlogCard } from 'components/StatusBlogCard'
+import * as styleMui from 'pages/MyBlog/MyBlog.styled'
+import { useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 function LikedBlog() {
     const [data, setData] = useState(blogCardData.slice(0, 3))
-    const [lengData, setLengthData] = useState(2)    
+    const [lengData, setLengthData] = useState(2)
     const [hasMore, setHasMore] = useState(true)
     const returnData = 3
 
