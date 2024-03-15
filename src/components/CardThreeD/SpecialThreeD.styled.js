@@ -2,8 +2,8 @@ import { Box, styled } from '@mui/material'
 
 export const ContainerIcon = styled(Box)(({ id, ishover }) => ({
     position: 'absolute',
-    right: id === 1 ? 'none' : '15rem',
-    left: id === 2 ? 'none' : '15rem',
+    right: id === 1 ? 'none' : '5rem',
+    left: id === 2 ? 'none' : '5rem',
     top: '10rem',
     height: '3.5rem',
     width: '3.5rem',
