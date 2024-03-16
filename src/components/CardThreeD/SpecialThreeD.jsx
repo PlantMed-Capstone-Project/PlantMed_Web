@@ -1,60 +1,52 @@
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { Box } from '@mui/material'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import * as styleMui from './SpecialThreeD.styled'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import { useKeenSlider } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
+import CardThreeD from './CardThreeDList/CardThreeDList'
 
-const iconStyle = {
-    height: '4rem',
-    width: '4rem',
-    color: '#69AD28',
-}
-
-function SpecialThreeD({ showArrows, width, height, cards }) {
-    const checkX = useRef()
-
-    const [goToSlide, setGoToSlide] = useState(null)
+function SpecialThreeD({ width, height, cards }) {
+    const [currentSlide, setCurrentSlide] = useState(0)
     const [btnHover, setBtnHover] = useState(null)
+    const [sliderRef, instanceRef] = useKeenSlider({
+        loop: true,
+        mode: 'free-snap',
+        dragSpeed: 0.5,
+        slides: {
+            origin: 'center',
+            perView: 4,
+            spacing: 10,
+        },
+        initial: 0,
+        slideChanged(slider) {
+            setCurrentSlide(slider.track.details.rel)
+        },
+    })
     // const [cards] = useState(table)
 
     const btnTriggerSlide = [
         {
             id: 1,
-            icon: <KeyboardArrowLeftIcon sx={iconStyle} />,
+            icon: <KeyboardArrowLeftIcon sx={styleMui.iconStyle} />,
         },
         {
             id: 2,
-            icon: <KeyboardArrowRightIcon sx={iconStyle} />,
+            icon: <KeyboardArrowRightIcon sx={styleMui.iconStyle} />,
         },
     ]
 
     const nextSlide = () => {
-        checkX.current.slickNext()
+        instanceRef.current?.next()
     }
 
-    const prvSlide = () => {
-        checkX.current.slickPrev()
+    const prevSlide = () => {
+        instanceRef.current?.prev()
     }
 
-    const handleHoverBtn = (idx) => {
-        setBtnHover(idx)
-    }
-
-    const settings = {
-        dots: false,
-        arrows: showArrows,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        slickNext: goToSlide,
-        centerMode: true,
-        afterChange: (index) => {
-            setGoToSlide(index)
-        },
+    const handleHoverBtn = (id) => {
+        setBtnHover(id)
     }
 
     return (
@@ -65,22 +57,31 @@ function SpecialThreeD({ showArrows, width, height, cards }) {
                 position: 'relative',
             }}
         >
-            <Slider {...settings} ref={checkX} style={{ padding: '0 2rem' }}>
-                {cards}
-            </Slider>
+            <Box ref={sliderRef} className="keen-slider">
+                {cards.map((cardData, index) => (
+                    <Box key={index} className="keen-slider__slide">
+                        {currentSlide !== index ? (
+                            <CardThreeD data={cardData} opacity={'0.8'} />
+                        ) : (
+                            <CardThreeD data={cardData} scale={'1.05'} />
+                        )}
+                    </Box>
+                ))}
+            </Box>
 
-            {btnTriggerSlide.map((vl, idx) => (
-                <styleMui.ContainerIcon
-                    key={vl.id}
-                    id={vl.id}
-                    ishover={btnHover}
-                    onClick={vl.id === 1 ? prvSlide : nextSlide}
-                    onMouseEnter={() => handleHoverBtn(idx)}
-                    onMouseLeave={() => setBtnHover(null)}
-                >
-                    {vl.icon}
-                </styleMui.ContainerIcon>
-            ))}
+            {instanceRef.current &&
+                btnTriggerSlide.map((vl, idx) => (
+                    <styleMui.ContainerIcon
+                        key={vl.id}
+                        id={vl.id}
+                        isHover={btnHover}
+                        onClick={vl.id === 1 ? prevSlide : nextSlide}
+                        onMouseEnter={() => handleHoverBtn(vl.id)}
+                        onMouseLeave={() => setBtnHover(null)}
+                    >
+                        {vl.icon}
+                    </styleMui.ContainerIcon>
+                ))}
         </Box>
     )
 }

@@ -1,32 +1,28 @@
 import {
     Box,
-    Button,
     Card,
     CardContent,
     CardMedia,
     Typography,
 } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 
 export const CardThreeD = React.memo(function CardThreeD(props) {
-    const [hoverImg, setHoverImg] = useState(false)
-
-    const { data } = props
+    const { data, opacity, scale } = props
     return (
         <Card
-            onMouseOver={() => setHoverImg(true)}
-            onMouseOut={() => setHoverImg(false)}
-            sx={{
-                width: '24.875rem',
-                height: '20.125rem',
+            sx={{                
+                width: '20.875rem',
+                height: '17.5rem',
                 borderRadius: '0.625rem',
                 boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
-                scale: hoverImg && '1.1',
                 transition: 'all 0.2s ease',
-                marginTop: '1rem',
+                margin: '2rem 1rem',
+                opacity: opacity,
+                scale: scale,
             }}
         >
-            <Box sx={{ height: '12.5rem', width: '100%' }}>
+            <Box sx={{ height: '10.5rem', width: '100%' }}>
                 <CardMedia
                     sx={{
                         height: '100%',
@@ -39,7 +35,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
             <CardContent sx={{ padding: '0.5rem 1rem 0 1rem' }}>
                 <Typography
                     gutterBottom
-                    variant="h5"
+                    variant="h6"
                     component="div"
                     sx={{ fontWeight: '600' }}
                 >
@@ -51,16 +47,6 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                         : data.description}
                 </Typography>
             </CardContent>
-            <Box
-                sx={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <Button sx={{ color: '#69AD28' }}>Xem thêm</Button>
-            </Box>
         </Card>
     )
 })
