@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { approvalAction } from 'app/reducers/blog'
+import { blogAction } from 'app/reducers/blog'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import InforDetail from 'components/InforDetail/InforDetail'
 import { motion } from 'framer-motion'
@@ -11,10 +11,10 @@ import { parseImg } from 'utils'
 import * as styleMui from './PopupInfo.styled'
 
 function PopupInfo({ id, approvalPage = false, setIndexData }) {
-    const { storeBlogSuccessfull } = useActions(approvalAction)
+    const { storeBlogSuccessfull } = useActions(blogAction)
     const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
     const { data: dataApproval } = useShallowEqualSelector(
-        (state) => state.approval
+        (state) => state.blog
     )
     const { show } = useActions(snackbarAction)
 

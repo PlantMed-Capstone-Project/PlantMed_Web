@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material'
-import { approvalAction } from 'app/reducers/blog'
+import { blogAction } from 'app/reducers/blog'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
 import PopupInfo from 'components/PopupInfo/PopupInfo'
 import ApprovalCard from 'components/approvalCard'
@@ -11,7 +11,7 @@ import { getApproval } from 'rest/api/blog'
 
 export default function ApprovalPage() {
     const [indexData, setIndexData] = useState(null)
-    const { storeBlog, storeBlogSuccessfull } = useActions(approvalAction)
+    const { storeBlog, storeBlogApproval } = useActions(blogAction)
     const containerPopup = useRef()
 
     // kiểm tra khi click có đang click vào popup hay không ?
@@ -25,7 +25,8 @@ export default function ApprovalPage() {
         storeBlog()
         try {
             const response = await getApproval()
-            storeBlogSuccessfull(response.data)
+            console.log(response)
+            storeBlogApproval(response.data)
         } catch (error) {
             console.log(error)
         }

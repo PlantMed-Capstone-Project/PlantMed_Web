@@ -12,15 +12,18 @@ import { getAll } from 'rest/api/plant'
 import { privateRoutes, publicRoutes } from 'routes'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import ChatBox from 'components/ChatBox'
+import { blogAction } from 'app/reducers/blog'
+import { getActiveBlog } from 'rest/api/blog'
 
 function App() {
     const { storePlant, storePlantSuccessful } = useActions(plantAction)
+    const { storeBlogActive, storeBlog } = useActions(blogAction)
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
-    const fetchData = async () => {
+
+    const fetchPlant = async () => {
         storePlant()
         try {
             const response = await getAll()
-
             const data = response.data
             storePlantSuccessful(data)
         } catch (error) {
@@ -28,8 +31,21 @@ function App() {
         }
     }
 
+    const fetchblog = async () => {
+        storeBlog()
+        try {
+            const response = await getActiveBlog()
+            storeBlogActive(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
-        fetchData()
+        fetchPlant()
+        if (isLogin) {
+            fetchblog()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

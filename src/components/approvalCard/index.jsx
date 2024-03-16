@@ -7,7 +7,7 @@ import ApprovalCardList from './approvalCardList'
 import SkeletonLoading from './skeletonLoading'
 
 function ApprovalCard({ setIndexData }) {
-    const { data, loading } = useShallowEqualSelector((state) => state.approval)
+    const { data, loading } = useShallowEqualSelector((state) => state.blog)
     const [item, setItems] = useState([])
     const [dataSlice, setDataSlice] = useState(4)
     const maxRecordsReturned = 5

@@ -1,28 +1,25 @@
 import { blogDetail } from 'FakeData/plantData'
 import CardBlog from 'components/CardBlog/CardBlog'
 import TagSearch from 'components/TagSearch/TagSearch'
-import { useState } from 'react'
-import * as styleMui from './BlogListPage.styled'
-import { useEffect } from 'react'
-import { getActiveBlog } from 'rest/api/blog'
 import useScrollTo from 'hooks/useScrollTo'
+import { useEffect, useState } from 'react'
+import * as styleMui from './BlogListPage.styled'
 
 function BlogListPage() {
     const [tagSearch, setTagSearch] = useState('')
     // eslint-disable-next-line no-unused-vars
-    const [positions, setPosition] = useState({
+    const [positions] = useState({
         scroll: null,
         topContent: null,
         sectionHeight: null,
     })
     // eslint-disable-next-line no-unused-vars
-    const [rightHeight, setRightHeight] = useState({
+    const [rightHeight] = useState({
         height: null,
     })
     const [isFixed, setIsFixed] = useState(false)
     const [isAbs, setIsAbs] = useState(false)
-    const [dataBlog, setDataBlog] = useState([])
-    const [loading, setLoading] = useState(false)
+
     useScrollTo(0, 0)
     const data = blogDetail
 
@@ -49,21 +46,8 @@ function BlogListPage() {
         }
     }
 
-    const fetchBlog = async () => {
-        setLoading(true)
-        try {
-            const response = await getActiveBlog()
-            setDataBlog(response.data)
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setLoading(false)
-        }
-    }
-
     useEffect(() => {
         window.addEventListener('scroll', scrollValue, { passive: true })
-        fetchBlog()
         // cleanup side effect
         return () => {
             window.removeEventListener('scroll', scrollValue)
@@ -80,12 +64,7 @@ function BlogListPage() {
             }}
         >
             <styleMui.ctnComponent>
-                <CardBlog
-                    data={dataBlog}
-                    valueSearch={tagSearch}
-                    positions={positions}
-                    loading={loading}
-                />
+                <CardBlog valueSearch={tagSearch} positions={positions} />
                 <TagSearch
                     data={data}
                     setTagSearch={setTagSearch}

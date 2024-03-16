@@ -1,26 +1,45 @@
-import { CardContent, CardMedia, Stack, Typography } from '@mui/material'
+import {
+    CardContent,
+    CardMedia,
+    Skeleton,
+    Stack,
+    Typography,
+} from '@mui/material'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import * as muiStyle from './MoreBlog.styled'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import { convertString, parseImg } from 'utils'
+import { useEffect, useState } from 'react'
 
-const itemWithStagger = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            duration: 0.5,
-        },
-    },
-    hover: {
-        y: -11, // Scale up the card on hover
-        transition: {
-            duration: 0.2, // Adjust the duration as needed
-        },
-    },
-}
-
-export default function MoreBlog({ data }) {
+export default function MoreBlog() {
     const navigate = useNavigate()
+    const [dataActive, setDatatActive] = useState([])
+    const { blogActive, loading } = useShallowEqualSelector(
+        (state) => state.blog
+    )
+    let newArray = [...blogActive]
+
+    // Hàm xáo trộn mãng hiện tại thành mãng mới
+    const shuffle = (array) => {
+        let currentIndex = array.length,
+            randomIndex
+        while (currentIndex > 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex)
+            currentIndex--
+            ;[array[currentIndex], array[randomIndex]] = [
+                array[randomIndex],
+                array[currentIndex],
+            ]
+        }
+
+        return array
+    }
+
+    useEffect(() => {
+        console.log(blogActive)
+        setDatatActive(shuffle(newArray))
+    }, [blogActive])
 
     return (
         <Stack
@@ -38,39 +57,70 @@ export default function MoreBlog({ data }) {
                 sx={{ columnGap: '0.6rem', rowGap: '1.3rem' }}
             >
                 {/* Start mapping the data  */}
-                {data.slice(0, 4).map((vl, idx) => (
-                    <muiStyle.cardBox
-                        key={data}
-                        component={motion.div}
-                        variants={itemWithStagger}
-                        initial="hidden"
-                        animate="show"
-                        whileHover="hover"
-                    >
-                        <CardMedia
-                            component="img"
-                            alt="green iguana"
-                            height="134"
-                            image={vl.image}
-                        />
-                        <CardContent>
-                            <Typography
-                                gutterBottom
-                                sx={{ fontSize: '1.1rem' }}
-                            >
-                                {vl.name}
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                sx={{ fontSize: '0.6rem' }}
-                            >
-                                {vl.des.length <= 120
-                                    ? vl.des
-                                    : vl.des.slice(0, 120) + '...'}
-                            </Typography>
-                        </CardContent>
-                    </muiStyle.cardBox>
-                ))}
+                {(loading ? Array.from(new Array(4)) : dataActive)
+                    .slice(0, 4)
+                    .map((vl) => (
+                        <muiStyle.cardBox
+                            key={dataActive}
+                            component={motion.div}
+                            whileHover={{
+                                y: -10,
+                                transition: { duration: 0.2 },
+                            }}
+                        >
+                            {vl ? (
+                                <CardMedia
+                                    component="img"
+                                    alt="green iguana"
+                                    height="134"
+                                    image={parseImg(vl.images[0].data)}
+                                />
+                            ) : (
+                                <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    sx={{
+                                        width: '100%',
+                                        height: '134px',
+                                    }}
+                                />
+                            )}
+                            <CardContent>
+                                {vl ? (
+                                    <Typography
+                                        gutterBottom
+                                        sx={{ fontSize: '1.1rem' }}
+                                    >
+                                        {vl?.title.length > 30
+                                            ? vl?.title.slice(0, 29) + '..'
+                                            : vl?.title}
+                                    </Typography>
+                                ) : (
+                                    <Skeleton
+                                        variant="text"
+                                        sx={{ fontSize: '1.1rem' }}
+                                    />
+                                )}
+                                {vl ? (
+                                    <Typography
+                                        variant="body2"
+                                        sx={{ fontSize: '0.6rem' }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: convertString(
+                                                vl?.content,
+                                                100
+                                            ),
+                                        }}
+                                    />
+                                ) : (
+                                    <Skeleton
+                                        variant="text"
+                                        sx={{ fontSize: '0.6rem' }}
+                                    />
+                                )}
+                            </CardContent>
+                        </muiStyle.cardBox>
+                    ))}
                 {/* End mapping the data */}
             </Stack>
             {/* chuyen den trang bai viet */}

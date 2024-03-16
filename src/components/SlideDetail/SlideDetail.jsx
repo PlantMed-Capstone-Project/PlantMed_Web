@@ -1,8 +1,9 @@
-import { Box, CardMedia, Stack } from '@mui/material'
+import { Box, CardMedia, Skeleton, Stack, Typography } from '@mui/material'
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import * as styleMui from './SlideDetail.styled'
 import './SlideShowCustom.css'
+import { parseImg } from 'utils'
 
 function ThumbnailPlugin(mainRef) {
     return (slider) => {
@@ -37,7 +38,7 @@ function ThumbnailPlugin(mainRef) {
     }
 }
 
-export default function SlideDetail({ data }) {
+export default function SlideDetail({ data, loading }) {
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
     })
@@ -58,63 +59,93 @@ export default function SlideDetail({ data }) {
             height="100%"
             justifyContent="center"
             alignItems="flex-end"
+            spacing="0.2rem"
         >
-            {/* start of slide show on top */}
-            <styleMui.BoxStackTop ref={sliderRef} className="keen-slider">
-                {data[0].images?.map((value) => (
-                    <Box
-                        key={value.id}
-                        className={`keen-slider__slide number-slide${value.id}`}
-                        p="0.5rem"
+            {!loading && data ? (
+                <>
+                    {/* start of slide show on top */}
+                    <styleMui.BoxStackTop
+                        ref={sliderRef}
+                        className="keen-slider"
                     >
-                        <CardMedia
-                            sx={{
-                                height: '100%',
-                                borderRadius: 'calc(0.625rem - 0.5rem)',
-                            }}
-                            image={value.image}
-                            title="ảnh chi tiết cây"
-                        />
-                    </Box>
-                ))}
-            </styleMui.BoxStackTop>
-            {/* End of slide show on top */}
+                        {data.images?.map((vl, idx) => (
+                            <Box
+                                key={vl.id}
+                                className={`keen-slider__slide number-slide${
+                                    idx + 1
+                                }`}
+                                p="0.5rem"
+                            >
+                                <CardMedia
+                                    sx={{
+                                        height: '100%',
+                                        borderRadius: 'calc(0.625rem - 0.5rem)',
+                                    }}
+                                    image={parseImg(vl.data)}
+                                    title="ảnh chi tiết cây"
+                                />
+                            </Box>
+                        ))}
+                    </styleMui.BoxStackTop>
 
-            {/* Start of thumnail on bottom */}
-            <styleMui.BoxStackBot
-                direction="row"
-                justifyContent="space-between"
-                ref={thumbnailRef}
-                className="keen-slider thumbnail"
-            >
-                {data[0].images?.map((value) => (
-                    <Box
-                        key={value.id}
-                        className={`keen-slider__slide number-slide${value.id}`}
+                    {/* End of slide show on top */}
+
+                    {/* Start of thumnail on bottom */}
+
+                    <styleMui.BoxStackBot
+                        direction="row"
+                        justifyContent="space-between"
+                        ref={thumbnailRef}
+                        className="keen-slider thumbnail"
                     >
-                        <Box
-                            className="thum_slide"
-                            width="8.25rem"
-                            height="8.25rem"
-                            sx={{
-                                borderRadius: '0.625rem',
-                                boxShadow:
-                                    ' 0px 4px 5px 0px rgba(33, 68, 0, 0.30)',
-                            }}
-                        >
-                            <CardMedia
+                        {data.images?.map((value, idx) => (
+                            <Box
                                 sx={{
-                                    height: '100%',
-                                    borderRadius: '0.625rem',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
                                 }}
-                                image={value.image}
-                                title="các ảnh khác của cây"
-                            />
-                        </Box>
-                    </Box>
-                ))}
-            </styleMui.BoxStackBot>
-            {/* End of thumnail on bottom */}
+                                key={value.id}
+                                className={`keen-slider__slide number-slide${
+                                    idx + 1
+                                }`}
+                            >
+                                <Box
+                                    className="thum_slide"
+                                    width="8.25rem"
+                                    height="8.25rem"
+                                    sx={{
+                                        borderRadius: '0.625rem',
+                                        boxShadow:
+                                            ' 0px 4px 5px 0px rgba(33, 68, 0, 0.30)',
+                                    }}
+                                >
+                                    <CardMedia
+                                        sx={{
+                                            height: '100%',
+                                            borderRadius: '0.625rem',
+                                        }}
+                                        image={parseImg(value.data)}
+                                        title="các ảnh khác của cây"
+                                    />
+                                </Box>
+                            </Box>
+                        ))}
+                    </styleMui.BoxStackBot>
+
+                    {/* End of thumnail on bottom */}
+                </>
+            ) : (
+                <Skeleton
+                    variant="rectangular"
+                    animation="wave"
+                    sx={{
+                        width: '40rem',
+                        height: '46.575rem',
+                        borderRadius: '0.625rem',
+                    }}
+                />
+            )}
         </Stack>
     )
 }
