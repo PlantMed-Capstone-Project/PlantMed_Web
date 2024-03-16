@@ -11,6 +11,7 @@ const InputField = ({
     onChange,
     helperText,
     disabled,
+    onKeyDown,
 }) => {
     return (
         <styleMui.Input
@@ -20,6 +21,7 @@ const InputField = ({
             value={value}
             error={error}
             onChange={onChange}
+            onKeyDown={onKeyDown}
             helperText={helperText}
             margin="dense"
             type={type}

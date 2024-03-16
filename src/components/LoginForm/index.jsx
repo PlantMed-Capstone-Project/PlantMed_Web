@@ -47,7 +47,7 @@ export default function LoginForm() {
             type: eye ? 'text' : 'password',
             icon: <LockRoundedIcon sx={styleMui.iconStyle} />,
             eyeIcon: (
-                <IconButton onClick={handleEye}>
+                <IconButton onClick={handleEye} tabIndex={-1}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             ),
@@ -77,6 +77,7 @@ export default function LoginForm() {
                 value={inputs[item.key]}
                 error={errors[item.key]}
                 onChange={(e) => handleInputChange(item.key, e.target.value)}
+                onKeyDown={handleKeyDown}
                 helperText={errors[item.key]}
             />
         ))
@@ -91,6 +92,13 @@ export default function LoginForm() {
         } else {
             setErrors({})
             onSubmit()
+        }
+    }
+
+    //Nhấn Enter để validate
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            onValidate()
         }
     }
 
