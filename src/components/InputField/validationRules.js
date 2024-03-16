@@ -40,29 +40,16 @@ export const validationRules = {
             isCheck: false,
         },
     ],
-    username: [
+    fullname: [
         {
             message: 'Tên hiển thị không hợp lệ.',
-            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]+$/,
+            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]{1,30}$/,
         },
         {
             message: 'Tên hiển thị không được để trống.',
         },
     ],
-    oldPassword: [
-        {
-            message: 'Mật khẩu cũ không được dưới 6 ký tự.',
-            minLength: 6,
-        },
-        {
-            message: 'Vui lòng nhập mật khẩu của bạn.',
-        },
-    ],
     newPassword: [
-        {
-            message: 'Mật khẩu mới không được giống với mật khẩu cũ.',
-            compareField: 'oldPassword',
-        },
         {
             message: 'Mật khẩu mới không được dưới 6 ký tự.',
             minLength: 6,
@@ -87,9 +74,6 @@ export const validateInputs = (inputs) => {
                     (fieldName === 'confirmPassword' &&
                         inputs[fieldName] !== inputs['password'] &&
                         inputs[fieldName] !== inputs['newPassword']) ||
-                    (rule.compareField &&
-                        fieldName === 'newPassword' &&
-                        inputs[fieldName] === inputs[rule.compareField]) ||
                     (rule.isCheck && !inputs.policyCheck)
                 ) {
                     errors[fieldName] = rule.message

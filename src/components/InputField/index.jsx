@@ -12,6 +12,8 @@ const InputField = ({
     helperText,
     disabled,
     onKeyDown,
+    height,
+    fontSize,
 }) => {
     return (
         <styleMui.Input
@@ -33,6 +35,10 @@ const InputField = ({
                 endAdornment: (
                     <InputAdornment position="end">{eyeIcon}</InputAdornment>
                 ),
+                style: {
+                    height,
+                    fontSize,
+                },
             }}
         />
     )
