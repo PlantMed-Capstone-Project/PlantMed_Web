@@ -45,7 +45,7 @@ function CardBlog({ valueSearch, positions }) {
 
     useEffect(() => {
         setDataBlog(blogActive)
-    }, [blogActive])
+    }, [blogActive.length])
 
     // xử lý các giá trị scroll
     const handleScroll = () => {

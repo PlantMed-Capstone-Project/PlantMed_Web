@@ -2,50 +2,56 @@ import { Box } from '@mui/material'
 import GoogleFontLoader from 'react-google-font-loader'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
+import { blogAction } from 'app/reducers/blog'
 import { plantAction } from 'app/reducers/plant'
+import ChatBox from 'components/ChatBox'
 import CustomSnackbar from 'components/CustomSnackbar'
 import NotFound from 'components/NotFound'
 import { LoginRoute, PrivateRoute } from 'components/Routers'
 import useActions from 'hooks/useActions'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect } from 'react'
+import { getActiveBlog } from 'rest/api/blog'
 import { getAll } from 'rest/api/plant'
 import { privateRoutes, publicRoutes } from 'routes'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import ChatBox from 'components/ChatBox'
-import { blogAction } from 'app/reducers/blog'
-import { getActiveBlog } from 'rest/api/blog'
 
 function App() {
     const { storePlant, storePlantSuccessful } = useActions(plantAction)
     const { storeBlogActive, storeBlog } = useActions(blogAction)
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
+    const { data } = useShallowEqualSelector((state) => state.plant)
+    const { blogActive } = useShallowEqualSelector((state) => state.blog)
 
     const fetchPlant = async () => {
-        storePlant()
-        try {
-            const response = await getAll()
-            const data = response.data
-            storePlantSuccessful(data)
-        } catch (error) {
-            console.log(error)
+        if (data.length === 0) {
+            console.log('dang chay')
+            storePlant()
+            try {
+                const response = await getAll()
+                const data = response.data
+                storePlantSuccessful(data)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
     const fetchblog = async () => {
-        storeBlog()
-        try {
-            const response = await getActiveBlog()
-            storeBlogActive(response.data)
-        } catch (error) {
-            console.log(error)
+        if (blogActive.length === 0) {
+            console.log('dang chay')
+            storeBlog()
+            try {
+                const response = await getActiveBlog()
+                storeBlogActive(response.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
     useEffect(() => {
         fetchPlant()
-        if (isLogin) {
-            fetchblog()
-        }
+        fetchblog()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

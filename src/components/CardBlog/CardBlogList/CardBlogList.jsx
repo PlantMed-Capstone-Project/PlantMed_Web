@@ -84,18 +84,16 @@ const CardBlogList = ({ item, idx }) => {
                     <styleMui.boxAvatar>
                         <styleMui.avatarImage
                             alt="Remy Sharp"
-                            src={parseImg(item.user.image.id)}
+                            src={parseImg(item.user.avatar)}
                         />
-                        <styleMui.nameUser>
-                            {item.user.fullName}
-                        </styleMui.nameUser>
+                        <styleMui.nameUser>{item.user.name}</styleMui.nameUser>
                     </styleMui.boxAvatar>
                     <styleMui.tagContainer>
                         {item.tags.length &&
-                            item.tags.map((vl, idx) => (
+                            item.tags.map((vl) => (
                                 <styleMui.tag key={item}>
                                     <styleMui.tagContent>
-                                        {vl?.tagName}
+                                        {vl?.name}
                                     </styleMui.tagContent>
                                 </styleMui.tag>
                             ))}
@@ -127,7 +125,7 @@ const CardBlogList = ({ item, idx }) => {
                 >
                     <styleMui.mainImage
                         ishover={isHover}
-                        image={parseImg(item.images[0].data)}
+                        image={parseImg(item.thumbnail)}
                         title="green iguana"
                     />
                 </styleMui.boxImage>

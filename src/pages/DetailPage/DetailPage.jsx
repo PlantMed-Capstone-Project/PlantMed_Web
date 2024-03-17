@@ -27,7 +27,6 @@ export default function DetailPage() {
             setloading(false)
         }
     }
-
     // scroll to top based on data
     useScrollTo(0, 0, data)
 
@@ -37,16 +36,13 @@ export default function DetailPage() {
             { label: 'Tên thường gọi', value: data?.name },
             { label: 'Họ của cây', value: data?.surName },
             { label: 'Nguồn gốc', value: data?.origin },
-            { label: 'Cơ sở bán', value: data?.shopBase },
+            { label: 'Đặc điểm sinh sống', value: data?.placeOfBirth },
         ],
     }
 
     const useSageData = {
         name: data?.name,
-        valueList: [
-            { label: 'Đặc điểm sinh sống', value: data?.placeOfBirth },
-            { label: 'Cách sử dụng', value: data?.usage },
-        ],
+        valueList: [{ label: 'Cách sử dụng', value: data?.usage }],
     }
 
     useEffect(() => {
@@ -78,9 +74,13 @@ export default function DetailPage() {
                     loading={loading}
                 />
             </Stack>
-            <InforDetail textData={useSageData} screenSlide={slideBottom} />
+            <InforDetail
+                textData={useSageData}
+                screenSlide={slideBottom}
+                loading={loading}
+            />
             <MapLayout data={data} loading={loading} />
-            <MoreBlog />
+            <MoreBlog namePlant={data?.name} />
         </Box>
     )
 }

@@ -8,9 +8,9 @@ export default function MultipleSelect({ onChange }) {
     const [selectedValues, setSelectedValues] = useState([])
 
     const handleAutocompleteChange = (_, newValues) => {
+        console.log(newValues)
         setSelectedValues(newValues.slice(0, 2))
-        const selectId = selectedValues.map((item) => item.id)
-        onChange(selectId)
+        onChange(() => selectedValues.map((item) => item.id))
     }
 
     return (

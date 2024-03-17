@@ -14,6 +14,7 @@ function ApprovalCard({ setIndexData }) {
 
     useEffect(() => {
         setItems(data.slice(0, 5))
+        console.log(data)
     }, [data])
 
     // Hàm này sẽ kích hoạt mỗi khi thư viện cuộn đến thằng cuối cùng trong data
