@@ -1,27 +1,24 @@
 import * as styleMui from './LikeButton.styled'
 import Heart from 'Images/heart.png'
-import CountUp from 'react-countup'
 import { useState } from 'react'
 
-export const LikeButton = ({ quantity }) => {
+export const LikeButton = ({ likeQuantity }) => {
     const [liked, setLiked] = useState(false)
+    const [quantity, setQuantity] = useState(likeQuantity)
+
     const handleLikeClick = () => {
         setLiked(!liked)
+        setQuantity(liked ? quantity - 1 : quantity + 1)
     }
 
     return (
         <styleMui.likeContainer>
-            <styleMui.likeButton
-                onClick={handleLikeClick}
-                sx={{ display: 'flex', alignItems: 'center' }}
-            >
+            <styleMui.likeButton onClick={handleLikeClick}>
                 <styleMui.likeBg>
                     <styleMui.likeIcon image={Heart} liked={liked} />
                 </styleMui.likeBg>
             </styleMui.likeButton>
-            <styleMui.likeQuantity>
-                <CountUp start={0} end={quantity} duration={7} delay={0} />k
-            </styleMui.likeQuantity>
+            <styleMui.likeQuantity>{quantity}k</styleMui.likeQuantity>
         </styleMui.likeContainer>
     )
 }

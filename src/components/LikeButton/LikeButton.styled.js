@@ -7,7 +7,7 @@ const likePopUp = keyframes`to {
 export const likeContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
-    margin: '1rem 0rem',
+    height: '75px',
 }))
 
 export const likeButton = styled(IconButton)(() => ({
@@ -35,5 +35,5 @@ export const likeIcon = styled(Box)(({ image, liked }) => ({
 
 export const likeQuantity = styled(Typography)(() => ({
     fontSize: '1.25rem',
-    margin: '2rem -0.5rem',
+    margin: '1.5rem -0.5rem',
 }))
