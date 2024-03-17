@@ -1,6 +1,6 @@
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
 import { useEffect, useState } from 'react'
-import { imageToBase64 } from 'utils'
+import { imageToBase64, parseImg } from 'utils'
 import * as styleMui from './Profile.styled'
 import { getAvatar, updateAvatar } from 'rest/api/user'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
@@ -8,7 +8,7 @@ import useActions from 'hooks/useActions'
 
 export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
     const { show } = useActions(snackbarAction)
-    const [selectedAvatar, setSelectedAvatar] = useState(avatar)
+    const [selectedAvatar, setSelectedAvatar] = useState()
 
     const handleAvatarChange = (event) => {
         const file = event.target.files[0]
@@ -22,7 +22,6 @@ export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
 
     const handleUpdateAvatar = async (image) => {
         try {
-            console.log(image)
             await updateAvatar(image)
             show({
                 message: 'Cập nhật ảnh đại diện thành công',
@@ -30,7 +29,6 @@ export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
                 autoHideDuration: 2000,
             })
         } catch (e) {
-            console.log(e)
             show({
                 message:
                     e.response.data.message ??
@@ -57,7 +55,9 @@ export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
     return (
         <styleMui.avatarPlace>
             <styleMui.avatarContainer>
-                <styleMui.avatar src={selectedAvatar} />
+                <styleMui.avatar
+                    src={selectedAvatar ? parseImg(selectedAvatar) : avatar}
+                />
                 <styleMui.Camera
                     component="label"
                     htmlFor="avatar-upload"
