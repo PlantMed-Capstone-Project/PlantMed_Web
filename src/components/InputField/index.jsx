@@ -11,6 +11,7 @@ const InputField = ({
     onChange,
     helperText,
     disabled,
+    onKeyDown,
     height,
     fontSize,
 }) => {
@@ -22,6 +23,7 @@ const InputField = ({
             value={value}
             error={error}
             onChange={onChange}
+            onKeyDown={onKeyDown}
             helperText={helperText}
             margin="dense"
             type={type}
