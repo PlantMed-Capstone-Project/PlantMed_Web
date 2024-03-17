@@ -45,7 +45,7 @@ function MyBlog() {
         }
     }
 
-    const getPedingBlog = async () => {
+    const getPendingBlog = async () => {
         try {
             const res = await getPendingByUser()
             setAllBlogPeding(res.data)
@@ -56,7 +56,7 @@ function MyBlog() {
 
     useEffect(() => {
         getActiveBlog()
-        getPedingBlog()
+        getPendingBlog()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
