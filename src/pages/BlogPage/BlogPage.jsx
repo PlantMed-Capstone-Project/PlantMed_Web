@@ -1,98 +1,37 @@
-import { Box, Stack } from '@mui/material'
-import imgDemo from 'Images/heroSen.jpg'
+import { Box, Stack, Typography } from '@mui/material'
 import BlogList from 'components/BlogList/BlogList'
-import DiversityPlant from 'components/DiversityPlant/DiversityPlant'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
 import JoinBlog from 'components/JoinBlog/JoinBlog'
 import MyBlog from 'components/MyBlog/MyBlog'
+import { useEffect, useState } from 'react'
+import { getByUser, getTop } from 'rest/api/blog'
 
 function BlogPage() {
-    const blogData = [
-        {
-            id: 1,
-            name: 'Câu kỷ tử',
-            description:
-                'Ago sign pot cool exactly dull pilot feathers anyway art pitch earn tax throw meant those missing instrument property',
-            image: imgDemo,
-        },
-        {
-            id: 2,
-            name: 'Câu kỷ tử',
-            description: 'Mot cây gì đó',
-            image: imgDemo,
-        },
-        {
-            id: 3,
-            name: 'Câu kỷ tử',
-            description: 'la cay gi do',
-            image: imgDemo,
-        },
-        {
-            id: 4,
-            name: 'Câu kỷ tử',
-            description: 'la cay gi do',
-            image: imgDemo,
-        },
-    ]
+    const [userBlog, setUserBlog] = useState()
+    const [blogList, setBlogList] = useState()
+    const getUserBlog = async () => {
+        try {
+            const res = await getByUser()
+            setUserBlog(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
-    const blogList = [
-        {
-            id: 1,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 2,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 3,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 4,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 5,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 6,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 7,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-        {
-            id: 8,
-            title: 'Cầu Kỳ Tử',
-            image: imgDemo,
-            description:
-                'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-        },
-    ]
+    const getTopBlog = async () => {
+        try {
+            const res = await getTop('6')
+            console.log(res.data)
+            setBlogList(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        getUserBlog()
+        getTopBlog()
+    }, [])
 
     return (
         <Box
@@ -105,7 +44,7 @@ function BlogPage() {
             }}
         >
             <HeroBlog />
-            <MyBlog blogData={blogData} />
+            {userBlog && <MyBlog userBlog={userBlog} />}
             <JoinBlog />
             <Stack
                 direction="column"
@@ -113,9 +52,16 @@ function BlogPage() {
                 width="100%"
                 mt="3.75rem"
                 sx={{ backgroundColor: '#F4FFEB' }}
+            ></Stack>
+            <Typography
+                sx={{
+                    fontSize: '2.188rem',
+                    fontWeight: '500',
+                    textTransform: 'uppercase',
+                }}
             >
-                <DiversityPlant title="BÀI VIẾT NỔI BẬT" data={blogData} />
-            </Stack>
+                Các bài viết mới nhất
+            </Typography>
             <BlogList blogData={blogList} />
         </Box>
     )

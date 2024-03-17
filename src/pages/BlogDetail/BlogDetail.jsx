@@ -1,49 +1,83 @@
 import { Box, Typography } from '@mui/material'
-import {
-    createComment,
-    createReply,
-    getCommentByIdBlog,
-    getIdBlog,
-} from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
+import { ACCESS_TOKEN } from 'constant'
+import useActions from 'hooks/useActions'
 import useScrollTo from 'hooks/useScrollTo'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import { getIdBlog } from 'rest/api/blog'
+import { createComment, getCommentByBlog, replyComment } from 'rest/api/comment'
+import { parseJwt, sortComment } from 'utils'
+import { readCookie } from 'utils/cookie'
 function BlogDetail() {
     useScrollTo(0, 0)
-
+    const user = parseJwt(readCookie(ACCESS_TOKEN))
     const params = useParams()
-    const data = getIdBlog(parseInt(params.id))
-    const [commentList, setCommentList] = useState(
-        getCommentByIdBlog(params.id)
-    )
+    const [blog, setBlog] = useState()
+    const [commentList, setCommentList] = useState()
+    const { show } = useActions(snackbarAction)
+    const getBlogById = async () => {
+        try {
+            const res = await getIdBlog(params.id)
+            setBlog(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const getComment = async () => {
+        try {
+            const res = await getCommentByBlog(params.id)
+            sortComment(res.data)
+            setCommentList(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        getBlogById()
+        getComment()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const [activeComment, setActiveComment] = useState(null)
 
-    const handleSend = (value) => {
-        setCommentList([createComment(value), ...commentList])
-        setActiveComment(null)
+    const handleSend = async (value) => {
+        try {
+            await createComment(params.id, { content: value })
+            getComment()
+            setActiveComment(null)
+        } catch (e) {
+            show({
+                message: e.response.data.message,
+                severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
+            })
+        }
     }
 
-    const handleReply = (text, commentId) => {
-        setCommentList((prevComments) => {
-            return prevComments.map((comment) =>
-                comment.id === commentId
-                    ? {
-                          ...comment,
-                          reply_comment: [
-                              ...comment.reply_comment,
-                              createReply(text, commentId),
-                          ],
-                      }
-                    : comment
-            )
-        })
-        setActiveComment(null)
+    const handleReply = async (text, commentId) => {
+        try {
+            await replyComment({
+                content: text,
+                commentId: commentId,
+            })
+            getComment()
+            setActiveComment(null)
+        } catch (e) {
+            show({
+                message: e.response.data.message,
+                severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
+            })
+        }
     }
+
+
 
     return (
         <Box
@@ -73,7 +107,7 @@ function BlogDetail() {
                     marginTop: '3.125rem',
                 }}
             >
-                {data.title}
+                {blog && blog.title}
             </Typography>
             <Typography
                 sx={{
@@ -82,18 +116,19 @@ function BlogDetail() {
                     fontSize: '1.25rem',
                 }}
             >
-                {data.user}
+                Tác giả: {blog && blog.user.fullName}
             </Typography>
 
-            <Box sx={{ margin: '3.125rem 6.25rem' }}>
+            <Box sx={{ padding: '3.125rem 6.25rem', width: '100%' }}>
                 <Typography
                     sx={{
                         color: '#214400',
                         fontSize: '1.25rem',
                     }}
-                >
-                    {data.description}
-                </Typography>
+                    dangerouslySetInnerHTML={{
+                        __html: blog && blog.content,
+                    }}
+                />
                 <Typography
                     sx={{
                         color: '#214400',
@@ -104,7 +139,7 @@ function BlogDetail() {
                 >
                     Nhận xét của bạn:
                 </Typography>
-                <UserComment name="Phuong" onSendClick={handleSend} />
+                <UserComment name={user.FullName} onSendClick={handleSend} />
                 {commentList?.map((data) => (
                     <LoadComment
                         comment={data}
@@ -112,18 +147,9 @@ function BlogDetail() {
                         activeComment={activeComment}
                         setActiveComment={setActiveComment}
                         handleReply={handleReply}
+                        getComment={getComment}
                     />
                 ))}
-                <Typography
-                    sx={{
-                        textDecoration: 'underline',
-                        color: '#69AD28',
-                        '&:hover': { color: 'blue', cursor: 'pointer' },
-                        marginTop: '3.125rem',
-                    }}
-                >
-                    Xem thêm câu trả lời
-                </Typography>
             </Box>
         </Box>
     )
