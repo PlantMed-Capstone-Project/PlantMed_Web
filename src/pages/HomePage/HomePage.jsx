@@ -7,7 +7,6 @@ import imageBachBo from 'Images/heroSi.jpg'
 import imageDayLeo from 'Images/herogreen.jpg'
 import imgHosung from 'Images/hiền nhân.jpg'
 import imgHoacucLon from 'Images/lap.png'
-import CardThreeD from 'components/CardThreeD/CardThreeDList/CardThreeDList'
 import SpecialThreeD from 'components/CardThreeD/SpecialThreeD'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
 import Heros from 'components/Heros/Heros'
@@ -93,12 +92,6 @@ export default function HomePage() {
         },
     ]
 
-    // lib cần phải truyền tải component theo dạng này vào prop của 1 thư viện mới có thể sử dụng
-    // phần này đợi designer để remake
-    const manyPlantCard = plants?.map((item) => (
-        <CardThreeD key={item.id} data={item} />
-    ))
-
     return (
         <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
             <Heros />
@@ -113,12 +106,7 @@ export default function HomePage() {
                     <styleMui.slideShowTitle>
                         ĐA DẠNG CÁC LOẠI THỰC VẬT
                     </styleMui.slideShowTitle>
-                    <SpecialThreeD
-                        cards={manyPlantCard}
-                        height="26rem"
-                        width="100%"
-                        showArrows={false}
-                    />
+                    <SpecialThreeD cards={plants} height="26rem" width="100%" />
                 </styleMui.alotComponent>
                 <SpecialFeature />
             </styleMui.subContainer>
