@@ -7,7 +7,7 @@ export const LikeButton = ({ likeQuantity }) => {
     const [quantity, setQuantity] = useState(likeQuantity)
 
     const handleLikeClick = () => {
-        setLiked(!liked)
+        setLiked((prevState) => !prevState)
         setQuantity(liked ? quantity - 1 : quantity + 1)
     }
 
