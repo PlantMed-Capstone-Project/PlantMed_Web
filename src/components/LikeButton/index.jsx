@@ -18,7 +18,7 @@ export const LikeButton = ({ likeQuantity }) => {
                     <styleMui.likeIcon image={Heart} liked={liked} />
                 </styleMui.likeBg>
             </styleMui.likeButton>
-            <styleMui.likeQuantity>{quantity}k</styleMui.likeQuantity>
+            <styleMui.likeQuantity>{quantity}</styleMui.likeQuantity>
         </styleMui.likeContainer>
     )
 }

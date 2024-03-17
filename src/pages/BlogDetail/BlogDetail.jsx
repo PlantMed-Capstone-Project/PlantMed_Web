@@ -6,6 +6,7 @@ import {
     getIdBlog,
 } from 'FakeData/plantData'
 import imgDemo from 'Images/heroSen.jpg'
+import { LikeButton } from 'components/LikeButton'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
 import useScrollTo from 'hooks/useScrollTo'
@@ -94,6 +95,7 @@ function BlogDetail() {
                 >
                     {data.description}
                 </Typography>
+                <LikeButton likeQuantity={5} />
                 <Typography
                     sx={{
                         color: '#214400',
