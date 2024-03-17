@@ -3,10 +3,11 @@ import ReactQuill, { Quill } from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import ImageResize from 'quill-image-resize-module-react'
 window.Quill = Quill
+Quill.register('modules/imageResize', ImageResize)
 
 function Editor({ value, onChange }) {
     const reactQuillRef = useRef()
-    Quill.register('modules/imageResize', ImageResize)
+
     const [editorHeight, setEditorHeight] = useState(200)
 
     const updateEditorHeight = () => {
