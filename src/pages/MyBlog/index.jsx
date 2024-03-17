@@ -5,10 +5,13 @@ import { useEffect, useRef, useState } from 'react'
 import { StatusBlogCard } from 'components/StatusBlogCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { blogCardData } from 'FakeData/plantData'
+import { getActiveByUser, getPendingByUser } from 'rest/api/blog'
 
 function MyBlog() {
     const [blogStatus, setblogStatus] = useState('Chờ phê duyệt')
-    const [data, setData] = useState(blogCardData.slice(0, 3))
+    const [allBlogActive, setAllBlogActive] = useState()
+    const [allBlogPeding, setAllBlogPeding] = useState()
+    const [data, setData] = useState([])
     const [lengData, setLengthData] = useState(2)
     const returnData = 3
     const [hasMore, setHasMore] = useState(true)
@@ -32,9 +35,34 @@ function MyBlog() {
         },
     ]
 
+    const getActiveBlog = async () => {
+        try {
+            const res = await getActiveByUser()
+            setAllBlogActive(res.data)
+            setData(res.data.slice(0, 3))
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const getPedingBlog = async () => {
+        try {
+            const res = await getPendingByUser()
+            setAllBlogPeding(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        getActiveBlog()
+        getPedingBlog()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const fetchMoreData = () => {
         setTimeout(() => {
-            setData(blogCardData.slice(0, lengData + returnData))
+            setData(allBlogActive.slice(0, lengData + returnData))
             setLengthData(lengData + returnData)
             if (lengData + returnData >= blogCardData.length) {
                 setHasMore(false)
