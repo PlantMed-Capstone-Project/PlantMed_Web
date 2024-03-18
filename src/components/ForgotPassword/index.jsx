@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import * as styleMui from './ForgotPasswordForm.styled'
 
 export default function ForgotPasswordForm() {
-    // const { show } = useActions(snackbarAction)
     const sampleEmail = 'Qiqi123@gmail.com'
     const navigate = useNavigate()
 
@@ -49,32 +48,11 @@ export default function ForgotPasswordForm() {
 
     const onSubmit = async () => {
         try {
-            /*
-            show({
-                message: 'Vui lòng đợi giấy lát!',
-                autoHideDuration: 500,
-            })
-            const response = await authLogin(inputs)
-            login(response.data)
-            show({
-                message: 'Đăng nhập thành công!!',
-                severity: SNACKBAR_SEVERITY.SUCCESS,
-            })
-            */
             if (inputs.email === sampleEmail) {
                 clearInput()
                 return navigate('/login')
             }
-        } catch (error) {
-            /*
-            loginFailure(error.response.data.message)
-            show({
-                message: error.response.data.message,
-                severity: SNACKBAR_SEVERITY.ERROR,
-                autoHideDuration: 2000,
-            })
-            */
-        }
+        } catch (error) {}
     }
 
     //Khai báo input

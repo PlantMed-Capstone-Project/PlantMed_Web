@@ -12,6 +12,8 @@ function AlertDialog({
     title,
     content,
     cancelButton,
+    cancelTitle,
+    closeTitle,
 }) {
     const handleClose = () => {
         setOpenDialog(false)
@@ -38,10 +40,10 @@ function AlertDialog({
                 </DialogContent>
                 <DialogActions>
                     {cancelButton && (
-                        <Button onClick={handleCallBack}>Kết thúc</Button>
+                        <Button onClick={handleCallBack}>{cancelTitle}</Button>
                     )}
                     <Button onClick={handleClose} autoFocus>
-                        Đồng ý
+                        {closeTitle}
                     </Button>
                 </DialogActions>
             </Dialog>

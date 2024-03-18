@@ -7,7 +7,7 @@ import { plantAction } from 'app/reducers/plant'
 import ChatBox from 'components/ChatBox'
 import CustomSnackbar from 'components/CustomSnackbar'
 import NotFound from 'components/NotFound'
-import { LoginRoute, PrivateRoute } from 'components/Routers'
+import { PublicRoute, PrivateRoute } from 'components/Routers'
 import useActions from 'hooks/useActions'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect } from 'react'
@@ -74,7 +74,7 @@ function App() {
             {isLogin && <ChatBox />}
             <BrowserRouter>
                 <Routes>
-                    <Route element={<LoginRoute />}>
+                    <Route element={<PublicRoute />}>
                         {publicRoutes.map((route) => {
                             const Page = route.page
                             const Layout = route.layout

@@ -16,6 +16,8 @@ import ProfilePage from 'pages/ProfilePage'
 import VerificationPage from 'pages/VerificationPage/VerificationPage'
 import ResetPasswordPage from 'pages/ResetPasswordPage'
 import ForgotPasswordPage from 'pages/ForgotPasswordPage'
+import MyBlog from 'pages/MyBlog'
+import LikedBlog from 'pages/LikedBlog'
 import ApprovalPage from 'pages/ApprovalPage'
 
 const publicRoutes = [
@@ -37,8 +39,10 @@ const privateRoutes = [
     { path: '/bloglist', page: BlogListPage, layout: MainLayout },
     { path: '/blog', page: BlogPage, layout: MainLayout },
     { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
-    { path: '/profile', page: ProfilePage, layout: MainLayout },
-    { path: '/reset-password', page: ResetPasswordPage, layout: MainLayout },
+    { path: '/profile', page: ProfilePage, layout: LoginLayout },
+    { path: '/reset-password', page: ResetPasswordPage, layout: LoginLayout },
+    { path: '/my-blog', page: MyBlog, layout: LoginLayout },
+    { path: '/liked-blog', page: LikedBlog, layout: LoginLayout },
 ]
 
 export { privateRoutes, publicRoutes }

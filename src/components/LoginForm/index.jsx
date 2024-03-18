@@ -47,7 +47,7 @@ export default function LoginForm() {
             type: eye ? 'text' : 'password',
             icon: <LockRoundedIcon sx={styleMui.iconStyle} />,
             eyeIcon: (
-                <IconButton onClick={handleEye}>
+                <IconButton onClick={handleEye} tabIndex={-1}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             ),
@@ -77,6 +77,7 @@ export default function LoginForm() {
                 value={inputs[item.key]}
                 error={errors[item.key]}
                 onChange={(e) => handleInputChange(item.key, e.target.value)}
+                onKeyDown={handleKeyDown}
                 helperText={errors[item.key]}
             />
         ))
@@ -84,13 +85,20 @@ export default function LoginForm() {
 
     //Check validation
     const onValidate = () => {
-        const inputErrors = validateInputs(inputs);
-    
+        const inputErrors = validateInputs(inputs)
+
         if (Object.keys(inputErrors).length > 0) {
-            setErrors(inputErrors);
+            setErrors(inputErrors)
         } else {
-            setErrors({});
-            onSubmit();
+            setErrors({})
+            onSubmit()
+        }
+    }
+
+    //Nhấn Enter để validate
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            onValidate()
         }
     }
 
@@ -128,7 +136,7 @@ export default function LoginForm() {
                 autoHideDuration: 2000,
             })
         }
-    }    
+    }
 
     return (
         <styleMui.Form>
@@ -142,7 +150,10 @@ export default function LoginForm() {
                 {/* End input place */}
 
                 <styleMui.passSection>
-                    <styleMui.forgetPass to='/forgot-password' underline="hover">
+                    <styleMui.forgetPass
+                        to="/forgot-password"
+                        underline="hover"
+                    >
                         Quên mật khẩu?
                     </styleMui.forgetPass>
                 </styleMui.passSection>
