@@ -4,14 +4,14 @@ import HeroBlog from 'components/HeroBlog/HeroBlog'
 import JoinBlog from 'components/JoinBlog/JoinBlog'
 import MyBlog from 'components/MyBlog/MyBlog'
 import { useEffect, useState } from 'react'
-import { getByUser, getTop } from 'rest/api/blog'
+import { getActiveByUser, getTop } from 'rest/api/blog'
 
 function BlogPage() {
     const [userBlog, setUserBlog] = useState()
     const [blogList, setBlogList] = useState()
     const getUserBlog = async () => {
         try {
-            const res = await getByUser()
+            const res = await getActiveByUser()
             setUserBlog(res.data)
         } catch (e) {
             console.log(e)

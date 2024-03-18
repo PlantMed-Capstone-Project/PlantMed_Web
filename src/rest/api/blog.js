@@ -22,8 +22,12 @@ export const getActiveBlog = async () => {
     return http.get('blogs')
 }
 
-export const getByUser = async () => {
+export const getActiveByUser = async () => {
     return http.get('blogs/user')
+}
+
+export const getPendingByUser = async () => {
+    return http.get('blogs/user/pending')
 }
 
 export const getIdBlog = async (id) => {

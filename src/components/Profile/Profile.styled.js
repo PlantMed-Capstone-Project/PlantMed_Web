@@ -206,3 +206,11 @@ export const helperTextStyle = styled(Typography)(() => ({
     fontSize: '0.8rem',
     marginTop: '-4.5rem',
 }))
+
+export const boxLoading = styled(Box)({
+    width: '7rem',
+    height: '7rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+})
