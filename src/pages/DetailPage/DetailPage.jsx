@@ -5,7 +5,6 @@ import MapLayout from 'components/MapLayout/MapLayout'
 import MoreBlog from 'components/MoreBlog/MoreBlog'
 import SlideDetail from 'components/SlideDetail/SlideDetail'
 import useScrollTo from 'hooks/useScrollTo'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getById } from 'rest/api/plant'
@@ -48,6 +47,7 @@ export default function DetailPage() {
 
     useEffect(() => {
         fetchPlantByID(params.id)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

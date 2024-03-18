@@ -7,7 +7,6 @@ import {
 } from '@mui/material'
 import { motion } from 'framer-motion'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { convertString, parseImg } from 'utils'
 import * as muiStyle from './MoreBlog.styled'
@@ -20,14 +19,6 @@ export default function MoreBlog({ namePlant }) {
     let activeBlog = blogActive.filter((item) => {
         return item.tags.some((tag) => tag.name === namePlant)
     })
-
-    useEffect(() => {
-        console.log(
-            blogActive.filter((item) => {
-                return item.tags.some((tag) => tag.name === namePlant)
-            })
-        )
-    }, [])
 
     return (
         <Stack

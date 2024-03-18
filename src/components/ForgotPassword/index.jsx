@@ -1,16 +1,12 @@
 import PersonIcon from '@mui/icons-material/Person'
-import { authAction } from 'app/reducers/auth'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import useActions from 'hooks/useActions'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { login as authLogin } from 'rest/api/auth'
-import * as styleMui from './ForgotPasswordForm.styled'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import * as styleMui from './ForgotPasswordForm.styled'
 
 export default function ForgotPasswordForm() {
-    const { show } = useActions(snackbarAction)
+    // const { show } = useActions(snackbarAction)
     const sampleEmail = 'Qiqi123@gmail.com'
     const navigate = useNavigate()
 

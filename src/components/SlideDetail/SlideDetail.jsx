@@ -1,9 +1,9 @@
-import { Box, CardMedia, Skeleton, Stack, Typography } from '@mui/material'
+import { Box, CardMedia, Skeleton, Stack } from '@mui/material'
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
+import { parseImg } from 'utils'
 import * as styleMui from './SlideDetail.styled'
 import './SlideShowCustom.css'
-import { parseImg } from 'utils'
 
 function ThumbnailPlugin(mainRef) {
     return (slider) => {

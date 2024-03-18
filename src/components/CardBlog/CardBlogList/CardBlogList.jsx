@@ -5,9 +5,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as styleMui from './CardBlogList.styled'
 import { convertString, parseImg } from 'utils'
-import { Typography } from '@mui/material'
+import * as styleMui from './CardBlogList.styled'
 
 const CardBlogList = ({ item, idx }) => {
     const [showPopup, setShowPopup] = useState(false)
@@ -27,11 +26,6 @@ const CardBlogList = ({ item, idx }) => {
     useEffect(() => {
         document.addEventListener('mousedown', handler)
     }, [])
-
-    // cắt tên thành các chữ cái đầu
-    const stringAvatar = (name) => {
-        return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
-    }
 
     const handleOpenForm = (value) => {
         console.log(value)

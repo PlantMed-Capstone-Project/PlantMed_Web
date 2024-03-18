@@ -43,6 +43,7 @@ function CardBlog({ valueSearch, positions }) {
 
     useEffect(() => {
         setDataBlog(blogActive)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blogActive.length])
 
     // xử lý các giá trị scroll

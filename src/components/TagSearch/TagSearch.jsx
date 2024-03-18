@@ -1,9 +1,9 @@
+import { CircularProgress } from '@mui/material'
 import titleImage from 'Images/hiền nhân.jpg'
 import presentImage from 'Images/tía tô.jpg'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './TagSearch.styled'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import { CircularProgress } from '@mui/material'
 function TagSearch({ setTagSearch, rightHeight, isFixed, isAbs }) {
     const { blogActive, loading } = useShallowEqualSelector(
         (state) => state.blog
@@ -74,6 +74,7 @@ function TagSearch({ setTagSearch, rightHeight, isFixed, isAbs }) {
         return () => {
             filterStart = false
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blogActive])
 
     // xử lý các tag được chọn và handle cancel nếu giá trị trùng lặp giá trị cũ
