@@ -3,8 +3,8 @@ import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import * as styleMui from './approvalCard.styled'
-import ApprovalCardList from './approvalCardList'
-import SkeletonLoading from './skeletonLoading'
+import ApprovalCardList from './ApprovalCardList'
+import SkeletonLoading from './SkeletonLoading'
 
 function ApprovalCard({ setIndexData }) {
     const { data, loading } = useShallowEqualSelector((state) => state.blog)
