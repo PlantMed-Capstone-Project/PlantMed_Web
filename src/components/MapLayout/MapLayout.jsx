@@ -1,6 +1,6 @@
 import ForestIcon from '@mui/icons-material/Forest'
 import LanguageIcon from '@mui/icons-material/Language'
-import StorefrontIcon from '@mui/icons-material/Storefront'
+import { Skeleton } from '@mui/material'
 import plantsIcon from 'Images/cansaIcon.png'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
@@ -14,7 +14,6 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import * as muiStyle from './MapLayout.styled'
 import MarkMaps from './MarkMaps/MarkMaps'
 import LeafletRoutingMachine from './RoutineMachine/LeafletRoutingMachine'
-import { Skeleton } from '@mui/material'
 
 export default function MapLayout({ data, loading }) {
     const currrentLocation = useCurrentLocation()
@@ -72,6 +71,7 @@ export default function MapLayout({ data, loading }) {
             return
         }
         findWay.current.getRouting(currentLocaiton, newRoute)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newRoute])
 
     return !loading ? (
@@ -124,7 +124,7 @@ export default function MapLayout({ data, loading }) {
                                     },
                                 }}
                             >
-                                <Popup>This is the stree</Popup>
+                                <Popup>{data.name}</Popup>
                             </Marker>
                         ))}
                     <LeafletRoutingMachine ref={findWay} />
