@@ -39,7 +39,7 @@ function ApprovalCardList({ item, idx, setIndexData }) {
                 >
                     <styleMui.image
                         ishover={isHover}
-                        image={parseImg(item.images[0].data)}
+                        image={parseImg(item.thumbnail)}
                         title={item.title}
                     />
                 </styleMui.imageBox>
@@ -55,10 +55,10 @@ function ApprovalCardList({ item, idx, setIndexData }) {
                     />
                     <Box sx={{ display: 'flex', gap: '0.3rem' }}>
                         {item.tags.length
-                            ? item.tags.map((vl, idx) => (
+                            ? item.tags.map((vl) => (
                                   <styleMui.tagsBox key={item}>
                                       <styleMui.tagsTxt>
-                                          {vl.plant}
+                                          {vl.name}
                                       </styleMui.tagsTxt>
                                   </styleMui.tagsBox>
                               ))
@@ -71,11 +71,11 @@ function ApprovalCardList({ item, idx, setIndexData }) {
             {/*Start avatar element */}
             <styleMui.avatarBox>
                 <Avatar
-                    alt={item.user.fullName}
-                    src={parseImg(item.user.image.data)}
+                    alt={item.user.name}
+                    src={parseImg(item.user.avatar)}
                     sx={{ width: 80, height: 80, backgroundColor: '#214400' }}
                 />
-                <styleMui.avatarName>{item.user.fullName}</styleMui.avatarName>
+                <styleMui.avatarName>{item.user.name}</styleMui.avatarName>
             </styleMui.avatarBox>
             {/*End avatar element */}
         </styleMui.container>

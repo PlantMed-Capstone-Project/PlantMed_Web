@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { approvalAction } from 'app/reducers/blog'
+import { blogAction } from 'app/reducers/blog'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import InforDetail from 'components/InforDetail/InforDetail'
 import { motion } from 'framer-motion'
@@ -11,10 +11,10 @@ import { parseImg } from 'utils'
 import * as styleMui from './PopupInfo.styled'
 
 function PopupInfo({ id, approvalPage = false, setIndexData }) {
-    const { storeBlogSuccessfull } = useActions(approvalAction)
+    const { storeBlogApproval } = useActions(blogAction)
     const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
     const { data: dataApproval } = useShallowEqualSelector(
-        (state) => state.approval
+        (state) => state.blog
     )
     const { show } = useActions(snackbarAction)
 
@@ -53,7 +53,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
     const acceptBlog = async (id) => {
         try {
             await approvalBlog(id)
-            storeBlogSuccessfull(dataApproval.filter((vl) => vl.id !== id))
+            storeBlogApproval(dataApproval.filter((vl) => vl.id !== id))
             show({
                 message: 'Phê duyệt thành công',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
@@ -72,7 +72,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
     const rejectBlogs = async (id) => {
         try {
             await rejectBlog(id)
-            storeBlogSuccessfull(dataApproval.filter((vl) => vl.id !== id))
+            storeBlogApproval(dataApproval.filter((vl) => vl.id !== id))
             show({
                 message: 'Đã từ chối duyệt bài viết thành công',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
@@ -105,7 +105,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
                             ishover={isHover ? true : undefined}
                             image={
                                 approvalPage
-                                    ? `${parseImg(textData.images[0].data)}`
+                                    ? `${parseImg(textData.thumbnail)}`
                                     : `${parseImg(textData.images)}`
                             }
                             title={
@@ -139,7 +139,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
                                         {textData.title}
                                     </styleMui.title>
                                     <styleMui.title>
-                                        Tác giả: {textData.user.fullName}
+                                        Tác giả: {textData.user.name}
                                     </styleMui.title>
                                 </styleMui.boxTitle>
                                 <styleMui.diver />

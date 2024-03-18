@@ -10,7 +10,6 @@ import { getActiveByUser, getPendingByUser } from 'rest/api/blog'
 function MyBlog() {
     const [blogStatus, setblogStatus] = useState('Chờ phê duyệt')
     const [allBlogActive, setAllBlogActive] = useState()
-    const [allBlogPeding, setAllBlogPeding] = useState()
     const [data, setData] = useState([])
     const [lengData, setLengthData] = useState(2)
     const returnData = 3
@@ -48,7 +47,7 @@ function MyBlog() {
     const getPendingBlog = async () => {
         try {
             const res = await getPendingByUser()
-            setAllBlogPeding(res.data)
+            console.log(res.data)
         } catch (e) {
             console.log(e)
         }
