@@ -30,7 +30,10 @@ export const getPendingByUser = async () => {
     return http.get('blogs/user/pending')
 }
 
-/**
- * payload: {id: input.id}
- * approvalBlog(input.id)
- */
+export const getIdBlog = async (id) => {
+    return http.get(`blogs/${id}`)
+}
+
+export const getTop = async (num) => {
+    return http.get(`blogs/top?number=${num}`)
+}

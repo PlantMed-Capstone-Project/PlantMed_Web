@@ -158,6 +158,8 @@ function Chat({ room, user, closeChat, userStatus }) {
                             title={alert.title}
                             content={alert.content}
                             cancelButton={true}
+                            cancelTitle="Kết thúc"
+                            closeTitle="Đồng ý"
                         />
                     )}
                     <Box sx={styles.container}>

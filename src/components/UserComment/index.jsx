@@ -15,6 +15,13 @@ function UserComment({ name, onSendClick }) {
         onSendClick(text)
         setText('')
     }
+
+    const handleEnter = (e) => {
+        if (e.key === 'Enter') {
+            handleSend()
+            e.preventDefault()
+        }
+    }
     return (
         <Box sx={{ marginTop: '1.125rem', width: '50%' }}>
             <Box sx={{ display: 'flex' }}>
@@ -40,6 +47,7 @@ function UserComment({ name, onSendClick }) {
                             fullWidth
                             value={text}
                             onChange={(e) => setText(e.target.value)}
+                            onKeyDown={handleEnter}
                         />
                         <IconButton
                             onClick={handleSend}

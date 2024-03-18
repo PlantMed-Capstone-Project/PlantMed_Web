@@ -110,3 +110,7 @@ export const convertString = (string, stringLength) => {
 export const limitStr = (str, limit) => {
     return str.length <= limit ? str : str.slice(0, limit) + '...'
 }
+
+export const sortComment = (data) => {
+    data.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
+}

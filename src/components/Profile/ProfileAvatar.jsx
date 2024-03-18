@@ -4,6 +4,7 @@ import { imageToBase64, parseImg } from 'utils'
 import * as styleMui from './Profile.styled'
 import { getAvatar, updateAvatar } from 'rest/api/user'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import CircularProgress from '@mui/material/CircularProgress'
 import useActions from 'hooks/useActions'
 
 export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
@@ -55,9 +56,15 @@ export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
     return (
         <styleMui.avatarPlace>
             <styleMui.avatarContainer>
-                <styleMui.avatar
-                    src={selectedAvatar ? parseImg(selectedAvatar) : avatar}
-                />
+                {selectedAvatar ? (
+                    <styleMui.avatar
+                        src={selectedAvatar ? parseImg(selectedAvatar) : avatar}
+                    />
+                ) : (
+                    <styleMui.boxLoading>
+                        <CircularProgress color="success" />
+                    </styleMui.boxLoading>
+                )}
                 <styleMui.Camera
                     component="label"
                     htmlFor="avatar-upload"
