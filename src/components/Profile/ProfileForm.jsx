@@ -141,7 +141,7 @@ export const ProfileForm = ({
         {
             id: 4,
             type: 'text',
-            header: 'Chức Nghiệp',
+            header: 'Vai Trò',
             key: 'role',
             isDisabled: true,
         },
