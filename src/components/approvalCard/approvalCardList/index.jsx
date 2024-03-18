@@ -2,7 +2,7 @@ import { Avatar, Box } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { convertString, parseImg } from 'utils'
-import * as styleMui from './approvalCardList.styled'
+import * as styleMui from './ApprovalCardList.styled'
 
 function ApprovalCardList({ item, idx, setIndexData }) {
     const [isHover, setIsHover] = useState(null)
