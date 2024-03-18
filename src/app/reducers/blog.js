@@ -13,6 +13,9 @@ const blogSlice = createSlice({
         storeBlog: (state) => {
             state.loading = true
         },
+        storeBlogFailed: (state) => {
+            state.loading = false
+        },
         storeBlogApproval: (state, action) => {
             state.data = action.payload
             state.loading = false

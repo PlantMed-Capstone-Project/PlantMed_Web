@@ -1,4 +1,3 @@
-import { blogDetail } from 'FakeData/plantData'
 import CardBlog from 'components/CardBlog/CardBlog'
 import TagSearch from 'components/TagSearch/TagSearch'
 import useScrollTo from 'hooks/useScrollTo'
@@ -21,7 +20,6 @@ function BlogListPage() {
     const [isAbs, setIsAbs] = useState(false)
 
     useScrollTo(0, 0)
-    const data = blogDetail
 
     const scrollValue = () => {
         // tính giá trị của cuối element, và trừ cho 320 để giảm giá trị, và kích hoạt animate sớm nhất
@@ -66,7 +64,6 @@ function BlogListPage() {
             <styleMui.ctnComponent>
                 <CardBlog valueSearch={tagSearch} positions={positions} />
                 <TagSearch
-                    data={data}
                     setTagSearch={setTagSearch}
                     rightHeight={rightHeight}
                     isFixed={isFixed}

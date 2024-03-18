@@ -11,7 +11,8 @@ import { getApproval } from 'rest/api/blog'
 
 export default function ApprovalPage() {
     const [indexData, setIndexData] = useState(null)
-    const { storeBlog, storeBlogApproval } = useActions(blogAction)
+    const { storeBlog, storeBlogApproval, storeBlogFailed } =
+        useActions(blogAction)
     const containerPopup = useRef()
 
     // kiểm tra khi click có đang click vào popup hay không ?
@@ -25,10 +26,10 @@ export default function ApprovalPage() {
         storeBlog()
         try {
             const response = await getApproval()
-            console.log(response)
             storeBlogApproval(response.data)
         } catch (error) {
             console.log(error)
+            storeBlogFailed()
         }
     }
 
@@ -73,11 +74,11 @@ export default function ApprovalPage() {
                 <ApprovalCard setIndexData={setIndexData} />
             </Stack>
             <styleFromPlant.popupContainer
-                isopen={indexData !== null ? true : undefined}
+                isopen={indexData !== null || undefined}
             >
                 <styleFromPlant.activePopup
                     ref={containerPopup}
-                    isopen={indexData !== null ? true : undefined}
+                    isopen={indexData !== null || undefined}
                 >
                     <AnimatePresence>
                         {indexData !== null && (

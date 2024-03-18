@@ -19,9 +19,7 @@ function CardBlog({ valueSearch, positions }) {
     const searchSting = () => {
         if (valueSearch !== '' || valueSearch.length > 0) {
             const filteredData = blogActive.filter((item) => {
-                return item.tags.some((tag) =>
-                    tag.tagName.includes(valueSearch)
-                )
+                return item.tags.some((tag) => tag.name.includes(valueSearch))
             })
             setCurrentPage(1)
             setDataBlog(filteredData)

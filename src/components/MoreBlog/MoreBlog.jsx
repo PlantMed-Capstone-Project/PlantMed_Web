@@ -17,10 +17,12 @@ export default function MoreBlog({ namePlant }) {
     const { blogActive, loading } = useShallowEqualSelector(
         (state) => state.blog
     )
-    const [activeBlog, setActiveBlog] = useState([])
+    let activeBlog = blogActive.filter((item) => {
+        return item.tags.some((tag) => tag.name === namePlant)
+    })
 
     useEffect(() => {
-        setActiveBlog(
+        console.log(
             blogActive.filter((item) => {
                 return item.tags.some((tag) => tag.name === namePlant)
             })
@@ -43,7 +45,7 @@ export default function MoreBlog({ namePlant }) {
                 sx={{ columnGap: '0.6rem', rowGap: '1.3rem' }}
             >
                 {/* Start mapping the data  */}
-                {loading &&
+                {loading ? (
                     Array.from(new Array(4)).map((vl, idx) => (
                         <muiStyle.cardBox key={idx}>
                             <Skeleton
@@ -67,8 +69,8 @@ export default function MoreBlog({ namePlant }) {
                                 </Typography>
                             </CardContent>
                         </muiStyle.cardBox>
-                    ))}
-                {!loading && activeBlog.length > 0 ? (
+                    ))
+                ) : activeBlog?.length > 0 ? (
                     activeBlog.map((vl) => (
                         <muiStyle.cardBox
                             key={activeBlog}
@@ -105,12 +107,10 @@ export default function MoreBlog({ namePlant }) {
                             </CardContent>
                         </muiStyle.cardBox>
                     ))
-                ) : !loading && activeBlog.length === 0 ? (
-                    <muiStyle.textNull>
-                        Không có bài Liên quan
-                    </muiStyle.textNull>
                 ) : (
-                    ''
+                    <muiStyle.textNull>
+                        Không có bài viết Liên quan
+                    </muiStyle.textNull>
                 )}
                 {/* End mapping the data */}
             </Stack>

@@ -17,7 +17,8 @@ import { privateRoutes, publicRoutes } from 'routes'
 
 function App() {
     const { storePlant, storePlantSuccessful } = useActions(plantAction)
-    const { storeBlogActive, storeBlog } = useActions(blogAction)
+    const { storeBlogActive, storeBlog, storeBlogFailed } =
+        useActions(blogAction)
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
 
     const fetchPlant = async () => {
@@ -28,6 +29,7 @@ function App() {
             storePlantSuccessful(data)
         } catch (error) {
             console.log(error)
+            storeBlogFailed()
         }
     }
 

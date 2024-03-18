@@ -23,6 +23,7 @@ export default function DetailPage() {
             const response = await getById(id)
             setData(response.data)
         } catch (error) {
+            console.log(error)
         } finally {
             setloading(false)
         }

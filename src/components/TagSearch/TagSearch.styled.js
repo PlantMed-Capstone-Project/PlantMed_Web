@@ -39,6 +39,7 @@ export const ctnTagTitle = styled(Box)(() => ({
     gap: '1rem',
     width: '100%',
     minHeight: '9rem',
+    padding: '1rem 0',
 }))
 
 export const text = styled(Typography)(() => ({
@@ -65,7 +66,7 @@ export const imagePresent = styled(Box)(() => ({
 export const cotainerFixed = styled(Box)(({ isfixed, isabs }) => ({
     position:
         isfixed && !isabs ? 'fixed' : !isfixed && isabs ? 'absolute' : 'none',
-    top: isfixed && !isabs ? '2rem' : 'none',
+    top: isfixed && !isabs ? '8rem' : 'none',
     bottom: !isfixed && isabs ? '3.4rem' : 'none',
     display: 'flex',
     flexDirection: 'column',
