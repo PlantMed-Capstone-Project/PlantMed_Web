@@ -25,7 +25,7 @@ export default function MoreBlog({ namePlant }) {
                 return item.tags.some((tag) => tag.name === namePlant)
             })
         )
-    }, [namePlant && blogActive.length])
+    }, [])
 
     return (
         <Stack
@@ -68,47 +68,50 @@ export default function MoreBlog({ namePlant }) {
                             </CardContent>
                         </muiStyle.cardBox>
                     ))}
-                {activeBlog.length > 0
-                    ? activeBlog.map((vl) => (
-                          <muiStyle.cardBox
-                              key={activeBlog}
-                              component={motion.div}
-                              whileHover={{
-                                  y: -10,
-                                  transition: { duration: 0.2 },
-                              }}
-                          >
-                              <CardMedia
-                                  component="img"
-                                  alt="green iguana"
-                                  height="134"
-                                  image={parseImg(vl.thumbnail)}
-                              />
+                {!loading && activeBlog.length > 0 ? (
+                    activeBlog.map((vl) => (
+                        <muiStyle.cardBox
+                            key={activeBlog}
+                            component={motion.div}
+                            whileHover={{
+                                y: -10,
+                                transition: { duration: 0.2 },
+                            }}
+                        >
+                            <CardMedia
+                                component="img"
+                                alt="green iguana"
+                                height="134"
+                                image={parseImg(vl.thumbnail)}
+                            />
 
-                              <CardContent>
-                                  <Typography
-                                      gutterBottom
-                                      sx={{ fontSize: '1.1rem' }}
-                                  >
-                                      {vl?.title.length > 30
-                                          ? vl?.title.slice(0, 29) + '..'
-                                          : vl?.title}
-                                  </Typography>
+                            <CardContent>
+                                <Typography
+                                    gutterBottom
+                                    sx={{ fontSize: '1.1rem' }}
+                                >
+                                    {vl?.title.length > 30
+                                        ? vl?.title.slice(0, 29) + '..'
+                                        : vl?.title}
+                                </Typography>
 
-                                  <Typography
-                                      variant="body2"
-                                      sx={{ fontSize: '0.6rem' }}
-                                      dangerouslySetInnerHTML={{
-                                          __html: convertString(
-                                              vl?.content,
-                                              100
-                                          ),
-                                      }}
-                                  />
-                              </CardContent>
-                          </muiStyle.cardBox>
-                      ))
-                    : 'Khong co du lieu'}
+                                <Typography
+                                    variant="body2"
+                                    sx={{ fontSize: '0.6rem' }}
+                                    dangerouslySetInnerHTML={{
+                                        __html: convertString(vl?.content, 100),
+                                    }}
+                                />
+                            </CardContent>
+                        </muiStyle.cardBox>
+                    ))
+                ) : !loading && activeBlog.length === 0 ? (
+                    <muiStyle.textNull>
+                        Không có bài Liên quan
+                    </muiStyle.textNull>
+                ) : (
+                    ''
+                )}
                 {/* End mapping the data */}
             </Stack>
             {/* chuyen den trang bai viet */}

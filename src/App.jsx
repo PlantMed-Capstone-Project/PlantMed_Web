@@ -19,39 +19,33 @@ function App() {
     const { storePlant, storePlantSuccessful } = useActions(plantAction)
     const { storeBlogActive, storeBlog } = useActions(blogAction)
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
-    const { data } = useShallowEqualSelector((state) => state.plant)
-    const { blogActive } = useShallowEqualSelector((state) => state.blog)
 
     const fetchPlant = async () => {
-        if (data.length === 0) {
-            console.log('dang chay')
-            storePlant()
-            try {
-                const response = await getAll()
-                const data = response.data
-                storePlantSuccessful(data)
-            } catch (error) {
-                console.log(error)
-            }
+        storePlant()
+        try {
+            const response = await getAll()
+            const data = response.data
+            storePlantSuccessful(data)
+        } catch (error) {
+            console.log(error)
         }
     }
 
     const fetchblog = async () => {
-        if (blogActive.length === 0) {
-            console.log('dang chay')
-            storeBlog()
-            try {
-                const response = await getActiveBlog()
-                storeBlogActive(response.data)
-            } catch (error) {
-                console.log(error)
-            }
+        storeBlog()
+        try {
+            const response = await getActiveBlog()
+            storeBlogActive(response.data)
+        } catch (error) {
+            console.log(error)
         }
     }
 
     useEffect(() => {
         fetchPlant()
-        fetchblog()
+        if (isLogin) {
+            fetchblog()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
