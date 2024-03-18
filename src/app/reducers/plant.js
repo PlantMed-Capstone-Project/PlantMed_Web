@@ -12,6 +12,9 @@ const plantSlice = createSlice({
         storePlant: (state) => {
             state.loading = true
         },
+        storePlantFail: (state) => {
+            state.loading = false
+        },
         storePlantSuccessful: (state, action) => {
             state.data = action.payload
             state.loading = false

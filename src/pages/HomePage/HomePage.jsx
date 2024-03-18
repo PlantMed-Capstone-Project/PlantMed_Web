@@ -106,7 +106,7 @@ export default function HomePage() {
                     <styleMui.slideShowTitle>
                         ĐA DẠNG CÁC LOẠI THỰC VẬT
                     </styleMui.slideShowTitle>
-                    <SpecialThreeD cards={plants} height="26rem" width="100%" />
+                    <SpecialThreeD />
                 </styleMui.alotComponent>
                 <SpecialFeature />
             </styleMui.subContainer>

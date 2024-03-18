@@ -3,34 +3,46 @@ import {
     Card,
     CardContent,
     CardMedia,
+    Skeleton,
     Typography,
 } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
+import { limitStr, parseImg } from 'utils'
 
 export const CardThreeD = React.memo(function CardThreeD(props) {
-    const { data, opacity, scale } = props
+    const { data } = props
+    const [hover, setHover] = useState(false)
     return (
         <Card
-            sx={{                
-                width: '20.875rem',
-                height: '17.5rem',
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            sx={{
+                width: '24.875rem',
+                height: '17.8rem',
                 borderRadius: '0.625rem',
                 boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
                 transition: 'all 0.2s ease',
                 margin: '2rem 1rem',
-                opacity: opacity,
-                scale: scale,
+                cursor: 'pointer',
+                scale: hover ? '1.05' : '1',
             }}
         >
             <Box sx={{ height: '10.5rem', width: '100%' }}>
-                <CardMedia
-                    sx={{
-                        height: '100%',
-                        with: '100%',
-                    }}
-                    image={data.image}
-                    title="green iguana"
-                />
+                {data ? (
+                    <CardMedia
+                        sx={{
+                            height: '100%',
+                            with: '100%',
+                        }}
+                        image={parseImg(data?.images[0].data)}
+                        title="green iguana"
+                    />
+                ) : (
+                    <Skeleton
+                        variant="rectangular"
+                        sx={{ height: '100%', width: '100%' }}
+                    />
+                )}
             </Box>
             <CardContent sx={{ padding: '0.5rem 1rem 0 1rem' }}>
                 <Typography
@@ -39,12 +51,10 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     component="div"
                     sx={{ fontWeight: '600' }}
                 >
-                    {data.title}
+                    {data ? data.name : <Skeleton />}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {data.description.length > 100
-                        ? data.description.slice(0, 99) + '...'
-                        : data.description}
+                    {data ? limitStr(data.usage, 100) : <Skeleton />}
                 </Typography>
             </CardContent>
         </Card>

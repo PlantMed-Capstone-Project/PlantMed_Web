@@ -14,7 +14,8 @@ import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import ChatBox from 'components/ChatBox'
 
 function App() {
-    const { storePlant, storePlantSuccessful } = useActions(plantAction)
+    const { storePlant, storePlantSuccessful, storePlantFail } =
+        useActions(plantAction)
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
     const fetchData = async () => {
         storePlant()
@@ -25,6 +26,7 @@ function App() {
             storePlantSuccessful(data)
         } catch (error) {
             console.log(error)
+            storePlantFail()
         }
     }
 
