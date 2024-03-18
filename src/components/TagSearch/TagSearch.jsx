@@ -1,8 +1,13 @@
+import { CircularProgress } from '@mui/material'
 import titleImage from 'Images/hiền nhân.jpg'
 import presentImage from 'Images/tía tô.jpg'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './TagSearch.styled'
-function TagSearch({ data, setTagSearch, rightHeight, isFixed, isAbs }) {
+function TagSearch({ setTagSearch, rightHeight, isFixed, isAbs }) {
+    const { blogActive, loading } = useShallowEqualSelector(
+        (state) => state.blog
+    )
     const [dataTag, setDataTag] = useState()
     const [isHover, setIsHover] = useState(null)
     const [prvText, setPrvText] = useState('')
@@ -35,15 +40,12 @@ function TagSearch({ data, setTagSearch, rightHeight, isFixed, isAbs }) {
 
     // sử dụng Set để lọc ra các phần tử bị trùng, và sau khi add vào set thì chuyển thành mãng bằng qua array.form
     const uniqueTagsSet = new Set()
-    const maxTags = 5
 
     //Lọc mãng và nhét các phần tử tagName vào trong mãng mới
     const filterTags = () => {
-        data.forEach((vl) => {
+        blogActive.forEach((vl) => {
             vl.tags.forEach((tag) => {
-                if (uniqueTagsSet.size < maxTags) {
-                    uniqueTagsSet.add(tag.tagName)
-                }
+                uniqueTagsSet.add(tag.name)
             })
         })
     }
@@ -55,19 +57,25 @@ function TagSearch({ data, setTagSearch, rightHeight, isFixed, isAbs }) {
 
     // kích hoạt sự kiện và chuyển set thành mãng
     useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        // clean up effect
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
         let filterStart = true
         if (filterStart) {
             filterTags()
             setDataTag(() => Array.from(uniqueTagsSet))
         }
-        window.addEventListener('scroll', handleScroll, { passive: true })
-        // clean up effect
         return () => {
             filterStart = false
-            window.removeEventListener('scroll', handleScroll)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [blogActive])
 
     // xử lý các tag được chọn và handle cancel nếu giá trị trùng lặp giá trị cũ
     const handleActive = (vl) => {
@@ -80,7 +88,9 @@ function TagSearch({ data, setTagSearch, rightHeight, isFixed, isAbs }) {
             <styleMui.ctnTagTitle>
                 <styleMui.title>CÁC CHỦ ĐỀ ĐƯỢC ĐỀ XUẤT</styleMui.title>
                 <styleMui.BoxTagSearch>
-                    {dataTag?.length &&
+                    {loading ? (
+                        <CircularProgress color="success" />
+                    ) : dataTag?.length > 0 ? (
                         dataTag.map((vl, idx) => (
                             <styleMui.tagSearch
                                 key={vl}
@@ -93,7 +103,10 @@ function TagSearch({ data, setTagSearch, rightHeight, isFixed, isAbs }) {
                             >
                                 <styleMui.text>{vl}</styleMui.text>
                             </styleMui.tagSearch>
-                        ))}
+                        ))
+                    ) : (
+                        'khong co data'
+                    )}
                 </styleMui.BoxTagSearch>
             </styleMui.ctnTagTitle>
 

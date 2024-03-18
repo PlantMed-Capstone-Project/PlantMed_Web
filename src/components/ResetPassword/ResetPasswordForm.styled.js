@@ -1,8 +1,8 @@
 import { Box, Typography, styled, Button } from '@mui/material'
 
 export const passwordPlace = styled(Box)(() => ({
-    width: '50%',
-    height: '30rem',
+    width: '65.9%',
+    height: 'calc(100vh - 9rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -10,6 +10,7 @@ export const passwordPlace = styled(Box)(() => ({
     backgroundColor: '#f4ffeb',
     borderRadius: '0.825rem',
     border: 'solid 0.1rem #dff0e9',
+    marginTop: '1rem',
 }))
 
 export const inputContainer = styled(Box)(() => ({
@@ -25,11 +26,17 @@ export const inputHeader = styled(Typography)(() => ({
 }))
 
 export const Title = styled(Typography)(() => ({
-    textAlign: 'justify',
-    textTransform: 'uppercase',
-    fontSize: '2rem',
-    fontWeight: '500',
-    color: '#69AD28',
+    textTransform: 'capitalize',
+    fontSize: '1.8rem',
+    fontWeight: '600',
+    color: '#214400',
+    marginTop: '3rem',
+}))
+
+export const Note = styled(Typography)(() => ({
+    fontSize: '1.25rem',
+    fontWeight: '300',
+    color: '#214400',
     marginTop: '1rem',
 }))
 
@@ -37,13 +44,26 @@ export const inputPlace = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
     width: '25.875rem',
-    gap: '1rem',
-    marginTop: '2rem',
+    marginTop: '1rem',
+    gap: '0.5rem',
 }))
 
-export const button = styled(Button)(() => ({
+export const buttonPasswordContainer = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '1rem',
+    paddingTop: '3rem',
+    paddingLeft: '42rem',
+}))
+
+export const button = styled(Button)(({ width }) => ({
     backgroundColor: '#69AD28',
-    borderRadius: '0.6rem',
-    width: '9rem',
-    marginTop: '1.5rem',
+    color: '#FFF',
+    borderRadius: '0.313rem',
+    width: width,
+    textTransform: 'capitalize',
+    '&:hover': {
+        backgroundColor: '#004225',
+        color: '#fff',
+    },
 }))

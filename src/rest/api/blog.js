@@ -22,7 +22,18 @@ export const getActiveBlog = async () => {
     return http.get('blogs')
 }
 
-/**
- * payload: {id: input.id}
- * approvalBlog(input.id)
- */
+export const getActiveByUser = async () => {
+    return http.get('blogs/user')
+}
+
+export const getPendingByUser = async () => {
+    return http.get('blogs/user/pending')
+}
+
+export const getIdBlog = async (id) => {
+    return http.get(`blogs/${id}`)
+}
+
+export const getTop = async (num) => {
+    return http.get(`blogs/top?number=${num}`)
+}

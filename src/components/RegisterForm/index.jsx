@@ -70,7 +70,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
             type: eye ? 'text' : 'password',
             icon: <LockRoundedIcon sx={styleMui.iconStyle} />,
             eyeIcon: (
-                <IconButton onClick={handleEye}>
+                <IconButton onClick={handleEye} tabIndex={-1}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             ),
@@ -111,6 +111,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
                 value={inputs[item.key]}
                 error={errors[item.key]}
                 onChange={(e) => handleInputChange(item.key, e.target.value)}
+                onKeyDown={handleKeyDown}
                 helperText={errors[item.key]}
             />
         ))
@@ -125,6 +126,14 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
         } else {
             setErrors({})
             onSubmit()
+        }
+    }
+
+    //Nhận event khi onKeyDown để validate
+    const handleKeyDown = (event) => {
+        //Nhấp Enter để validate
+        if (event.key === 'Enter') {
+            onValidate()
         }
     }
 

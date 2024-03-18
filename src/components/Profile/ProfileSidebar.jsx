@@ -1,54 +1,52 @@
 import { Link, useLocation } from 'react-router-dom'
 import * as styleMui from './Profile.styled'
-import { useImperativeHandle, forwardRef, useState, useEffect } from 'react'
+import PersonIcon from '@mui/icons-material/Person'
+import DescriptionIcon from '@mui/icons-material/Description'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useEffect, useState } from 'react'
 
-export const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
+export const ProfileSidebar = () => {
     const [selectedButtonId, setSelectedButtonId] = useState(null)
     const location = useLocation()
 
     useEffect(() => {
-        const currentButton = buttons.find((button) => button.nav === location.pathname)
-        if (currentButton && currentButton.id !== 1) {
+        const currentButton = buttons.find(
+            (button) =>
+                button.nav === location.pathname ||
+                location.pathname === '/reset-password'
+        )
+        if (currentButton) {
             setSelectedButtonId(currentButton.id)
         } else {
             setSelectedButtonId(null)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname])
 
     const buttons = [
         {
             id: 1,
-            name: 'Chỉnh sửa thông tin',
+            icon: <PersonIcon sx={styleMui.iconStyle} />,
+            name: 'Profile',
             nav: '/profile',
         },
         {
             id: 2,
-            name: 'Thay đổi mật khẩu',
-            nav: '/reset-password',
+            icon: <DescriptionIcon sx={styleMui.iconStyle} />,
+            name: 'Bài viết',
+            nav: '/my-blog',
         },
         {
             id: 3,
-            name: 'Blog của tôi',
-            nav: '/blog',
+            icon: <FavoriteIcon sx={styleMui.iconStyle} />,
+            name: 'Đã thích',
+            nav: '/liked-blog',
         },
     ]
 
-    const handleButtonClick = (id) => {
-        setSelectedButtonId(id)
-        if (id === 1) {
-            onEditButtonClick()
-        }
+    const handleButtonClick = (buttonId) => {
+        setSelectedButtonId(buttonId)
     }
-
-    const resetSelection = () => {
-        setSelectedButtonId(null)
-    }
-
-    // Expose resetSelection function using useImperativeHandle
-    useImperativeHandle(ref, () => ({
-        resetSelection,
-    }))
 
     return (
         <styleMui.sidebarPlace>
@@ -61,9 +59,10 @@ export const ProfileSidebar = forwardRef(({ onEditButtonClick }, ref) => {
                     isSelected={selectedButtonId === item.id}
                     onClick={() => handleButtonClick(item.id)}
                 >
-                    {item.name}
+                    {item.icon}
+                    <styleMui.buttonName>{item.name}</styleMui.buttonName>
                 </styleMui.sidebarButton>
             ))}
         </styleMui.sidebarPlace>
     )
-})
+}

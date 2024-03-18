@@ -1,112 +1,182 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import EditIcon from '@mui/icons-material/Edit'
 import InputField from 'components/InputField'
-import * as styleMui from './Profile.styled'
 import { validateInputs } from 'components/InputField/validationRules'
+import { useEffect, useState } from 'react'
+import * as styleMui from './Profile.styled'
+import { useNavigate } from 'react-router-dom'
 
 export const ProfileForm = ({
-    username,
-    email,
-    createdDate,
+    userInfo,
+    onUpdateInfo,
+    handleEditButtonClick,
+    handleCancelButtonClick,
     isDisabled,
-    onSubmitButtonClick,
-    resetSidebarSelection,
 }) => {
-    const navigate = useNavigate()
     const [errors, setErrors] = useState({})
-
-    // Calculate the total number of days since the created date
-    const today = new Date()
-    const diffTime = Math.abs(today - new Date(createdDate))
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-
-    const editFields = [
-        {
-            id: 1,
-            type: 'text',
-            header: 'Tên hiển thị',
-            placeholder: 'Tên người dùng',
-            key: 'username',
-        },
-        {
-            id: 2,
-            header: `Email: ${email}`,
-            key: 'email',
-        },
-        {
-            id: 3,
-            header: `Bạn đã tạo tài khoản vào: ${diffDays} ngày trước`,
-            key: 'createdDate',
-        },
-    ]
-
     const [inputs, setInputs] = useState({
-        username: username || '',
+        fullname: userInfo?.FullName,
+        email: userInfo?.Email,
+        createdDate: userInfo?.Date,
+        role:
+            userInfo?.Role === 'user'
+                ? 'Người Dùng'
+                : 'Chuyên Gia Về Cây Thuốc',
     })
+    const [displayButtons, setDisplayButtons] = useState(1)
+    //Lưu thông tin cũ khi hủy thay đổi
+    const [initialNameInput, setInitialNameInput] = useState({})
 
-    //Check validation
+    useEffect(() => {
+        setInitialNameInput({
+            fullname: userInfo?.FullName,
+        })
+        setInputs({ ...inputs, fullname: userInfo?.FullName })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userInfo])
+
+    const navigate = useNavigate()
+
+    //Switch set button
+    const onSwitch = (buttonSet) => {
+        if (buttonSet === 1) {
+            setDisplayButtons(2)
+            handleEditButtonClick()
+        } else {
+            setDisplayButtons(1)
+            handleCancelButtonClick()
+            setInputs(initialNameInput)
+        }
+    }
+
+    const handleInputChange = (key, value) =>
+        setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
+
+    //Khai báo header cho mỗi input
+    const renderHeaders = (obj) => (
+        <styleMui.inputHeader key={obj.id} disabled={obj.isDisabled} {...obj}>
+            {obj.header}
+        </styleMui.inputHeader>
+    )
+
+    //Khai báo input
+    const renderInputs = (obj) => (
+        <InputField
+            key={obj.id}
+            type={obj.type}
+            placeholder={obj.placeholder}
+            eyeIcon={!isDisabled ? obj.icon : null}
+            value={inputs[obj.key]}
+            error={errors[obj.key]}
+            disabled={obj.isDisabled}
+            onChange={(e) => handleInputChange(obj.key, e.target.value)}
+            height="3rem"
+            fontSize="1.25rem"
+            helperText={
+                <styleMui.helperTextStyle>
+                    {errors[obj.key]}
+                </styleMui.helperTextStyle>
+            }
+        />
+    )
+
     const onValidate = () => {
         const inputErrors = validateInputs(inputs)
-
-        if (Object.keys(inputErrors).length > 0) {
-            setErrors(inputErrors)
-        } else {
+        if (Object.keys(inputErrors).length > 0) setErrors(inputErrors)
+        else {
             setErrors({})
             handleOnSubmit()
         }
     }
 
-    const handleInputChange = (key, value) => {
-        setInputs((prevInputs) => ({ ...prevInputs, [key]: value }))
-    }
-
-    const renderInputs = ({ id, type, header, key, placeholder }) => {
-        if (key === 'username') {
-            return (
-                <styleMui.inputContainer key={id}>
-                    <styleMui.inputHeader>{header}</styleMui.inputHeader>
-                    <InputField
-                        key={id}
-                        type={type}
-                        placeholder={placeholder}
-                        value={inputs[key]}
-                        error={errors[key]}
-                        disabled={isDisabled}
-                        onChange={(e) => handleInputChange(key, e.target.value)}
-                        helperText={errors[key]}
-                    />
-                </styleMui.inputContainer>
-            )
-        } else if (key === 'createdDate' || key === 'email') {
-            return (
-                <styleMui.inputContainer key={id}>
-                    <styleMui.inputHeader>{header}</styleMui.inputHeader>
-                </styleMui.inputContainer>
-            )
-        } else {
-            return null
-        }
-    }
-
     const handleOnSubmit = () => {
-        onSubmitButtonClick()
-        resetSidebarSelection()
-        return navigate('/profile')
+        onUpdateInfo({ FullName: inputs.fullname })
+        onSwitch(2)
     }
+
+    const buttonsSet = [
+        {
+            id: 1,
+            value: 'Lưu thông tin',
+            width: '8rem',
+            onClick: () => onValidate(),
+        },
+        {
+            id: 2,
+            value: 'Hủy thay đổi',
+            width: '8rem',
+            onClick: () => onSwitch(2),
+        },
+    ]
+
+    const renderButtons = (obj) => (
+        <styleMui.button key={obj.id} onClick={obj.onClick} width={obj.width}>
+            {obj.value}
+        </styleMui.button>
+    )
+
+    const editFields = [
+        {
+            id: 1,
+            type: 'text',
+            header: 'Tên Người Dùng',
+            placeholder: 'Tên người dùng',
+            key: 'fullname',
+            isDisabled: isDisabled,
+            icon: <EditIcon sx={styleMui.editIconStyle} />,
+        },
+        {
+            id: 2,
+            type: 'text',
+            header: 'Email',
+            key: 'email',
+            isDisabled: true,
+        },
+        {
+            id: 3,
+            type: 'text',
+            header: 'Ngày Tạo Tài Khoản',
+            key: 'createdDate',
+            isDisabled: true,
+        },
+        {
+            id: 4,
+            type: 'text',
+            header: 'Vai Trò',
+            key: 'role',
+            isDisabled: true,
+        },
+    ]
 
     return (
         <styleMui.profilePlace>
-            <styleMui.Title>Thông tin người dùng</styleMui.Title>
-            <styleMui.inputPlace>
-                {editFields.map((obj) => renderInputs({ ...obj }))}
-            </styleMui.inputPlace>
-            <styleMui.button
-                variant="contained"
-                disabled={isDisabled}
-                onClick={onValidate}
-            >
-                Lưu thông tin
-            </styleMui.button>
+            <styleMui.profileContainer>
+                <styleMui.Title variant="h2">
+                    Thông tin người dùng
+                </styleMui.Title>
+                <styleMui.inputPlace>
+                    <styleMui.hearderContainer>
+                        {editFields.map(renderHeaders)}
+                    </styleMui.hearderContainer>
+                    <styleMui.inputContainer>
+                        {editFields.map(renderInputs)}
+                    </styleMui.inputContainer>
+                </styleMui.inputPlace>
+            </styleMui.profileContainer>
+            <styleMui.buttonContainer>
+                {displayButtons === 1 ? (
+                    <styleMui.button width="7rem" onClick={() => onSwitch(1)}>
+                        Thay đổi
+                    </styleMui.button>
+                ) : (
+                    buttonsSet.map(renderButtons)
+                )}
+                <styleMui.button
+                    width="9rem"
+                    onClick={() => navigate('/reset-password')}
+                >
+                    Đổi mật khẩu
+                </styleMui.button>
+            </styleMui.buttonContainer>
         </styleMui.profilePlace>
     )
 }
