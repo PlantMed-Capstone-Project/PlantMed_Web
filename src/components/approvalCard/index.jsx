@@ -2,7 +2,7 @@ import { Skeleton } from '@mui/material'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import * as styleMui from './approvalCard.styled'
+import * as styleMui from './ApprovalCard.styled'
 import ApprovalCardList from './ApprovalCardList'
 import SkeletonLoading from './SkeletonLoading'
 
