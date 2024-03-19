@@ -1,4 +1,4 @@
-import { styled, Box, Typography } from '@mui/material'
+import { styled, Box, Typography, Button } from '@mui/material'
 
 export const verifyContainer = styled(Box)(() => ({
     width: '38rem',
@@ -30,3 +30,15 @@ export const Title = styled(Typography)(({ color }) => ({
     color: { color },
     paddingTop: '2rem',
 }))
+
+export const btn = styled(Button)({
+    backgroundColor: '#616403',
+    position: 'absolute',
+    transform: 'translate(-50%, -50%)',
+    color: '#FFF',
+    top: '90%',
+    '&:hover': {
+        backgroundColor: '#69AD28',
+        color: '#fff',
+    },
+})
