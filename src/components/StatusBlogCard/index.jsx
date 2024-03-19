@@ -2,7 +2,7 @@ import * as styleMui from './StatusBlogCard.styled'
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
 import { motion } from 'framer-motion'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import { limitStr, parseImg } from 'utils'
+import { convertString, parseImg } from 'utils'
 
 export const StatusBlogCard = ({ idx, item }) => {
     return (
@@ -50,7 +50,7 @@ export const StatusBlogCard = ({ idx, item }) => {
                             ? item.tags.map((vl, idx) => (
                                   <styleMui.tagsBox key={item}>
                                       <styleMui.tagsTxt>
-                                          {vl.plant}
+                                          {vl.name}
                                       </styleMui.tagsTxt>
                                   </styleMui.tagsBox>
                               ))
@@ -60,7 +60,7 @@ export const StatusBlogCard = ({ idx, item }) => {
                         Mô tả:
                     </styleMui.DescriptionHeader>
                     <styleMui.Description>
-                        {limitStr(item.content, 300)}
+                        {convertString(item.content, 300)}
                     </styleMui.Description>
                 </styleMui.blogCardContent>
             </styleMui.blogCardBox>

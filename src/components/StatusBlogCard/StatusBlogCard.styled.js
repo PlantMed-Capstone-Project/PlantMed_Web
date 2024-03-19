@@ -42,13 +42,14 @@ export const blogCardContent = styled(CardContent)(() => ({
     textAlign: 'justify',
     padding: '1.5rem 1rem',
     gap: '0.1rem',
+    width: '100%',
 }))
 
 export const blogCardHeader = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '30.5rem',
+    width: '100%',
     height: '2rem',
 }))
 
@@ -56,8 +57,8 @@ export const iconHeader = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: '0.5rem',
-    width: '2%',
+    gap: '0.8rem',
+    width: '18%',
 }))
 
 export const thumbnailContainer = styled(Box)(() => ({
@@ -84,7 +85,7 @@ export const Title = styled(Typography)(() => ({
     fontWeight: '600',
     fontSize: '1.15rem',
     textTransform: 'uppercase',
-    width: '98%',
+    width: '82%',
 }))
 
 export const Author = styled(Typography)(() => ({
@@ -110,6 +111,7 @@ export const quantityNumber = styled(Typography)(() => ({
     fontSize: '0.875rem',
     wordBreak: 'break-word',
     textAlign: 'justify',
+    marginLeft: '-0.5rem',
 }))
 
 export const tagsContainer = styled(Box)({
@@ -122,7 +124,7 @@ export const tagsBox = styled(Box)({
     backgroundColor: '#69AD28',
     borderRadius: '0.6rem',
     boxShadow: 3,
-    height: '2rem',
+    height: '1.8rem',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

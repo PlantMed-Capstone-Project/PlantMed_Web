@@ -60,7 +60,7 @@ function MyBlog() {
 
     useEffect(() => {
         getActiveBlog()
-        getPendingBlog()
+        getPendingBlog()        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -137,17 +137,14 @@ function MyBlog() {
                     dataLength={data.length}
                     next={fetchMoreData}
                     hasMore={hasMore}
-                    loader={
-                        <styleMui.loadingText>Đang tải...</styleMui.loadingText>
-                    }
+                    loader={<styleMui.loadingText>
+                        Loading
+                    </styleMui.loadingText>}
                 >
                     <styleMui.blogCardList ref={blogCardListRef}>
                         {data.length > 0 ? (
                             data.map((item, idx) => (
-                                <StatusBlogCard
-                                    idx={idx}
-                                    item={item}
-                                />
+                                <StatusBlogCard idx={idx} item={item} />
                             ))
                         ) : (
                             <styleMui.loadingText>
