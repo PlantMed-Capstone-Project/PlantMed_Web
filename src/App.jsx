@@ -2,28 +2,42 @@ import { Box } from '@mui/material'
 import GoogleFontLoader from 'react-google-font-loader'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
+import { blogAction } from 'app/reducers/blog'
 import { plantAction } from 'app/reducers/plant'
+import ChatBox from 'components/ChatBox'
 import CustomSnackbar from 'components/CustomSnackbar'
 import NotFound from 'components/NotFound'
 import { PublicRoute, PrivateRoute } from 'components/Routers'
 import useActions from 'hooks/useActions'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect } from 'react'
+import { getActiveBlog } from 'rest/api/blog'
 import { getAll } from 'rest/api/plant'
 import { privateRoutes, publicRoutes } from 'routes'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import ChatBox from 'components/ChatBox'
 
 function App() {
-    const { storePlant, storePlantSuccessful, storePlantFail } =
-        useActions(plantAction)
+    const { storePlant, storePlantSuccessful } = useActions(plantAction)
+    const { storeBlogActive, storeBlog, storeBlogFailed } =
+        useActions(blogAction)
     const { isLogin } = useShallowEqualSelector((state) => state.auth)
-    const fetchData = async () => {
+
+    const fetchPlant = async () => {
         storePlant()
         try {
             const response = await getAll()
-
             const data = response.data
             storePlantSuccessful(data)
+        } catch (error) {
+            console.log(error)
+            storeBlogFailed()
+        }
+    }
+
+    const fetchblog = async () => {
+        storeBlog()
+        try {
+            const response = await getActiveBlog()
+            storeBlogActive(response.data)
         } catch (error) {
             console.log(error)
             storePlantFail()
@@ -31,7 +45,10 @@ function App() {
     }
 
     useEffect(() => {
-        fetchData()
+        fetchPlant()
+        if (isLogin) {
+            fetchblog()
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

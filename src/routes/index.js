@@ -29,7 +29,6 @@ const publicRoutes = [
     { path: '/plants/:id', page: DetailPage, layout: MainLayout },
     { path: '/about-us', page: AboutUsPage, layout: MainLayout },
     { path: '/predict', page: DetectionPage, layout: MainLayout }, // cai nay de test, sau nay chuyen ve privateRouter
-    { path: '/blog/:id', page: BlogDetail, layout: MainLayout },
     { path: '/forgot-password', page: ForgotPasswordPage, layout: MainLayout },
 ]
 

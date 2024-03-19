@@ -10,10 +10,11 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getIdBlog } from 'rest/api/blog'
 import { createComment, getCommentByBlog, replyComment } from 'rest/api/comment'
-import { parseJwt, sortComment } from 'utils'
+import { parseImg, parseJwt, sortComment } from 'utils'
 import { readCookie } from 'utils/cookie'
 function BlogDetail() {
     useScrollTo(0, 0)
+
     const user = parseJwt(readCookie(ACCESS_TOKEN))
     const params = useParams()
     const [blog, setBlog] = useState()
@@ -41,7 +42,7 @@ function BlogDetail() {
     useEffect(() => {
         getBlogById()
         getComment()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const [activeComment, setActiveComment] = useState(null)
@@ -77,8 +78,6 @@ function BlogDetail() {
         }
     }
 
-
-
     return (
         <Box
             component="section"
@@ -96,7 +95,7 @@ function BlogDetail() {
                     width: '100%',
                     objectFit: 'cover',
                 }}
-                src={imgDemo}
+                src={blog ? parseImg(blog.thumbnail) : imgDemo}
             />
 
             <Typography
@@ -116,7 +115,7 @@ function BlogDetail() {
                     fontSize: '1.25rem',
                 }}
             >
-                Tác giả: {blog && blog.user.fullName}
+                Tác giả: {blog && blog.user.name}
             </Typography>
 
             <Box sx={{ padding: '3.125rem 6.25rem', width: '100%' }}>
