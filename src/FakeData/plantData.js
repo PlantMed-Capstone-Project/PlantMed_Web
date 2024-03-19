@@ -366,9 +366,8 @@ export const commentData = [
                 commentId: '1',
                 userId: '3',
                 comment_content: 'Xin chao lan 2',
-            }
-
-        ]
+            },
+        ],
     },
     {
         id: '2',
@@ -382,23 +381,24 @@ export const commentData = [
                 commentId: '2',
                 userId: '1',
                 comment_content: 'Xin chao',
-            }
-        ]
-    }
+            },
+        ],
+    },
 ]
 
 export const user = [
     {
         userId: '1',
-        userName: 'Phuong'
+        userName: 'Phuong',
     },
     {
         userId: '2',
-        userName: 'Huy'
-    }, {
+        userName: 'Huy',
+    },
+    {
         userId: '3',
-        userName: "Nguyen"
-    }
+        userName: 'Nguyen',
+    },
 ]
 
 export const getIdPlant = (value) => {
@@ -436,3 +436,47 @@ export const createReply = (text, commentId) => {
         comment_content: text,
     }
 }
+export const blogCardData = [
+    {
+        id: 1,
+        title: 'Cây Đinh Lăng',
+        author: 'Qiqi',
+        description:
+            'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
+    },
+    {
+        id: 2,
+        title: 'Cây Oải Hương',
+        author: 'Qiqi',
+        description:
+            'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
+    },
+    {
+        id: 3,
+        title: 'Cây Chanh Xả',
+        author: 'Qiqi',
+        description:
+            'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
+    },
+    {
+        id: 4,
+        title: 'Cây Tùng',
+        author: 'Qiqi',
+        description:
+            'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
+    },
+    {
+        id: 5,
+        title: 'Cây Cổ Thụ',
+        author: 'Qiqi',
+        description:
+            'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
+    },
+    {
+        id: 6,
+        title: 'Cây Quế',
+        author: 'Qiqi',
+        description:
+            'Đinh Lăng là một loài cây nhỏ, thân nhẵn, không có gai, thường cao 0.8-1.5m. Lá kép 3 lần xẻ lông chim dài 20-40cm, không có lá kèm rõ. Lá chét có răng cưa không đều, lá có mùi thơm. Cụm hoa hình chuỳ ngắn 7-18mm gồm nhiều tán, mang nhiều hoa nhỏ, tràng 5, nhị 5 với chỉ nhị gầy,...',
+    },
+]

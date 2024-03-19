@@ -7,7 +7,6 @@ import imageBachBo from 'Images/heroSi.jpg'
 import imageDayLeo from 'Images/herogreen.jpg'
 import imgHosung from 'Images/hiền nhân.jpg'
 import imgHoacucLon from 'Images/lap.png'
-import CardThreeD from 'components/CardThreeD/CardThreeDList/CardThreeDList'
 import SpecialThreeD from 'components/CardThreeD/SpecialThreeD'
 import FeaturedSearch from 'components/FeaturedSearch/FeaturedSearch'
 import Heros from 'components/Heros/Heros'
@@ -16,6 +15,7 @@ import Sologan from 'components/Sologan/Sologan'
 import SpecialFeature from 'components/SpecialFeature/SpecialFeature'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import * as styleMui from './HomePage.styled'
+import BlogQuantity from 'components/BlogQuantity'
 
 export default function HomePage() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
@@ -92,13 +92,6 @@ export default function HomePage() {
         },
     ]
 
-    // lib cần phải truyền tải component theo dạng này vào prop của 1 thư viện mới có thể sử dụng
-    // phần này đợi designer để remake
-    const manyPlantCard = plants?.map((item) => ({
-        key: item.id,
-        content: <CardThreeD key={item.id} data={item} />,
-    }))
-
     return (
         <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
             <Heros />
@@ -113,19 +106,12 @@ export default function HomePage() {
                     <styleMui.slideShowTitle>
                         ĐA DẠNG CÁC LOẠI THỰC VẬT
                     </styleMui.slideShowTitle>
-                    <SpecialThreeD
-                        cards={manyPlantCard}
-                        height="25rem"
-                        width="95%"
-                        margin="0 0 6rem 0"
-                        offset={3}
-                        showArrows={false}
-                    />
+                    <SpecialThreeD cards={plants} height="26rem" width="100%" />
                 </styleMui.alotComponent>
-
                 <SpecialFeature />
             </styleMui.subContainer>
             <Quantity />
+            <BlogQuantity />
         </Stack>
     )
 }

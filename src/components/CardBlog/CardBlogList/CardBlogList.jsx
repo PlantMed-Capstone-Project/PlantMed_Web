@@ -5,9 +5,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { convertString, parseImg } from 'utils'
 import * as styleMui from './CardBlogList.styled'
 
-const CardBlogList = ({ item }) => {
+const CardBlogList = ({ item, idx }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
@@ -26,11 +27,6 @@ const CardBlogList = ({ item }) => {
         document.addEventListener('mousedown', handler)
     }, [])
 
-    // cắt tên thành các chữ cái đầu
-    const stringAvatar = (name) => {
-        return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
-    }
-
     const handleOpenForm = (value) => {
         console.log(value)
     }
@@ -38,8 +34,18 @@ const CardBlogList = ({ item }) => {
     const handleRedirect = (id) => {
         navigate(`/blog/${id}`)
     }
-    return (
-        <styleMui.container>
+
+    const content = convertString(item.content, 300)
+    return item ? (
+        <styleMui.container
+            component={motion.div}
+            initial={{ x: -200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{
+                duration: 0.5,
+                delay: idx * 0.1,
+            }}
+        >
             {showPopup && (
                 <styleMui.caontainerRp
                     ref={popupRef}
@@ -70,25 +76,18 @@ const CardBlogList = ({ item }) => {
                 {/* Start avatar case */}
                 <styleMui.ctnATag>
                     <styleMui.boxAvatar>
-                        {/*Kiểm tra avatar có tồn tại hay khum */}
-                        {item.avartar !== '' ? (
-                            <styleMui.avatarImage
-                                alt="Remy Sharp"
-                                src={item.avartar}
-                            />
-                        ) : (
-                            <styleMui.avatarImage>
-                                {stringAvatar(item.user)}
-                            </styleMui.avatarImage>
-                        )}
-                        <styleMui.nameUser>{item.user}</styleMui.nameUser>
+                        <styleMui.avatarImage
+                            alt="Remy Sharp"
+                            src={parseImg(item.user.avatar)}
+                        />
+                        <styleMui.nameUser>{item.user.name}</styleMui.nameUser>
                     </styleMui.boxAvatar>
                     <styleMui.tagContainer>
                         {item.tags.length &&
-                            item.tags.map((vl, idx) => (
+                            item.tags.map((vl) => (
                                 <styleMui.tag key={item}>
                                     <styleMui.tagContent>
-                                        {vl.tagName}
+                                        {vl?.name}
                                     </styleMui.tagContent>
                                 </styleMui.tag>
                             ))}
@@ -107,11 +106,9 @@ const CardBlogList = ({ item }) => {
                 {/* Start phase text */}
                 <styleMui.containtText>
                     <styleMui.title>{item.title}</styleMui.title>
-                    <styleMui.description>
-                        {item.description.length > 300
-                            ? item.description.slice(0, 300) + '...'
-                            : item.description}
-                    </styleMui.description>
+                    <styleMui.description
+                        dangerouslySetInnerHTML={{ __html: content }}
+                    />
                 </styleMui.containtText>
                 {/* End phase text */}
 
@@ -122,7 +119,7 @@ const CardBlogList = ({ item }) => {
                 >
                     <styleMui.mainImage
                         ishover={isHover}
-                        image={item.image}
+                        image={parseImg(item.thumbnail)}
                         title="green iguana"
                     />
                 </styleMui.boxImage>
@@ -146,6 +143,8 @@ const CardBlogList = ({ item }) => {
             </styleMui.ctnBottom>
             {/* End Third phase of this card */}
         </styleMui.container>
+    ) : (
+        <styleMui.txtNotFound>Không có dữ liệu</styleMui.txtNotFound>
     )
 }
 

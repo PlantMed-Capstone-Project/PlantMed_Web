@@ -11,6 +11,9 @@ const InputField = ({
     onChange,
     helperText,
     disabled,
+    onKeyDown,
+    height,
+    fontSize,
 }) => {
     return (
         <styleMui.Input
@@ -20,6 +23,7 @@ const InputField = ({
             value={value}
             error={error}
             onChange={onChange}
+            onKeyDown={onKeyDown}
             helperText={helperText}
             margin="dense"
             type={type}
@@ -31,6 +35,10 @@ const InputField = ({
                 endAdornment: (
                     <InputAdornment position="end">{eyeIcon}</InputAdornment>
                 ),
+                style: {
+                    height,
+                    fontSize,
+                },
             }}
         />
     )

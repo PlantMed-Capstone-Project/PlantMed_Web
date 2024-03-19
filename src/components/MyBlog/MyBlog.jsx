@@ -1,12 +1,10 @@
-import * as React from 'react'
-import { Box, Typography } from '@mui/material'
-import Grid from '@mui/material/Grid'
+import { Box, CardActionArea, Typography } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { CardActionArea } from '@mui/material'
+import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom'
-
+import { convertString, parseImg } from 'utils'
 const styles = {
     card: {
         boxShadow: '0 0.25rem 0.25rem 0 rgba(33, 68, 0, 0.50)',
@@ -30,21 +28,24 @@ const styles = {
     },
 }
 
-function MyBlog({ blogData }) {
+function MyBlog({ userBlog }) {
     return (
         <Box sx={styles.containerBlog}>
             <Typography sx={styles.myBlogTitle}>Bài viết của bạn</Typography>
             <Grid container spacing={2}>
-                {blogData.map((data) => (
+                {userBlog?.map((data) => (
                     <Grid
                         item
                         xs={4}
                         sx={{ display: 'flex', flexDirection: 'row', flex: 1 }}
                     >
-                        <Card sx={styles.card}>
+                        <Card sx={styles.card} key={data.id}>
                             <Link
                                 to={`${data.id}`}
-                                style={{ textDecoration: 'none' }}
+                                style={{
+                                    textDecoration: 'none',
+                                    height: '100%',
+                                }}
                             >
                                 <CardActionArea
                                     sx={{
@@ -53,13 +54,14 @@ function MyBlog({ blogData }) {
                                         flex: 1,
                                         justifyContent: 'flex-start',
                                         alignItems: 'start',
+                                        height: '100%',
                                     }}
                                 >
                                     <CardMedia
                                         component="img"
                                         height="150"
-                                        image={data.image}
                                         alt="plant"
+                                        image={parseImg(data.thumbnail)}
                                     />
                                     <CardContent
                                         sx={{
@@ -76,13 +78,14 @@ function MyBlog({ blogData }) {
                                                 color: 'black',
                                             }}
                                         >
-                                            {data.name}
+                                            {data.title}
                                         </Typography>
                                         <Typography
                                             variant="body2"
                                             color="text.secondary"
+                                            sx={{ wordBreak: 'break-word' }}
                                         >
-                                            {data.description}
+                                            {convertString(data.content, 150)}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>

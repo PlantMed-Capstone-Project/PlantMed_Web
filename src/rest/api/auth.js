@@ -17,3 +17,7 @@ export const verifyEmail = async () => {
 export const refreshToken = async (payload) => {
     return http.put('auth/refresh', payload)
 }
+
+export const resetPassword = async (payload) => {
+    return http.put('auth/resetPassword', payload)
+}

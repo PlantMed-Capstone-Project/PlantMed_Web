@@ -22,3 +22,13 @@ export const cardBox = styled(Card)({
     boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
     cursor: 'pointer',
 })
+
+export const textNull = styled(Typography)({
+    color: '#214400',
+    fontWeight: '500',
+    fontSize: '2.2rem',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+})

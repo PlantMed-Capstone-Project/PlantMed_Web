@@ -1,8 +1,8 @@
-import { List } from '@mui/material'
+import { List, Skeleton } from '@mui/material'
 import * as styleMui from './InforDetail.styled'
 import InfoList from './infoList/InfoList'
 
-function InforDetail({ textData, screenSlide }) {
+function InforDetail({ textData, screenSlide, loading }) {
     return (
         <styleMui.container
             direction="column"
@@ -14,7 +14,14 @@ function InforDetail({ textData, screenSlide }) {
             spacing={2}
         >
             <styleMui.TxtListHead screen={screenSlide}>
-                {textData.valueList[1].value}
+                {loading ? (
+                    <Skeleton />
+                ) : screenSlide === 'topscreen' ||
+                  screenSlide === 'popupscreen' ? (
+                    textData.valueList[1].value
+                ) : (
+                    `Một số thông tin thêm về ${textData.name}`
+                )}
             </styleMui.TxtListHead>
             <List
                 component="nav"
@@ -31,6 +38,7 @@ function InforDetail({ textData, screenSlide }) {
                               label={item.label}
                               value={item.value}
                               screenSlide={screenSlide}
+                              loading={loading}
                           />
                       ))
                     : 'no data here'}

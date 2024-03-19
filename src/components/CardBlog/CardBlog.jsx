@@ -1,9 +1,14 @@
+import { Skeleton } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
-function CardBlog({ data, valueSearch, positions }) {
-    const [dataBlog, setDataBlog] = useState(data)
+function CardBlog({ valueSearch, positions }) {
+    const { blogActive, loading } = useShallowEqualSelector(
+        (state) => state.blog
+    )
+    const [dataBlog, setDataBlog] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     let itemsPerPage = 6
     const topQuantity = 272
@@ -13,15 +18,13 @@ function CardBlog({ data, valueSearch, positions }) {
     // hàm nhận giá trị thừ tags để render ra bài viết
     const searchSting = () => {
         if (valueSearch !== '' || valueSearch.length > 0) {
-            const filteredData = data.filter((item) => {
-                return item.tags.some((tag) =>
-                    tag.tagName.includes(valueSearch)
-                )
+            const filteredData = blogActive.filter((item) => {
+                return item.tags.some((tag) => tag.name.includes(valueSearch))
             })
             setCurrentPage(1)
             setDataBlog(filteredData)
         } else {
-            setDataBlog(data)
+            setDataBlog(blogActive)
         }
     }
 
@@ -37,6 +40,11 @@ function CardBlog({ data, valueSearch, positions }) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valueSearch])
+
+    useEffect(() => {
+        setDataBlog(blogActive)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [blogActive.length])
 
     // xử lý các giá trị scroll
     const handleScroll = () => {
@@ -81,10 +89,26 @@ function CardBlog({ data, valueSearch, positions }) {
                 </styleMui.subTitle>
             </styleMui.mainTitle>
             <styleMui.listBlog>
-                {displayedData.length &&
-                    displayedData.map((vl, idx) => (
-                        <CardBlogList key={data} item={vl} />
-                    ))}
+                {(loading ? Array.from(new Array(3)) : displayedData).map(
+                    (vl, idx) =>
+                        vl ? (
+                            <CardBlogList
+                                key={blogActive}
+                                item={vl}
+                                idx={idx}
+                            />
+                        ) : (
+                            <Skeleton
+                                animation="wave"
+                                variant="rectangular"
+                                sx={{
+                                    width: '100%',
+                                    height: '16rem',
+                                    borderRadius: '1rem',
+                                }}
+                            />
+                        )
+                )}
                 <styleMui.pagination
                     count={pageCount}
                     onChange={handlePagnating}

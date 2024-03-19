@@ -1,6 +1,6 @@
 import ForestIcon from '@mui/icons-material/Forest'
 import LanguageIcon from '@mui/icons-material/Language'
-import StorefrontIcon from '@mui/icons-material/Storefront'
+import { Skeleton } from '@mui/material'
 import plantsIcon from 'Images/cansaIcon.png'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
@@ -15,7 +15,7 @@ import * as muiStyle from './MapLayout.styled'
 import MarkMaps from './MarkMaps/MarkMaps'
 import LeafletRoutingMachine from './RoutineMachine/LeafletRoutingMachine'
 
-export default function MapLayout({ data }) {
+export default function MapLayout({ data, loading }) {
     const currrentLocation = useCurrentLocation()
     const { show } = useActions(snackbarAction)
     const [showPlants, setShowPlant] = useState(false)
@@ -34,11 +34,6 @@ export default function MapLayout({ data }) {
     const handleShowPlants = () => {
         setShowPlant(true)
         // setShowShop(false)
-    }
-
-    const handleShowShops = () => {
-        setShowPlant(false)
-        // setShowShop(true)
     }
 
     const center = { lat: 14.0583, long: 108.2772 }
@@ -76,9 +71,10 @@ export default function MapLayout({ data }) {
             return
         }
         findWay.current.getRouting(currentLocaiton, newRoute)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [newRoute])
 
-    return (
+    return !loading ? (
         <muiStyle.container>
             <muiStyle.text>Thông tin vị trí</muiStyle.text>
             <muiStyle.mapContainer width="100%" height="40.8125rem">
@@ -97,13 +93,6 @@ export default function MapLayout({ data }) {
                         onClick={handleShowPlants}
                     >
                         Vị trí cây
-                    </muiStyle.viewLocation>
-                    <muiStyle.viewLocation
-                        startIcon={<StorefrontIcon />}
-                        variant="contained"
-                        onClick={handleShowShops}
-                    >
-                        Vị trí cửa hàng
                     </muiStyle.viewLocation>
                 </muiStyle.stackButton>
                 {/*End Button cover maps */}
@@ -124,9 +113,9 @@ export default function MapLayout({ data }) {
 
                     <MarkMaps ref={ref} />
                     {showPlants &&
-                        data[0].locations?.map((value, idx) => (
+                        data.locations?.map((vl, idx) => (
                             <Marker
-                                position={[value.long, value.lat]}
+                                position={[vl.latitude, vl.longitude]}
                                 icon={plantIcon}
                                 key={idx}
                                 eventHandlers={{
@@ -135,7 +124,7 @@ export default function MapLayout({ data }) {
                                     },
                                 }}
                             >
-                                <Popup>This is the stree</Popup>
+                                <Popup>{data.name}</Popup>
                             </Marker>
                         ))}
                     <LeafletRoutingMachine ref={findWay} />
@@ -143,5 +132,16 @@ export default function MapLayout({ data }) {
                 {/* End maps */}
             </muiStyle.mapContainer>
         </muiStyle.container>
+    ) : (
+        <Skeleton
+            animation="wave"
+            variant="rounded"
+            sx={{
+                width: '100%',
+                height: '40.813rem',
+                marginTop: '6.81rem',
+                gap: '2.38rem',
+            }}
+        />
     )
 }
