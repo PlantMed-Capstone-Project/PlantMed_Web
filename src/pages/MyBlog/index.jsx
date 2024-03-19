@@ -4,23 +4,9 @@ import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { StatusBlogCard } from 'components/StatusBlogCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { blogCardData } from 'FakeData/plantData'
 import { getActiveByUser, getPendingByUser } from 'rest/api/blog'
 
 function MyBlog() {
-    const [blogStatus, setblogStatus] = useState('Chờ phê duyệt')
-    const [allBlogActive, setAllBlogActive] = useState()
-    const [allBlogPeding, setAllBlogPeding] = useState()
-    const [data, setData] = useState([])
-    const [lengData, setLengthData] = useState(2)
-    const returnData = 3
-    const [hasMore, setHasMore] = useState(true)
-    const blogCardListRef = useRef(null)
-
-    const handleChange = (event, newValue) => {
-        setblogStatus(newValue)
-    }
-
     //Khai báo array các tab
     const nabItem = [
         {
@@ -34,12 +20,29 @@ function MyBlog() {
             link: '',
         },
     ]
+    const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
+    const [allBlogActive, setAllBlogActive] = useState([])
+    const [allBlogPending, setAllBlogPending] = useState([])
+    const [data, setData] = useState([])
+    const [lengData, setLengthData] = useState(2)
+    const returnData = 3
+    const [hasMore, setHasMore] = useState(true)
+    const blogCardListRef = useRef(null)
+
+    const handleChange = (event, newValue) => {
+        setBlogStatus(newValue)
+        if (newValue === 'Chờ phê duyệt') {
+            getActiveBlog()
+        } else {
+            getPendingBlog()
+        }
+    }
 
     const getActiveBlog = async () => {
         try {
             const res = await getActiveByUser()
             setAllBlogActive(res.data)
-            setData(res.data.slice(0, 3))
+            setData(allBlogActive.slice(0, 3))
         } catch (e) {
             console.log(e)
         }
@@ -48,7 +51,8 @@ function MyBlog() {
     const getPendingBlog = async () => {
         try {
             const res = await getPendingByUser()
-            setAllBlogPeding(res.data)
+            setAllBlogPending(res.data)
+            setData(allBlogPending.slice(0, 3))
         } catch (e) {
             console.log(e)
         }
@@ -62,12 +66,11 @@ function MyBlog() {
 
     const fetchMoreData = () => {
         setTimeout(() => {
-            setData(allBlogActive.slice(0, lengData + returnData))
             setLengthData(lengData + returnData)
-            if (lengData + returnData >= blogCardData.length) {
+            if (lengData + returnData >= data.length) {
                 setHasMore(false)
             }
-        }, 1000)
+        }, 500)
     }
 
     const handleMouseEnter = () => {
@@ -135,20 +138,22 @@ function MyBlog() {
                     next={fetchMoreData}
                     hasMore={hasMore}
                     loader={
-                        <styleMui.loadingText>Loading...</styleMui.loadingText>
+                        <styleMui.loadingText>Đang tải...</styleMui.loadingText>
                     }
                 >
                     <styleMui.blogCardList ref={blogCardListRef}>
-                        {data.length &&
+                        {data.length > 0 ? (
                             data.map((item, idx) => (
                                 <StatusBlogCard
                                     idx={idx}
-                                    key={item.id}
-                                    title={item.title}
-                                    author={item.author}
-                                    description={item.description}
+                                    item={item}
                                 />
-                            ))}
+                            ))
+                        ) : (
+                            <styleMui.loadingText>
+                                Hiện tại không có blog nào tồn tại
+                            </styleMui.loadingText>
+                        )}
                     </styleMui.blogCardList>
                 </InfiniteScroll>
             </styleMui.blogContainer>

@@ -10,8 +10,8 @@ export const blogCard = styled(Box)(() => ({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    width: '62rem',
-    height: '13.875rem',
+    width: '64rem',
+    minHeight: '13.875rem',
     borderRadius: '0.625rem',
     gap: '3rem',
     '&:hover': {
@@ -29,31 +29,35 @@ export const blogCard = styled(Box)(() => ({
 export const blogCardBox = styled(Card)(() => ({
     display: 'flex',
     height: '100%',
-    width: '41.063rem',
+    width: '42.2rem',
     background: '#F4FFEB',
-    boxShadow: '0px 4px 4px 0px #00000040',
+    boxShadow: '0px 4px 5px 0px #00000040',
 }))
 
 export const blogCardContent = styled(CardContent)(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignContent: 'flex-start',
+    alignItems: 'flex-start',
     textAlign: 'justify',
     padding: '1.5rem 1rem',
-    gap: '0.2rem',
+    gap: '0.1rem',
 }))
 
 export const blogCardHeader = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    width: '30.5rem',
+    height: '2rem',
 }))
 
 export const iconHeader = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'row',
-    gap: '2.5rem',
-    width: '25%',
+    alignItems: 'center',
+    gap: '0.5rem',
+    width: '2%',
 }))
 
 export const thumbnailContainer = styled(Box)(() => ({
@@ -78,14 +82,14 @@ export const Thumbnail = styled(Box)(({ thumbnail, opacity, zIndex }) => ({
 
 export const Title = styled(Typography)(() => ({
     fontWeight: '600',
-    fontSize: '1.25rem',
+    fontSize: '1.15rem',
     textTransform: 'uppercase',
-    width: '75%',
+    width: '98%',
 }))
 
 export const Author = styled(Typography)(() => ({
     fontWeight: '600',
-    fontSize: '1.125rem',
+    fontSize: '1.1rem',
 }))
 
 export const DescriptionHeader = styled(Typography)(() => ({
@@ -96,5 +100,39 @@ export const DescriptionHeader = styled(Typography)(() => ({
 export const Description = styled(Typography)(() => ({
     fontWeight: '500',
     fontSize: '0.875rem',
+    wordBreak: 'break-word',
+    width: '100%',
     textAlign: 'justify',
 }))
+
+export const quantityNumber = styled(Typography)(() => ({
+    fontWeight: '500',
+    fontSize: '0.875rem',
+    wordBreak: 'break-word',
+    textAlign: 'justify',
+}))
+
+export const tagsContainer = styled(Box)({
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '0.3rem',
+})
+
+export const tagsBox = styled(Box)({
+    backgroundColor: '#69AD28',
+    borderRadius: '0.6rem',
+    boxShadow: 3,
+    height: '2rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '0 1rem',
+    cursor: 'pointer',
+})
+
+export const tagsTxt = styled(Typography)({
+    color: '#FFF',
+    fontSize: '0.9rem',
+    fontWeight: '300',
+    lineHeight: 'normal',
+})

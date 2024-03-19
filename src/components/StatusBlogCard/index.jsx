@@ -1,10 +1,10 @@
 import * as styleMui from './StatusBlogCard.styled'
-import thumbnail from 'Images/tía tô.jpg'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
 import { motion } from 'framer-motion'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import { limitStr, parseImg } from 'utils'
 
-export const StatusBlogCard = ({ title, author, description,idx }) => {
+export const StatusBlogCard = ({ idx, item }) => {
     return (
         <styleMui.blogCard
             component={motion.div}
@@ -17,13 +17,13 @@ export const StatusBlogCard = ({ title, author, description,idx }) => {
         >
             <styleMui.thumbnailContainer>
                 <styleMui.Thumbnail
-                    thumbnail={thumbnail}
+                    thumbnail={parseImg(item.thumbnail)}
                     opacity="0"
                     zIndex="1"
                     sx={{ translate: '2rem 0rem' }}
                 />
                 <styleMui.Thumbnail
-                    thumbnail={thumbnail}
+                    thumbnail={parseImg(item.thumbnail)}
                     opacity="1"
                     zIndex="0"
                     sx={{ marginLeft: '-14.3rem', filter: 'grayscale(50%)' }}
@@ -32,17 +32,36 @@ export const StatusBlogCard = ({ title, author, description,idx }) => {
             <styleMui.blogCardBox>
                 <styleMui.blogCardContent>
                     <styleMui.blogCardHeader>
-                        <styleMui.Title>{title}</styleMui.Title>
+                        <styleMui.Title>{item.title}</styleMui.Title>
                         <styleMui.iconHeader>
                             <FavoriteBorderIcon sx={styleMui.iconStyle} />
+                            <styleMui.quantityNumber>
+                                {item.totalLike}
+                            </styleMui.quantityNumber>
                             <ChatOutlinedIcon sx={styleMui.iconStyle} />
+                            <styleMui.quantityNumber>
+                                {item.totalComment}
+                            </styleMui.quantityNumber>
                         </styleMui.iconHeader>
                     </styleMui.blogCardHeader>
-                    <styleMui.Author>Tác giả: {author}</styleMui.Author>
+                    <styleMui.Author>Tác giả: {item.user.name}</styleMui.Author>
+                    <styleMui.tagsContainer>
+                        {item.tags.length
+                            ? item.tags.map((vl, idx) => (
+                                  <styleMui.tagsBox key={item}>
+                                      <styleMui.tagsTxt>
+                                          {vl.plant}
+                                      </styleMui.tagsTxt>
+                                  </styleMui.tagsBox>
+                              ))
+                            : ''}
+                    </styleMui.tagsContainer>
                     <styleMui.DescriptionHeader>
                         Mô tả:
                     </styleMui.DescriptionHeader>
-                    <styleMui.Description>{description}</styleMui.Description>
+                    <styleMui.Description>
+                        {limitStr(item.content, 300)}
+                    </styleMui.Description>
                 </styleMui.blogCardContent>
             </styleMui.blogCardBox>
         </styleMui.blogCard>

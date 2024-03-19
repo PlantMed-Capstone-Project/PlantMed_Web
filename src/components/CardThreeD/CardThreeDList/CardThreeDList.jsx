@@ -6,6 +6,7 @@ import {
     Typography,
 } from '@mui/material'
 import React from 'react'
+import { limitStr } from 'utils'
 
 export const CardThreeD = React.memo(function CardThreeD(props) {
     const { data, opacity, scale } = props
@@ -42,9 +43,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     {data.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {data.description.length > 100
-                        ? data.description.slice(0, 99) + '...'
-                        : data.description}
+                    {limitStr(data.description, 100)}
                 </Typography>
             </CardContent>
         </Card>

@@ -35,15 +35,15 @@ export const tabContainer = styled(Tabs)(() => ({
         height: '0.2rem',
     },
     '& .Mui-selected': {
-        fontSize: '2rem',
+        fontSize: '1.75rem',
     },
 }))
 
 export const statusTab = styled(Tab)(() => ({
     color: '#214400',
     fontWeight: '700',
-    fontSize: '1.75rem',
-    width: '16.5rem',
+    fontSize: '1.5rem',
+    width: '14.5rem',
     height: '2rem',
     textTransform: 'capitalize',
 }))
@@ -68,7 +68,7 @@ export const blogCardList = styled(Box)(() => ({
 export const loadingText = styled(Typography)(() => ({
     color: '#214400',
     fontWeight: '600',
-    fontSize: '1.75rem',
-    textTransform: 'capitalize',
+    fontSize: '1.5rem',
+    textTransform: 'inherit',
     textAlign: 'center',
 }))
