@@ -2,17 +2,16 @@ import { Skeleton } from '@mui/material'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import * as styleMui from './approvalCard.styled'
-import ApprovalCardList from './ApprovalCardList'
-import SkeletonLoading from './SkeletonLoading'
+import * as styleMui from './BlogApproval.styled'
+import { CardList, SkeletonLoading } from '.'
 
-function ApprovalCard({ setIndexData }) {
+export function BlogApprovalCard({ setIndexData }) {
     const { data, loading } = useShallowEqualSelector((state) => state.blog)
     const [item, setItem] = useState([])
     const [dataSlice, setDataSlice] = useState(4)
     const maxRecordsReturned = 5
     useEffect(() => {
-        setItem((state) => data.slice(0, 5))
+        setItem(data.slice(0, 5))
     }, [data])
 
     // Hàm này sẽ kích hoạt mỗi khi thư viện cuộn đến thằng cuối cùng trong data
@@ -36,7 +35,7 @@ function ApprovalCard({ setIndexData }) {
                 spacing="3rem"
             >
                 {loading ? (
-                    Array.from(new Array(2)).map((vl, idx) => (
+                    Array.from(new Array(2)).map((_, idx) => (
                         <Skeleton
                             key={idx}
                             variant="rectangular"
@@ -50,7 +49,7 @@ function ApprovalCard({ setIndexData }) {
                     ))
                 ) : item.length > 0 ? (
                     item.map((vl, idx) => (
-                        <ApprovalCardList
+                        <CardList
                             key={vl.id}
                             item={vl}
                             idx={idx}
@@ -66,5 +65,3 @@ function ApprovalCard({ setIndexData }) {
         </InfiniteScroll>
     )
 }
-
-export default ApprovalCard

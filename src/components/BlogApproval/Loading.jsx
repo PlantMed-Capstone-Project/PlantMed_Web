@@ -1,6 +1,6 @@
 import { Skeleton, Stack } from '@mui/material'
 
-function SkeletonLoading() {
+export function SkeletonLoading() {
     return (
         <Stack
             direction="column"
@@ -13,7 +13,7 @@ function SkeletonLoading() {
                 padding: '1rem 8rem',
             }}
         >
-            {Array.from(new Array(2)).map((vl, idx) => (
+            {Array.from(new Array(2)).map((_, idx) => (
                 <Skeleton
                     variant="rectangular"
                     animation="wave"
@@ -28,5 +28,3 @@ function SkeletonLoading() {
         </Stack>
     )
 }
-
-export default SkeletonLoading

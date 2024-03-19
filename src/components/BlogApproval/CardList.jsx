@@ -2,12 +2,12 @@ import { Avatar, Box } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { convertString, parseImg } from 'utils'
-import * as styleMui from './approvalCardList.styled'
+import * as S from './BlogApproval.styled'
 
-function ApprovalCardList({ item, idx, setIndexData }) {
+export function CardList({ item, idx, setIndexData }) {
     const [isHover, setIsHover] = useState(null)
 
-    const hoverEnter = (idx) => {
+    const hoverEnter = () => {
         setIsHover(true)
     }
     const hoverLeave = () => {
@@ -21,7 +21,7 @@ function ApprovalCardList({ item, idx, setIndexData }) {
     const content = convertString(item.content, 200)
 
     return (
-        <styleMui.container
+        <S.containerCard
             component={motion.div}
             initial={{ x: -200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -33,53 +33,47 @@ function ApprovalCardList({ item, idx, setIndexData }) {
         >
             {/* Start image element */}
             <Box sx={{ flex: '2' }}>
-                <styleMui.imageBox
-                    onMouseEnter={() => hoverEnter(idx)}
+                <S.imageBox
+                    onMouseEnter={() => hoverEnter()}
                     onMouseLeave={hoverLeave}
                 >
-                    <styleMui.image
+                    <S.image
                         ishover={isHover}
                         image={parseImg(item.thumbnail)}
                         title={item.title}
                     />
-                </styleMui.imageBox>
+                </S.imageBox>
             </Box>
             {/* End image element */}
 
             {/*Start title element */}
-            <styleMui.txtBox>
-                <styleMui.title>{item.title}</styleMui.title>
-                <styleMui.subTitleBox>
-                    <styleMui.subTitle
-                        dangerouslySetInnerHTML={{ __html: content }}
-                    />
+            <S.txtBox>
+                <S.title>{item.title}</S.title>
+                <S.subTitleBox>
+                    <S.subTitle dangerouslySetInnerHTML={{ __html: content }} />
                     <Box sx={{ display: 'flex', gap: '0.3rem' }}>
                         {item.tags.length
                             ? item.tags.map((vl) => (
-                                  <styleMui.tagsBox key={item}>
-                                      <styleMui.tagsTxt>
-                                          {vl.name}
-                                      </styleMui.tagsTxt>
-                                  </styleMui.tagsBox>
+                                  <S.tagsBox key={item}>
+                                      <S.tagsTxt>{vl.name}</S.tagsTxt>
+                                  </S.tagsBox>
                               ))
                             : ''}
                     </Box>
-                </styleMui.subTitleBox>
-            </styleMui.txtBox>
+                </S.subTitleBox>
+            </S.txtBox>
             {/*End title element */}
 
             {/*Start avatar element */}
-            <styleMui.avatarBox>
+            <S.avatarBox>
                 <Avatar
                     alt={item.user.name}
                     src={parseImg(item.user.avatar)}
                     sx={{ width: 80, height: 80, backgroundColor: '#214400' }}
                 />
-                <styleMui.avatarName>{item.user.name}</styleMui.avatarName>
-            </styleMui.avatarBox>
+                <S.avatarName>{item.user.name}</S.avatarName>
+            </S.avatarBox>
             {/*End avatar element */}
-        </styleMui.container>
+        </S.containerCard>
     )
 }
-
-export default ApprovalCardList
