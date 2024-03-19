@@ -1,27 +1,74 @@
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
-import { useState } from 'react'
-import { imageToBase64 } from 'utils'
+import { useEffect, useState } from 'react'
+import { imageToBase64, parseImg } from 'utils'
 import * as styleMui from './Profile.styled'
+import { getAvatar, updateAvatar } from 'rest/api/user'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import CircularProgress from '@mui/material/CircularProgress'
+import useActions from 'hooks/useActions'
 
-export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
-    const [selectedAvatar, setSelectedAvatar] = useState(avatar)
+export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
+    const { show } = useActions(snackbarAction)
+    const [selectedAvatar, setSelectedAvatar] = useState()
 
     const handleAvatarChange = (event) => {
         const file = event.target.files[0]
         if (file) {
             imageToBase64(file, (result) => {
                 setSelectedAvatar(result)
+                handleUpdateAvatar(result)
             })
         }
     }
 
+    const handleUpdateAvatar = async (image) => {
+        try {
+            await updateAvatar(image)
+            show({
+                message: 'Cập nhật ảnh đại diện thành công',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+                autoHideDuration: 2000,
+            })
+        } catch (e) {
+            show({
+                message:
+                    e.response.data.message ??
+                    'Lỗi hệ thống! Vui lòng thử lại sau!',
+                severity: SNACKBAR_SEVERITY.ERROR,
+                autoHideDuration: 2000,
+            })
+        }
+    }
+
+    const handleGetAvatar = async () => {
+        try {
+            const res = await getAvatar()
+            setSelectedAvatar(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        handleGetAvatar()
+    }, [])
+
     return (
         <styleMui.avatarPlace>
-            <styleMui.Avatar sx={{ backgroundImage: `url(${selectedAvatar})` }}>
+            <styleMui.avatarContainer>
+                {selectedAvatar ? (
+                    <styleMui.avatar
+                        src={selectedAvatar ? parseImg(selectedAvatar) : avatar}
+                    />
+                ) : (
+                    <styleMui.boxLoading>
+                        <CircularProgress color="success" />
+                    </styleMui.boxLoading>
+                )}
                 <styleMui.Camera
-                    disabled={isDisabled}
                     component="label"
                     htmlFor="avatar-upload"
+                    disabled={isDisabled}
                 >
                     <CameraAltIcon />
                     <styleMui.uploadImage
@@ -32,9 +79,9 @@ export const ProfileAvatar = ({ avatar, username, email, isDisabled }) => {
                         hidden
                     />
                 </styleMui.Camera>
-            </styleMui.Avatar>
-            <styleMui.Username>{username}</styleMui.Username>
-            <styleMui.personalEmail>{email}</styleMui.personalEmail>
+            </styleMui.avatarContainer>
+            <styleMui.Username>{userInfo?.FullName}</styleMui.Username>
+            <styleMui.personalEmail>{userInfo?.Email}</styleMui.personalEmail>
         </styleMui.avatarPlace>
     )
 }

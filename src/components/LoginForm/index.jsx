@@ -5,13 +5,16 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton } from '@mui/material'
 import { authAction } from 'app/reducers/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import useActions from 'hooks/useActions'
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { login as authLogin } from 'rest/api/auth'
-import * as styleMui from './SigninForm.styled'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
+import { db } from 'firebase.js'
+import { addDoc, collection } from 'firebase/firestore'
+import useActions from 'hooks/useActions'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { login as authLogin } from 'rest/api/auth'
+import { parseJwt } from 'utils'
+import * as styleMui from './SigninForm.styled'
 
 export default function LoginForm() {
     const { login, loginFailure } = useActions(authAction)
@@ -44,12 +47,22 @@ export default function LoginForm() {
             type: eye ? 'text' : 'password',
             icon: <LockRoundedIcon sx={styleMui.iconStyle} />,
             eyeIcon: (
-                <IconButton onClick={handleEye}>
+                <IconButton onClick={handleEye} tabIndex={-1}>
                     {eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
             ),
         },
     ]
+
+    const expertRef = collection(db, 'expertOnline')
+    const handleOnline = async (data) => {
+        if (data.Role === 'expert') {
+            await addDoc(expertRef, {
+                expert: data,
+                status: 'isOnline',
+            })
+        }
+    }
 
     //Khai báo input
     const renderInputs = () => {
@@ -64,6 +77,7 @@ export default function LoginForm() {
                 value={inputs[item.key]}
                 error={errors[item.key]}
                 onChange={(e) => handleInputChange(item.key, e.target.value)}
+                onKeyDown={handleKeyDown}
                 helperText={errors[item.key]}
             />
         ))
@@ -71,13 +85,20 @@ export default function LoginForm() {
 
     //Check validation
     const onValidate = () => {
-        const inputErrors = validateInputs(inputs);
-    
+        const inputErrors = validateInputs(inputs)
+
         if (Object.keys(inputErrors).length > 0) {
-            setErrors(inputErrors);
+            setErrors(inputErrors)
         } else {
-            setErrors({});
-            onSubmit();
+            setErrors({})
+            onSubmit()
+        }
+    }
+
+    //Nhấn Enter để validate
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            onValidate()
         }
     }
 
@@ -100,6 +121,7 @@ export default function LoginForm() {
             })
             const response = await authLogin(inputs)
             login(response.data)
+            handleOnline(parseJwt(response.data.accessToken))
             show({
                 message: 'Đăng nhập thành công!!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
@@ -114,7 +136,7 @@ export default function LoginForm() {
                 autoHideDuration: 2000,
             })
         }
-    }    
+    }
 
     return (
         <styleMui.Form>
@@ -128,7 +150,10 @@ export default function LoginForm() {
                 {/* End input place */}
 
                 <styleMui.passSection>
-                    <styleMui.forgetPass to='/forgot-password' underline="hover">
+                    <styleMui.forgetPass
+                        to="/forgot-password"
+                        underline="hover"
+                    >
                         Quên mật khẩu?
                     </styleMui.forgetPass>
                 </styleMui.passSection>

@@ -1,26 +1,25 @@
-import { blogDetail } from 'FakeData/plantData'
 import CardBlog from 'components/CardBlog/CardBlog'
 import TagSearch from 'components/TagSearch/TagSearch'
-import { useState } from 'react'
+import useScrollTo from 'hooks/useScrollTo'
+import { useEffect, useState } from 'react'
 import * as styleMui from './BlogListPage.styled'
-import { useEffect } from 'react'
 
 function BlogListPage() {
     const [tagSearch, setTagSearch] = useState('')
     // eslint-disable-next-line no-unused-vars
-    const [positions, setPosition] = useState({
+    const [positions] = useState({
         scroll: null,
         topContent: null,
         sectionHeight: null,
     })
     // eslint-disable-next-line no-unused-vars
-    const [rightHeight, setRightHeight] = useState({
+    const [rightHeight] = useState({
         height: null,
     })
     const [isFixed, setIsFixed] = useState(false)
     const [isAbs, setIsAbs] = useState(false)
 
-    const data = blogDetail
+    useScrollTo(0, 0)
 
     const scrollValue = () => {
         // tính giá trị của cuối element, và trừ cho 320 để giảm giá trị, và kích hoạt animate sớm nhất
@@ -63,13 +62,8 @@ function BlogListPage() {
             }}
         >
             <styleMui.ctnComponent>
-                <CardBlog
-                    data={data}
-                    valueSearch={tagSearch}
-                    positions={positions}
-                />
+                <CardBlog valueSearch={tagSearch} positions={positions} />
                 <TagSearch
-                    data={data}
                     setTagSearch={setTagSearch}
                     rightHeight={rightHeight}
                     isFixed={isFixed}

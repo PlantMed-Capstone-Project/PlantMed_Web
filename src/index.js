@@ -7,11 +7,11 @@ import ReduxContainer from 'components/ReduxContainer'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-    <React.StrictMode>
-        <ReduxContainer>
+    <ReduxContainer>
+        <React.StrictMode>
             <App />
-        </ReduxContainer>
-    </React.StrictMode>
+        </React.StrictMode>
+    </ReduxContainer>
 )
 
 // If you want to start measuring performance in your app, pass a function
