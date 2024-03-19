@@ -2,11 +2,11 @@ import * as styleMui from './MyBlog.styled'
 import { ProfileSidebar } from 'components/Profile'
 import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { StatusBlogCard } from 'components/StatusBlogCard'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import { getActiveByUser, getPendingByUser } from 'rest/api/blog'
+import StatusBlogCardList from 'components/StatusBlogCard/StatusBlogCardList'
 
 function MyBlog() {
+    const [indexData, setIndexData] = useState(null)
     //Khai báo array các tab
     const nabItem = [
         {
@@ -22,12 +22,7 @@ function MyBlog() {
     ]
     const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
     const [allBlogActive, setAllBlogActive] = useState([])
-    const [allBlogPending, setAllBlogPending] = useState([])
-    const [data, setData] = useState([])
-    const [lengData, setLengthData] = useState(2)
-    const returnData = 3
-    const [hasMore, setHasMore] = useState(true)
-    const blogCardListRef = useRef(null)
+    const [allBlogPending, setAllBlogPending] = useState([])    
 
     const handleChange = (event, newValue) => {
         setBlogStatus(newValue)
@@ -62,56 +57,7 @@ function MyBlog() {
         getActiveBlog()
         getPendingBlog()        
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const fetchMoreData = () => {
-        setTimeout(() => {
-            setLengthData(lengData + returnData)
-            if (lengData + returnData >= data.length) {
-                setHasMore(false)
-            }
-        }, 500)
-    }
-
-    const handleMouseEnter = () => {
-        disableScroll()
-    }
-
-    const handleMouseLeave = () => {
-        enableScroll()
-    }
-
-    // Hủy scroll khi mở popup
-    const disableScroll = () => {
-        const scrollTop =
-            window.pageYOffset || document.documentElement.scrollTop
-        const scrollLeft =
-            window.pageXOffset || document.documentElement.scrollLeft
-
-        window.onscroll = () => {
-            window.scrollTo(scrollLeft, scrollTop)
-        }
-    }
-
-    // mở scroll khi đóng popup
-    const enableScroll = () => {
-        window.onscroll = () => {}
-    }
-
-    useEffect(() => {
-        const blogCardList = blogCardListRef.current
-        if (blogCardList) {
-            blogCardList.addEventListener('mouseenter', handleMouseEnter)
-            blogCardList.addEventListener('mouseleave', handleMouseLeave)
-
-            return () => {
-                blogCardList.removeEventListener('mouseenter', handleMouseEnter)
-                blogCardList.removeEventListener('mouseleave', handleMouseLeave)
-                enableScroll()
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [blogCardListRef])
+    }, [])        
 
     return (
         <styleMui.container>
@@ -133,26 +79,7 @@ function MyBlog() {
                         />
                     ))}
                 </styleMui.tabContainer>
-                <InfiniteScroll
-                    dataLength={data.length}
-                    next={fetchMoreData}
-                    hasMore={hasMore}
-                    loader={<styleMui.loadingText>
-                        Loading
-                    </styleMui.loadingText>}
-                >
-                    <styleMui.blogCardList ref={blogCardListRef}>
-                        {data.length > 0 ? (
-                            data.map((item, idx) => (
-                                <StatusBlogCard idx={idx} item={item} />
-                            ))
-                        ) : (
-                            <styleMui.loadingText>
-                                Hiện tại không có blog nào tồn tại
-                            </styleMui.loadingText>
-                        )}
-                    </styleMui.blogCardList>
-                </InfiniteScroll>
+                <StatusBlogCardList setIndexData={setIndexData}/>                
             </styleMui.blogContainer>
             <ProfileSidebar />
         </styleMui.container>

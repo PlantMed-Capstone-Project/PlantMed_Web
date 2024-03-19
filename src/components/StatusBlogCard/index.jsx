@@ -4,7 +4,10 @@ import { motion } from 'framer-motion'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { convertString, parseImg } from 'utils'
 
-export const StatusBlogCard = ({ idx, item }) => {
+export const StatusBlogCard = ({ idx, item, setIndexData}) => {
+    const cardClick = (id) => {
+        setIndexData(id)
+    }
     return (
         <styleMui.blogCard
             component={motion.div}
@@ -14,6 +17,7 @@ export const StatusBlogCard = ({ idx, item }) => {
                 duration: 0.5,
                 delay: idx * 0.1,
             }}
+            onClick={() => cardClick(item.id)}
         >
             <styleMui.thumbnailContainer>
                 <styleMui.Thumbnail
