@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { getActiveBlog } from 'rest/api/blog'
 import { getAll } from 'rest/api/plant'
 import { privateRoutes, publicRoutes } from 'routes'
+import VerificationPage from 'pages/VerificationPage/VerificationPage'
 
 function App() {
     const { storePlant, storePlantSuccessful } = useActions(plantAction)
@@ -113,6 +114,10 @@ function App() {
                     </Route>
 
                     <Route path="*" element={<NotFound />} />
+                    <Route
+                        path="/verification"
+                        element={<VerificationPage />}
+                    />
                 </Routes>
             </BrowserRouter>
         </Box>
