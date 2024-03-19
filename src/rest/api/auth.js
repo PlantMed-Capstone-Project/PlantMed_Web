@@ -10,8 +10,8 @@ export const register = async (payload) => {
     return http.post('auth/register', payload)
 }
 
-export const verifyEmail = async (payload) => {
-    return http.post('auth/verify', payload)
+export const verifyEmail = async () => {
+    return http.post('auth/verify')
 }
 
 export const refreshToken = async (payload) => {

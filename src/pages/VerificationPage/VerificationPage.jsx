@@ -1,11 +1,24 @@
 import { motion } from 'framer-motion'
-import useScrollTo from 'hooks/useScrollTo'
 import * as styleMui from './VerificationPage.styled'
 import { VerifySuccess, VerifyFailed } from 'components/ConfirmRegister'
+import { useEffect, useState } from 'react'
+import { verifyEmail } from 'rest/api/auth'
 
 function VerificationPage() {
-    //trigger animation khi scrollY
-    useScrollTo(0, 100)
+    const [isVerified, setIsVerified] = useState(false)
+
+    async function verify() {
+        try {
+            await verifyEmail()
+            setIsVerified(true)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    useEffect(() => {
+        verify()
+    }, [])
 
     return (
         <styleMui.container>
@@ -17,7 +30,7 @@ function VerificationPage() {
                     exit={{ opacity: 0, x: '30%' }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                 >
-                    <VerifySuccess />
+                    {isVerified ? <VerifySuccess /> : <VerifyFailed />}
                 </styleMui.formContainer>
             </styleMui.Background>
         </styleMui.container>
