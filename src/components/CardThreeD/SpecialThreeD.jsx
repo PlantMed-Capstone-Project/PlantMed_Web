@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
@@ -12,11 +12,12 @@ import 'swiper/css/pagination'
 import { FreeMode, Pagination } from 'swiper/modules'
 import CardThreeD from './CardThreeDList/CardThreeDList'
 
-function SpecialThreeD({}) {
+function SpecialThreeD() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
     let dataPlant = data.slice(0, 8)
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         dataPlant = data.slice(0, 8)
     }, [data])
 

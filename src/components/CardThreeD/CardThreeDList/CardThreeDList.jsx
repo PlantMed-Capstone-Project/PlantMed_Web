@@ -7,7 +7,7 @@ import {
     Typography,
 } from '@mui/material'
 import React, { useState } from 'react'
-import { limitStr, parseImg } from 'utils'
+import { convertString, parseImg } from 'utils'
 
 export const CardThreeD = React.memo(function CardThreeD(props) {
     const { data } = props
@@ -54,7 +54,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     {data ? data.name : <Skeleton />}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {data ? limitStr(data.usage, 100) : <Skeleton />}
+                    {data ? convertString(data.usage, 100) : <Skeleton />}
                 </Typography>
             </CardContent>
         </Card>
