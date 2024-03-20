@@ -28,13 +28,6 @@ function MyBlog() {
     const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
     const containerPopup = useRef()
 
-    // kiểm tra khi click có đang click vào popup hay không ?
-    const handler = (e) => {
-        if (!containerPopup.current?.contains(e.target)) {
-            setIndexData(null)
-        }
-    }
-
     const handleChange = (event, newValue) => {
         setBlogStatus(newValue)
     }
@@ -63,6 +56,13 @@ function MyBlog() {
         }
     }
 
+    // kiểm tra khi click có đang click vào popup hay không ?
+    const handler = (e) => {
+        if (!containerPopup.current?.contains(e.target)) {
+            setIndexData(null)
+        }
+    }
+    
     // Hủy scroll khi mở popup
     const disableScroll = () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop
