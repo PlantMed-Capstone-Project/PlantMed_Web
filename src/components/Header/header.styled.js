@@ -1,8 +1,13 @@
 import { Box, Button, styled } from '@mui/material'
 
+export const iconStyle = {
+    fontSize: '1.65rem',
+    color: '#69AD28',
+}
+
 export const CustomBoxPopup = styled(Box)(() => ({
-    width: '12.6875rem',
-    height: '13.125rem',
+    width: '12.4875rem',
+    height: '14.725rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -19,7 +24,7 @@ export const CustomBoxPopup = styled(Box)(() => ({
 }))
 
 export const BoxContainAvt = styled(Box)(() => ({
-    width: '8.125rem',
+    width: '9.125rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
