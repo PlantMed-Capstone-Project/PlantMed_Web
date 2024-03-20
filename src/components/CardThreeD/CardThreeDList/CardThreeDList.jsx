@@ -1,18 +1,12 @@
-import {
-    Box,
-    Card,
-    CardContent,
-    CardMedia,
-    Typography,
-} from '@mui/material'
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
 import React from 'react'
-import { limitStr } from 'utils'
+import { convertString } from 'utils'
 
 export const CardThreeD = React.memo(function CardThreeD(props) {
     const { data, opacity, scale } = props
     return (
         <Card
-            sx={{                
+            sx={{
                 width: '20.875rem',
                 height: '17.5rem',
                 borderRadius: '0.625rem',
@@ -43,7 +37,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     {data.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {limitStr(data.description, 100)}
+                    {convertString(data.description, 100)}
                 </Typography>
             </CardContent>
         </Card>
