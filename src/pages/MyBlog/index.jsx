@@ -24,11 +24,11 @@ function MyBlog() {
     ]
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [indexData, setIndexData] = useState(null)
+    const [dataValue, setDataValue] = useState(null)
     const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
     const containerPopup = useRef()
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (_, newValue) => {
         setBlogStatus(newValue)
     }
 
@@ -56,17 +56,18 @@ function MyBlog() {
         }
     }
 
-    // kiểm tra khi click có đang click vào popup hay không ?
-    const handler = (e) => {
-        if (!containerPopup.current?.contains(e.target)) {
-            setIndexData(null)
-        }
-    }
+    useEffect(() => {
+        blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [blogStatus])
 
     // Hủy scroll khi mở popup
     const disableScroll = () => {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop
-        const scrollLeft = window.scrollX || document.documentElement.scrollLeft
+        const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop
+        const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft
 
         window.onscroll = () => {
             window.scrollTo(scrollLeft, scrollTop)
@@ -78,22 +79,25 @@ function MyBlog() {
         window.onscroll = () => {}
     }
 
-    useEffect(() => {
-        blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
-        if (data) {
-            document.addEventListener('mousedown', handler)
-            return () => {
-                document.removeEventListener('mousedown', handler)
-                enableScroll()
-            }
+    // kiểm tra khi click có đang click vào popup hay không ?
+    const handler = (e) => {
+        if (!containerPopup.current?.contains(e.target)) {
+            setDataValue(null)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [blogStatus])
+    }
 
     useEffect(() => {
-        if (indexData !== null) disableScroll()
+        document.addEventListener('mousedown', handler)
+        return () => {
+            document.removeEventListener('mousedown', handler)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        if (dataValue !== null) disableScroll()
         return () => enableScroll()
-    }, [indexData])
+    }, [dataValue])
 
     return (
         <styleMui.container>
@@ -117,24 +121,20 @@ function MyBlog() {
                 </styleMui.tabContainer>
                 <StatusBlogCardList
                     data={data}
-                    setIndexData={setIndexData}
+                    setDataValue={setDataValue}
                     loading={loading}
                 />
             </styleMui.blogContainer>
             <styleFromPlant.popupContainer
-                isopen={indexData !== null ? true : undefined}
+                isopen={dataValue !== null || undefined}
             >
                 <styleFromPlant.activePopup
                     ref={containerPopup}
-                    isopen={indexData !== null ? true : undefined}
+                    isopen={dataValue !== null || undefined}
                 >
                     <AnimatePresence>
-                        {indexData !== null && (
-                            <PopupInfo
-                                id={indexData}
-                                approvalPage
-                                setIndexData={setIndexData}
-                            />
+                        {dataValue !== null && (
+                            <PopupInfo approvalPage myBlogData={dataValue} />
                         )}
                     </AnimatePresence>
                 </styleFromPlant.activePopup>

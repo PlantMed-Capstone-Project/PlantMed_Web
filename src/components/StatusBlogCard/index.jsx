@@ -3,14 +3,13 @@ import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined'
 import { motion } from 'framer-motion'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { convertString, parseImg } from 'utils'
+import { useNavigate } from 'react-router-dom'
 
-export const StatusBlogCard = ({ idx, item, setIndexData }) => {
-    const cardClick = (id) => {
-        setIndexData(id)
-    }
+export const StatusBlogCard = ({ idx, item, setDataValue }) => {
     const thumbnail = parseImg(item.thumbnail)
     const description = convertString(item.content, 300)
     const title = convertString(item.title, 40)
+    const cardClick = (item) => setDataValue(item)
 
     return (
         <styleMui.blogCard
@@ -22,7 +21,7 @@ export const StatusBlogCard = ({ idx, item, setIndexData }) => {
                 duration: 0.5,
                 delay: idx * 0.1,
             }}
-            onClick={() => cardClick(item.id)}
+            onClick={() => cardClick(item)}
         >
             <styleMui.thumbnailContainer>
                 <styleMui.Thumbnail
