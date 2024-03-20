@@ -18,7 +18,7 @@ export const CardThreeD = React.memo(function CardThreeD({ data }) {
     const goDetail = (id) => {
         if (id) {
             navigate(`/plants/${id}`)
-        } else return
+        }
     }
     return (
         <styleMui.CustomBoxPopup
