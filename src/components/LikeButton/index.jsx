@@ -11,7 +11,7 @@ export const LikeButton = ({ initHeart, likeQuantity, handleClick }) => {
         setQuantity(likeQuantity)
     }, [initHeart, likeQuantity])
 
-    const handleLikeClick = async () => {
+    const handleLikeClick = () => {
         setLiked((prevState) => {
             const newLikedState = !prevState
             setQuantity((prevQuantity) =>

@@ -44,7 +44,7 @@ const CardBlogList = ({ item, idx }) => {
         navigate(`/blog/${id}`)
     }
 
-    const handleClick = async (id, title) => {
+    const handleClick = (id, title) => {
         let isLike = item.userLike.some((el) => el.email === user.Email)
         if (id === item.id && !isLike) {
             handleLike(id, title)
