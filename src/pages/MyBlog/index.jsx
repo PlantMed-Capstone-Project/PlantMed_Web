@@ -62,7 +62,7 @@ function MyBlog() {
             setIndexData(null)
         }
     }
-    
+
     // Hủy scroll khi mở popup
     const disableScroll = () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop
