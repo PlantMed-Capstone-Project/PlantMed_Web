@@ -1,31 +1,32 @@
 import {
     Box,
-    Card,
     CardContent,
     CardMedia,
     Skeleton,
     Typography,
 } from '@mui/material'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { limitStr, parseImg } from 'utils'
+import * as styleMui from './CardThreeDList.styled'
 
 export const CardThreeD = React.memo(function CardThreeD(props) {
-    const { data } = props
+    const { data, idx } = props
     const [hover, setHover] = useState(false)
+
+    const navigate = useNavigate()
+
+    const goDetail = (id) => {
+        if (id) {
+            navigate(`/plants/${id}`)
+        } else return
+    }
     return (
-        <Card
+        <styleMui.CustomBoxPopup
+            hover={hover}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            sx={{
-                width: '24.875rem',
-                height: '17.8rem',
-                borderRadius: '0.625rem',
-                boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
-                transition: 'all 0.2s ease',
-                margin: '2rem 1rem',
-                cursor: 'pointer',
-                scale: hover ? '1.05' : '1',
-            }}
+            onClick={() => goDetail(data.id)}
         >
             <Box sx={{ height: '10.5rem', width: '100%' }}>
                 {data ? (
@@ -57,7 +58,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     {data ? limitStr(data.usage, 100) : <Skeleton />}
                 </Typography>
             </CardContent>
-        </Card>
+        </styleMui.CustomBoxPopup>
     )
 })
 

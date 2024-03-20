@@ -35,7 +35,7 @@ const CardBlogList = ({ item, idx }) => {
         navigate(`/blog/${id}`)
     }
 
-    const content = convertString(item.content, 300)
+    const content = convertString(item.content, 150)
     return item ? (
         <styleMui.container
             component={motion.div}

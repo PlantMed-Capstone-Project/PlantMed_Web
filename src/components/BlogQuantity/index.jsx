@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import * as styleMui from './BlogQuantity.styled'
 import CountUp from 'react-countup'
+import { Box } from '@mui/material'
 
 export default function BlogQuantity() {
     // dữ liệu giả
@@ -23,15 +24,12 @@ export default function BlogQuantity() {
                 <styleMui.imagePlace direction="column">
                     <styleMui.studyImage />
                     <styleMui.boxContainer>
-                        <styleMui.button component={Link} to="/bloglist">
-                            Xem thêm
-                        </styleMui.button>
                         <styleMui.ipadImage />
                     </styleMui.boxContainer>
                 </styleMui.imagePlace>
                 <styleMui.infoPlace direction="column">
                     <styleMui.Title>
-                        Những Bài Viết Đã Được Các Chuyên Gia Thẩm Định
+                        Những Bài Viết Đã Được Các Chuyên <br /> Gia Thẩm Định
                     </styleMui.Title>
                     <styleMui.Info>
                         PLANTMED đáp ứng được thông tin chính xác, xác định giá
@@ -57,6 +55,11 @@ export default function BlogQuantity() {
                             </styleMui.quantityBox>
                         ))}
                     </styleMui.staticContainer>
+                    <styleMui.boxButton>
+                        <styleMui.button component={Link} to="/bloglist">
+                            Xem thêm
+                        </styleMui.button>
+                    </styleMui.boxButton>
                 </styleMui.infoPlace>
             </styleMui.blogQuantityContainer>
         </styleMui.container>

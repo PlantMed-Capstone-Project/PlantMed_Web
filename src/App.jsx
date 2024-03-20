@@ -16,7 +16,8 @@ import { getAll } from 'rest/api/plant'
 import { privateRoutes, publicRoutes } from 'routes'
 
 function App() {
-    const { storePlant, storePlantSuccessful } = useActions(plantAction)
+    const { storePlant, storePlantSuccessful, storePlantFail } =
+        useActions(plantAction)
     const { storeBlogActive, storeBlog, storeBlogFailed } =
         useActions(blogAction)
     const { isLogin } = useShallowEqualSelector((state) => state.auth)

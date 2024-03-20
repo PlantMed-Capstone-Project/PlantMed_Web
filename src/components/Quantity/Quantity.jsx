@@ -130,6 +130,7 @@ export default function Quantity() {
                     >
                         <Stack direction="row">
                             <CountUp
+                                enableScrollSpy={true}
                                 start={0}
                                 end={obj.quantity}
                                 duration={7}
