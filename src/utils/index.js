@@ -95,20 +95,16 @@ const sliceImg = (string) => {
     return string.substring(0, startIndex) + string.substring(endIndex + 1)
 }
 
-export const convertString = (string, stringLength) => {
-    return convert(sliceImg(string), options).length > stringLength
-        ? convert(sliceImg(string), options).slice(0, stringLength) + '...'
-        : convert(sliceImg(string), options)
-}
-
 /**
  * slice content
  * @param {*} str string
- * @param {*} limit Number
+ * @param {*} len Number
  * @returns new string
  */
-export const limitStr = (str, limit) => {
-    return str.length <= limit ? str : str.slice(0, limit) + '...'
+export const convertString = (str, len) => {
+    return convert(sliceImg(str), options).length > len
+        ? convert(sliceImg(str), options).slice(0, len) + '...'
+        : convert(sliceImg(str), options)
 }
 
 export const sortComment = (data) => {

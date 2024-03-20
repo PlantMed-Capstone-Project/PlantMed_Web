@@ -7,5 +7,5 @@ export const getAll = async () => {
 }
 
 export const getById = async (id) => {
-    return http.get('plants/:id', id)
+    return http.get(`plants/${id}`)
 }
