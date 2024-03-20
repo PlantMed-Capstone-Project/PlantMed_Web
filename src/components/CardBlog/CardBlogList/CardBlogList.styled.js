@@ -93,7 +93,7 @@ export const ctnBottom = styled(Box)(() => ({
 
 export const likeContainer = styled(Box)(() => ({
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
 }))
 
 export const quantityLike = styled(Typography)(() => ({

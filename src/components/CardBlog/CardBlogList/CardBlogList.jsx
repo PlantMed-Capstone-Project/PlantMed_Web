@@ -1,18 +1,25 @@
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto'
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { LikeButton } from 'components/LikeButton'
 import { motion } from 'framer-motion'
+import useActions from 'hooks/useActions'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { convertString, parseImg } from 'utils'
+import { like, unlike } from 'rest/api/blog'
+import { convertString, parseImg, parseJwt } from 'utils'
 import * as styleMui from './CardBlogList.styled'
+import { readCookie } from 'utils/cookie'
+import { ACCESS_TOKEN } from 'constant'
 
 const CardBlogList = ({ item, idx }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
+    const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
+    let user = parseJwt(readCookie(ACCESS_TOKEN))
 
     const popupRef = useRef()
 
@@ -25,6 +32,8 @@ const CardBlogList = ({ item, idx }) => {
 
     useEffect(() => {
         document.addEventListener('mousedown', handler)
+
+        return () => document.removeEventListener('mousedown', handler)
     }, [])
 
     const handleOpenForm = (value) => {
@@ -35,7 +44,47 @@ const CardBlogList = ({ item, idx }) => {
         navigate(`/blog/${id}`)
     }
 
-    const content = convertString(item.content, 300)
+    const handleClick = async (id, title) => {
+        let isLike = item.userLike.some((el) => el.email === user.Email)
+        if (id === item.id && !isLike) {
+            handleLike(id, title)
+        } else {
+            handleUnLike(id, title)
+        }
+    }
+
+    const handleLike = async (id, title) => {
+        try {
+            await like(id)
+            show({
+                message: `Bạn đã thích bài viết ${title}`,
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error.message)
+            show({
+                message: `Không thể thích bài viết ${title} ngay lúc này`,
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        }
+    }
+
+    const handleUnLike = async (id, title) => {
+        try {
+            await unlike(id)
+            show({
+                message: `Bạn đã bỏ thích bài viết ${title}`,
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error.message)
+            show({
+                message: `Không thể bỏ thích bài viết ${title} ngay lúc này`,
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        }
+    }
+
     return item ? (
         <styleMui.container
             component={motion.div}
@@ -107,7 +156,9 @@ const CardBlogList = ({ item, idx }) => {
                 <styleMui.containtText>
                     <styleMui.title>{item.title}</styleMui.title>
                     <styleMui.description
-                        dangerouslySetInnerHTML={{ __html: content }}
+                        dangerouslySetInnerHTML={{
+                            __html: convertString(item.content, 100),
+                        }}
                     />
                 </styleMui.containtText>
                 {/* End phase text */}
@@ -130,21 +181,25 @@ const CardBlogList = ({ item, idx }) => {
             {/* Start Third phase of this card */}
             <styleMui.ctnBottom>
                 <styleMui.likeContainer>
-                    <FavoriteBorderIcon
-                        sx={{ cursor: 'pointer', color: '#69AD28' }}
+                    <LikeButton
+                        initHeart={item.userLike.some(
+                            (obj) => obj.email === user.Email
+                        )}
+                        likeQuantity={item.totalLike}
+                        handleClick={() => handleClick(item.id, item.title)}
                     />
-                    <styleMui.quantityLike>100</styleMui.quantityLike>
                 </styleMui.likeContainer>
                 <styleMui.commentBox onClick={() => handleRedirect(item.id)}>
                     <ChatBubbleOutlineIcon
                         sx={{ cursor: 'pointer', color: '#69AD28' }}
                     />
+                    {item.totalComment}
                 </styleMui.commentBox>
             </styleMui.ctnBottom>
             {/* End Third phase of this card */}
         </styleMui.container>
     ) : (
-        <styleMui.txtNotFound>Không có dữ liệu</styleMui.txtNotFound>
+        <styleMui.txtNotFound>Không có bài viết</styleMui.txtNotFound>
     )
 }
 

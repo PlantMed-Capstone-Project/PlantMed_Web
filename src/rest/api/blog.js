@@ -37,3 +37,11 @@ export const getIdBlog = async (id) => {
 export const getTop = async (num) => {
     return http.get(`blogs/top?number=${num}`)
 }
+
+export const like = async (id) => {
+    return http.post(`blogs/like?id=${id}`)
+}
+
+export const unlike = async (id) => {
+    return http.delete(`blogs/unlike?id=${id}`)
+}

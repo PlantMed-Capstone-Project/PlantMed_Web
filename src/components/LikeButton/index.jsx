@@ -1,19 +1,25 @@
-import * as styleMui from './LikeButton.styled'
 import Heart from 'Images/heart.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import * as styleMui from './LikeButton.styled'
 
-export const LikeButton = ({ likeQuantity }) => {
+export const LikeButton = ({ initHeart, likeQuantity, handleClick }) => {
     const [liked, setLiked] = useState(false)
-    const [quantity, setQuantity] = useState(likeQuantity)
+    const [quantity, setQuantity] = useState(0)
 
-    const handleLikeClick = () => {
+    useEffect(() => {
+        setLiked(initHeart)
+        setQuantity(likeQuantity)
+    }, [initHeart, likeQuantity])
+
+    const handleLikeClick = async () => {
         setLiked((prevState) => {
-            const newLikedState = !prevState;
+            const newLikedState = !prevState
             setQuantity((prevQuantity) =>
                 newLikedState ? prevQuantity + 1 : prevQuantity - 1
             )
             return newLikedState
         })
+        handleClick()
     }
 
     return (
