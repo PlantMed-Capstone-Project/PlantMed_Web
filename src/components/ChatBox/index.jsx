@@ -5,10 +5,30 @@ import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import Logo from 'Images/logo.png'
 import ChatLayout from 'components/ChatLayout'
+import InfoIcon from '@mui/icons-material/Info'
 import { useState } from 'react'
+import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
+import { collection, where } from 'firebase/firestore'
+import { db } from 'firebase.js'
+import { parseJwt } from 'utils'
+import { readCookie } from 'utils/cookie'
+import { ACCESS_TOKEN } from 'constant'
 function ChatBox() {
     const [isOpen, setIsOpen] = useState(true)
     const [isChat, setIsChat] = useState(false)
+    const user = parseJwt(readCookie(ACCESS_TOKEN))
+    const requestRef = collection(db, 'requests')
+    //list yêu cầu trò chuyện
+    const [requestList, setRequestList] = useState([])
+    useFirestoreQuery(
+        requestRef,
+        [
+            where('expertEmail', '==', user.Email),
+            where('status', '==', 'pending'),
+        ],
+        setRequestList
+    )
+
     const handleOpen = () => {
         setIsOpen(false)
     }
@@ -114,6 +134,16 @@ function ChatBox() {
                         </Box>
                     )}
                     <Box sx={{ marginTop: '0.625rem', textAlign: 'end' }}>
+                        {requestList.length > 0 && (
+                            <InfoIcon
+                                color="warning"
+                                sx={{
+                                    position: 'absolute',
+                                    zIndex: 10002,
+                                    right: 46,
+                                }}
+                            />
+                        )}
                         <IconButton
                             sx={{
                                 width: '3.75rem',
