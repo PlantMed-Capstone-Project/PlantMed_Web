@@ -13,7 +13,11 @@ export default function HomePage() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
 
     return (
-        <Stack direction="column" alignItems="center" sx={{ width: '100%' }}>
+        <Stack
+            direction="column"
+            alignItems="center"
+            sx={{ width: '100%', overflowX: 'hidden' }}
+        >
             <Heros />
             <Sologan />
             <FeaturedSearch

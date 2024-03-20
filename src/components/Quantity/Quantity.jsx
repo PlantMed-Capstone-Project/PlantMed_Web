@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import CountUp from 'react-countup'
 import groupImage from 'Images/groupImage.png'
+import { motion } from 'framer-motion'
 
 export default function Quantity() {
     // dữ liệu giả
@@ -22,10 +23,10 @@ export default function Quantity() {
         <Stack
             direction="column"
             sx={{
-                height: '56rem',
+                height: '52rem',
                 width: '90rem',
                 backgroundColor: 'FFF',
-                paddingBottom: '5rem',
+                paddingBottom: '3rem',
             }}
         >
             <Box
@@ -39,10 +40,23 @@ export default function Quantity() {
                 <Stack
                     direction="column"
                     alignItems="flex-start"
-                    spacing="2.81rem"
+                    spacing="2rem"
                 >
                     <Typography
-                        component="p"
+                        component={motion.p}
+                        initial={{ opacity: 0, x: 200 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                            ease: [0, 0.71, 0.2, 1.01],
+                            duration: 0.2,
+                            x: {
+                                type: 'spring',
+                                damping: 5,
+                                stiffness: 100,
+                                restDelta: 0.001,
+                            },
+                        }}
                         sx={{
                             color: '#214400',
                             fontSize: '2.2rem',
@@ -51,7 +65,23 @@ export default function Quantity() {
                     >
                         CHÚNG TÔI CÓ GÌ
                     </Typography>
-                    <Box sx={{ color: '#69AD28', width: '36.875rem' }}>
+                    <Box
+                        sx={{ color: '#69AD28', width: '36.875rem' }}
+                        component={motion.div}
+                        initial={{ opacity: 0, x: -200 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                            ease: [0, 0.71, 0.2, 1.01],
+                            duration: 0.2,
+                            x: {
+                                type: 'spring',
+                                damping: 5,
+                                stiffness: 100,
+                                restDelta: 0.001,
+                            },
+                        }}
+                    >
                         <Typography
                             component="p"
                             sx={{
@@ -67,6 +97,20 @@ export default function Quantity() {
                         sx={{
                             width: '31.5625rem',
                             color: '#214400',
+                        }}
+                        component={motion.div}
+                        initial={{ opacity: 0, x: 200 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                            ease: [0, 0.71, 0.2, 1.01],
+                            duration: 0.2,
+                            x: {
+                                type: 'spring',
+                                damping: 5,
+                                stiffness: 100,
+                                restDelta: 0.001,
+                            },
                         }}
                     >
                         <Typography
@@ -93,6 +137,20 @@ export default function Quantity() {
                         top: '7.75rem',
                         zIndex: '1',
                     }}
+                    component={motion.div}
+                    initial={{ opacity: 0, x: 200 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                        ease: [0, 0.71, 0.2, 1.01],
+                        duration: 0.2,
+                        x: {
+                            type: 'spring',
+                            damping: 5,
+                            stiffness: 100,
+                            restDelta: 0.001,
+                        },
+                    }}
                 >
                     <img
                         src={groupImage}
@@ -112,7 +170,7 @@ export default function Quantity() {
                 spacing="8.14rem"
                 sx={{
                     width: '100%',
-                    padding: '4.5rem 0 0 8rem',
+                    padding: '3rem 0 0 8rem',
                     justifyContent: 'flex-start',
                 }}
             >
