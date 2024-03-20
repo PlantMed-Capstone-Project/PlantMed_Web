@@ -31,7 +31,7 @@ function ChatLayout({ handleCloseChat }) {
     const [room, setRoom] = useState(null)
     const [isSelect, setIsSelect] = useState(false)
     const [isRequest, setIsRequest] = useState(false)
-    const [emailExpert, setEmailExpert] = useState('')
+    const [expertInfo, setExpertInfo] = useState('')
     const [expertIsDone, setExpertIsDone] = useState([])
     const user = parseJwt(readCookie(ACCESS_TOKEN))
     const requestRef = collection(db, 'requests')
@@ -42,8 +42,8 @@ function ChatLayout({ handleCloseChat }) {
     const [userStatus, setUserStatus] = useState([])
     //list expert đang onl
     const [expertList, setExpertList] = useState([])
-    const handleChange = (email) => {
-        setEmailExpert(email)
+    const handleChange = (info) => {
+        setExpertInfo(info)
     }
 
     useFirestoreQuery(
@@ -98,7 +98,8 @@ function ChatLayout({ handleCloseChat }) {
         if (!isRequest) {
             await addDoc(requestRef, {
                 userRequest: user,
-                expertEmail: emailExpert,
+                expertEmail: expertInfo.Email,
+                expertName: expertInfo.FullName,
                 status: 'pending',
                 room: '',
             })
@@ -111,13 +112,10 @@ function ChatLayout({ handleCloseChat }) {
             setIsSelect(false)
             setIsRequest(false)
             setOpenDialog(true)
-            console.log(isRequest)
             setTimeout(() => {
                 handleCloseChat()
             }, 2000)
-            if (user.Role === 'expert') {
-                handleDeleChatDone(chatDone.id)
-            }
+            handleDeleChatDone(chatDone.id)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userStatus])
@@ -125,14 +123,14 @@ function ChatLayout({ handleCloseChat }) {
     const removeRequest = async () => {
         await deleteDoc(doc(requestRef, userStatus[0].id))
         setIsRequest(false)
-        setEmailExpert('')
+        setExpertInfo()
     }
 
     const closeChat = () => {
         setIsSelect(false)
         if (user.Role === 'user') {
             setIsRequest(false)
-            setEmailExpert('')
+            setExpertInfo()
         }
     }
     const updateRequest = async (id) => {
@@ -155,25 +153,29 @@ function ChatLayout({ handleCloseChat }) {
     }
 
     const handleDeleChatDone = async (id) => {
-        await deleteDoc(doc(requestRef, id))
-        const expertStatus = expertIsDone.find(
-            ({ expert }) => expert.Email === user.Email
-        )
+        try{
+            await deleteDoc(doc(requestRef, id))
+            const expertStatus = expertIsDone.find(
+                ({ expert }) => expert.Email === user.Email
+            )
 
-        if (expertStatus) {
-            await updateDoc(doc(expertRef, expertStatus.id), {
-                status: 'isOnline',
-            })
+            if (expertStatus) {
+                await updateDoc(doc(expertRef, expertStatus.id), {
+                    status: 'isOnline',
+                })
+            }
+        }catch(e){
+            console.log(e)
         }
     }
 
     useEffect(() => {
-        if (emailExpert !== '') {
+        if (expertInfo) {
             addRequest()
             setIsRequest(true)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [emailExpert])
+    }, [expertInfo])
 
     // eslint-disable-next-line no-lone-blocks
     {
@@ -333,7 +335,6 @@ function ChatLayout({ handleCloseChat }) {
                                                         onClick={() =>
                                                             handleChange(
                                                                 data.expert
-                                                                    .Email
                                                             )
                                                         }
                                                     >

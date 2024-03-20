@@ -185,7 +185,7 @@ function Chat({ room, user, closeChat, userStatus }) {
                                 >
                                     {user.Role === 'user' ? (
                                         <Typography>
-                                            {userStatus[0].expertEmail}
+                                            {userStatus[0].expertName}
                                         </Typography>
                                     ) : (
                                         <>
