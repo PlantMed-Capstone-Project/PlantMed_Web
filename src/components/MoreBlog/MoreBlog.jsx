@@ -37,7 +37,7 @@ export default function MoreBlog({ namePlant }) {
             >
                 {/* Start mapping the data  */}
                 {loading ? (
-                    Array.from(new Array(4)).map((vl, idx) => (
+                    Array.from(new Array(4)).map((_, idx) => (
                         <muiStyle.cardBox key={idx}>
                             <Skeleton
                                 variant="rectangular"
@@ -70,6 +70,7 @@ export default function MoreBlog({ namePlant }) {
                                 y: -10,
                                 transition: { duration: 0.2 },
                             }}
+                            onClick={() => navigate(`/blog/${vl.id}`)}
                         >
                             <CardMedia
                                 component="img"
@@ -83,9 +84,7 @@ export default function MoreBlog({ namePlant }) {
                                     gutterBottom
                                     sx={{ fontSize: '1.1rem' }}
                                 >
-                                    {vl?.title.length > 30
-                                        ? vl?.title.slice(0, 29) + '..'
-                                        : vl?.title}
+                                    {convertString(vl?.title, 22)}
                                 </Typography>
 
                                 <Typography
@@ -107,7 +106,7 @@ export default function MoreBlog({ namePlant }) {
             </Stack>
             {/* chuyen den trang bai viet */}
             <muiStyle.Button onClick={() => navigate('/bloglist')}>
-                Xem thêm
+                Xem các bài viết khác
             </muiStyle.Button>
         </Stack>
     )
