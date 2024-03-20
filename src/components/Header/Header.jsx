@@ -113,12 +113,16 @@ function Header({ isLogin }) {
         const expert = expertList.find(
             ({ expert }) => expert.Email === user.Email
         )
-        await deleteDoc(doc(expertRef, expert.id))
+        if (expert) {
+            await deleteDoc(doc(expertRef, expert.id))
+        }
         logout()
     }
 
     const handleLogout = () => {
-        handleOffLine()
+        if (user.Role === 'expert') {
+            handleOffLine()
+        }
         logout()
         show({ message: 'Đã đăng xuất!' })
         navigate('/login')
