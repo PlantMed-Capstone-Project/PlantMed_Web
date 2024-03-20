@@ -23,3 +23,45 @@ export const iconStyle = {
     width: '4rem',
     color: '#69AD28',
 }
+
+export const btnNext = styled(Box)(({ id, isHover }) => ({
+    backgroundColor: '#e9edd9',
+    borderRadius: '50%',
+    height: '4rem',
+    width: '4rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    position: 'absolute',
+    right: '8rem    ',
+    bottom: '8rem',
+    zIndex: '10',
+    opacity: '0.8',
+    transition: 'all 0.2s',
+    '&:hover': {
+        opacity: 1,
+        scale: '1.2',
+    },
+}))
+
+export const btnPrv = styled(Box)(({ id, isHover }) => ({
+    backgroundColor: '#e9edd9',
+    borderRadius: '50%',
+    height: '4rem',
+    width: '4rem',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    position: 'absolute',
+    left: '8rem',
+    bottom: '8rem',
+    zIndex: '10',
+    opacity: '0.8',
+    transition: 'all 0.2s',
+    '&:hover': {
+        opacity: 1,
+        scale: '1.2',
+    },
+}))
