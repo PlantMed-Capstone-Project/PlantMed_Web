@@ -178,4 +178,6 @@ export const txtNotFound = styled(Typography)(() => ({
 export const commentBox = styled(Box)(() => ({
     display: 'flex',
     alignItems: 'center',
+    gap: '0.6rem',
+    height: '21px',
 }))

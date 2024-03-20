@@ -12,6 +12,7 @@ import { convertString, parseImg, parseJwt } from 'utils'
 import * as styleMui from './CardBlogList.styled'
 import { readCookie } from 'utils/cookie'
 import { ACCESS_TOKEN } from 'constant'
+import { Typography } from '@mui/material'
 
 const CardBlogList = ({ item, idx }) => {
     const [showPopup, setShowPopup] = useState(false)
@@ -191,9 +192,14 @@ const CardBlogList = ({ item, idx }) => {
                 </styleMui.likeContainer>
                 <styleMui.commentBox onClick={() => handleRedirect(item.id)}>
                     <ChatBubbleOutlineIcon
-                        sx={{ cursor: 'pointer', color: '#69AD28' }}
+                        sx={{
+                            cursor: 'pointer',
+                            color: '#69AD28',
+                        }}
                     />
-                    {item.totalComment}
+                    <Typography sx={{ fontSize: '1.25rem' }}>
+                        {item.totalComment}
+                    </Typography>
                 </styleMui.commentBox>
             </styleMui.ctnBottom>
             {/* End Third phase of this card */}

@@ -25,9 +25,7 @@ export const LikeButton = ({ initHeart, likeQuantity, handleClick }) => {
     return (
         <styleMui.likeContainer>
             <styleMui.likeButton onClick={handleLikeClick}>
-                <styleMui.likeBg>
-                    <styleMui.likeIcon image={Heart} liked={liked} />
-                </styleMui.likeBg>
+                <styleMui.likeIcon image={Heart} liked={liked} />
             </styleMui.likeButton>
             <styleMui.likeQuantity>{quantity}</styleMui.likeQuantity>
         </styleMui.likeContainer>
