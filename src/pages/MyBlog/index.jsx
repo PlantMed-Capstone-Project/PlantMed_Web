@@ -1,12 +1,11 @@
 import * as styleMui from './MyBlog.styled'
 import { ProfileSidebar } from 'components/Profile'
 import { Link } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getActiveByUser, getPendingByUser } from 'rest/api/blog'
 import StatusBlogCardList from 'components/StatusBlogCard/StatusBlogCardList'
 
 function MyBlog() {
-    const [indexData, setIndexData] = useState(null)
     //Khai báo array các tab
     const nabItem = [
         {
@@ -20,24 +19,21 @@ function MyBlog() {
             link: '',
         },
     ]
+    const [data, setData] = useState([])
     const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
-    const [allBlogActive, setAllBlogActive] = useState([])
-    const [allBlogPending, setAllBlogPending] = useState([])    
 
-    const handleChange = (event, newValue) => {
+    const handleChange = async (event, newValue) => {
         setBlogStatus(newValue)
-        if (newValue === 'Chờ phê duyệt') {
-            getActiveBlog()
-        } else {
-            getPendingBlog()
-        }
+        newValue === nabItem[0].label
+            ? await getPendingBlog()
+            : await getActiveBlog()
     }
 
     const getActiveBlog = async () => {
         try {
             const res = await getActiveByUser()
-            setAllBlogActive(res.data)
-            setData(allBlogActive.slice(0, 3))
+            setData(res.data.slice(0, 3))
+            console.log('Active blog data:', res.data)
         } catch (e) {
             console.log(e)
         }
@@ -46,18 +42,16 @@ function MyBlog() {
     const getPendingBlog = async () => {
         try {
             const res = await getPendingByUser()
-            setAllBlogPending(res.data)
-            setData(allBlogPending.slice(0, 3))
+            setData(res.data.slice(0, 3))
         } catch (e) {
             console.log(e)
         }
     }
 
     useEffect(() => {
-        getActiveBlog()
-        getPendingBlog()        
+        blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])        
+    }, [])
 
     return (
         <styleMui.container>
@@ -79,7 +73,7 @@ function MyBlog() {
                         />
                     ))}
                 </styleMui.tabContainer>
-                <StatusBlogCardList setIndexData={setIndexData}/>                
+                <StatusBlogCardList data={data} loading={false} />
             </styleMui.blogContainer>
             <ProfileSidebar />
         </styleMui.container>

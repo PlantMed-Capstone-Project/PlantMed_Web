@@ -4,12 +4,15 @@ import { motion } from 'framer-motion'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { convertString, parseImg } from 'utils'
 
-export const StatusBlogCard = ({ idx, item, setIndexData}) => {
+export const StatusBlogCard = ({ idx, item, setIndexData }) => {
     const cardClick = (id) => {
         setIndexData(id)
     }
+    const thumbnail = parseImg(item.thumbnail)
+    const description = convertString(item.content, 300)
     return (
         <styleMui.blogCard
+            key={idx}
             component={motion.div}
             initial={{ x: -200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -21,13 +24,13 @@ export const StatusBlogCard = ({ idx, item, setIndexData}) => {
         >
             <styleMui.thumbnailContainer>
                 <styleMui.Thumbnail
-                    thumbnail={parseImg(item.thumbnail)}
+                    thumbnail={thumbnail}
                     opacity="0"
                     zIndex="1"
                     sx={{ translate: '2rem 0rem' }}
                 />
                 <styleMui.Thumbnail
-                    thumbnail={parseImg(item.thumbnail)}
+                    thumbnail={thumbnail}
                     opacity="1"
                     zIndex="0"
                     sx={{ marginLeft: '-14.3rem', filter: 'grayscale(50%)' }}
@@ -52,7 +55,7 @@ export const StatusBlogCard = ({ idx, item, setIndexData}) => {
                     <styleMui.tagsContainer>
                         {item.tags.length
                             ? item.tags.map((vl, idx) => (
-                                  <styleMui.tagsBox key={item}>
+                                  <styleMui.tagsBox key={idx}>
                                       <styleMui.tagsTxt>
                                           {vl.name}
                                       </styleMui.tagsTxt>
@@ -63,9 +66,7 @@ export const StatusBlogCard = ({ idx, item, setIndexData}) => {
                     <styleMui.DescriptionHeader>
                         Mô tả:
                     </styleMui.DescriptionHeader>
-                    <styleMui.Description>
-                        {convertString(item.content, 300)}
-                    </styleMui.Description>
+                    <styleMui.Description>{description}</styleMui.Description>
                 </styleMui.blogCardContent>
             </styleMui.blogCardBox>
         </styleMui.blogCard>

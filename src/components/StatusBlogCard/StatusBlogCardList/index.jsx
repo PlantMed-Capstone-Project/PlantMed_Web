@@ -2,11 +2,9 @@ import * as styleMui from './StatusBlogCardList.styled'
 import { useEffect, useRef, useState } from 'react'
 import { StatusBlogCard } from 'components/StatusBlogCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import SkeletonLoading from 'components/approvalCard/skeletonLoading'
 import { Skeleton } from '@mui/material'
 
-function StatusBlogCardList({ setIndexData }) {
+function StatusBlogCardList({ data, loading }) {
     const [item, setItem] = useState([])
     const [dataSlice, setDataSlice] = useState(2)
     const maxRecordsReturned = 3
@@ -29,10 +27,8 @@ function StatusBlogCardList({ setIndexData }) {
 
     // Hủy scroll khi mở popup
     const disableScroll = () => {
-        const scrollTop =
-            window.scrollY || document.documentElement.scrollTop
-        const scrollLeft =
-            window.scrollX || document.documentElement.scrollLeft
+        const scrollTop = window.scrollY || document.documentElement.scrollTop
+        const scrollLeft = window.scrollX || document.documentElement.scrollLeft
 
         window.onscroll = () => {
             window.scrollTo(scrollLeft, scrollTop)
@@ -64,18 +60,18 @@ function StatusBlogCardList({ setIndexData }) {
             dataLength={data.length}
             next={fetchMoreData}
             hasMore={item.length < data.length}
-            loader={<SkeletonLoading />}
+            loader={<styleMui.loadingText>Loading...</styleMui.loadingText>}
         >
             <styleMui.blogCardList
                 ref={blogCardListRef}
                 direction="column"
-                alignItems="center"
+                alignItems="flex-start"
                 spacing="5rem"
             >
                 {data.length > 0 ? (
                     (loading ? Array.from(new Array(2)) : item).map((vl, idx) =>
                         vl ? (
-                            <StatusBlogCard idx={idx} item={item}/>
+                            <StatusBlogCard key={vl.id} idx={idx} item={vl} />
                         ) : (
                             <Skeleton
                                 key={idx}
@@ -83,8 +79,9 @@ function StatusBlogCardList({ setIndexData }) {
                                 animation="wave"
                                 sx={{
                                     height: '18rem',
-                                    width: '100%',
+                                    width: '90%',
                                     borderRadius: '0.625rem',
+                                    alignItems: 'flex-start',
                                 }}
                             />
                         )
