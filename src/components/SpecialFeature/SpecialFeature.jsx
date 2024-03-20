@@ -2,8 +2,11 @@ import { Box } from '@mui/material'
 import lapImage from 'Images/lap.png'
 import { motion } from 'framer-motion'
 import * as styleMui from './SpecialFeature.styled'
+import { useNavigate } from 'react-router-dom'
 
 export default function SpecialFeature() {
+    const navigate = useNavigate()
+
     return (
         <Box>
             <styleMui.BoxContainer
@@ -63,6 +66,7 @@ export default function SpecialFeature() {
                             restDelta: 0.001,
                         },
                     }}
+                    onClick={() => navigate('/predict')}
                 >
                     Xem thêm
                 </styleMui.ButtonCustom>
