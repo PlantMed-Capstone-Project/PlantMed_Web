@@ -4,6 +4,7 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import {
     Avatar,
     Box,
+    Divider,
     Stack,
     Tab,
     Tabs,
@@ -15,7 +16,7 @@ import { authAction } from 'app/reducers/auth'
 import { snackbarAction } from 'app/reducers/snackbar'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import * as styleMui from './header.styled'
 import { collection, deleteDoc, doc, or, where } from 'firebase/firestore'
@@ -32,18 +33,19 @@ function Header({ isLogin, avatar }) {
     const [expertList, setExpertList] = useState()
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
+    const [openBlogCb, setOpenBlogCb] = useState(false)
     const location = useLocation()
     const { logout } = useActions(authAction)
     const { show } = useActions(snackbarAction)
-    const userInfo = parseJwt(readCookie(ACCESS_TOKEN))
     const [selectedAvatar, setSelectedAvatar] = useState()
     const navigate = useNavigate()
+    const selectRef = useRef(null)
 
     const nav = isLogin
         ? [
               { id: 1, label: 'TRANG CHỦ', link: '/' },
               { id: 2, label: 'NHẬN DIỆN HÌNH ẢNH', link: '/predict' },
-              { id: 3, label: 'BÀI VIẾT', link: '/blog' },
+              { id: 3, label: 'BÀI VIẾT' },
               { id: 4, label: 'THỰC VẬT', link: '/plants' },
               { id: 5, label: 'VỀ CHÚNG TÔI', link: '/about-us' },
           ]
@@ -64,8 +66,15 @@ function Header({ isLogin, avatar }) {
     const checkPath = () => {
         const currentPath = location.pathname
         const selectedItem = navItem.find((item) => item.link === currentPath)
+        const selectedBlogItem = blogMenu.find(
+            (item) => item.link === currentPath
+        )
         if (selectedItem) {
             const selectedIndex = navItem.indexOf(selectedItem)
+            setValue(selectedIndex)
+        }
+        if (selectedBlogItem) {
+            const selectedIndex = navItem.findIndex((item) => item.id === 3)
             setValue(selectedIndex)
         }
     }
@@ -82,15 +91,25 @@ function Header({ isLogin, avatar }) {
 
     const Navbars = useMemo(
         () =>
-            navItem.map((item) => (
-                <Tab
-                    component={Link}
-                    key={item.id}
-                    to={item.link}
-                    label={item.label}
-                    sx={{ color: '#214400', fontWeight: '700' }}
-                />
-            )),
+            navItem.map((item) =>
+                isLogin && item.id === 3 ? (
+                    <Tab
+                        key={item.id}
+                        label={item.label}
+                        sx={{ color: '#214400', fontWeight: '700' }}
+                        onClick={() => setOpenBlogCb((prevState) => !prevState)}
+                    />
+                ) : (
+                    <Tab
+                        component={Link}
+                        key={item.id}
+                        to={item.link}
+                        label={item.label}
+                        sx={{ color: '#214400', fontWeight: '700' }}
+                    />
+                )
+            ),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [navItem]
     )
 
@@ -142,7 +161,7 @@ function Header({ isLogin, avatar }) {
         }
     }
 
-    useEffect(() => {
+    useMemo(() => {
         handleGetAvatar()
     }, [])
 
@@ -167,23 +186,54 @@ function Header({ isLogin, avatar }) {
         },
     ]
 
-    const blogMenu = [
-        {
-            id: 1,
-            text: 'Nổi bật',
-            link: '/'
-        },
-        {
-            id: 2,
-            text: 'Phê duyệt',
-            link: '/'
-        },
-        {
-            id: 3,
-            text: 'Tất cả',
-            link: '/'
-        },
-    ]
+    // Xử lý khi click ngoài dropdownlist sẽ đóng box
+    const handleClickOutside = (event) => {
+        if (selectRef.current && !selectRef.current.contains(event.target)) {
+            setOpenBlogCb(false)
+            setOpenPf(false)
+        }
+    }
+
+    // Xử lý sự kiện lắng nghe click
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const blogMenu =
+        user?.Role === 'user'
+            ? [
+                  {
+                      id: 1,
+                      text: 'Nổi bật',
+                      link: '/bloglist',
+                  },
+                  {
+                      id: 2,
+                      text: 'Tất cả',
+                      link: '/blog',
+                  },
+              ]
+            : [
+                  {
+                      id: 1,
+                      text: 'Nổi bật',
+                      link: '/bloglist',
+                  },
+                  {
+                      id: 2,
+                      text: 'Phê duyệt',
+                      link: '/blog/approval',
+                  },
+                  {
+                      id: 3,
+                      text: 'Tất cả',
+                      link: '/blog',
+                  },
+              ]
 
     return (
         <Stack
@@ -277,6 +327,7 @@ function Header({ isLogin, avatar }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
+                    ref={selectRef}
                 >
                     <styleMui.BoxContainAvt>
                         <Avatar
@@ -310,7 +361,7 @@ function Header({ isLogin, avatar }) {
                                 lineHeight: 'inherit',
                             }}
                         >
-                            {userInfo.Email}
+                            {user.Email}
                         </Typography>
                     </styleMui.BoxContainAvt>
                     <Stack
@@ -348,6 +399,48 @@ function Header({ isLogin, avatar }) {
                         ))}
                     </Stack>
                 </styleMui.CustomBoxPopup>
+            )}
+
+            {openBlogCb && (
+                <styleMui.CustomBlogBoxPopup
+                    component={motion.div}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    role={user.Role}
+                    ref={selectRef}
+                >
+                    <Stack
+                        direction="column"
+                        divider={<Divider orientation="horizontal" flexItem />}
+                        spacing="0.8rem"
+                        alignItems="center"
+                        sx={{
+                            width: '9.125rem',
+                        }}
+                    >
+                        {blogMenu.map((item) => (
+                            <Typography
+                                key={item.id}
+                                component={Link}
+                                to={item.link}
+                                variant="subtitle2"
+                                sx={{
+                                    fontSize: '1rem',
+                                    color: '#214400',
+                                    fontWeight: '500',
+                                    textDecoration: 'none',
+                                    '&:hover': {
+                                        color: '#69AD28',
+                                    },
+                                }}
+                            >
+                                {item.text}
+                            </Typography>
+                        ))}
+                    </Stack>
+                </styleMui.CustomBlogBoxPopup>
             )}
         </Stack>
     )

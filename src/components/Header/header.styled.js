@@ -46,3 +46,20 @@ export const button = styled(Button)(() => ({
         color: '#69AD28',
     },
 }))
+
+export const CustomBlogBoxPopup = styled(Box)(({ role }) => ({
+    width: '10.4875rem',
+    height: role === 'user' ? '6.725rem' : '9.725rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0',
+    backgroundColor: '#fff',
+    boxShadow: '0px 0px 3px 0px rgba(33, 68, 0, 0.30)',
+    borderRadius: '0.625rem',
+    position: 'absolute',
+    top: '5.31rem',
+    right: '37.62rem',
+    paddingTop: '1rem',
+    zIndex: '10',
+}))
