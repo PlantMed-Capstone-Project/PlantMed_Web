@@ -18,6 +18,8 @@ const CardBlogList = ({ item, idx }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
+    const [isHeart, setIsHeart] = useState(false)
+
     const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
     let user = parseJwt(readCookie(ACCESS_TOKEN))
@@ -37,6 +39,11 @@ const CardBlogList = ({ item, idx }) => {
         return () => document.removeEventListener('mousedown', handler)
     }, [])
 
+    useEffect(() => {
+        setIsHeart(item.userLike.some((el) => el.email === user.Email))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [item])
+
     const handleOpenForm = (value) => {
         console.log(value)
     }
@@ -46,8 +53,7 @@ const CardBlogList = ({ item, idx }) => {
     }
 
     const handleClick = (id, title) => {
-        let isLike = item.userLike.some((el) => el.email === user.Email)
-        if (id === item.id && !isLike) {
+        if (!isHeart) {
             handleLike(id, title)
         } else {
             handleUnLike(id, title)
@@ -63,26 +69,15 @@ const CardBlogList = ({ item, idx }) => {
             })
         } catch (error) {
             console.log(error.message)
-            show({
-                message: `Không thể thích bài viết ${title} ngay lúc này`,
-                severity: SNACKBAR_SEVERITY.ERROR,
-            })
         }
     }
 
     const handleUnLike = async (id, title) => {
         try {
             await unlike(id)
-            show({
-                message: `Bạn đã bỏ thích bài viết ${title}`,
-                severity: SNACKBAR_SEVERITY.SUCCESS,
-            })
+            show({ message: `Bạn đã bỏ thích bài viết ${title}` })
         } catch (error) {
             console.log(error.message)
-            show({
-                message: `Không thể bỏ thích bài viết ${title} ngay lúc này`,
-                severity: SNACKBAR_SEVERITY.ERROR,
-            })
         }
     }
 
@@ -183,9 +178,7 @@ const CardBlogList = ({ item, idx }) => {
             <styleMui.ctnBottom>
                 <styleMui.likeContainer>
                     <LikeButton
-                        initHeart={item.userLike.some(
-                            (obj) => obj.email === user.Email
-                        )}
+                        initHeart={isHeart}
                         likeQuantity={item.totalLike}
                         handleClick={() => handleClick(item.id, item.title)}
                     />

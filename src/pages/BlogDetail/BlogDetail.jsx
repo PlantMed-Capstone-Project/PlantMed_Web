@@ -81,7 +81,7 @@ function BlogDetail() {
 
     const handleClick = (id, title) => {
         let isLike = blog.userLike.some((el) => el.email === user.Email)
-        if (id === blog.id && !isLike) {
+        if (!isLike) {
             handleLike(id, title)
         } else {
             handleUnLike(id, title)
@@ -97,26 +97,15 @@ function BlogDetail() {
             })
         } catch (error) {
             console.log(error.message)
-            show({
-                message: `Không thể thích bài viết ${title} ngay lúc này`,
-                severity: SNACKBAR_SEVERITY.ERROR,
-            })
         }
     }
 
     const handleUnLike = async (id, title) => {
         try {
             await unlike(id)
-            show({
-                message: `Bạn đã bỏ thích bài viết ${title}`,
-                severity: SNACKBAR_SEVERITY.SUCCESS,
-            })
+            show({ message: `Bạn đã bỏ thích bài viết ${title}` })
         } catch (error) {
             console.log(error.message)
-            show({
-                message: `Không thể bỏ thích bài viết ${title} ngay lúc này`,
-                severity: SNACKBAR_SEVERITY.ERROR,
-            })
         }
     }
 
@@ -165,6 +154,7 @@ function BlogDetail() {
                     sx={{
                         color: '#214400',
                         fontSize: '1.25rem',
+                        mb: '2rem',
                     }}
                     dangerouslySetInnerHTML={{
                         __html: blog?.content,
