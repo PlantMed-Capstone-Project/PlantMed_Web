@@ -10,6 +10,8 @@ export const StatusBlogCard = ({ idx, item, setIndexData }) => {
     }
     const thumbnail = parseImg(item.thumbnail)
     const description = convertString(item.content, 300)
+    const title = convertString(item.title, 40)
+
     return (
         <styleMui.blogCard
             key={idx}
@@ -39,7 +41,7 @@ export const StatusBlogCard = ({ idx, item, setIndexData }) => {
             <styleMui.blogCardBox>
                 <styleMui.blogCardContent>
                     <styleMui.blogCardHeader>
-                        <styleMui.Title>{item.title}</styleMui.Title>
+                        <styleMui.Title>{title}</styleMui.Title>
                         <styleMui.iconHeader>
                             <FavoriteBorderIcon sx={styleMui.iconStyle} />
                             <styleMui.quantityNumber>

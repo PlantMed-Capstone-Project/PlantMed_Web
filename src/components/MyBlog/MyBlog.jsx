@@ -64,11 +64,7 @@ function MyBlog({ userBlog }) {
                                         component="img"
                                         height="150"
                                         alt="plant"
-                                        image={
-                                            data.images[0] === undefined
-                                                ? heroSen
-                                                : parseImg(data.images[0].data)
-                                        }
+                                        image={parseImg(data.thumbnail)}
                                     />
                                     <CardContent
                                         sx={{
