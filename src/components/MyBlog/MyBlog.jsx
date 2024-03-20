@@ -1,13 +1,10 @@
-import * as React from 'react'
-import { Box, Typography } from '@mui/material'
-import Grid from '@mui/material/Grid'
+import { Box, CardActionArea, Typography } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { CardActionArea } from '@mui/material'
+import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom'
 import { convertString, parseImg } from 'utils'
-import heroSen from 'Images/heroSen.jpg'
 const styles = {
     card: {
         boxShadow: '0 0.25rem 0.25rem 0 rgba(33, 68, 0, 0.50)',

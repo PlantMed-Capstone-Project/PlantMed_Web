@@ -1,7 +1,7 @@
 import { ButtonBase, Card, Typography, styled } from '@mui/material'
 
 export const Button = styled(ButtonBase)(() => ({
-    width: '7.25rem',
+    width: '15rem',
     height: '2.1875rem',
     fontSize: '1rem',
     color: '#FFF',
@@ -21,4 +21,14 @@ export const cardBox = styled(Card)({
     height: '14.5rem',
     boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
     cursor: 'pointer',
+})
+
+export const textNull = styled(Typography)({
+    color: '#214400',
+    fontWeight: '500',
+    fontSize: '2.2rem',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 })
