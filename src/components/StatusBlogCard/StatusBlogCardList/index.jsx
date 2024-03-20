@@ -31,27 +31,33 @@ function StatusBlogCardList({ data, loading, setIndexData }) {
                 alignItems="flex-start"
                 spacing="5rem"
             >
-                {(loading ? Array.from(new Array(2)) : item).map((vl, idx) =>
-                    vl ? (
-                        <StatusBlogCard
-                            key={vl.id}
-                            idx={idx}
-                            item={vl}
-                            setIndexData={setIndexData}
-                        />
-                    ) : (
-                        <Skeleton
-                            key={idx}
-                            variant="rectangular"
-                            animation="wave"
-                            sx={{
-                                width: '64rem',
-                                minHeight: '13.875rem',
-                                borderRadius: '0.625rem',
-                                alignItems: 'flex-start',
-                            }}
-                        />
+                {data.length > 0 ? (
+                    (loading ? Array.from(new Array(2)) : item).map((vl, idx) =>
+                        vl ? (
+                            <StatusBlogCard
+                                key={vl.id}
+                                idx={idx}
+                                item={vl}
+                                setIndexData={setIndexData}
+                            />
+                        ) : (
+                            <Skeleton
+                                key={idx}
+                                variant="rectangular"
+                                animation="wave"
+                                sx={{
+                                    width: '64rem',
+                                    minHeight: '13.875rem',
+                                    borderRadius: '0.625rem',
+                                    alignItems: 'flex-start',
+                                }}
+                            />
+                        )
                     )
+                ) : (
+                    <styleMui.loadingText>
+                        Hiện không có blog nào tồn tại
+                    </styleMui.loadingText>
                 )}
             </styleMui.blogCardList>
         </InfiniteScroll>
