@@ -1,35 +1,80 @@
-import React from 'react'
-import Avatar from '@material-ui/core/Avatar'
+import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import * as styleMui from './Message.styled'
+import ImageModal from 'components/ImageModal'
 
-export const MessageLeft = (props) => {
-    const { message, photoURL, displayName } = props
+export const MessageLeft = ({ message }) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const handleOpen = () => {
+        setIsOpen((prevState) => !prevState)
+    }
     return (
         <>
             <styleMui.messageRow>
-                <Avatar alt={displayName} src={photoURL}></Avatar>
-                <Box sx={{ maxWidth: '60%' }}>
-                    <styleMui.messageBlue>
-                        <Box>
-                            <styleMui.messageContent>
-                                {message}
-                            </styleMui.messageContent>
-                        </Box>
-                    </styleMui.messageBlue>
-                </Box>
+                <ImageModal
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    imgSrc={message}
+                />
+                {message.startsWith('https://firebasestorage') ? (
+                    <Box
+                        component="img"
+                        src={message}
+                        sx={{
+                            width: 100,
+                            height: 'auto',
+                            marginLeft: '0.625rem',
+                            borderRadius: 2,
+                            cursor: 'pointer',
+                        }}
+                        onClick={handleOpen}
+                    ></Box>
+                ) : (
+                    <Box sx={{ maxWidth: '60%' }}>
+                        <styleMui.messageBlue>
+                            <Box>
+                                <styleMui.messageContent>
+                                    {message}
+                                </styleMui.messageContent>
+                            </Box>
+                        </styleMui.messageBlue>
+                    </Box>
+                )}
             </styleMui.messageRow>
         </>
     )
 }
 
-export const MessageRight = (props) => {
-    const message = props.message ? props.message : 'no message'
+export const MessageRight = ({ message }) => {
+    const [isOpen, setIsOpen] = useState(false)
+    const handleOpen = () => {
+        setIsOpen((prevState) => !prevState)
+    }
     return (
         <styleMui.messageRowRight>
-            <styleMui.messageOrange>
-                <styleMui.messageContent>{message}</styleMui.messageContent>
-            </styleMui.messageOrange>
+            <ImageModal
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                imgSrc={message}
+            />
+            {message.startsWith('https://firebasestorage') ? (
+                <Box
+                    component="img"
+                    src={message}
+                    sx={{
+                        width: 100,
+                        height: 'auto',
+                        marginRight: '1.25rem',
+                        borderRadius: 2,
+                        cursor: 'pointer',
+                    }}
+                    onClick={handleOpen}
+                ></Box>
+            ) : (
+                <styleMui.messageOrange>
+                    <styleMui.messageContent>{message}</styleMui.messageContent>
+                </styleMui.messageOrange>
+            )}
         </styleMui.messageRowRight>
     )
 }
