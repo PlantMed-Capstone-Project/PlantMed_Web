@@ -23,7 +23,7 @@ const iconStyle = {
     width: '3rem',
 }
 
-function SpecialThreeD({}) {
+function SpecialThreeD() {
     const varianAnimation = {
         initial: { opacity: 0, y: 100 },
         animate: {
@@ -39,6 +39,7 @@ function SpecialThreeD({}) {
     let dataPlant = data.slice(0, 8)
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         dataPlant = data.slice(0, 8)
     }, [data])
 

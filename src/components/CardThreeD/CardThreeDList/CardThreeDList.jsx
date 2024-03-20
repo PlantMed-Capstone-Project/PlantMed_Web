@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { limitStr, parseImg } from 'utils'
+import { convertString, parseImg } from 'utils'
 import * as styleMui from './CardThreeDList.styled'
 
 export const CardThreeD = React.memo(function CardThreeD(props) {
@@ -55,7 +55,7 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     {data ? data.name : <Skeleton />}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {data ? limitStr(data.usage, 100) : <Skeleton />}
+                    {data ? convertString(data.usage, 100) : <Skeleton />}
                 </Typography>
             </CardContent>
         </styleMui.CustomBoxPopup>

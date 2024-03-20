@@ -19,6 +19,12 @@ import useActions from 'hooks/useActions'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import * as styleMui from './header.styled'
+import { collection, deleteDoc, doc, or, where } from 'firebase/firestore'
+import { db } from 'firebase.js'
+import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
+import { parseJwt } from 'utils'
+import { readCookie } from 'utils/cookie'
+import { ACCESS_TOKEN } from 'constant'
 
 const iconStyle = {
     height: '1.25rem',
@@ -27,6 +33,9 @@ const iconStyle = {
 }
 
 function Header({ isLogin }) {
+    const expertRef = collection(db, 'expertOnline')
+    const user = parseJwt(readCookie(ACCESS_TOKEN))
+    const [expertList, setExpertList] = useState()
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
     const location = useLocation()
@@ -89,7 +98,31 @@ function Header({ isLogin }) {
         [navItem]
     )
 
+    useFirestoreQuery(
+        expertRef,
+        [
+            or(
+                where('status', '==', 'isChatting'),
+                where('status', '==', 'isOnline')
+            ),
+        ],
+        setExpertList
+    )
+
+    const handleOffLine = async () => {
+        const expert = expertList.find(
+            ({ expert }) => expert.Email === user.Email
+        )
+        if (expert) {
+            await deleteDoc(doc(expertRef, expert.id))
+        }
+        logout()
+    }
+
     const handleLogout = () => {
+        if (user.Role === 'expert') {
+            handleOffLine()
+        }
         logout()
         show({ message: 'Đã đăng xuất!' })
         navigate('/login')

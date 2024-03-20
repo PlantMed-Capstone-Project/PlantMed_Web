@@ -16,7 +16,7 @@ function MyBlog() {
     const [hasMore, setHasMore] = useState(true)
     const blogCardListRef = useRef(null)
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (_, newValue) => {
         setblogStatus(newValue)
     }
 

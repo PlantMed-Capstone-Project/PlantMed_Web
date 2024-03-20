@@ -1,7 +1,7 @@
 import { ButtonBase, Card, Typography, styled } from '@mui/material'
 
 export const Button = styled(ButtonBase)(() => ({
-    width: '7.25rem',
+    width: '15rem',
     height: '2.1875rem',
     fontSize: '1rem',
     color: '#FFF',
