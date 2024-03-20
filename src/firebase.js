@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore'
-
+import { getStorage } from 'firebase/storage'
 const firebaseConfig = {
     apiKey: "AIzaSyC6vPi0I5RoSmrUM2qiNXCLnjDgb5_iDO0",
     authDomain: "chat-34d38.firebaseapp.com",
@@ -14,3 +14,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app)
+export const imgDb = getStorage(app)
