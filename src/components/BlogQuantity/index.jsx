@@ -3,8 +3,11 @@ import * as styleMui from './BlogQuantity.styled'
 import CountUp from 'react-countup'
 import { Box } from '@mui/material'
 import { motion } from 'framer-motion'
+import { useState } from 'react'
+import ScrollTrigger from 'react-scroll-trigger'
 
 export default function BlogQuantity() {
+    const [couterUp, setCounterUp] = useState(false)
     // dữ liệu giả
     const dataQuantity = [
         {
@@ -70,25 +73,32 @@ export default function BlogQuantity() {
                         vật thông qua các bài viết được nghiên cứu kỹ lưỡng và
                         tính xác thực.
                     </styleMui.Info>
-                    <styleMui.staticContainer>
-                        {dataQuantity.map((obj) => (
-                            <styleMui.quantityBox>
-                                <styleMui.quantityNumber>
-                                    <CountUp
-                                        enableScrollSpy={true}
-                                        start={0}
-                                        end={obj.quantity}
-                                        duration={7}
-                                        delay={0}
-                                    />
-                                    {obj.typeQuantity}
-                                </styleMui.quantityNumber>
-                                <styleMui.quantityTitle>
-                                    {obj.typeName}
-                                </styleMui.quantityTitle>
-                            </styleMui.quantityBox>
-                        ))}
-                    </styleMui.staticContainer>
+                    <ScrollTrigger
+                        onEnter={() => setCounterUp(true)}
+                        onExit={() => setCounterUp(false)}
+                    >
+                        <styleMui.staticContainer>
+                            {dataQuantity.map(
+                                (obj, idx) =>
+                                    couterUp && (
+                                        <styleMui.quantityBox key={idx}>
+                                            <styleMui.quantityNumber>
+                                                <CountUp
+                                                    start={0}
+                                                    end={obj.quantity}
+                                                    duration={7}
+                                                    delay={0}
+                                                />
+                                                {obj.typeQuantity}
+                                            </styleMui.quantityNumber>
+                                            <styleMui.quantityTitle>
+                                                {obj.typeName}
+                                            </styleMui.quantityTitle>
+                                        </styleMui.quantityBox>
+                                    )
+                            )}
+                        </styleMui.staticContainer>
+                    </ScrollTrigger>
                     <styleMui.boxButton>
                         <styleMui.button component={Link} to="/bloglist">
                             Xem thêm

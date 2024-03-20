@@ -1,10 +1,13 @@
 import { Box, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import CountUp from 'react-countup'
 import groupImage from 'Images/groupImage.png'
 import { motion } from 'framer-motion'
+import ScrollTrigger from 'react-scroll-trigger'
 
 export default function Quantity() {
+    const [counterUp, setCounterUp] = useState(false)
+
     // dữ liệu giả
     const dataQuntity = [
         {
@@ -163,58 +166,68 @@ export default function Quantity() {
                     />
                 </Box>
             </Box>
-            <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                spacing="8.14rem"
-                sx={{
-                    width: '100%',
-                    padding: '3rem 0 0 8rem',
-                    justifyContent: 'flex-start',
-                }}
+            <ScrollTrigger
+                onEnter={() => setCounterUp(true)}
+                onExit={() => setCounterUp(false)}
             >
-                {dataQuntity.map((obj) => (
-                    <Stack
-                        key={obj.quantity}
-                        direction="column"
-                        alignItems="flex-start"
-                        sx={{
-                            color: '#C9914D',
-                            fontSize: '4.375rem',
-                            fontWeight: '700',
-                            lineHeight: 'normal',
-                        }}
-                    >
-                        <Stack direction="row">
-                            <CountUp
-                                enableScrollSpy={true}
-                                start={0}
-                                end={obj.quantity}
-                                duration={7}
-                                delay={0}
-                            />
-                            <Typography
-                                component="p"
-                                sx={{ fontSize: '4.375rem', fontWeight: '700' }}
-                            >
-                                {obj.typeQuntity}
-                            </Typography>
-                        </Stack>
-                        <Typography
-                            component="p"
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    spacing="8.14rem"
+                    sx={{
+                        width: '100%',
+                        padding: '3rem 0 0 8rem',
+                        justifyContent: 'flex-start',
+                    }}
+                >
+                    {dataQuntity.map((obj) => (
+                        <Stack
+                            key={obj.quantity}
+                            direction="column"
+                            alignItems="flex-start"
                             sx={{
-                                color: '#69AD28',
-                                fontSize: '1.5625rem',
-                                fontWeight: '500',
+                                color: '#C9914D',
+                                fontSize: '4.375rem',
+                                fontWeight: '700',
                                 lineHeight: 'normal',
                             }}
                         >
-                            {obj.typeName}
-                        </Typography>
-                    </Stack>
-                ))}
-            </Stack>
+                            {counterUp && (
+                                <Stack direction="row">
+                                    <CountUp
+                                        start={0}
+                                        end={obj.quantity}
+                                        duration={7}
+                                        delay={0}
+                                    />
+                                    <Typography
+                                        component="p"
+                                        sx={{
+                                            fontSize: '4.375rem',
+                                            fontWeight: '700',
+                                        }}
+                                    >
+                                        {obj.typeQuntity}
+                                    </Typography>
+                                </Stack>
+                            )}
+
+                            <Typography
+                                component="p"
+                                sx={{
+                                    color: '#69AD28',
+                                    fontSize: '1.5625rem',
+                                    fontWeight: '500',
+                                    lineHeight: 'normal',
+                                }}
+                            >
+                                {obj.typeName}
+                            </Typography>
+                        </Stack>
+                    ))}
+                </Stack>
+            </ScrollTrigger>
         </Stack>
     )
 }
