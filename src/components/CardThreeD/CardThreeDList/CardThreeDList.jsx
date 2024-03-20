@@ -10,8 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { convertString, parseImg } from 'utils'
 import * as styleMui from './CardThreeDList.styled'
 
-export const CardThreeD = React.memo(function CardThreeD(props) {
-    const { data, idx } = props
+export const CardThreeD = React.memo(function CardThreeD({ data }) {
     const [hover, setHover] = useState(false)
 
     const navigate = useNavigate()

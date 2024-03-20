@@ -1,8 +1,7 @@
+import { motion } from 'framer-motion'
+import CountUp from 'react-countup'
 import { Link } from 'react-router-dom'
 import * as styleMui from './BlogQuantity.styled'
-import CountUp from 'react-countup'
-import { Box } from '@mui/material'
-import { motion } from 'framer-motion'
 
 export default function BlogQuantity() {
     // dữ liệu giả

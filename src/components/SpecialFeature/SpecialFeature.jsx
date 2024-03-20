@@ -1,8 +1,7 @@
-import lapImage from 'Images/lap.png'
-import * as styleMui from './SpecialFeature.styled'
 import { Box } from '@mui/material'
-import { useRef } from 'react'
+import lapImage from 'Images/lap.png'
 import { motion } from 'framer-motion'
+import * as styleMui from './SpecialFeature.styled'
 
 export default function SpecialFeature() {
     return (
