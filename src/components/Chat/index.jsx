@@ -4,11 +4,18 @@ import CloseIcon from '@mui/icons-material/Close'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import SendIcon from '@mui/icons-material/Send'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import Avatar from '@mui/material/Avatar'
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import IconButton from '@mui/material/IconButton'
 import AlertDialog from 'components/AlertDialog'
 import { MessageLeft, MessageRight } from 'components/Message'
-import { db } from 'firebase.js'
+import { db, imgDb } from 'firebase.js'
+import {
+    deleteObject,
+    getDownloadURL,
+    ref,
+    uploadBytes,
+} from 'firebase/storage'
+import { v4 } from 'uuid'
 import {
     addDoc,
     collection,
@@ -21,6 +28,10 @@ import {
 } from 'firebase/firestore'
 import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
 import { useEffect, useRef, useState } from 'react'
+import ImageIcon from '@mui/icons-material/Image'
+import * as S from './Chat.styled'
+import useActions from 'hooks/useActions'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -58,14 +69,13 @@ const styles = {
 }
 
 function Chat({ room, user, closeChat, userStatus }) {
+    const { show } = useActions(snackbarAction)
     const alert = {
         title: 'Kết thúc phiên trò chuyện',
         content:
             'Thoát ra đồng nghĩa với việc kết thúc trò chuyện với người dùng hiện tại, bạn có muốn tiếp tục?',
     }
 
-    // eslint-disable-next-line no-unused-vars
-    const [checkEndChat, setCheckEndChat] = useState([])
     const [openDialog, setOpenDialog] = useState(false)
     const [showChat, setShowChat] = useState(true)
     const [newMessage, setNewMessage] = useState('')
@@ -79,13 +89,6 @@ function Chat({ room, user, closeChat, userStatus }) {
         messageRef,
         [where('room', '==', room), orderBy('createAt')],
         setMessages
-    )
-
-    const type = user.Role === 'user' ? 'userRequest.Email' : 'expertEmail'
-    useFirestoreQuery(
-        requestRef,
-        [where(type, '==', user.Email)],
-        setCheckEndChat
     )
 
     useEffect(() => {
@@ -116,6 +119,40 @@ function Chat({ room, user, closeChat, userStatus }) {
         }
     }
 
+    const handleUploadImage = (e) => {
+        const files = e.target.files
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+        try {
+            const isInclude = allowedTypes.includes(files[0].type)
+            if (files.length > 0 && isInclude) {
+                const imgs = ref(imgDb, `Imgs/${v4()}`)
+                uploadBytes(imgs, files[0]).then((data) => {
+                    getDownloadURL(data.ref).then((val) => {
+                        uploadImg(val)
+                    })
+                })
+            } else {
+                show({
+                    message: 'Sai định dạng hình ảnh!',
+                    severity: SNACKBAR_SEVERITY.ERROR,
+                    autoHideDuration: 2000,
+                })
+            }
+        } catch (e) {
+            //console.log(e)
+        }
+    }
+
+    const uploadImg = async (val) => {
+        await addDoc(messageRef, {
+            text: val,
+            createAt: serverTimestamp(),
+            email: user.Email,
+            role: user.Role,
+            room,
+        })
+    }
+
     const handleShowChat = () => {
         setShowChat((prevState) => !prevState)
     }
@@ -135,6 +172,14 @@ function Chat({ room, user, closeChat, userStatus }) {
 
         //Xóa hết quá khứ
         for (const data of messages) {
+            //Xóa hình ảnh
+            if (data.text.startsWith('https://firebasestorage')) {
+                // Create a reference to the file to delete
+                const desertRef = ref(imgDb, data.text)
+                // Delete the file
+                deleteObject(desertRef)
+            }
+            //xóa text
             await deleteDoc(doc(messageRef, data.id))
         }
     }
@@ -159,7 +204,7 @@ function Chat({ room, user, closeChat, userStatus }) {
                             content={alert.content}
                             cancelButton={true}
                             cancelTitle="Kết thúc"
-                            closeTitle="Đồng ý"
+                            closeTitle="Tiếp tục"
                         />
                     )}
                     <Box sx={styles.container}>
@@ -185,7 +230,8 @@ function Chat({ room, user, closeChat, userStatus }) {
                                 >
                                     {user.Role === 'user' ? (
                                         <Typography>
-                                            {userStatus[0].expertName}
+                                            {userStatus[0] &&
+                                                userStatus[0].expertName}
                                         </Typography>
                                     ) : (
                                         <>
@@ -220,22 +266,21 @@ function Chat({ room, user, closeChat, userStatus }) {
                             >
                                 {messages.map((data) =>
                                     data.role !== user.Role ? (
-                                        <MessageLeft
-                                            message={data.text}
-                                            photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                                            displayName={data.email}
-                                            avatarDisp={true}
-                                        />
+                                        <MessageLeft message={data.text} />
                                     ) : (
-                                        <MessageRight
-                                            message={data.text}
-                                            photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                                            avatarDisp={true}
-                                        />
+                                        <MessageRight message={data.text} />
                                     )
                                 )}
                             </Paper>
                             <Box sx={{ display: 'flex', width: '100%' }}>
+                                <Button
+                                    component="label"
+                                    tabIndex={-1}
+                                    onChange={(e) => handleUploadImage(e)}
+                                >
+                                    <ImageIcon color="success" />
+                                    <S.VisuallyHiddenInput type="file" />
+                                </Button>
                                 <TextField
                                     onChange={(e) =>
                                         setNewMessage(e.target.value)
@@ -268,16 +313,24 @@ function Chat({ room, user, closeChat, userStatus }) {
                         zIndex: 10001,
                     }}
                 >
-                    <Avatar
-                        onClick={handleShowChat}
-                        alt="Remy Sharp"
-                        src="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                    <IconButton
                         sx={{
-                            width: 56,
-                            height: 56,
-                            cursor: 'pointer',
+                            width: '3.75rem',
+                            height: '3.75rem',
+                            backgroundColor: '#69AD28',
+                            '&:hover': {
+                                backgroundColor: '#69AD28',
+                            },
                         }}
-                    />
+                        onClick={handleShowChat}
+                    >
+                        <ChatBubbleIcon
+                            sx={{
+                                color: 'white',
+                                width: '100%',
+                            }}
+                        />
+                    </IconButton>
                 </Box>
             )}
         </>
