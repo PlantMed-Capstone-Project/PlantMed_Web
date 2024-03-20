@@ -1,44 +1,39 @@
 import { styled, Box, Typography, Button } from '@mui/material'
 
-export const verifyContainer = styled(Box)(() => ({
-    width: '38rem',
-    height: '35rem',
+export const verifyContainer = styled(Box)({
+    width: '46rem',
+    height: '43rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: '0.5rem',
-    gap: '2rem',
-}))
+    marginRight: '10rem',
+})
 
 export const verifyImageBg = styled(Box)(({ verifyImage }) => ({
     backgroundImage: `url(${verifyImage})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    width: '80%',
+    width: '90%',
     height: '80%',
-    display: 'flex',
-    alignItems: 'center',
 }))
 
-export const Title = styled(Typography)(({ color }) => ({
-    textAlign: 'justify',
+export const Title = styled(Typography)((props) => ({
     textTransform: 'capitalize',
-    fontSize: '1.5rem',
+    fontSize: '2rem',
     fontWeight: '700',
-    color: { color },
     paddingTop: '2rem',
+    ...props,
 }))
 
-export const btn = styled(Button)({
-    backgroundColor: '#616403',
+export const btn = styled(Button)(({ isSuccess = false }) => ({
+    backgroundColor: isSuccess ? '#3498db' : '#e74c3c',
+    color: '#FFF',
     position: 'absolute',
     transform: 'translate(-50%, -50%)',
-    color: '#FFF',
     top: '90%',
     '&:hover': {
-        backgroundColor: '#69AD28',
+        backgroundColor: isSuccess ? '#2980b9' : '#c0392b',
         color: '#fff',
     },
-})
+}))
