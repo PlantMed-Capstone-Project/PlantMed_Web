@@ -21,7 +21,6 @@ function BlogPage() {
     const getTopBlog = async () => {
         try {
             const res = await getTop('6')
-            console.log(res.data)
             setBlogList(res.data)
         } catch (e) {
             console.log(e)
