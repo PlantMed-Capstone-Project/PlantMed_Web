@@ -10,7 +10,7 @@ function StatusBlogCardList({ data, loading, setDataValue, likeBlog = false }) {
     const maxRecordsReturned = 3
 
     useEffect(() => {
-        setItem(() => data.slice(0, 3))
+        setItem(data.slice(0, 3))
     }, [data])
 
     const fetchMoreData = () => {
@@ -22,7 +22,7 @@ function StatusBlogCardList({ data, loading, setDataValue, likeBlog = false }) {
 
     return (
         <InfiniteScroll
-            dataLength={data.length}
+            dataLength={item.length - 1}
             next={fetchMoreData}
             hasMore={item.length < data.length}
             loader={<styleMui.loadingText>Loading...</styleMui.loadingText>}

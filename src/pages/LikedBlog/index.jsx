@@ -18,7 +18,7 @@ function LikedBlog() {
         setLoading(true)
         try {
             const response = await getActiveBlog()
-            setdataBlog(
+            setdataBlog(() =>
                 response.data.filter((vl) => {
                     return vl.userLike.some(
                         (vl) => vl.email === userInfo?.Email

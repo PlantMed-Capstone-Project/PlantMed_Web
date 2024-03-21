@@ -2,11 +2,11 @@ import { Box, Stack, Tab, Tabs, Typography, styled } from '@mui/material'
 
 export const container = styled(Box)(() => ({
     width: '100%',
-    height: 'calc(100vh - 30rem)',
     display: 'flex',
     justifyContent: 'center',
     gap: '1rem',
     padding: '1rem',
+    height: '100%',
 }))
 
 export const blogContainer = styled(Box)(() => ({
@@ -15,8 +15,6 @@ export const blogContainer = styled(Box)(() => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    paddingTop: '1rem',
-    gap: '2rem',
 }))
 
 export const likedBlogContainer = styled(Box)(() => ({
@@ -35,14 +33,14 @@ export const tabContainer = styled(Tabs)(() => ({
         height: '0.2rem',
     },
     '& .Mui-selected': {
-        fontSize: '1.5rem',
+        fontSize: '1.1rem',
     },
 }))
 
 export const statusTab = styled(Tab)(() => ({
     color: '#214400',
     fontWeight: '700',
-    fontSize: '1.3rem',
+    fontSize: '1rem',
     width: '12.5rem',
     height: '2rem',
     textTransform: 'capitalize',
