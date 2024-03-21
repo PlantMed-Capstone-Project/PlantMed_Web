@@ -10,8 +10,7 @@ function StatusBlogCardList({ data, loading, setDataValue, likeBlog = false }) {
     const maxRecordsReturned = 3
 
     useEffect(() => {
-        console.log(data)
-        setItem(() => data)
+        setItem(() => data.slice(0, 3))
     }, [data])
 
     const fetchMoreData = () => {

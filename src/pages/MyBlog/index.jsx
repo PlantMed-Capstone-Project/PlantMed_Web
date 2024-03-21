@@ -36,7 +36,7 @@ function MyBlog() {
         setLoading(true)
         try {
             const res = await getActiveByUser()
-            setData(res.data.slice(0, 3))
+            setData(res.data)
         } catch (e) {
             console.log(e)
         } finally {
@@ -48,7 +48,7 @@ function MyBlog() {
         setLoading(true)
         try {
             const res = await getPendingByUser()
-            setData(res.data.slice(0, 3))
+            setData(res.data)
         } catch (e) {
             console.log(e)
         } finally {
@@ -58,7 +58,7 @@ function MyBlog() {
 
     useEffect(() => {
         blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blogStatus])
 

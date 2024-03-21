@@ -16,11 +16,7 @@ export const StatusBlogCard = ({
     const title = convertString(item.title, 40)
     const navigate = useNavigate()
 
-    const cardClick = (item) => {
-        if (likeBlog) {
-            navigate(`/blog/${item.id}`)
-        } else setDataValue(item)
-    }
+    const cardClick = (item) => setDataValue(item)
     return (
         <styleMui.blogCard
             key={idx}
@@ -31,7 +27,9 @@ export const StatusBlogCard = ({
                 duration: 0.5,
                 delay: idx * 0.1,
             }}
-            onClick={() => cardClick(item)}
+            onClick={() =>
+                likeBlog ? navigate(`/blog/${item.id}`) : cardClick(item)
+            }
         >
             <styleMui.thumbnailContainer>
                 <styleMui.Thumbnail

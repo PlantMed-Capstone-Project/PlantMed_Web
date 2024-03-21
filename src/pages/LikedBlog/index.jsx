@@ -19,13 +19,11 @@ function LikedBlog() {
         try {
             const response = await getActiveBlog()
             setdataBlog(
-                response.data
-                    .filter((vl) => {
-                        return vl.userLike.some(
-                            (vl) => vl.email === userInfo?.Email
-                        )
-                    })
-                    .slice(0, 3)
+                response.data.filter((vl) => {
+                    return vl.userLike.some(
+                        (vl) => vl.email === userInfo?.Email
+                    )
+                })
             )
         } catch (error) {
             console.log(error)
