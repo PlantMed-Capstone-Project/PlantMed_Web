@@ -213,19 +213,19 @@ function Header({ isLogin, avatar }) {
             ? [
                   {
                       id: 1,
-                      text: 'Nổi bật',
+                      text: 'Tất cả',
                       link: '/bloglist',
                   },
                   {
                       id: 2,
-                      text: 'Tất cả',
+                      text: 'Tạo mới',
                       link: '/blog',
                   },
               ]
             : [
                   {
                       id: 1,
-                      text: 'Nổi bật',
+                      text: 'Tất cả',
                       link: '/bloglist',
                   },
                   {
@@ -235,7 +235,7 @@ function Header({ isLogin, avatar }) {
                   },
                   {
                       id: 3,
-                      text: 'Tất cả',
+                      text: 'Tạo mới',
                       link: '/blog',
                   },
               ]
