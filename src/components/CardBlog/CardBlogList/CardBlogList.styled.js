@@ -93,7 +93,7 @@ export const ctnBottom = styled(Box)(() => ({
 
 export const likeContainer = styled(Box)(() => ({
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
 }))
 
 export const quantityLike = styled(Typography)(() => ({
@@ -178,4 +178,6 @@ export const txtNotFound = styled(Typography)(() => ({
 export const commentBox = styled(Box)(() => ({
     display: 'flex',
     alignItems: 'center',
+    gap: '0.6rem',
+    height: '21px',
 }))

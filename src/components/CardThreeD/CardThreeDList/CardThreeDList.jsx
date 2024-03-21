@@ -1,31 +1,48 @@
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
-import React from 'react'
-import { convertString } from 'utils'
+import {
+    Box,
+    CardContent,
+    CardMedia,
+    Skeleton,
+    Typography,
+} from '@mui/material'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { convertString, parseImg } from 'utils'
+import * as styleMui from './CardThreeDList.styled'
 
-export const CardThreeD = React.memo(function CardThreeD(props) {
-    const { data, opacity, scale } = props
+export const CardThreeD = React.memo(function CardThreeD({ data }) {
+    const [hover, setHover] = useState(false)
+
+    const navigate = useNavigate()
+
+    const goDetail = (id) => {
+        if (id) {
+            navigate(`/plants/${id}`)
+        }
+    }
     return (
-        <Card
-            sx={{
-                width: '20.875rem',
-                height: '17.5rem',
-                borderRadius: '0.625rem',
-                boxShadow: '0px 4px 5px 2px rgba(33, 68, 0, 0.30)',
-                transition: 'all 0.2s ease',
-                margin: '2rem 1rem',
-                opacity: opacity,
-                scale: scale,
-            }}
+        <styleMui.CustomBoxPopup
+            hover={hover}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            onClick={() => goDetail(data.id)}
         >
             <Box sx={{ height: '10.5rem', width: '100%' }}>
-                <CardMedia
-                    sx={{
-                        height: '100%',
-                        with: '100%',
-                    }}
-                    image={data.image}
-                    title="green iguana"
-                />
+                {data ? (
+                    <CardMedia
+                        sx={{
+                            height: '100%',
+                            with: '100%',
+                        }}
+                        image={parseImg(data?.images[0].data)}
+                        title="green iguana"
+                    />
+                ) : (
+                    <Skeleton
+                        variant="rectangular"
+                        sx={{ height: '100%', width: '100%' }}
+                    />
+                )}
             </Box>
             <CardContent sx={{ padding: '0.5rem 1rem 0 1rem' }}>
                 <Typography
@@ -34,13 +51,13 @@ export const CardThreeD = React.memo(function CardThreeD(props) {
                     component="div"
                     sx={{ fontWeight: '600' }}
                 >
-                    {data.title}
+                    {data ? data.name : <Skeleton />}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {convertString(data.description, 100)}
+                    {data ? convertString(data.usage, 100) : <Skeleton />}
                 </Typography>
             </CardContent>
-        </Card>
+        </styleMui.CustomBoxPopup>
     )
 })
 

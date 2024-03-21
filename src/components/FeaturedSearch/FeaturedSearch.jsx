@@ -2,12 +2,24 @@ import { Box, Grid, Link, Skeleton, Stack, Typography } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import * as styleMui from './FeatureSearch.styled'
 import { parseImg } from 'utils'
+import * as styleMui from './FeatureSearch.styled'
 
 function FeaturedSearch({ title, data, loading }) {
     const [hoverIndex, setHoverIndex] = useState(null)
     const plantData = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
+
+    const varianAnimation = {
+        initial: { opacity: 0, y: 100 },
+        animate: (idx) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                delay: 0.05 * idx,
+                duration: 0.2,
+            },
+        }),
+    }
 
     const navigate = useNavigate()
 
@@ -51,7 +63,17 @@ function FeaturedSearch({ title, data, loading }) {
                 ).map((product, idx) =>
                     product ? (
                         // Bắt đâu render ra sản phẩm nếu có data
-                        <Grid item xs={idx + 1 <= 2 ? 6 : 4} key={product.id}>
+                        <Grid
+                            item
+                            xs={idx + 1 <= 2 ? 6 : 4}
+                            key={product.id}
+                            component={motion.div}
+                            variants={varianAnimation}
+                            initial="initial"
+                            whileInView="animate"
+                            viewport={{ once: false }}
+                            custom={idx}
+                        >
                             <styleMui.BoxAllGrid
                                 pt="1.31rem"
                                 product={idx + 1}
