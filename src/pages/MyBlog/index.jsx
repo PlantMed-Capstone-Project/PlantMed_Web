@@ -58,7 +58,7 @@ function MyBlog() {
 
     useEffect(() => {
         blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
-
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [blogStatus])
 

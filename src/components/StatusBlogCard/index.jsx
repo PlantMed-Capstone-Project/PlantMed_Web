@@ -5,12 +5,22 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { convertString, parseImg } from 'utils'
 import { useNavigate } from 'react-router-dom'
 
-export const StatusBlogCard = ({ idx, item, setDataValue }) => {
+export const StatusBlogCard = ({
+    idx,
+    item,
+    setDataValue,
+    likeBlog = false,
+}) => {
     const thumbnail = parseImg(item.thumbnail)
     const description = convertString(item.content, 300)
     const title = convertString(item.title, 40)
-    const cardClick = (item) => setDataValue(item)
+    const navigate = useNavigate()
 
+    const cardClick = (item) => {
+        if (likeBlog) {
+            navigate(`/blog/${item.id}`)
+        } else setDataValue(item)
+    }
     return (
         <styleMui.blogCard
             key={idx}

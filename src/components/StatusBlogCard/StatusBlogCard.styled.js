@@ -13,6 +13,7 @@ export const blogCard = styled(Box)(() => ({
     width: '64rem',
     minHeight: '13.875rem',
     borderRadius: '0.625rem',
+    cursor: 'pointer',
     gap: '3rem',
     '&:hover': {
         '& > *:nth-child(1) > *:nth-child(1)': {

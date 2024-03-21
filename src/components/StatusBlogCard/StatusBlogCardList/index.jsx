@@ -1,14 +1,16 @@
-import * as styleMui from './StatusBlogCardList.styled'
-import { useEffect, useState } from 'react'
-import { StatusBlogCard } from 'components/StatusBlogCard'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import { Skeleton } from '@mui/material'
+import { StatusBlogCard } from 'components/StatusBlogCard'
+import { useEffect, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import * as styleMui from './StatusBlogCardList.styled'
 
-function StatusBlogCardList({ data, loading, setDataValue }) {
+function StatusBlogCardList({ data, loading, setDataValue, likeBlog = false }) {
     const [item, setItem] = useState([])
     const [dataSlice, setDataSlice] = useState(2)
     const maxRecordsReturned = 3
+
     useEffect(() => {
+        console.log(data)
         setItem(() => data)
     }, [data])
 
@@ -48,6 +50,7 @@ function StatusBlogCardList({ data, loading, setDataValue }) {
                 ) : data.length > 0 ? (
                     item.map((vl, idx) => (
                         <StatusBlogCard
+                            likeBlog={likeBlog}
                             key={vl.id}
                             idx={idx}
                             item={vl}
