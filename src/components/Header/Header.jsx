@@ -14,30 +14,32 @@ import {
 import logoImage from 'Images/logo.png'
 import { authAction } from 'app/reducers/auth'
 import { snackbarAction } from 'app/reducers/snackbar'
+import { ACCESS_TOKEN } from 'constant'
+import { db } from 'firebase.js'
+import { collection, deleteDoc, doc, or, where } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
+import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import * as styleMui from './header.styled'
-import { collection, deleteDoc, doc, or, where } from 'firebase/firestore'
-import { db } from 'firebase.js'
-import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
+import { getAvatar } from 'rest/api/user'
 import { parseImg, parseJwt } from 'utils'
 import { readCookie } from 'utils/cookie'
-import { ACCESS_TOKEN } from 'constant'
-import { getAvatar } from 'rest/api/user'
+import * as styleMui from './header.styled'
 
 function Header({ isLogin, avatar }) {
     const expertRef = collection(db, 'expertOnline')
     const user = parseJwt(readCookie(ACCESS_TOKEN))
+
     const [expertList, setExpertList] = useState()
     const [value, setValue] = useState(0)
     const [openPf, setOpenPf] = useState(false)
     const [openBlogCb, setOpenBlogCb] = useState(false)
+    const [selectedAvatar, setSelectedAvatar] = useState()
+
     const location = useLocation()
     const { logout } = useActions(authAction)
     const { show } = useActions(snackbarAction)
-    const [selectedAvatar, setSelectedAvatar] = useState()
     const navigate = useNavigate()
     const selectRef = useRef(null)
 
@@ -153,16 +155,19 @@ function Header({ isLogin, avatar }) {
 
     //api get avatar
     const handleGetAvatar = async () => {
-        try {
-            const res = await getAvatar()
-            setSelectedAvatar(res.data)
-        } catch (e) {
-            console.log(e)
+        if (isLogin) {
+            try {
+                const res = await getAvatar()
+                setSelectedAvatar(res.data)
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 
     useMemo(() => {
         handleGetAvatar()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const menuItems = [

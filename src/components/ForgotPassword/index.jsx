@@ -4,13 +4,15 @@ import { validateInputs } from 'components/InputField/validationRules'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as styleMui from './ForgotPasswordForm.styled'
+import { forgotPassword } from 'rest/api/auth'
+import useActions from 'hooks/useActions'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 
 export default function ForgotPasswordForm() {
-    const sampleEmail = 'Qiqi123@gmail.com'
     const navigate = useNavigate()
+    const { show } = useActions(snackbarAction)
 
     const [errors, setErrors] = useState({})
-
     const [inputs, setInputs] = useState({
         email: '',
     })
@@ -47,12 +49,29 @@ export default function ForgotPasswordForm() {
     }
 
     const onSubmit = async () => {
+        show({ message: 'Vui lòng chờ trong giây lát!' })
         try {
-            if (inputs.email === sampleEmail) {
-                clearInput()
-                return navigate('/login')
-            }
-        } catch (error) {}
+            await forgotPassword({ email: inputs.email })
+            show({
+                message: 'Vui lòng kiểm tra email!',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+            clearInput()
+            navigate('/login')
+        } catch (error) {
+            console.log('error:', error)
+            show({
+                message: 'Email không chính xác!',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        }
+    }
+
+    const handleEnter = (e) => {
+        if (e.key === 'Enter') {
+            onValidate()
+            e.preventDefault()
+        }
     }
 
     //Khai báo input
@@ -67,6 +86,7 @@ export default function ForgotPasswordForm() {
                 error={errors[item.key]}
                 onChange={(e) => handleInputChange(item.key, e.target.value)}
                 helperText={errors[item.key]}
+                onKeyDown={handleEnter}
             />
         ))
     }
@@ -88,8 +108,9 @@ export default function ForgotPasswordForm() {
                 <styleMui.button
                     variant="contained"
                     onClick={() => onValidate()}
+                    onKeyDown={handleEnter}
                 >
-                    Nhận mã
+                    Xác Nhận
                 </styleMui.button>
                 <styleMui.link to="/login" underline="hover">
                     Quay lại đăng nhập
