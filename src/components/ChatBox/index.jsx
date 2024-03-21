@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import Logo from 'Images/logo.png'
 import ChatLayout from 'components/ChatLayout'
 import InfoIcon from '@mui/icons-material/Info'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
 import { collection, where } from 'firebase/firestore'
 import { db } from 'firebase.js'
@@ -20,6 +20,8 @@ function ChatBox() {
     const requestRef = collection(db, 'requests')
     //list yêu cầu trò chuyện
     const [requestList, setRequestList] = useState([])
+    //
+    const [activeChat, setActiveChat] = useState([])
     useFirestoreQuery(
         requestRef,
         [
@@ -27,6 +29,14 @@ function ChatBox() {
             where('status', '==', 'pending'),
         ],
         setRequestList
+    )
+
+    const type = user.Role === 'expert' ? 'expertEmail' : 'userRequest.Email'
+
+    useFirestoreQuery(
+        requestRef,
+        [where(type, '==', user.Email), where('status', '==', 'active')],
+        setActiveChat
     )
 
     const handleOpen = () => {
@@ -40,6 +50,10 @@ function ChatBox() {
     const handleCloseChat = () => {
         setIsChat(false)
     }
+
+    useEffect(() => {
+        if (activeChat.length > 0) handleChatLayout()
+    }, [activeChat])
 
     return (
         <>

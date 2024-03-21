@@ -10,6 +10,14 @@ export const container = styled(Stack)(() => ({
     backgroundColor: '#F4FFEB',
 }))
 
+export const boxButton = styled(Box)(() => ({
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingRight: '8rem',
+    marginTop: '2rem',
+}))
+
 export const blogQuantityContainer = styled(Box)(() => ({
     display: 'flex',
     height: '100%',
@@ -23,14 +31,18 @@ export const imagePlace = styled(Stack)(() => ({
     height: '100%',
     position: 'relative',
     padding: '8rem 0 0 4rem',
+    display: 'flex',
+    flexDirection: 'column',
 }))
 
 export const infoPlace = styled(Stack)(() => ({
     width: '50%',
     height: '100%',
-    position: 'relative',
     padding: '4rem 4rem 0 0',
+    display: 'flex',
+    flexDirection: 'column',
     alignItems: 'flex-end',
+    gap: '1rem',
 }))
 
 export const studyImage = styled(Box)(() => ({
@@ -69,9 +81,12 @@ export const quantityBox = styled(Box)(() => ({
 export const ipadImage = styled(Box)(() => ({
     backgroundImage: `url(${ipad})`,
     backgroundRepeat: 'no-repeat',
-    height: '100%',
-    width: '50%',
+    width: '15rem',
+    height: '23rem',
     objectFit: 'cover',
+    position: 'absolute',
+    top: '26.25rem',
+    right: '3.5rem',
 }))
 
 export const button = styled(Button)(() => ({
@@ -82,7 +97,6 @@ export const button = styled(Button)(() => ({
     height: '2.75rem',
     fontSize: '1.25rem',
     textTransform: 'initial',
-    marginTop: '19.5rem',
     '&:hover': {
         backgroundColor: '#004225',
         color: '#fff',
@@ -91,22 +105,19 @@ export const button = styled(Button)(() => ({
 
 export const Title = styled(Typography)(() => ({
     textAlign: 'right',
-    fontFamily: 'Roboto Serif',
-    lineHeight: '6rem',
-    textTransform: 'capitalize',
-    fontSize: '5.5rem',
+    fontSize: '4.375rem',
     fontWeight: '500',
     color: '#69AD28',
+    letterSpacing: '0.00938em',
+    lineHeight: 'normal',
 }))
 
 export const Info = styled(Typography)(() => ({
     textAlign: 'right',
-    textTransform: 'inherit',
-    fontSize: '1.85rem',
+    fontSize: '1.875rem',
     fontWeight: '300',
     color: '#214400',
-    width: '35rem',
-    padding: '3rem 3rem 0 0',
+    width: '40rem',
 }))
 
 export const quantityTitle = styled(Typography)(() => ({

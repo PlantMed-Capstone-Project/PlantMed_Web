@@ -57,6 +57,12 @@ function CreateBlog() {
                     }))
                 })
                 setImageText(files[0].name)
+            } else {
+                show({
+                    message: 'Sai định dạng hình ảnh!',
+                    severity: SNACKBAR_SEVERITY.ERROR,
+                    autoHideDuration: 2000,
+                })
             }
         } catch (e) {
             console.log(e)
