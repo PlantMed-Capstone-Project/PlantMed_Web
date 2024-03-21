@@ -12,6 +12,9 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { predict } from 'rest/api/predict'
 import * as styleMui from './UploadImage.styled'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import useActions from 'hooks/useActions'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -25,10 +28,11 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 })
 
-function UploadImage() {
+function UploadImage({ setDataPredic, setPercenPredict }) {
     const [imageLoaded, setImageLoaded] = useState()
-    const [imaePush, setImagePush] = useState()
+    const [imgFile, setImgFile] = useState()
     const [loading, setLoading] = useState(false)
+    const { show } = useActions(snackbarAction)
     // const [slide, setSlide] = useState(false)
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
@@ -39,22 +43,24 @@ function UploadImage() {
         ) {
             setImageLoaded(URL.createObjectURL(event.target.files[0]))
             // đổi thành base64 string rồi quăng lại cho server
-            setImagePush(event.target.files[0])
+            setImgFile(event.target.files[0])
         }
     }
 
     const uploadFile = async () => {
         setLoading(true)
-        // setSlide(true)
         try {
-            const res = await predict({ file: imaePush })
-            return res
+            const res = await predict({ file: imgFile })
+            setDataPredic(res.data.plant.id.toLowerCase())
+            setPercenPredict(res.data.accuracy)
         } catch (error) {
             console.log(error)
+            show({
+                message: 'có vấn đề khi phân tích ảnh xin thử lại !',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
         } finally {
-            setTimeout(() => {
-                setLoading(false)
-            }, 2000)
+            setLoading(false)
         }
     }
 

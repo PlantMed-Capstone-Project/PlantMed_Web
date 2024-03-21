@@ -9,8 +9,15 @@ import { useState } from 'react'
 import { approvalBlog, rejectBlog } from 'rest/api/blog'
 import { parseImg } from 'utils'
 import * as styleMui from './PopupInfo.styled'
+import { useEffect } from 'react'
 
-function PopupInfo({ id, approvalPage = false, setIndexData }) {
+function PopupInfo({
+    id,
+    approvalPage = false,
+    setIndexData,
+    predicPage = false,
+    accuracy,
+}) {
     const { storeBlogApproval } = useActions(blogAction)
     const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
     const { data: dataApproval } = useShallowEqualSelector(
@@ -24,7 +31,9 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
     const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
     const textData = approvalPage
         ? dataFilter
-        : {
+        : !predicPage
+        ? {
+              id: dataFilter?.id,
               images: dataFilter?.images[0].data,
               valueList: [
                   {
@@ -49,6 +58,37 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
                   },
               ],
           }
+        : {
+              id: dataFilter?.id,
+              images: dataFilter?.images[0].data,
+              valueList: [
+                  {
+                      label: 'Độ chính xác',
+                      value: accuracy,
+                  },
+                  {
+                      label: 'Tên quốc tế',
+                      value: dataFilter?.internationalName,
+                  },
+                  {
+                      label: 'Tên thường gọi',
+                      value: dataFilter?.name,
+                  },
+                  {
+                      label: 'Họ của cây',
+                      value: dataFilter?.surName,
+                  },
+                  {
+                      label: 'Nguồn gốc',
+                      value: dataFilter?.origin,
+                  },
+                  {
+                      label: 'Nơi sinh trưởng',
+                      value: dataFilter?.placeOfBirth,
+                  },
+              ],
+          }
+
     // trigger active các bài viết theo id
     const acceptBlog = async (id) => {
         try {

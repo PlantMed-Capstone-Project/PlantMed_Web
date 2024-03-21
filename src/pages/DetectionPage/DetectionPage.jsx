@@ -2,11 +2,58 @@ import { Box, Stack, Typography } from '@mui/material'
 import PaginationLayout from 'components/PaginationLayout/PaginationLayout'
 import UploadImage from 'components/UploadImage/UploadImage'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import { useEffect, useRef } from 'react'
+import { useState } from 'react'
+import * as styleFromPlant from 'pages/Plant/PlantPage.styled'
+import PopupInfo from 'components/PopupInfo/PopupInfo'
+import { AnimatePresence } from 'framer-motion'
 
 export default function DetectionPage() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
+    const [dataPredic, setDataPredic] = useState(null)
+    const [percenPredict, setPercenPredict] = useState(null)
     const search = ''
     const dataPlant = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
+    const containerPopup = useRef()
+    // kiểm tra khi click có đang click vào popup hay không ?
+    const handler = (e) => {
+        if (!containerPopup.current?.contains(e.target)) {
+            setDataPredic(null)
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handler)
+        return () => {
+            document.removeEventListener('mousedown', handler)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    // Hủy scroll khi mở popup
+    const disableScroll = () => {
+        const scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop
+        const scrollLeft =
+            window.pageXOffset || document.documentElement.scrollLeft
+
+        window.onscroll = () => {
+            window.scrollTo(scrollLeft, scrollTop)
+        }
+    }
+
+    // mở scroll khi đóng popup
+    const enableScroll = () => {
+        window.onscroll = () => {}
+    }
+
+    useEffect(() => {
+        if (dataPredic !== null) {
+            disableScroll()
+        }
+        return () => enableScroll()
+    }, [dataPredic])
+
     return (
         <Box
             sx={{
@@ -16,7 +63,10 @@ export default function DetectionPage() {
                 width: '90rem',
             }}
         >
-            <UploadImage />
+            <UploadImage
+                setDataPredic={setDataPredic}
+                setPercenPredict={setPercenPredict}
+            />
             <Stack
                 direction="column"
                 alignItems="center"
@@ -39,6 +89,25 @@ export default function DetectionPage() {
                     loading={loading}
                 />
             </Stack>
+            <styleFromPlant.popupContainer
+                isopen={dataPredic !== null || undefined}
+            >
+                <styleFromPlant.activePopup
+                    ref={containerPopup}
+                    isopen={dataPredic !== null || undefined}
+                >
+                    <AnimatePresence>
+                        {dataPredic !== null && (
+                            <PopupInfo
+                                id={dataPredic}
+                                accuracy={percenPredict}
+                                setIndexData={setDataPredic}
+                                predicPage
+                            />
+                        )}
+                    </AnimatePresence>
+                </styleFromPlant.activePopup>
+            </styleFromPlant.popupContainer>
         </Box>
     )
 }
