@@ -75,12 +75,12 @@ function PopupInfo({
                     value: dataFilter?.internationalName,
                 },
                 {
-                    label: 'Tên thường gọi',
-                    value: dataFilter?.name,
-                },
-                {
                     label: 'Họ của cây',
                     value: dataFilter?.surName,
+                },
+                {
+                    label: 'Tên thường gọi',
+                    value: dataFilter?.name,
                 },
                 {
                     label: 'Nguồn gốc',
@@ -133,10 +133,6 @@ function PopupInfo({
         }
     }
 
-    useEffect(() => {
-        console.log(imagePredic)
-    }, [imagePredic])
-
     return (
         <>
             {textData && (
@@ -160,7 +156,7 @@ function PopupInfo({
                             title={
                                 approvalPage
                                     ? `${textData.title}`
-                                    : textData.valueList[1].value
+                                    : textData.valueList[2].value
                             }
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)}
