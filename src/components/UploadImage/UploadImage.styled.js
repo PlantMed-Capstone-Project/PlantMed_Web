@@ -8,13 +8,13 @@ export const background = styled(Stack)({
 
 export const container = styled(Stack)(({ isloaded }) => ({
     width: '65.75rem',
-    height: isloaded ? '45.5rem' : '41.5rem',
+    height: isloaded ? '46.5rem' : '41.5rem',
     borderRadius: '0.625rem',
     backgroundColor: '#FFF',
     boxShadow: '0px 4px 5px 0px rgba(31, 23, 12, 0.50)',
     transition: 'all 0.2s',
     paddingTop: '3rem',
-    gap: '2rem',
+    gap: '1rem',
 }))
 
 export const uploadPlace = styled(Box)({

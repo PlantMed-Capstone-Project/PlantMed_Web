@@ -29,65 +29,68 @@ function PopupInfo({
 
     const conditionData = approvalPage ? dataApproval : dataPlant
     const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
-    const textData = approvalPage
-        ? dataFilter
-        : !predicPage
-        ? {
-              id: dataFilter?.id,
-              images: dataFilter?.images[0].data,
-              valueList: [
-                  {
-                      label: 'Tên quốc tế',
-                      value: dataFilter?.internationalName,
-                  },
-                  {
-                      label: 'Tên thường gọi',
-                      value: dataFilter?.name,
-                  },
-                  {
-                      label: 'Họ của cây',
-                      value: dataFilter?.surName,
-                  },
-                  {
-                      label: 'Nguồn gốc',
-                      value: dataFilter?.origin,
-                  },
-                  {
-                      label: 'Nơi sinh trưởng',
-                      value: dataFilter?.placeOfBirth,
-                  },
-              ],
-          }
-        : {
-              id: dataFilter?.id,
-              images: dataFilter?.images[0].data,
-              valueList: [
-                  {
-                      label: 'Độ chính xác',
-                      value: accuracy,
-                  },
-                  {
-                      label: 'Tên quốc tế',
-                      value: dataFilter?.internationalName,
-                  },
-                  {
-                      label: 'Tên thường gọi',
-                      value: dataFilter?.name,
-                  },
-                  {
-                      label: 'Họ của cây',
-                      value: dataFilter?.surName,
-                  },
-                  {
-                      label: 'Nguồn gốc',
-                      value: dataFilter?.origin,
-                  },
-                  {
-                      label: 'Nơi sinh trưởng',
-                      value: dataFilter?.placeOfBirth,
-                  },
-              ],
-          }
+    let textData
+    if (approvalPage) {
+        textData = dataFilter
+    } else if (predicPage) {
+        textData = {
+            id: dataFilter?.id,
+            images: dataFilter?.images[0].data,
+            valueList: [
+                {
+                    label: 'Độ chính xác',
+                    value: accuracy,
+                },
+                {
+                    label: 'Tên quốc tế',
+                    value: dataFilter?.internationalName,
+                },
+                {
+                    label: 'Tên thường gọi',
+                    value: dataFilter?.name,
+                },
+                {
+                    label: 'Họ của cây',
+                    value: dataFilter?.surName,
+                },
+                {
+                    label: 'Nguồn gốc',
+                    value: dataFilter?.origin,
+                },
+                {
+                    label: 'Nơi sinh trưởng',
+                    value: dataFilter?.placeOfBirth,
+                },
+            ],
+        }
+    } else {
+        textData = {
+            id: dataFilter?.id,
+            images: dataFilter?.images[0].data,
+            valueList: [
+                {
+                    label: 'Tên quốc tế',
+                    value: dataFilter?.internationalName,
+                },
+                {
+                    label: 'Tên thường gọi',
+                    value: dataFilter?.name,
+                },
+                {
+                    label: 'Họ của cây',
+                    value: dataFilter?.surName,
+                },
+                {
+                    label: 'Nguồn gốc',
+                    value: dataFilter?.origin,
+                },
+                {
+                    label: 'Nơi sinh trưởng',
+                    value: dataFilter?.placeOfBirth,
+                },
+            ],
+        }
+    }
 
     // trigger active các bài viết theo id
     const acceptBlog = async (id) => {
@@ -105,7 +108,7 @@ function PopupInfo({
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         } finally {
-            setIndexData((state) => null)
+            setIndexData(null)
         }
     }
     // trigger không duyệt các bài viết theo id

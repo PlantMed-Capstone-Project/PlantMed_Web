@@ -89,7 +89,7 @@ export default function DetectionPage() {
                     loading={loading}
                 />
             </Stack>
-            <styleFromPlant.popupContainer
+            {/* <styleFromPlant.popupContainer
                 isopen={dataPredic !== null || undefined}
             >
                 <styleFromPlant.activePopup
@@ -107,7 +107,7 @@ export default function DetectionPage() {
                         )}
                     </AnimatePresence>
                 </styleFromPlant.activePopup>
-            </styleFromPlant.popupContainer>
+            </styleFromPlant.popupContainer> */}
         </Box>
     )
 }

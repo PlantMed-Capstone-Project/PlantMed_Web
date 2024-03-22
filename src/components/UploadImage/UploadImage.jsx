@@ -5,16 +5,19 @@ import {
     CardMedia,
     CircularProgress,
     IconButton,
+    LinearProgress,
     Stack,
+    Typography,
 } from '@mui/material'
+import { linearProgressClasses } from '@mui/material/LinearProgress'
 import { styled } from '@mui/material/styles'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import { motion } from 'framer-motion'
+import useActions from 'hooks/useActions'
 import { useState } from 'react'
 import { predict } from 'rest/api/predict'
 import * as styleMui from './UploadImage.styled'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import useActions from 'hooks/useActions'
+import { useEffect } from 'react'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -29,14 +32,17 @@ const VisuallyHiddenInput = styled('input')({
 })
 
 function UploadImage({ setDataPredic, setPercenPredict }) {
+    const [progress, setProgress] = useState(0)
     const [imageLoaded, setImageLoaded] = useState()
     const [imgFile, setImgFile] = useState()
     const [loading, setLoading] = useState(false)
+    const [progressStatus, setProgressStatus] = useState(false)
     const { show } = useActions(snackbarAction)
     // const [slide, setSlide] = useState(false)
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
     const handleFileChange = (event) => {
+        setProgress(0)
         if (
             event.target.files.length > 0 &&
             allowedTypes.includes(event.target.files[0].type)
@@ -49,10 +55,16 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
 
     const uploadFile = async () => {
         setLoading(true)
+        setProgressStatus(true) // Bắt đầu tiến trình
+        show({
+            message: 'Đang phân tích ảnh vui lòng đợi trong giây lát !',
+            severity: SNACKBAR_SEVERITY.SUCCESS,
+        })
         try {
             const res = await predict({ file: imgFile })
             setDataPredic(res.data.plant.id.toLowerCase())
             setPercenPredict(res.data.accuracy)
+            setProgress(100)
         } catch (error) {
             console.log(error)
             show({
@@ -61,8 +73,29 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
             })
         } finally {
             setLoading(false)
+            setProgressStatus(false)
         }
     }
+
+    // hàm chạy thanh progress bar
+    useEffect(() => {
+        if (progressStatus) {
+            const timer = setInterval(() => {
+                console.log('chay')
+                setProgress((prevProgress) => {
+                    const nextProgress = prevProgress + 1
+                    if (nextProgress >= 100) {
+                        clearInterval(timer)
+                        return 100
+                    }
+                    return nextProgress
+                })
+            }, 50)
+            return () => {
+                clearInterval(timer)
+            }
+        }
+    }, [progressStatus])
 
     return (
         <styleMui.background
@@ -79,6 +112,9 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
                     <styleMui.imageLoadBox
                         component="label"
                         onChange={(event) => handleFileChange(event)}
+                        onClick={(event) => {
+                            event.target.value = null
+                        }}
                     >
                         <CardMedia
                             component="img"
@@ -120,31 +156,64 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
                 )}
 
                 {imageLoaded && (
-                    <styleMui.btnSend variant="contained" onClick={uploadFile}>
-                        <Stack
-                            direction="row"
-                            spacing="0.5rem"
-                            component={motion.div}
-                            initial={{ opacity: 1, x: 0 }}
-                            animate={{
-                                opacity: loading ? 0 : 1,
-                                x: loading ? 100 : 0,
+                    <>
+                        <Box
+                            sx={{
+                                width: '80%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: '0.5rem',
                             }}
                         >
-                            <styleMui.textBtn>Gửi ảnh đi</styleMui.textBtn>
-                            <SendIcon sx={{ color: '#FFF' }} />
-                        </Stack>
-                        {loading && (
-                            <styleMui.spinProgress>
-                                <CircularProgress
-                                    size={30}
-                                    sx={{
-                                        color: '#FFF',
-                                    }}
-                                />
-                            </styleMui.spinProgress>
-                        )}
-                    </styleMui.btnSend>
+                            <LinearProgress
+                                sx={{
+                                    width: '60%',
+                                    [`& .${linearProgressClasses.bar}`]: {
+                                        borderRadius: 5,
+                                        backgroundColor: '#8ad345',
+                                    },
+                                    [`&.${linearProgressClasses.colorPrimary}`]:
+                                        {
+                                            backgroundColor: '#F4FFEB',
+                                        },
+                                }}
+                                variant="determinate"
+                                value={progress}
+                            />
+                            <Typography variant="subtitle2">{`${Math.round(
+                                progress
+                            )}%`}</Typography>
+                        </Box>
+                        <styleMui.btnSend
+                            variant="contained"
+                            onClick={uploadFile}
+                        >
+                            <Stack
+                                direction="row"
+                                spacing="0.5rem"
+                                component={motion.div}
+                                initial={{ opacity: 1, x: 0 }}
+                                animate={{
+                                    opacity: loading ? 0 : 1,
+                                    x: loading ? 100 : 0,
+                                }}
+                            >
+                                <styleMui.textBtn>Gửi ảnh đi</styleMui.textBtn>
+                                <SendIcon sx={{ color: '#FFF' }} />
+                            </Stack>
+                            {loading && (
+                                <styleMui.spinProgress>
+                                    <CircularProgress
+                                        size={30}
+                                        sx={{
+                                            color: '#FFF',
+                                        }}
+                                    />
+                                </styleMui.spinProgress>
+                            )}
+                        </styleMui.btnSend>
+                    </>
                 )}
             </styleMui.container>
         </styleMui.background>
