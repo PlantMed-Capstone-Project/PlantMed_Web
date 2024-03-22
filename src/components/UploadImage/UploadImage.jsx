@@ -68,7 +68,7 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
         } catch (error) {
             console.log(error)
             show({
-                message: 'có vấn đề khi phân tích ảnh xin thử lại !',
+                message: 'Có vấn đề khi phân tích ảnh xin thử lại !',
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         } finally {
