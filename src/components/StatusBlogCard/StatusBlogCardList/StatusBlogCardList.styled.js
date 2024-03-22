@@ -4,7 +4,7 @@ export const blogCardList = styled(Stack)(() => ({
     width: '100%',
     height: 'calc(100vh - 13rem)',
     justifyContent: 'flex-start',
-    padding: '1rem 0 2rem 4rem',
+    padding: '1rem 0 2rem 2rem',
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
         width: '0',

@@ -19,7 +19,7 @@ export function BlogApprovalCard({ setIndexData }) {
         setTimeout(() => {
             setItem(data.slice(0, dataSlice + maxRecordsReturned))
             setDataSlice(dataSlice + maxRecordsReturned)
-        }, 1000)
+        }, 500)
     }
 
     return (
