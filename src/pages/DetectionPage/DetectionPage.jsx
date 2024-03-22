@@ -11,7 +11,7 @@ import { AnimatePresence } from 'framer-motion'
 export default function DetectionPage() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
     const [dataPredic, setDataPredic] = useState(null)
-    const [percenPredict, setPercenPredict] = useState(null)
+    const [image, setImage] = useState(null)
     const search = ''
     const dataPlant = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
     const containerPopup = useRef()
@@ -63,10 +63,7 @@ export default function DetectionPage() {
                 width: '90rem',
             }}
         >
-            <UploadImage
-                setDataPredic={setDataPredic}
-                setPercenPredict={setPercenPredict}
-            />
+            <UploadImage setDataPredic={setDataPredic} setImage={setImage} />
             <Stack
                 direction="column"
                 alignItems="center"
@@ -99,8 +96,8 @@ export default function DetectionPage() {
                     <AnimatePresence>
                         {dataPredic !== null && (
                             <PopupInfo
+                                imagePredic={image}
                                 id={dataPredic}
-                                accuracy={percenPredict}
                                 setIndexData={setDataPredic}
                                 predicPage
                             />

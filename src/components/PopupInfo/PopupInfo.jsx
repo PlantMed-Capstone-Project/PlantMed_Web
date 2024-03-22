@@ -16,7 +16,7 @@ function PopupInfo({
     approvalPage = false,
     setIndexData,
     predicPage = false,
-    accuracy,
+    imagePredic,
 }) {
     const { storeBlogApproval } = useActions(blogAction)
     const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
@@ -28,38 +28,40 @@ function PopupInfo({
     const [isHover, setIsHover] = useState(false)
 
     const conditionData = approvalPage ? dataApproval : dataPlant
-    const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
+    const dataFilter = predicPage
+        ? id
+        : conditionData.filter((vl) => vl.id === id)[0]
     let textData
     if (approvalPage) {
         textData = dataFilter
     } else if (predicPage) {
         textData = {
             id: dataFilter?.id,
-            images: dataFilter?.images[0].data,
+            images: imagePredic,
             valueList: [
                 {
                     label: 'Độ chính xác',
-                    value: accuracy,
+                    value: dataFilter.accuracy,
                 },
                 {
                     label: 'Tên quốc tế',
-                    value: dataFilter?.internationalName,
+                    value: dataFilter?.plant.international_name,
                 },
                 {
                     label: 'Tên thường gọi',
-                    value: dataFilter?.name,
+                    value: dataFilter?.plant.name,
                 },
                 {
                     label: 'Họ của cây',
-                    value: dataFilter?.surName,
+                    value: dataFilter?.plant.sur_name,
                 },
                 {
                     label: 'Nguồn gốc',
-                    value: dataFilter?.origin,
+                    value: dataFilter?.plant.origin,
                 },
                 {
                     label: 'Nơi sinh trưởng',
-                    value: dataFilter?.placeOfBirth,
+                    value: dataFilter?.plant.place_of_birth,
                 },
             ],
         }
@@ -130,6 +132,10 @@ function PopupInfo({
             setIndexData((state) => null)
         }
     }
+
+    useEffect(() => {
+        console.log(imagePredic)
+    }, [imagePredic])
 
     return (
         <>

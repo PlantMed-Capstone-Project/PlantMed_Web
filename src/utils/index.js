@@ -69,7 +69,7 @@ export const parseJwt = (token) => {
 }
 
 export const parseImg = (img) => {
-    if (img.includes('https')) {
+    if (img.includes('https') || img.includes('blob')) {
         return img
     } else {
         return `data:image/png;base64,${img}`

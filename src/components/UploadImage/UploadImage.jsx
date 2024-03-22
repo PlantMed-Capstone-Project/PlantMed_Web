@@ -31,7 +31,7 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 })
 
-function UploadImage({ setDataPredic, setPercenPredict }) {
+function UploadImage({ setDataPredic, setImage }) {
     const [progress, setProgress] = useState(0)
     const [imageLoaded, setImageLoaded] = useState()
     const [imgFile, setImgFile] = useState()
@@ -51,6 +51,7 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
             setImageLoaded(URL.createObjectURL(event.target.files[0]))
             // đổi thành base64 string rồi quăng lại cho server
             setImgFile(event.target.files[0])
+            setImage(URL.createObjectURL(event.target.files[0]))
         }
     }
 
@@ -60,10 +61,11 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
             message: 'Đang phân tích ảnh vui lòng đợi trong giây lát !',
             severity: SNACKBAR_SEVERITY.SUCCESS,
         })
+
         try {
             const res = await predict({ file: imgFile })
-            setDataPredic(res.data.plant.id.toLowerCase())
-            setPercenPredict(res.data.accuracy)
+            setDataPredic(res.data)
+
             setProgress(100)
         } catch (error) {
             console.log(error)
