@@ -43,6 +43,7 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
 
     const handleFileChange = (event) => {
         setProgress(0)
+        setLoading(false)
         if (
             event.target.files.length > 0 &&
             allowedTypes.includes(event.target.files[0].type)
@@ -54,7 +55,6 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
     }
 
     const uploadFile = async () => {
-        setLoading(true)
         setProgressStatus(true) // Bắt đầu tiến trình
         show({
             message: 'Đang phân tích ảnh vui lòng đợi trong giây lát !',
@@ -72,14 +72,14 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         } finally {
-            setLoading(false)
-            setProgressStatus(false)
+            setProgressStatus(false) // Bắt đầu tiến trình
         }
     }
 
     // hàm chạy thanh progress bar
     useEffect(() => {
         if (progressStatus) {
+            setLoading(true)
             const timer = setInterval(() => {
                 console.log('chay')
                 setProgress((prevProgress) => {
@@ -96,6 +96,17 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
             }
         }
     }, [progressStatus])
+
+    useEffect(() => {
+        if (progress === 100) {
+            const timer = setTimeout(() => {
+                setLoading(false)
+            }, 1000)
+            return () => {
+                clearTimeout(timer)
+            }
+        }
+    }, [progress])
 
     return (
         <styleMui.background
@@ -188,6 +199,7 @@ function UploadImage({ setDataPredic, setPercenPredict }) {
                         <styleMui.btnSend
                             variant="contained"
                             onClick={uploadFile}
+                            disabled={loading}
                         >
                             <Stack
                                 direction="row"

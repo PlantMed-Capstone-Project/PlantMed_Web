@@ -1,4 +1,5 @@
 import { Box, Stack, Typography, styled } from '@mui/material'
+import { button } from 'components/BlogQuantity/BlogQuantity.styled'
 
 export const background = styled(Stack)({
     width: '100%',
@@ -49,7 +50,7 @@ export const txtUnderIcon = styled(Typography)({
     fontWeight: '400',
 })
 
-export const btnSend = styled(Box)({
+export const btnSend = styled(button)({
     position: 'relative',
     height: '2.1875rem',
     width: '8.25rem',
