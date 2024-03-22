@@ -1,4 +1,4 @@
-import { Box, Stack, Tab, Tabs, Typography, styled } from '@mui/material'
+import { Box, Tab, Tabs, styled } from '@mui/material'
 
 export const container = styled(Box)(() => ({
     width: '100%',

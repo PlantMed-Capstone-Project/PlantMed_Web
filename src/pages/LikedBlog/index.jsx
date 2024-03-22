@@ -9,9 +9,10 @@ import { readCookie } from 'utils/cookie'
 
 function LikedBlog() {
     const [loading, setLoading] = useState(true)
-    const [dataValue, setDataValue] = useState(null)
     const [userInfo] = useState(parseJwt(readCookie(ACCESS_TOKEN)))
     const [dataBlog, setdataBlog] = useState([])
+
+    const handleValue = () => {}
 
     // gọi api của blog active và sau đó add vào redux
     const getLikedBlog = async () => {
@@ -41,7 +42,7 @@ function LikedBlog() {
         <styleMui.container>
             <styleMui.likedBlogContainer>
                 <StatusBlogCardList
-                    setDataValue={setDataValue}
+                    setDataValue={handleValue}
                     loading={loading}
                     data={dataBlog}
                     likeBlog

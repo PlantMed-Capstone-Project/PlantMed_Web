@@ -8,7 +8,6 @@ function StatusBlogCardList({ data, loading, setDataValue, likeBlog = false }) {
 
     useEffect(() => {
         setItem(data)
-        console.log(data)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])
 
