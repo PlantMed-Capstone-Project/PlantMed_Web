@@ -20,7 +20,7 @@ function BlogPage() {
 
     const getTopBlog = async () => {
         try {
-            const res = await getTop('6')
+            const res = await getTop('9')
             console.log(res.data)
             setBlogList(res.data)
         } catch (e) {
@@ -58,9 +58,10 @@ function BlogPage() {
                     fontSize: '2.188rem',
                     fontWeight: '500',
                     textTransform: 'uppercase',
+                    color: '#214400',
                 }}
             >
-                Các bài viết mới nhất
+                Bài viết nổi bật
             </Typography>
             <BlogList blogData={blogList} />
         </Box>

@@ -11,6 +11,7 @@ const styles = {
     card: {
         boxShadow: '0 0.25rem 0.25rem 0 rgba(33, 68, 0, 0.50)',
         width: 400,
+        height: 340,
         display: 'flex',
         flexDirection: 'column',
         flex: 1,

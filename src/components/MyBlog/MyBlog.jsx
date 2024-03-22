@@ -9,9 +9,11 @@ const styles = {
     card: {
         boxShadow: '0 0.25rem 0.25rem 0 rgba(33, 68, 0, 0.50)',
         width: 400,
+        height: 340,
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
+        borderRadius: '1rem',
     },
     containerBlog: {
         flexGrow: 1,
@@ -25,15 +27,18 @@ const styles = {
         marginBottom: '1.875rem',
         fontWeight: '500',
         color: '#214400',
+        textTransform: 'uppercase',
     },
 }
 
 function MyBlog({ userBlog }) {
     return (
         <Box sx={styles.containerBlog}>
-            <Typography sx={styles.myBlogTitle}>Bài viết của bạn</Typography>
+            <Typography sx={styles.myBlogTitle}>
+                Bài viết nổi bật của bạn
+            </Typography>
             <Grid container spacing={2}>
-                {userBlog?.map((data) => (
+                {userBlog?.slice(0, 3).map((data) => (
                     <Grid
                         item
                         xs={4}
@@ -59,14 +64,17 @@ function MyBlog({ userBlog }) {
                                 >
                                     <CardMedia
                                         component="img"
-                                        height="150"
+                                        height="180"
                                         alt="plant"
                                         image={parseImg(data.thumbnail)}
+                                        sx={{
+                                            padding: '0.8rem',
+                                            borderRadius: '1rem',
+                                        }}
                                     />
                                     <CardContent
                                         sx={{
-                                            padding:
-                                                '0.625rem 1.563rem 1.25rem',
+                                            padding: '0 1.563rem 1.25rem',
                                         }}
                                     >
                                         <Typography
@@ -76,6 +84,7 @@ function MyBlog({ userBlog }) {
                                             sx={{
                                                 fontWeight: 'bold',
                                                 color: 'black',
+                                                textTransform: 'uppercase',
                                             }}
                                         >
                                             {data.title}
