@@ -10,7 +10,7 @@ import { approvalBlog, rejectBlog } from 'rest/api/blog'
 import { parseImg } from 'utils'
 import * as styleMui from './PopupInfo.styled'
 
-function PopupInfo({ id, approvalPage = false, setIndexData }) {
+function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
     const { storeBlogApproval } = useActions(blogAction)
     const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
     const { data: dataApproval } = useShallowEqualSelector(
@@ -22,33 +22,35 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
 
     const conditionData = approvalPage ? dataApproval : dataPlant
     const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
-    const textData = approvalPage
-        ? dataFilter
-        : {
-              images: dataFilter?.images[0].data,
-              valueList: [
-                  {
-                      label: 'Tên quốc tế',
-                      value: dataFilter?.internationalName,
-                  },
-                  {
-                      label: 'Tên thường gọi',
-                      value: dataFilter?.name,
-                  },
-                  {
-                      label: 'Họ của cây',
-                      value: dataFilter?.surName,
-                  },
-                  {
-                      label: 'Nguồn gốc',
-                      value: dataFilter?.origin,
-                  },
-                  {
-                      label: 'Nơi sinh trưởng',
-                      value: dataFilter?.placeOfBirth,
-                  },
-              ],
-          }
+    const textData =
+        myBlogData ||
+        (approvalPage
+            ? dataFilter
+            : {
+                  images: dataFilter?.images[0].data,
+                  valueList: [
+                      {
+                          label: 'Tên quốc tế',
+                          value: dataFilter?.internationalName,
+                      },
+                      {
+                          label: 'Tên thường gọi',
+                          value: dataFilter?.name,
+                      },
+                      {
+                          label: 'Họ của cây',
+                          value: dataFilter?.surName,
+                      },
+                      {
+                          label: 'Nguồn gốc',
+                          value: dataFilter?.origin,
+                      },
+                      {
+                          label: 'Nơi sinh trưởng',
+                          value: dataFilter?.placeOfBirth,
+                      },
+                  ],
+              })
     // trigger active các bài viết theo id
     const acceptBlog = async (id) => {
         try {
@@ -157,18 +159,24 @@ function PopupInfo({ id, approvalPage = false, setIndexData }) {
                                     </Box>
                                 </styleMui.boxContent>
                                 <styleMui.diver isbottom="true" />
-                                <styleMui.boxBtn>
-                                    <styleMui.btn
-                                        onClick={() => acceptBlog(textData.id)}
-                                    >
-                                        Duyệt
-                                    </styleMui.btn>
-                                    <styleMui.btn
-                                        onClick={() => rejectBlogs(textData.id)}
-                                    >
-                                        Không duyệt
-                                    </styleMui.btn>
-                                </styleMui.boxBtn>
+                                {!myBlogData && (
+                                    <styleMui.boxBtn>
+                                        <styleMui.btn
+                                            onClick={() =>
+                                                acceptBlog(textData.id)
+                                            }
+                                        >
+                                            Duyệt
+                                        </styleMui.btn>
+                                        <styleMui.btn
+                                            onClick={() =>
+                                                rejectBlogs(textData.id)
+                                            }
+                                        >
+                                            Không duyệt
+                                        </styleMui.btn>
+                                    </styleMui.boxBtn>
+                                )}
                             </styleMui.containerBlog>
                         </>
                     )}
