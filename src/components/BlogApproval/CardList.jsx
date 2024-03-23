@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { convertString } from 'utils'
+import { convertString, parseImg } from 'utils'
 import * as S from './BlogApproval.styled'
 
 export function CardList({ item, idx, setIndexData }) {
@@ -18,7 +18,7 @@ export function CardList({ item, idx, setIndexData }) {
         setIndexData(id)
     }
 
-    // const content = convertString(item.content, 200)
+    const content = convertString(item.content, 200)
 
     return (
         <S.containerCard
@@ -32,6 +32,7 @@ export function CardList({ item, idx, setIndexData }) {
             onClick={() => cardClick(item.id)}
             onMouseOver={() => hoverEnter(item.id)}
             onMouseLeave={hoverLeave}
+            itemimage={parseImg(item.thumbnail)}
         >
             {isHover === item.id && (
                 <S.cardHover
@@ -47,15 +48,14 @@ export function CardList({ item, idx, setIndexData }) {
                     transition={{ duration: 0.2 }}
                 >
                     <S.avatarBox>
-                        <S.title>BẠCH ĐỒNG NỮ</S.title>
-                        <S.avatarName>Tác giả: Nguyên</S.avatarName>
+                        <S.title>{item.title}</S.title>
+                        <S.avatarName>Tác giả: {item.user.name}</S.avatarName>
                     </S.avatarBox>
                     <S.txtBox>
                         <S.subTitle title={true}>Mô tả:</S.subTitle>
-                        <S.subTitle>
-                            day la noi dunng day la noi dunngday la noi dunngday
-                            la noi dunngday la noi dunngssssssssssssssssss
-                        </S.subTitle>
+                        <S.subTitle
+                            dangerouslySetInnerHTML={{ __html: content }}
+                        />
                     </S.txtBox>
                     <Box
                         sx={{
@@ -67,12 +67,12 @@ export function CardList({ item, idx, setIndexData }) {
                             alignItems: 'center',
                         }}
                     >
-                        <S.tagsBox>
-                            <S.tagsTxt>hoa huong duong</S.tagsTxt>
-                        </S.tagsBox>
-                        <S.tagsBox>
-                            <S.tagsTxt>hoa huong duong</S.tagsTxt>
-                        </S.tagsBox>
+                        {item.tags.length &&
+                            item.tags.map((vl) => (
+                                <S.tagsBox key={item}>
+                                    <S.tagsTxt>{vl.name}</S.tagsTxt>
+                                </S.tagsBox>
+                            ))}
                     </Box>
                 </S.cardHover>
             )}

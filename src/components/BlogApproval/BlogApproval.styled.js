@@ -1,5 +1,4 @@
 import { Box, CardMedia, Stack, Typography, styled } from '@mui/material'
-import presentImage from 'Images/groupImage.png'
 
 export const container = styled(Stack)({
     columnGap: '1rem',
@@ -23,17 +22,17 @@ export const text = styled(Typography)({
 
 //====================== CARD LIST =================================//
 
-export const containerCard = styled(Box)({
+export const containerCard = styled(Box)((itemimage) => ({
     height: '16rem',
     width: 'calc(33.3% - 1rem)',
     borderRadius: '0.625rem',
     boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
     cursor: 'pointer',
-    backgroundImage: `url(${presentImage})`,
+    backgroundImage: `url(itemimage)`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-})
+}))
 
 export const imageBox = styled(Box)({
     height: '100%',

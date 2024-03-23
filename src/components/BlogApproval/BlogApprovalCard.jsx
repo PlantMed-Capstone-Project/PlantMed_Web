@@ -3,15 +3,13 @@ import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useState } from 'react'
 import { CardList } from '.'
 import * as styleMui from './BlogApproval.styled'
-import { blogDetail } from 'FakeData/plantData'
 
 export function BlogApprovalCard({ setIndexData }) {
     const { data, loading } = useShallowEqualSelector((state) => state.blog)
     const [item, setItem] = useState([])
-    const fakeData = blogDetail
-    // useEffect(() => {
-    //     setItem(data.slice(0, 6))
-    // }, [data])
+    useEffect(() => {
+        setItem(data)
+    }, [data])
 
     // Hàm này sẽ kích hoạt mỗi khi thư viện cuộn đến thằng cuối cùng trong data
     // const fetchMoreData = () => {
@@ -27,8 +25,8 @@ export function BlogApprovalCard({ setIndexData }) {
             alignItems="flex-start"
             justifyContent="flex-start"
         >
-            {/* {loading ? (
-                Array.from(new Array(2)).map((_, idx) => (
+            {loading ? (
+                Array.from(new Array(7)).map((_, idx) => (
                     <Skeleton
                         key={idx}
                         variant="rectangular"
@@ -51,15 +49,7 @@ export function BlogApprovalCard({ setIndexData }) {
                 ))
             ) : (
                 <styleMui.text>Không có bài viết cần phê duyệt</styleMui.text>
-            )} */}
-            {fakeData.map((vl, idx) => (
-                <CardList
-                    key={vl.id}
-                    item={vl}
-                    idx={idx}
-                    setIndexData={setIndexData}
-                />
-            ))}
+            )}
         </styleMui.container>
     )
 }
