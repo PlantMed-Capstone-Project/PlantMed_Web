@@ -32,8 +32,8 @@ export function BlogApprovalCard({ setIndexData }) {
                         variant="rectangular"
                         animation="wave"
                         sx={{
-                            height: '18rem',
-                            width: '100%',
+                            height: '16rem',
+                            width: 'calc(33.3% - 1rem)',
                             borderRadius: '0.625rem',
                         }}
                     />
