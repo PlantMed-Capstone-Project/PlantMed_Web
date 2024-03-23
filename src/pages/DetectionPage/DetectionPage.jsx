@@ -11,7 +11,7 @@ import { AnimatePresence } from 'framer-motion'
 export default function DetectionPage() {
     const { data, loading } = useShallowEqualSelector((state) => state.plant)
     const [dataPredic, setDataPredic] = useState(null)
-    const [image, setImage] = useState(null)
+    const [open, setOpen] = useState()
     const search = ''
     const dataPlant = [...data].sort((a, b) => b.totalSearch - a.totalSearch)
     const containerPopup = useRef()
@@ -19,6 +19,7 @@ export default function DetectionPage() {
     const handler = (e) => {
         if (!containerPopup.current?.contains(e.target)) {
             setDataPredic(null)
+            setOpen(false)
         }
     }
 
@@ -50,9 +51,14 @@ export default function DetectionPage() {
     useEffect(() => {
         if (dataPredic !== null) {
             disableScroll()
+            setOpen(true)
         }
         return () => enableScroll()
     }, [dataPredic])
+
+    const handle = (value) => {
+        setOpen(value)
+    }
 
     return (
         <Box
@@ -63,7 +69,7 @@ export default function DetectionPage() {
                 width: '90rem',
             }}
         >
-            <UploadImage setDataPredic={setDataPredic} setImage={setImage} />
+            <UploadImage setDataPredic={setDataPredic} handle={handle} />
             <Stack
                 direction="column"
                 alignItems="center"
@@ -87,17 +93,15 @@ export default function DetectionPage() {
                 />
             </Stack>
             <styleFromPlant.popupContainer
-                isopen={dataPredic !== null || undefined}
+                isopen={dataPredic !== null || open || undefined}
             >
                 <styleFromPlant.activePopup
                     ref={containerPopup}
-                    isopen={dataPredic !== null || undefined}
+                    isopen={dataPredic !== null || open || undefined}
                 >
                     <AnimatePresence>
-                        {dataPredic !== null && (
+                        {(dataPredic !== null || open) && (
                             <PopupInfo
-                                imagePredic={image}
-                                id={dataPredic}
                                 setIndexData={setDataPredic}
                                 predicPage
                             />

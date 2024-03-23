@@ -9,15 +9,16 @@ import { useState } from 'react'
 import { approvalBlog, rejectBlog } from 'rest/api/blog'
 import { parseImg } from 'utils'
 import * as styleMui from './PopupInfo.styled'
-import { useEffect } from 'react'
 
 function PopupInfo({
     id,
     approvalPage = false,
     setIndexData,
     predicPage = false,
-    imagePredic,
 }) {
+    const getDataPredic = JSON.parse(localStorage.getItem('dataPredict'))
+    const getImagePredict = localStorage.getItem('imagePredict')
+
     const { storeBlogApproval } = useActions(blogAction)
     const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
     const { data: dataApproval } = useShallowEqualSelector(
@@ -29,39 +30,39 @@ function PopupInfo({
 
     const conditionData = approvalPage ? dataApproval : dataPlant
     const dataFilter = predicPage
-        ? id
+        ? getDataPredic
         : conditionData.filter((vl) => vl.id === id)[0]
     let textData
     if (approvalPage) {
         textData = dataFilter
     } else if (predicPage) {
         textData = {
-            id: dataFilter?.id,
-            images: imagePredic,
+            id: getDataPredic?.id,
+            images: getImagePredict,
             valueList: [
                 {
                     label: 'Độ chính xác',
-                    value: dataFilter.accuracy,
+                    value: getDataPredic.accuracy,
                 },
                 {
                     label: 'Tên quốc tế',
-                    value: dataFilter?.plant.international_name,
+                    value: getDataPredic?.plant.international_name,
                 },
                 {
                     label: 'Tên thường gọi',
-                    value: dataFilter?.plant.name,
+                    value: getDataPredic?.plant.name,
                 },
                 {
                     label: 'Họ của cây',
-                    value: dataFilter?.plant.sur_name,
+                    value: getDataPredic?.plant.sur_name,
                 },
                 {
                     label: 'Nguồn gốc',
-                    value: dataFilter?.plant.origin,
+                    value: getDataPredic?.plant.origin,
                 },
                 {
                     label: 'Nơi sinh trưởng',
-                    value: dataFilter?.plant.place_of_birth,
+                    value: getDataPredic?.plant.place_of_birth,
                 },
             ],
         }
@@ -129,7 +130,7 @@ function PopupInfo({
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         } finally {
-            setIndexData((state) => null)
+            setIndexData(null)
         }
     }
 
