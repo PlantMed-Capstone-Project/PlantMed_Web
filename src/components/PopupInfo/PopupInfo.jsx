@@ -46,7 +46,7 @@ function PopupInfo({
                 },
                 {
                     label: 'Tên quốc tế',
-                    value: getDataPredic?.plant.international_name,
+                    value: getDataPredic?.plant.internationalName,
                 },
                 {
                     label: 'Tên thường gọi',
@@ -54,7 +54,7 @@ function PopupInfo({
                 },
                 {
                     label: 'Họ của cây',
-                    value: getDataPredic?.plant.sur_name,
+                    value: getDataPredic?.plant.surName,
                 },
                 {
                     label: 'Nguồn gốc',
@@ -62,7 +62,7 @@ function PopupInfo({
                 },
                 {
                     label: 'Nơi sinh trưởng',
-                    value: getDataPredic?.plant.place_of_birth,
+                    value: getDataPredic?.plant.placeOfBirth,
                 },
             ],
         }

@@ -95,7 +95,6 @@ function UploadImage({ setDataPredic, handle }) {
         if (progressStatus) {
             setLoading(true)
             const timer = setInterval(() => {
-                console.log('chay')
                 setProgress((prevProgress) => {
                     const nextProgress = prevProgress + 1
                     if (nextProgress >= 100) {
