@@ -172,7 +172,7 @@ function PopupInfo({
                             />
                             <styleMui.linkBtn
                                 color="inherit"
-                                to={`/plants/${id}`}
+                                to={`/plants/${textData.id}`}
                             >
                                 Xem thêm thông tin chi tiết về cây
                             </styleMui.linkBtn>
