@@ -266,6 +266,12 @@ function UploadImage({ setDataPredic, handle }) {
                                         justifyContent: 'center',
                                     }}
                                     onClick={() => openPopup()}
+                                    component={motion.button}
+                                    initial={{ opacity: 0, y: 100 }}
+                                    animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                    }}
                                 >
                                     Xem kết quả
                                 </Button>
