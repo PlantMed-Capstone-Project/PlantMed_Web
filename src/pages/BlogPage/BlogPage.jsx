@@ -7,24 +7,33 @@ import { useEffect, useState } from 'react'
 import { getActiveByUser, getTop } from 'rest/api/blog'
 
 function BlogPage() {
-    const [userBlog, setUserBlog] = useState()
-    const [blogList, setBlogList] = useState()
+    const [userBlog, setUserBlog] = useState([])
+    const [blogList, setBlogList] = useState([])
+    const [loadingByUser, setLoadingByUser] = useState()
+    const [loadingAllBlog, setLoadingAllBlog] = useState()
+
     const getUserBlog = async () => {
+        setLoadingByUser(true)
         try {
             const res = await getActiveByUser()
             setUserBlog(res.data)
         } catch (e) {
             console.log(e)
+        } finally {
+            setLoadingByUser(false)
         }
     }
 
     const getTopBlog = async () => {
+        setLoadingAllBlog(true)
         try {
             const res = await getTop('9')
             console.log(res.data)
             setBlogList(res.data)
         } catch (e) {
             console.log(e)
+        } finally {
+            setLoadingAllBlog(false)
         }
     }
 
@@ -44,7 +53,7 @@ function BlogPage() {
             }}
         >
             <HeroBlog />
-            {userBlog && <MyBlog userBlog={userBlog} />}
+            <MyBlog userBlog={userBlog} loading={loadingByUser} />
             <JoinBlog />
             <Stack
                 direction="column"
@@ -56,14 +65,15 @@ function BlogPage() {
             <Typography
                 sx={{
                     fontSize: '2.188rem',
-                    fontWeight: '500',
                     textTransform: 'uppercase',
+                    textAlign: 'center',
+                    fontWeight: '800',
                     color: '#214400',
                 }}
             >
                 Bài viết nổi bật
             </Typography>
-            <BlogList blogData={blogList} />
+            <BlogList blogData={blogList} loading={loadingAllBlog} />
         </Box>
     )
 }

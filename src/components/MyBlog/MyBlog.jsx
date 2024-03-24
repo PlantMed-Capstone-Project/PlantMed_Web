@@ -1,9 +1,6 @@
-import { Box, CardActionArea, Typography } from '@mui/material'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
+import { Box, Skeleton, Stack, Typography } from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
-import Grid from '@mui/material/Grid'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { convertString, parseImg } from 'utils'
 const styles = {
     card: {
@@ -16,93 +13,134 @@ const styles = {
         borderRadius: '1rem',
     },
     containerBlog: {
-        flexGrow: 1,
         marginTop: '6.25rem',
         width: '100%',
-        padding: '0 12.5rem',
+        display: 'Flex',
+        gap: '1rem',
+        alignItems: 'center',
+        flexDirection: 'column',
     },
     myBlogTitle: {
+        fontSize: '1.5rem',
+        textAlign: 'center',
+        fontWeight: '800',
+        color: '#214400',
+    },
+    subitle: {
+        fontSize: '1rem',
+        fontWeight: '400',
+        wordBreak: 'break-word',
+        lineHeight: '1.2',
+        color: '#214400',
+        with: '100%',
+        textAlign: 'left',
+    },
+    title: {
         fontSize: '2.188rem',
         textAlign: 'center',
-        marginBottom: '1.875rem',
-        fontWeight: '500',
+        fontWeight: '800',
         color: '#214400',
-        textTransform: 'uppercase',
     },
 }
 
-function MyBlog({ userBlog }) {
+function MyBlog({ userBlog, loading }) {
+    const [hover, setHover] = useState()
+    let dataBlog = [...userBlog].sort((a, b) => b.totalLike - a.totalLike)
+
     return (
         <Box sx={styles.containerBlog}>
-            <Typography sx={styles.myBlogTitle}>
-                Bài viết nổi bật của bạn
-            </Typography>
-            <Grid container spacing={2}>
-                {userBlog?.slice(0, 3).map((data) => (
-                    <Grid
-                        item
-                        xs={4}
-                        sx={{ display: 'flex', flexDirection: 'row', flex: 1 }}
-                    >
-                        <Card sx={styles.card} key={data.id}>
-                            <Link
-                                to={`${data.id}`}
-                                style={{
-                                    textDecoration: 'none',
-                                    height: '100%',
+            <Typography sx={styles.title}>BÀI VIẾT NỔI BẬT CỦA BẠN</Typography>
+            {/* bắt đầu tạo container chứa 3 card của người dùng */}
+            <Box
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '1rem',
+                    height: '30rem',
+                    cursor: 'pointer',
+                }}
+            >
+                {loading ? (
+                    Array.from(new Array(3)).map((_) => (
+                        <Skeleton
+                            animation="wave"
+                            variant="rectangular"
+                            sx={{
+                                height: '100%',
+                                width: '24rem',
+                                borderRadius: '2rem',
+                            }}
+                        />
+                    ))
+                ) : dataBlog?.length > 0 ? (
+                    dataBlog.slice(0, 3).map((vl, idx) => (
+                        <Stack
+                            key={vl.id}
+                            direction="column"
+                            alignItems="center"
+                            spacing="1rem"
+                            p="1rem"
+                            height="100%"
+                            width="24rem"
+                            sx={{
+                                borderRadius: '2rem',
+                                boxShadow:
+                                    '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
+                                backgroundColor: '#F4FFEB',
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    overflow: 'hidden',
+                                    borderRadius: '2rem',
                                 }}
                             >
-                                <CardActionArea
+                                <CardMedia
+                                    component="img"
+                                    height="200"
+                                    image={parseImg(vl.thumbnail)}
+                                    alt={vl.title}
+                                    onMouseEnter={() => setHover(idx)}
+                                    onMouseLeave={() => setHover(null)}
                                     sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        flex: 1,
-                                        justifyContent: 'flex-start',
-                                        alignItems: 'start',
-                                        height: '100%',
+                                        borderRadius: '2rem',
+                                        scale: hover === idx ? ' 1.2' : '1',
+                                        transition: 'all 0.2s ease',
                                     }}
-                                >
-                                    <CardMedia
-                                        component="img"
-                                        height="180"
-                                        alt="plant"
-                                        image={parseImg(data.thumbnail)}
-                                        sx={{
-                                            padding: '0.8rem',
-                                            borderRadius: '1rem',
-                                        }}
-                                    />
-                                    <CardContent
-                                        sx={{
-                                            padding: '0 1.563rem 1.25rem',
-                                        }}
-                                    >
-                                        <Typography
-                                            gutterBottom
-                                            variant="h6"
-                                            component="div"
-                                            sx={{
-                                                fontWeight: 'bold',
-                                                color: 'black',
-                                                textTransform: 'uppercase',
-                                            }}
-                                        >
-                                            {data.title}
-                                        </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            color="text.secondary"
-                                            sx={{ wordBreak: 'break-word' }}
-                                        >
-                                            {convertString(data.content, 150)}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Link>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
+                                />
+                            </Box>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    width: '100%',
+                                    flexDirection: 'column',
+                                    gap: '1rem',
+                                }}
+                            >
+                                <Typography sx={styles.myBlogTitle}>
+                                    {convertString(vl.title, 20)}
+                                </Typography>
+                                <Typography sx={styles.subitle}>
+                                    {convertString(vl.content, 200)}
+                                </Typography>
+                            </Box>
+                        </Stack>
+                    ))
+                ) : (
+                    <Typography
+                        sx={{
+                            fontWeight: '800',
+                            color: '#214400',
+                            fontSize: '2rem',
+                        }}
+                    >
+                        Bạn chưa có bài viết nào
+                    </Typography>
+                )}
+            </Box>
+            {/* Kết thúc tạo container chứa 3 card của người dùng */}
         </Box>
     )
 }
