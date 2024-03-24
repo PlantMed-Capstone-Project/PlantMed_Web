@@ -28,7 +28,6 @@ function BlogPage() {
         setLoadingAllBlog(true)
         try {
             const res = await getTop('9')
-            console.log(res.data)
             setBlogList(res.data)
         } catch (e) {
             console.log(e)
