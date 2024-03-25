@@ -25,6 +25,7 @@ function LoadComment({
     setActiveComment,
     handleReply,
     getComment,
+    avatarUser,
 }) {
     const user = parseJwt(readCookie(ACCESS_TOKEN))
 
@@ -40,7 +41,7 @@ function LoadComment({
 
     const isDelete = user.Email === comment.user.email
 
-    const id = type === 'comment' ? comment.id : comment.commentId
+    const id = type === 'comment' ? comment.id : comment.commentParentId
 
     const checkBoxLabel = [
         {
@@ -160,7 +161,7 @@ function LoadComment({
                     <UserComment
                         name={user.FullName}
                         onSendClick={(text) => handleReply(text, id)}
-                        avatar={comment.user.image}
+                        avatar={avatarUser}
                     />
                 </Box>
             )}
@@ -176,6 +177,7 @@ function LoadComment({
                                     setActiveComment={setActiveComment}
                                     handleReply={handleReply}
                                     getComment={getComment}
+                                    avatarUser={avatarUser}
                                 />
                             ))}
                         </Box>
