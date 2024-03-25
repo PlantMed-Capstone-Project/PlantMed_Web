@@ -1,4 +1,4 @@
-import { Avatar, Box } from '@mui/material'
+import { Box } from '@mui/material'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { convertString, parseImg } from 'utils'
@@ -7,8 +7,8 @@ import * as S from './BlogApproval.styled'
 export function CardList({ item, idx, setIndexData }) {
     const [isHover, setIsHover] = useState(null)
 
-    const hoverEnter = () => {
-        setIsHover(true)
+    const hoverEnter = (idx) => {
+        setIsHover(idx)
     }
     const hoverLeave = () => {
         setIsHover(null)
@@ -30,50 +30,52 @@ export function CardList({ item, idx, setIndexData }) {
                 delay: idx * 0.1,
             }}
             onClick={() => cardClick(item.id)}
+            onMouseOver={() => hoverEnter(item.id)}
+            onMouseLeave={hoverLeave}
+            itemimage={parseImg(item.thumbnail)}
         >
-            {/* Start image element */}
-            <Box sx={{ flex: '2' }}>
-                <S.imageBox
-                    onMouseEnter={() => hoverEnter()}
-                    onMouseLeave={hoverLeave}
+            {isHover === item.id && (
+                <S.cardHover
+                    component={motion.div}
+                    initial={{
+                        opacity: 0,
+                        scale: 0,
+                    }}
+                    animate={{
+                        opacity: 1,
+                        scale: 1,
+                    }}
+                    transition={{ duration: 0.2 }}
                 >
-                    <S.image
-                        ishover={isHover}
-                        image={parseImg(item.thumbnail)}
-                        title={item.title}
-                    />
-                </S.imageBox>
-            </Box>
-            {/* End image element */}
-
-            {/*Start title element */}
-            <S.txtBox>
-                <S.title>{item.title}</S.title>
-                <S.subTitleBox>
-                    <S.subTitle dangerouslySetInnerHTML={{ __html: content }} />
-                    <Box sx={{ display: 'flex', gap: '0.3rem' }}>
-                        {item.tags.length
-                            ? item.tags.map((vl) => (
-                                  <S.tagsBox key={item}>
-                                      <S.tagsTxt>{vl.name}</S.tagsTxt>
-                                  </S.tagsBox>
-                              ))
-                            : ''}
+                    <S.avatarBox>
+                        <S.title>{item.title}</S.title>
+                        <S.avatarName>Tác giả: {item.user.name}</S.avatarName>
+                    </S.avatarBox>
+                    <S.txtBox>
+                        <S.subTitle title={true}>Mô tả:</S.subTitle>
+                        <S.subTitle
+                            dangerouslySetInnerHTML={{ __html: content }}
+                        />
+                    </S.txtBox>
+                    <Box
+                        sx={{
+                            flex: '1',
+                            width: '100%',
+                            display: 'flex',
+                            gap: '1rem',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                        }}
+                    >
+                        {item.tags.length &&
+                            item.tags.map((vl) => (
+                                <S.tagsBox key={item}>
+                                    <S.tagsTxt>{vl.name}</S.tagsTxt>
+                                </S.tagsBox>
+                            ))}
                     </Box>
-                </S.subTitleBox>
-            </S.txtBox>
-            {/*End title element */}
-
-            {/*Start avatar element */}
-            <S.avatarBox>
-                <Avatar
-                    alt={item.user.name}
-                    src={parseImg(item.user.avatar)}
-                    sx={{ width: 80, height: 80, backgroundColor: '#214400' }}
-                />
-                <S.avatarName>{item.user.name}</S.avatarName>
-            </S.avatarBox>
-            {/*End avatar element */}
+                </S.cardHover>
+            )}
         </S.containerCard>
     )
 }

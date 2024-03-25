@@ -200,150 +200,170 @@ export const blogDetail = [
     {
         id: 1,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
+        thumbnail: immageBa,
+        content:
             'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay tu linh',
+                name: 'cay tu linh',
             },
             {
                 id: 2,
-                tagName: 'cay tu linh',
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
     {
         id: 2,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        thumbnail: immageBa,
+        content:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay thuoc phien',
+                name: 'cay tu linh',
             },
             {
                 id: 2,
-                tagName: 'Cần sa',
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
     {
         id: 3,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        thumbnail: immageBa,
+        content:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay coi',
+                name: 'cay tu linh',
             },
             {
                 id: 2,
-                tagName: 'cay tu linh',
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
     {
         id: 4,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        thumbnail: immageBa,
+        content:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay tinh linh',
+                name: 'cay tu linh',
+            },
+            {
+                id: 2,
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
     {
         id: 5,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        thumbnail: immageBa,
+        content:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay tu linh',
+                name: 'cay tu linh',
             },
             {
                 id: 2,
-                tagName: 'cay tu ',
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
     {
         id: 6,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        thumbnail: immageBa,
+        content:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay tu linh',
+                name: 'cay tu linh',
             },
             {
                 id: 2,
-                tagName: 'cay tu ',
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
     {
         id: 7,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        thumbnail: immageBa,
+        content:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay tu linh',
+                name: 'cay tu linh',
             },
             {
                 id: 2,
-                tagName: 'cay tu ',
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
     {
         id: 8,
         avartar: '',
-        user: 'Tan Nguyen',
+        user : {name: 'Tan Nguyen'},
         title: 'Cầu cổ Tử',
-        image: immageBa,
-        description:
-            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+        thumbnail: immageBa,
+        content:
+            'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
         tags: [
             {
                 id: 1,
-                tagName: 'cay tu linh',
+                name: 'cay tu linh',
             },
             {
                 id: 2,
-                tagName: 'cay tu ',
+                name: 'cay tu linh',
             },
         ],
+        totalLike: 50,
+        totalComment: 100, 
     },
 ]
 

@@ -14,7 +14,7 @@ import { readCookie } from 'utils/cookie'
 import { ACCESS_TOKEN } from 'constant'
 import { Typography } from '@mui/material'
 
-const CardBlogList = ({ item, idx }) => {
+const CardBlogList = ({ item, idx, onResetData }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
@@ -52,12 +52,13 @@ const CardBlogList = ({ item, idx }) => {
         navigate(`/blog/${id}`)
     }
 
-    const handleClick = (id, title) => {
+    const handleClick = async (id, title) => {
         if (!isHeart) {
-            handleLike(id, title)
+            await handleLike(id, title)
         } else {
-            handleUnLike(id, title)
+            await handleUnLike(id, title)
         }
+        onResetData()
     }
 
     const handleLike = async (id, title) => {
