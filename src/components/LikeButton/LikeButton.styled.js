@@ -6,8 +6,9 @@ const likePopUp = keyframes`to {
 
 export const likeContainer = styled(Box)(() => ({
     display: 'flex',
-    flexDirection: 'row',
-    height: '75px',
+    height: ' 21px',
+    alignItems: 'center',
+    gap: '0.8rem',
 }))
 
 export const likeButton = styled(IconButton)(() => ({
@@ -15,17 +16,8 @@ export const likeButton = styled(IconButton)(() => ({
     alignItems: 'center',
 }))
 
-export const likeBg = styled(Box)(() => ({
-    height: '60px',
-    width: '60px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'all 100ms ease',
-}))
-
 export const likeIcon = styled(Box)(({ image, liked }) => ({
-    height: '100px',
+    height: '60px',
     width: '100px',
     backgroundImage: `url(${image})`,
     backgroundPosition: 'left',
@@ -35,5 +27,4 @@ export const likeIcon = styled(Box)(({ image, liked }) => ({
 
 export const likeQuantity = styled(Typography)(() => ({
     fontSize: '1.25rem',
-    margin: '1.5rem -0.5rem',
 }))

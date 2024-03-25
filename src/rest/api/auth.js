@@ -21,3 +21,7 @@ export const refreshToken = async (payload) => {
 export const resetPassword = async (payload) => {
     return http.put('auth/resetPassword', payload)
 }
+
+export const forgotPassword = async (payload) => {
+    return http.put('auth/forgotPassword', payload)
+}

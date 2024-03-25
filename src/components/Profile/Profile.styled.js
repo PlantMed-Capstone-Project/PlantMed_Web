@@ -10,21 +10,20 @@ import {
 
 export const avatarPlace = styled(Box)(() => ({
     width: '15%',
-    height: 'calc(100vh - 9rem)',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#f4ffeb',
     borderRadius: '0.825rem',
-    border: 'solid 0.1rem #dff0e9',
     marginTop: '1rem',
     padding: '1rem',
 }))
 
 export const profilePlace = styled(Box)(() => ({
     width: '65.9%',
-    height: 'calc(100vh - 9rem)',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -37,7 +36,7 @@ export const profilePlace = styled(Box)(() => ({
 
 export const sidebarPlace = styled(Box)(() => ({
     width: '6%',
-    height: 'calc(100vh - 7rem)',
+    height: 'calc(100vh - 8rem)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -212,5 +211,5 @@ export const boxLoading = styled(Box)({
     height: '7rem',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
 })

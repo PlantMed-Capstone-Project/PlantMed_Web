@@ -11,14 +11,6 @@ export function BlogApprovalCard({ setIndexData }) {
         setItem(data)
     }, [data])
 
-    // Hàm này sẽ kích hoạt mỗi khi thư viện cuộn đến thằng cuối cùng trong data
-    // const fetchMoreData = () => {
-    //     setTimeout(() => {
-    //         setItem(data.slice(0, dataSlice + maxRecordsReturned))
-    //         setDataSlice(dataSlice + maxRecordsReturned)
-    //     }, 1000)
-    // }
-
     return (
         <styleMui.container
             direction="row"

@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import imgDemo from 'Images/heroSen.jpg'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { LikeButton } from 'components/LikeButton'
 import LoadComment from 'components/LoadComment'
 import UserComment from 'components/UserComment'
 import { ACCESS_TOKEN } from 'constant'
@@ -8,14 +9,14 @@ import useActions from 'hooks/useActions'
 import useScrollTo from 'hooks/useScrollTo'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getIdBlog } from 'rest/api/blog'
+import { getIdBlog, like, unlike } from 'rest/api/blog'
 import { createComment, getCommentByBlog, replyComment } from 'rest/api/comment'
 import { parseImg, parseJwt, sortComment } from 'utils'
 import { readCookie } from 'utils/cookie'
 function BlogDetail() {
     useScrollTo(0, 0)
 
-    const user = parseJwt(readCookie(ACCESS_TOKEN))
+    let user = parseJwt(readCookie(ACCESS_TOKEN))
     const params = useParams()
     const [blog, setBlog] = useState()
     const [commentList, setCommentList] = useState()
@@ -78,6 +79,41 @@ function BlogDetail() {
         }
     }
 
+    const handleClick = (id, title) => {
+        let isLike = blog.userLike.some((el) => el.email === user.Email)
+        if (!isLike) {
+            handleLike(id, title)
+        } else {
+            handleUnLike(id, title)
+        }
+    }
+
+    const handleLike = async (id, title) => {
+        try {
+            await like(id)
+            show({
+                message: `Bạn đã thích bài viết ${title}`,
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+            getBlogById()
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const handleUnLike = async (id, title) => {
+        try {
+            await unlike(id)
+            show({
+                message: `Bạn đã bỏ thích bài viết ${title}`,
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+            getBlogById()
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     return (
         <Box
             component="section"
@@ -106,7 +142,7 @@ function BlogDetail() {
                     marginTop: '3.125rem',
                 }}
             >
-                {blog && blog.title}
+                {blog?.title}
             </Typography>
             <Typography
                 sx={{
@@ -115,7 +151,7 @@ function BlogDetail() {
                     fontSize: '1.25rem',
                 }}
             >
-                Tác giả: {blog && blog.user.name}
+                Tác giả: {blog?.user.name}
             </Typography>
 
             <Box sx={{ padding: '3.125rem 6.25rem', width: '100%' }}>
@@ -123,10 +159,18 @@ function BlogDetail() {
                     sx={{
                         color: '#214400',
                         fontSize: '1.25rem',
+                        mb: '2rem',
                     }}
                     dangerouslySetInnerHTML={{
-                        __html: blog && blog.content,
+                        __html: blog?.content,
                     }}
+                />
+                <LikeButton
+                    initHeart={blog?.userLike.some(
+                        (el) => el.email === user.Email
+                    )}
+                    likeQuantity={blog?.totalLike}
+                    handleClick={() => handleClick(blog.id, blog.title)}
                 />
                 <Typography
                     sx={{

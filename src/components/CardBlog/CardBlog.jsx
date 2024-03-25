@@ -3,11 +3,16 @@ import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import useActions from 'hooks/useActions'
+import { blogAction } from 'app/reducers/blog'
+import { getActiveBlog } from 'rest/api/blog'
 
 function CardBlog({ valueSearch, positions }) {
     const { blogActive, loading } = useShallowEqualSelector(
         (state) => state.blog
     )
+    const { storeBlogActive, storeBlog, storePlantFail } =
+        useActions(blogAction)
     const [dataBlog, setDataBlog] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     let itemsPerPage = 6
@@ -44,7 +49,7 @@ function CardBlog({ valueSearch, positions }) {
     useEffect(() => {
         setDataBlog(blogActive)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [blogActive.length])
+    }, [blogActive])
 
     // xử lý các giá trị scroll
     const handleScroll = () => {
@@ -79,6 +84,21 @@ function CardBlog({ valueSearch, positions }) {
         setCurrentPage(vl)
     }
 
+    const fetchData = async () => {
+        storeBlog()
+        try {
+            const response = await getActiveBlog()
+            storeBlogActive(response.data)
+        } catch (error) {
+            console.log(error)
+            storePlantFail()
+        }
+    }
+
+    const handleLikeClick = () => {
+        fetchData()
+    }
+
     return (
         <styleMui.container ref={getPosition}>
             <styleMui.mainTitle>
@@ -96,6 +116,7 @@ function CardBlog({ valueSearch, positions }) {
                                 key={blogActive}
                                 item={vl}
                                 idx={idx}
+                                onResetData={handleLikeClick}
                             />
                         ) : (
                             <Skeleton

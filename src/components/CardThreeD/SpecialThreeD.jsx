@@ -1,87 +1,91 @@
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { Box } from '@mui/material'
-import { useState } from 'react'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import { useEffect } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import * as styleMui from './SpecialThreeD.styled'
-import { useKeenSlider } from 'keen-slider/react'
-import 'keen-slider/keen-slider.min.css'
+// icon MUI
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/pagination'
+
+// import required modules
+import { motion } from 'framer-motion'
+import { Navigation } from 'swiper/modules'
 import CardThreeD from './CardThreeDList/CardThreeDList'
 
-function SpecialThreeD({ width, height, cards }) {
-    const [currentSlide, setCurrentSlide] = useState(0)
-    const [btnHover, setBtnHover] = useState(null)
-    const [sliderRef, instanceRef] = useKeenSlider({
-        loop: true,
-        mode: 'free-snap',
-        dragSpeed: 0.5,
-        slides: {
-            origin: 'center',
-            perView: 4,
-            spacing: 10,
-        },
-        initial: 0,
-        slideChanged(slider) {
-            setCurrentSlide(slider.track.details.rel)
-        },
-    })
-    // const [cards] = useState(table)
+const iconStyle = {
+    color: '#69AD28',
+    height: '3rem',
+    width: '3rem',
+}
 
-    const btnTriggerSlide = [
-        {
-            id: 1,
-            icon: <KeyboardArrowLeftIcon sx={styleMui.iconStyle} />,
+function SpecialThreeD() {
+    const varianAnimation = {
+        initial: { opacity: 0, y: 100 },
+        animate: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.5,
+                delay: 0.2,
+            },
         },
-        {
-            id: 2,
-            icon: <KeyboardArrowRightIcon sx={styleMui.iconStyle} />,
-        },
-    ]
-
-    const nextSlide = () => {
-        instanceRef.current?.next()
     }
+    const { data, loading } = useShallowEqualSelector((state) => state.plant)
+    let dataPlant = data.slice(0, 8)
 
-    const prevSlide = () => {
-        instanceRef.current?.prev()
-    }
-
-    const handleHoverBtn = (id) => {
-        setBtnHover(id)
-    }
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        dataPlant = data.slice(0, 8)
+    }, [data])
 
     return (
         <Box
             sx={{
-                width: width,
-                height: height,
                 position: 'relative',
+                overflowX: 'hidden',
+                width: '100%',
             }}
+            component={motion.div}
+            variants={varianAnimation}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: false }}
         >
-            <Box ref={sliderRef} className="keen-slider">
-                {cards.map((cardData, index) => (
-                    <Box key={index} className="keen-slider__slide">
-                        {currentSlide !== index ? (
-                            <CardThreeD data={cardData} opacity={'0.8'} />
-                        ) : (
-                            <CardThreeD data={cardData} scale={'1.05'} />
-                        )}
-                    </Box>
-                ))}
-            </Box>
-
-            {instanceRef.current &&
-                btnTriggerSlide.map((vl, idx) => (
-                    <styleMui.ContainerIcon
-                        key={vl.id}
-                        id={vl.id}
-                        isHover={btnHover}
-                        onClick={vl.id === 1 ? prevSlide : nextSlide}
-                        onMouseEnter={() => handleHoverBtn(vl.id)}
-                        onMouseLeave={() => setBtnHover(null)}
-                    >
-                        {vl.icon}
-                    </styleMui.ContainerIcon>
-                ))}
+            <Swiper
+                slidesPerView={3.5}
+                spaceBetween={10}
+                freeMode={true}
+                centeredSlides={false}
+                loop={true}
+                navigation={{
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                }}
+                grabCursor={true}
+                modules={[Navigation]}
+                className="mySwiper"
+            >
+                {(loading ? Array.from(new Array(8)) : dataPlant).map(
+                    (vl, idx) => (
+                        <SwiperSlide key={idx}>
+                            <CardThreeD data={vl} idx={idx} />
+                        </SwiperSlide>
+                    )
+                )}
+            </Swiper>
+            <>
+                <styleMui.btnPrv className="swiper-button-prev">
+                    <KeyboardArrowLeftIcon sx={iconStyle} />
+                </styleMui.btnPrv>
+                <styleMui.btnNext className="swiper-button-next">
+                    <KeyboardArrowRightIcon sx={iconStyle} />
+                </styleMui.btnNext>
+            </>
         </Box>
     )
 }
