@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getIdBlog, like, unlike } from 'rest/api/blog'
 import { createComment, getCommentByBlog, replyComment } from 'rest/api/comment'
+import { getAvatar } from 'rest/api/user'
 import { parseImg, parseJwt, sortComment } from 'utils'
 import { readCookie } from 'utils/cookie'
 function BlogDetail() {
@@ -19,6 +20,7 @@ function BlogDetail() {
     let user = parseJwt(readCookie(ACCESS_TOKEN))
     const params = useParams()
     const [blog, setBlog] = useState()
+    const [avatar, setAvatar] = useState()
     const [commentList, setCommentList] = useState()
     const { show } = useActions(snackbarAction)
     const getBlogById = async () => {
@@ -40,9 +42,19 @@ function BlogDetail() {
         }
     }
 
+    const getAvatarUser = async () => {
+        try {
+            const res = await getAvatar()
+            setAvatar(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         getBlogById()
         getComment()
+        getAvatarUser()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -182,7 +194,13 @@ function BlogDetail() {
                 >
                     Nhận xét của bạn:
                 </Typography>
-                <UserComment name={user.FullName} onSendClick={handleSend} />
+                {avatar && (
+                    <UserComment
+                        name={user.FullName}
+                        onSendClick={handleSend}
+                        avatar={avatar}
+                    />
+                )}
                 {commentList?.map((data) => (
                     <LoadComment
                         comment={data}
