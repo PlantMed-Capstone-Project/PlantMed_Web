@@ -4,7 +4,13 @@ import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
-function CardBlog({ valueSearch, positions }) {
+function CardBlog({
+    valueSearch,
+    positions,
+    loadingReport,
+    dataReport,
+    handleDialog,
+}) {
     const { blogActive, loading } = useShallowEqualSelector(
         (state) => state.blog
     )
@@ -96,6 +102,9 @@ function CardBlog({ valueSearch, positions }) {
                                 key={blogActive}
                                 item={vl}
                                 idx={idx}
+                                loadingReport={loadingReport}
+                                dataReport={dataReport}
+                                handleDialog={handleDialog}
                             />
                         ) : (
                             <Skeleton
