@@ -95,6 +95,7 @@ function BlogDetail() {
                 message: `Bạn đã thích bài viết ${title}`,
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
+            getBlogById()
         } catch (error) {
             console.log(error.message)
         }
@@ -103,7 +104,11 @@ function BlogDetail() {
     const handleUnLike = async (id, title) => {
         try {
             await unlike(id)
-            show({ message: `Bạn đã bỏ thích bài viết ${title}` })
+            show({
+                message: `Bạn đã bỏ thích bài viết ${title}`,
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+            getBlogById()
         } catch (error) {
             console.log(error.message)
         }
