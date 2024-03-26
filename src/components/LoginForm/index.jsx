@@ -16,7 +16,6 @@ import { login as authLogin } from 'rest/api/auth'
 import { parseJwt } from 'utils'
 import * as styleMui from './SigninForm.styled'
 import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
-import { Email } from '@mui/icons-material'
 
 export default function LoginForm() {
     const { login, loginFailure } = useActions(authAction)
