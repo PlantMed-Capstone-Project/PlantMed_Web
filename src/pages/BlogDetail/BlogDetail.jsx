@@ -37,6 +37,7 @@ function BlogDetail() {
             const res = await getCommentByBlog(params.id)
             sortComment(res.data)
             setCommentList(res.data)
+            console.log(res.data)
         } catch (e) {
             console.log(e)
         }
@@ -209,6 +210,7 @@ function BlogDetail() {
                         setActiveComment={setActiveComment}
                         handleReply={handleReply}
                         getComment={getComment}
+                        avatarUser={avatar}
                     />
                 ))}
             </Box>
