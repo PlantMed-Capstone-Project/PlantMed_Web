@@ -76,6 +76,7 @@ const CardBlogList = ({
 
     useEffect(() => {
         setIsHeart(item.userLike.some((el) => el.email === user.Email))
+        console.log(item)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item])
 
@@ -179,11 +180,13 @@ const CardBlogList = ({
                     </styleMui.tagContainer>
                 </styleMui.ctnATag>
                 {/* End avartar case */}
-                <MoreHorizIcon
-                    sx={{ cursor: 'pointer' }}
-                    onClick={() => opentPopup()}
-                    ref={dot}
-                />
+                {!(user.Email === item.user.email) && (
+                    <MoreHorizIcon
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => opentPopup()}
+                        ref={dot}
+                    />
+                )}
             </styleMui.ctnHead>
             {/* End first phase of this card */}
 
