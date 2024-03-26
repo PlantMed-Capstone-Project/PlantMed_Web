@@ -37,7 +37,7 @@ function PopupInfo({
         textData = dataFilter
     } else if (predicPage) {
         textData = {
-            id: getDataPredic?.id,
+            id: getDataPredic?.plant.id,
             images: getImagePredict,
             valueList: [
                 {
