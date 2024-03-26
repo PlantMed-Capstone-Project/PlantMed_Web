@@ -14,11 +14,12 @@ import { readCookie } from 'utils/cookie'
 import { ACCESS_TOKEN } from 'constant'
 import { Typography } from '@mui/material'
 
-const CardBlogList = ({ item, idx, onResetData }) => {
+const CardBlogList = ({ item, idx }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
     const [isHeart, setIsHeart] = useState(false)
+    const [likeSuccess, setIsLikeSucess] = useState()
 
     const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
@@ -52,20 +53,19 @@ const CardBlogList = ({ item, idx, onResetData }) => {
         navigate(`/blog/${id}`)
     }
 
-    const handleClick = async (id, title) => {
-        if (!isHeart) {
-            await handleLike(id, title)
+    const handleClick = async (id, islike) => {
+        if (!islike) {
+            await handleLike(id)
         } else {
-            await handleUnLike(id, title)
+            await handleUnLike(id)
         }
-        onResetData()
     }
 
-    const handleLike = async (id, title) => {
+    const handleLike = async (id) => {
         try {
             await like(id)
             show({
-                message: `Bạn đã thích bài viết ${title}`,
+                message: `Bạn đã thích bài viết `,
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
         } catch (error) {
@@ -73,10 +73,10 @@ const CardBlogList = ({ item, idx, onResetData }) => {
         }
     }
 
-    const handleUnLike = async (id, title) => {
+    const handleUnLike = async (id) => {
         try {
             await unlike(id)
-            show({ message: `Bạn đã bỏ thích bài viết ${title}` })
+            show({ message: `Bạn đã bỏ thích bài viết` })
         } catch (error) {
             console.log(error.message)
         }
@@ -181,7 +181,8 @@ const CardBlogList = ({ item, idx, onResetData }) => {
                     <LikeButton
                         initHeart={isHeart}
                         likeQuantity={item.totalLike}
-                        handleClick={() => handleClick(item.id, item.title)}
+                        handleClick={handleClick}
+                        item={item.id}
                     />
                 </styleMui.likeContainer>
                 <styleMui.commentBox onClick={() => handleRedirect(item.id)}>

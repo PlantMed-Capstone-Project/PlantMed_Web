@@ -2,7 +2,7 @@ import Heart from 'Images/heart.png'
 import { useEffect, useState } from 'react'
 import * as styleMui from './LikeButton.styled'
 
-export const LikeButton = ({ initHeart, likeQuantity, handleClick }) => {
+export const LikeButton = ({ initHeart, likeQuantity, handleClick, item }) => {
     const [liked, setLiked] = useState(false)
     const [quantity, setQuantity] = useState(0)
 
@@ -19,7 +19,7 @@ export const LikeButton = ({ initHeart, likeQuantity, handleClick }) => {
             )
             return newLikedState
         })
-        handleClick()
+        handleClick(item, liked)
     }
 
     return (
