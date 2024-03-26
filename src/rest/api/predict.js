@@ -1,11 +1,12 @@
+import { PREDICT_URL } from 'constant'
 import Client from 'rest/baseClient'
 
-const http = new Client()
+const http = new Client(PREDICT_URL)
 
-export const predict = (payload) => {
-    return http.postForm('predict', payload)
+export const predict = async (payload) => {
+    return http.postForm('predict/yolo', payload)
 }
 
-export const test = (payload) => {
-    return http.postForm('upload', payload)
-}
+/**
+ * {image: file}
+ */

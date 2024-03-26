@@ -33,8 +33,8 @@ export default function DetailPage() {
     const textData = {
         valueList: [
             { label: 'Tên quốc tế', value: data?.internationalName },
-            { label: 'Tên thường gọi', value: data?.name },
             { label: 'Họ của cây', value: data?.surName },
+            { label: 'Tên thường gọi', value: data?.name },
             { label: 'Nguồn gốc', value: data?.origin },
             { label: 'Đặc điểm sinh sống', value: data?.placeOfBirth },
         ],
