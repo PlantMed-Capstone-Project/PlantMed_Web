@@ -1,13 +1,13 @@
 import { Box, Typography } from '@mui/material'
-import imgDemo from 'Images/avatar.jpg'
 import Avatar from '@mui/material/Avatar'
 import Input from '@mui/material/Input'
 import SendIcon from '@mui/icons-material/Send'
 import IconButton from '@mui/material/IconButton'
 import { useState } from 'react'
+import { parseImg } from 'utils'
 const ariaLabel = { 'aria-label': 'description' }
 
-function UserComment({ name, onSendClick }) {
+function UserComment({ name, onSendClick, avatar }) {
     const [text, setText] = useState('')
     const isTextDisable = text.length === 0
 
@@ -25,7 +25,7 @@ function UserComment({ name, onSendClick }) {
     return (
         <Box sx={{ marginTop: '1.125rem', width: '50%' }}>
             <Box sx={{ display: 'flex' }}>
-                <Avatar src={imgDemo} />
+                <Avatar src={parseImg(avatar)} />
                 <Box
                     sx={{
                         width: '100%',

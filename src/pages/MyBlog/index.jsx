@@ -2,24 +2,13 @@ import * as styleMui from './MyBlog.styled'
 import { ProfileSidebar } from 'components/Profile'
 import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { StatusBlogCard } from 'components/StatusBlogCard'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { blogCardData } from 'FakeData/plantData'
 import { getActiveByUser, getPendingByUser } from 'rest/api/blog'
+import StatusBlogCardList from 'components/StatusBlogCard/StatusBlogCardList'
+import * as styleFromPlant from 'pages/Plant/PlantPage.styled'
+import { AnimatePresence } from 'framer-motion'
+import PopupInfo from 'components/PopupInfo/PopupInfo'
 
 function MyBlog() {
-    const [blogStatus, setblogStatus] = useState('Chờ phê duyệt')
-    const [allBlogActive, setAllBlogActive] = useState()
-    const [data, setData] = useState([])
-    const [lengData, setLengthData] = useState(2)
-    const returnData = 3
-    const [hasMore, setHasMore] = useState(true)
-    const blogCardListRef = useRef(null)
-
-    const handleChange = (_, newValue) => {
-        setblogStatus(newValue)
-    }
-
     //Khai báo array các tab
     const nabItem = [
         {
@@ -33,49 +22,45 @@ function MyBlog() {
             link: '',
         },
     ]
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [dataValue, setDataValue] = useState(null)
+    const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
+    const containerPopup = useRef()
+
+    const handleChange = (_, newValue) => {
+        setBlogStatus(newValue)
+    }
 
     const getActiveBlog = async () => {
+        setLoading(true)
         try {
             const res = await getActiveByUser()
-            setAllBlogActive(res.data)
-            setData(res.data.slice(0, 3))
+            setData(res.data)
         } catch (e) {
             console.log(e)
+        } finally {
+            setLoading(false)
         }
     }
 
     const getPendingBlog = async () => {
+        setLoading(true)
         try {
             const res = await getPendingByUser()
-            console.log(res.data)
+            setData(res.data)
         } catch (e) {
             console.log(e)
+        } finally {
+            setLoading(false)
         }
     }
 
     useEffect(() => {
-        getActiveBlog()
-        getPendingBlog()
+        blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const fetchMoreData = () => {
-        setTimeout(() => {
-            setData(allBlogActive.slice(0, lengData + returnData))
-            setLengthData(lengData + returnData)
-            if (lengData + returnData >= blogCardData.length) {
-                setHasMore(false)
-            }
-        }, 1000)
-    }
-
-    const handleMouseEnter = () => {
-        disableScroll()
-    }
-
-    const handleMouseLeave = () => {
-        enableScroll()
-    }
+    }, [blogStatus])
 
     // Hủy scroll khi mở popup
     const disableScroll = () => {
@@ -94,30 +79,35 @@ function MyBlog() {
         window.onscroll = () => {}
     }
 
-    useEffect(() => {
-        const blogCardList = blogCardListRef.current
-        if (blogCardList) {
-            blogCardList.addEventListener('mouseenter', handleMouseEnter)
-            blogCardList.addEventListener('mouseleave', handleMouseLeave)
+    // kiểm tra khi click có đang click vào popup hay không ?
+    const handler = (e) => {
+        if (!containerPopup.current?.contains(e.target)) {
+            setDataValue(null)
+        }
+    }
 
-            return () => {
-                blogCardList.removeEventListener('mouseenter', handleMouseEnter)
-                blogCardList.removeEventListener('mouseleave', handleMouseLeave)
-                enableScroll()
-            }
+    useEffect(() => {
+        document.addEventListener('mousedown', handler)
+        return () => {
+            document.removeEventListener('mousedown', handler)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [blogCardListRef])
+    }, [])
+
+    useEffect(() => {
+        if (dataValue !== null) disableScroll()
+        return () => enableScroll()
+    }, [dataValue])
 
     return (
         <styleMui.container>
             <styleMui.blogContainer>
                 <styleMui.tabContainer
                     value={blogStatus}
-                    onChange={handleChange}
                     aria-label="basic tabs example"
                     textColor="#214400"
                     variant="fullWidth"
+                    onChange={handleChange}
                 >
                     {nabItem?.map((item) => (
                         <styleMui.statusTab
@@ -129,28 +119,26 @@ function MyBlog() {
                         />
                     ))}
                 </styleMui.tabContainer>
-                <InfiniteScroll
-                    dataLength={data.length}
-                    next={fetchMoreData}
-                    hasMore={hasMore}
-                    loader={
-                        <styleMui.loadingText>Loading...</styleMui.loadingText>
-                    }
-                >
-                    <styleMui.blogCardList ref={blogCardListRef}>
-                        {data.length &&
-                            data.map((item, idx) => (
-                                <StatusBlogCard
-                                    idx={idx}
-                                    key={item.id}
-                                    title={item.title}
-                                    author={item.author}
-                                    description={item.description}
-                                />
-                            ))}
-                    </styleMui.blogCardList>
-                </InfiniteScroll>
+                <StatusBlogCardList
+                    data={data}
+                    setDataValue={setDataValue}
+                    loading={loading}
+                />
             </styleMui.blogContainer>
+            <styleFromPlant.popupContainer
+                isopen={dataValue !== null || undefined}
+            >
+                <styleFromPlant.activePopup
+                    ref={containerPopup}
+                    isopen={dataValue !== null || undefined}
+                >
+                    <AnimatePresence>
+                        {dataValue !== null && (
+                            <PopupInfo approvalPage myBlogData={dataValue} />
+                        )}
+                    </AnimatePresence>
+                </styleFromPlant.activePopup>
+            </styleFromPlant.popupContainer>
             <ProfileSidebar />
         </styleMui.container>
     )
