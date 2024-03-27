@@ -14,7 +14,7 @@ import { readCookie } from 'utils/cookie'
 import { ACCESS_TOKEN } from 'constant'
 import { Typography } from '@mui/material'
 
-const CardBlogList = ({ item, idx, onResetData }) => {
+const CardBlogList = ({ item, idx }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
@@ -44,28 +44,25 @@ const CardBlogList = ({ item, idx, onResetData }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item])
 
-    const handleOpenForm = (value) => {
-        console.log(value)
-    }
+    const handleOpenForm = (_) => {}
 
     const handleRedirect = (id) => {
         navigate(`/blog/${id}`)
     }
 
-    const handleClick = async (id, title) => {
-        if (!isHeart) {
-            await handleLike(id, title)
+    const handleClick = async (id, islike, name) => {
+        if (!islike) {
+            await handleLike(id, name)
         } else {
-            await handleUnLike(id, title)
+            await handleUnLike(id, name)
         }
-        onResetData()
     }
 
-    const handleLike = async (id, title) => {
+    const handleLike = async (id, name) => {
         try {
             await like(id)
             show({
-                message: `Bạn đã thích bài viết ${title}`,
+                message: `Bạn đã thích bài viết ${name}`,
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
         } catch (error) {
@@ -73,10 +70,10 @@ const CardBlogList = ({ item, idx, onResetData }) => {
         }
     }
 
-    const handleUnLike = async (id, title) => {
+    const handleUnLike = async (id, name) => {
         try {
             await unlike(id)
-            show({ message: `Bạn đã bỏ thích bài viết ${title}` })
+            show({ message: `Bạn đã bỏ thích bài viết ${name}` })
         } catch (error) {
             console.log(error.message)
         }
@@ -181,7 +178,9 @@ const CardBlogList = ({ item, idx, onResetData }) => {
                     <LikeButton
                         initHeart={isHeart}
                         likeQuantity={item.totalLike}
-                        handleClick={() => handleClick(item.id, item.title)}
+                        handleClick={handleClick}
+                        item={item.id}
+                        name={item.title}
                     />
                 </styleMui.likeContainer>
                 <styleMui.commentBox onClick={() => handleRedirect(item.id)}>
