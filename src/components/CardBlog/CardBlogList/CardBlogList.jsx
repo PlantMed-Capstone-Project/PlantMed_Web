@@ -19,7 +19,6 @@ const CardBlogList = ({ item, idx }) => {
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
     const [isHeart, setIsHeart] = useState(false)
-    const [likeSuccess, setIsLikeSucess] = useState()
 
     const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
@@ -45,27 +44,25 @@ const CardBlogList = ({ item, idx }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item])
 
-    const handleOpenForm = (value) => {
-        console.log(value)
-    }
+    const handleOpenForm = (_) => {}
 
     const handleRedirect = (id) => {
         navigate(`/blog/${id}`)
     }
 
-    const handleClick = async (id, islike) => {
+    const handleClick = async (id, islike, name) => {
         if (!islike) {
-            await handleLike(id)
+            await handleLike(id, name)
         } else {
-            await handleUnLike(id)
+            await handleUnLike(id, name)
         }
     }
 
-    const handleLike = async (id) => {
+    const handleLike = async (id, name) => {
         try {
             await like(id)
             show({
-                message: `Bạn đã thích bài viết `,
+                message: `Bạn đã thích bài viết ${name}`,
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
         } catch (error) {
@@ -73,10 +70,10 @@ const CardBlogList = ({ item, idx }) => {
         }
     }
 
-    const handleUnLike = async (id) => {
+    const handleUnLike = async (id, name) => {
         try {
             await unlike(id)
-            show({ message: `Bạn đã bỏ thích bài viết` })
+            show({ message: `Bạn đã bỏ thích bài viết ${name}` })
         } catch (error) {
             console.log(error.message)
         }
@@ -183,6 +180,7 @@ const CardBlogList = ({ item, idx }) => {
                         likeQuantity={item.totalLike}
                         handleClick={handleClick}
                         item={item.id}
+                        name={item.title}
                     />
                 </styleMui.likeContainer>
                 <styleMui.commentBox onClick={() => handleRedirect(item.id)}>
