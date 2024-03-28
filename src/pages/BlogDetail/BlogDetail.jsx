@@ -37,7 +37,6 @@ function BlogDetail() {
             const res = await getCommentByBlog(params.id)
             sortComment(res.data)
             setCommentList(res.data)
-            console.log(res.data)
         } catch (e) {
             console.log(e)
         }
