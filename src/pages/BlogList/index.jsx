@@ -127,6 +127,7 @@ function BlogListPage() {
                 justifyContent: 'center',
             }}
         >
+            {/* Hiện dialog cho user đồng ý hay không */}
             <Dialog
                 open={openDialog}
                 keepMounted
@@ -147,6 +148,8 @@ function BlogListPage() {
                     <Button onClick={postReport}>Agree</Button>
                 </DialogActions>
             </Dialog>
+            {/* Kết thúc dialog cho user  */}
+
             <styleMui.ctnComponent>
                 <CardBlog
                     valueSearch={tagSearch}

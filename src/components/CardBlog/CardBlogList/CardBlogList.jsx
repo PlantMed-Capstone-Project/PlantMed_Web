@@ -76,7 +76,6 @@ const CardBlogList = ({
 
     useEffect(() => {
         setIsHeart(item.userLike.some((el) => el.email === user.Email))
-        console.log(item)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item])
 
@@ -171,7 +170,7 @@ const CardBlogList = ({
                     <styleMui.tagContainer>
                         {item.tags.length &&
                             item.tags.map((vl) => (
-                                <styleMui.tag key={item}>
+                                <styleMui.tag key={vl.id}>
                                     <styleMui.tagContent>
                                         {vl?.name}
                                     </styleMui.tagContent>

@@ -95,29 +95,30 @@ function CardBlog({
                 </styleMui.subTitle>
             </styleMui.mainTitle>
             <styleMui.listBlog>
-                {(loading ? Array.from(new Array(3)) : displayedData).map(
-                    (vl, idx) =>
-                        vl ? (
-                            <CardBlogList
-                                key={blogActive}
-                                item={vl}
-                                idx={idx}
-                                loadingReport={loadingReport}
-                                dataReport={dataReport}
-                                handleDialog={handleDialog}
-                            />
-                        ) : (
-                            <Skeleton
-                                animation="wave"
-                                variant="rectangular"
-                                sx={{
-                                    width: '100%',
-                                    height: '16rem',
-                                    borderRadius: '1rem',
-                                }}
-                            />
-                        )
-                )}
+                {loading
+                    ? Array.from(new Array(3)).map((_, idx) => (
+                          <Skeleton
+                              animation="wave"
+                              variant="rectangular"
+                              sx={{
+                                  width: '100%',
+                                  height: '16rem',
+                                  borderRadius: '1rem',
+                              }}
+                          />
+                      ))
+                    : displayedData.length > 0
+                    ? displayedData.map((vl, idx) => (
+                          <CardBlogList
+                              key={blogActive}
+                              item={vl}
+                              idx={vl.id}
+                              loadingReport={loadingReport}
+                              dataReport={dataReport}
+                              handleDialog={handleDialog}
+                          />
+                      ))
+                    : ''}
                 <styleMui.pagination
                     count={pageCount}
                     onChange={handlePagnating}
