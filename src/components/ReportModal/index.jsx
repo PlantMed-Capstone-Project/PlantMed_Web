@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import CloseIcon from '@mui/icons-material/Close'
+import { FormControl, Radio, RadioGroup } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import Modal from '@mui/material/Modal'
-import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import CloseIcon from '@mui/icons-material/Close'
+import FormGroup from '@mui/material/FormGroup'
+import Modal from '@mui/material/Modal'
+import Typography from '@mui/material/Typography'
+import { useState } from 'react'
 
 const style = {
     position: 'absolute',
@@ -21,21 +21,12 @@ const style = {
     color: 'white',
 }
 
-function ReportModal({ isOpen, setIsOpen, handleReport, checkBoxLabel }) {
+function ReportModal({ isOpen, setIsOpen, handleReport, reportLabels }) {
     const handleClose = () => setIsOpen(false)
-    const [checkedItem, setCheckedItem] = useState({})
-    const handleCheckBoxChange = (label) => {
-        setCheckedItem((prevCheckedItem) => ({
-            ...prevCheckedItem,
-            [label]: !prevCheckedItem[label],
-        }))
-    }
+    const [reportId, setReportId] = useState('')
+
     const handleSend = () => {
-        const checkedLabels = Object.keys(checkedItem).filter(
-            (label) => checkedItem[label]
-        )
-        handleReport(checkedLabels)
-        setCheckedItem({})
+        handleReport(reportId)
         handleClose()
     }
     return (
@@ -64,28 +55,29 @@ function ReportModal({ isOpen, setIsOpen, handleReport, checkBoxLabel }) {
                         onClick={handleClose}
                     />
                     <FormGroup>
-                        {checkBoxLabel.map((data) => (
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={
-                                            checkedItem[data.label] || false
+                        <FormControl>
+                            <RadioGroup>
+                                {reportLabels.map((data) => (
+                                    <FormControlLabel
+                                        value={data?.name}
+                                        control={
+                                            <Radio
+                                                onClick={() =>
+                                                    setReportId(data?.id)
+                                                }
+                                                sx={{
+                                                    color: 'white',
+                                                    '&.Mui-checked': {
+                                                        color: 'green',
+                                                    },
+                                                }}
+                                            />
                                         }
-                                        onChange={() =>
-                                            handleCheckBoxChange(data.label)
-                                        }
-                                        sx={{
-                                            color: 'white',
-                                            '&.Mui-checked': {
-                                                color: 'green',
-                                            },
-                                        }}
+                                        label={data?.name}
                                     />
-                                }
-                                label={data.label}
-                                ơ
-                            />
-                        ))}
+                                ))}
+                            </RadioGroup>
+                        </FormControl>
                     </FormGroup>
                     <Button
                         onClick={handleSend}
