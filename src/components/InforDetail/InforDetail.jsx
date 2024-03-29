@@ -18,7 +18,7 @@ function InforDetail({ textData, screenSlide, loading }) {
                     <Skeleton />
                 ) : screenSlide === 'topscreen' ||
                   screenSlide === 'popupscreen' ? (
-                    textData.valueList[1].value
+                    textData.valueList[2].value
                 ) : (
                     `Một số thông tin thêm về ${textData.name}`
                 )}

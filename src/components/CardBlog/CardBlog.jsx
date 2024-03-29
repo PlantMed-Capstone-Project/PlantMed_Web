@@ -1,8 +1,8 @@
 import { Skeleton } from '@mui/material'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
 function CardBlog({
     valueSearch,

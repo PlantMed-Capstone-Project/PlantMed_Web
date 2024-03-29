@@ -10,7 +10,15 @@ import { approvalBlog, rejectBlog } from 'rest/api/blog'
 import { parseImg } from 'utils'
 import * as styleMui from './PopupInfo.styled'
 
-function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
+function PopupInfo({
+    id,
+    approvalPage = false,
+    setIndexData,
+    predicPage = false,
+}) {
+    const getDataPredic = JSON.parse(localStorage.getItem('dataPredict'))
+    const getImagePredict = localStorage.getItem('imagePredict')
+
     const { storeBlogApproval } = useActions(blogAction)
     const { data: dataPlant } = useShallowEqualSelector((state) => state.plant)
     const { data: dataApproval } = useShallowEqualSelector(
@@ -21,36 +29,72 @@ function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
     const [isHover, setIsHover] = useState(false)
 
     const conditionData = approvalPage ? dataApproval : dataPlant
-    const dataFilter = conditionData.filter((vl) => vl.id === id)[0]
-    const textData =
-        myBlogData ||
-        (approvalPage
-            ? dataFilter
-            : {
-                  images: dataFilter?.images[0].data,
-                  valueList: [
-                      {
-                          label: 'Tên quốc tế',
-                          value: dataFilter?.internationalName,
-                      },
-                      {
-                          label: 'Tên thường gọi',
-                          value: dataFilter?.name,
-                      },
-                      {
-                          label: 'Họ của cây',
-                          value: dataFilter?.surName,
-                      },
-                      {
-                          label: 'Nguồn gốc',
-                          value: dataFilter?.origin,
-                      },
-                      {
-                          label: 'Nơi sinh trưởng',
-                          value: dataFilter?.placeOfBirth,
-                      },
-                  ],
-              })
+    const dataFilter = predicPage
+        ? getDataPredic
+        : conditionData.filter((vl) => vl.id === id)[0]
+    let textData
+    if (approvalPage) {
+        textData = dataFilter
+    } else if (predicPage) {
+        textData = {
+            id: getDataPredic?.plant.id,
+            images: getImagePredict,
+            valueList: [
+                {
+                    label: 'Độ chính xác',
+                    value: getDataPredic.accuracy,
+                },
+                {
+                    label: 'Tên quốc tế',
+                    value: getDataPredic?.plant.internationalName,
+                },
+                {
+                    label: 'Tên thường gọi',
+                    value: getDataPredic?.plant.name,
+                },
+                {
+                    label: 'Họ của cây',
+                    value: getDataPredic?.plant.surName,
+                },
+                {
+                    label: 'Nguồn gốc',
+                    value: getDataPredic?.plant.origin,
+                },
+                {
+                    label: 'Nơi sinh trưởng',
+                    value: getDataPredic?.plant.placeOfBirth,
+                },
+            ],
+        }
+    } else {
+        textData = {
+            id: dataFilter?.id,
+            images: dataFilter?.images[0].data,
+            valueList: [
+                {
+                    label: 'Tên quốc tế',
+                    value: dataFilter?.internationalName,
+                },
+                {
+                    label: 'Họ của cây',
+                    value: dataFilter?.surName,
+                },
+                {
+                    label: 'Tên thường gọi',
+                    value: dataFilter?.name,
+                },
+                {
+                    label: 'Nguồn gốc',
+                    value: dataFilter?.origin,
+                },
+                {
+                    label: 'Nơi sinh trưởng',
+                    value: dataFilter?.placeOfBirth,
+                },
+            ],
+        }
+    }
+
     // trigger active các bài viết theo id
     const acceptBlog = async (id) => {
         try {
@@ -67,7 +111,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         } finally {
-            setIndexData((state) => null)
+            setIndexData(null)
         }
     }
     // trigger không duyệt các bài viết theo id
@@ -86,7 +130,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         } finally {
-            setIndexData((state) => null)
+            setIndexData(null)
         }
     }
 
@@ -113,7 +157,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
                             title={
                                 approvalPage
                                     ? `${textData.title}`
-                                    : textData.valueList[1].value
+                                    : textData.valueList[2].value
                             }
                             onMouseEnter={() => setIsHover(true)}
                             onMouseLeave={() => setIsHover(false)}
@@ -128,7 +172,7 @@ function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
                             />
                             <styleMui.linkBtn
                                 color="inherit"
-                                to={`/plants/${id}`}
+                                to={`/plants/${textData.id}`}
                             >
                                 Xem thêm thông tin chi tiết về cây
                             </styleMui.linkBtn>
@@ -159,24 +203,18 @@ function PopupInfo({ id, approvalPage = false, setIndexData, myBlogData }) {
                                     </Box>
                                 </styleMui.boxContent>
                                 <styleMui.diver isbottom="true" />
-                                {!myBlogData && (
-                                    <styleMui.boxBtn>
-                                        <styleMui.btn
-                                            onClick={() =>
-                                                acceptBlog(textData.id)
-                                            }
-                                        >
-                                            Duyệt
-                                        </styleMui.btn>
-                                        <styleMui.btn
-                                            onClick={() =>
-                                                rejectBlogs(textData.id)
-                                            }
-                                        >
-                                            Không duyệt
-                                        </styleMui.btn>
-                                    </styleMui.boxBtn>
-                                )}
+                                <styleMui.boxBtn>
+                                    <styleMui.btn
+                                        onClick={() => acceptBlog(textData.id)}
+                                    >
+                                        Duyệt
+                                    </styleMui.btn>
+                                    <styleMui.btn
+                                        onClick={() => rejectBlogs(textData.id)}
+                                    >
+                                        Không duyệt
+                                    </styleMui.btn>
+                                </styleMui.boxBtn>
                             </styleMui.containerBlog>
                         </>
                     )}

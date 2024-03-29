@@ -1,14 +1,13 @@
 import { Box, Typography } from '@mui/material'
-import imgDemo from 'Images/avatar.jpg'
 import Avatar from '@mui/material/Avatar'
-import UserComment from 'components/UserComment'
-import ReportModal from 'components/ReportModal'
-import { useState } from 'react'
-import { parseJwt } from 'utils'
-import { readCookie } from 'utils/cookie'
-import { ACCESS_TOKEN } from 'constant'
 import AlertDialog from 'components/AlertDialog'
+import ReportModal from 'components/ReportModal'
+import UserComment from 'components/UserComment'
+import { ACCESS_TOKEN } from 'constant'
+import { useState } from 'react'
 import { deleteComment, deleteReplyComment } from 'rest/api/comment'
+import { parseImg, parseJwt } from 'utils'
+import { readCookie } from 'utils/cookie'
 
 const styles = {
     reply: {
@@ -26,6 +25,7 @@ function LoadComment({
     setActiveComment,
     handleReply,
     getComment,
+    avatarUser,
 }) {
     const user = parseJwt(readCookie(ACCESS_TOKEN))
 
@@ -41,7 +41,7 @@ function LoadComment({
 
     const isDelete = user.Email === comment.user.email
 
-    const id = type === 'comment' ? comment.id : comment.commentId
+    const id = type === 'comment' ? comment.id : comment.commentParentId
 
     const checkBoxLabel = [
         {
@@ -92,7 +92,7 @@ function LoadComment({
             )}
             <Box sx={{ marginTop: '1.125rem', width: '50%' }}>
                 <Box sx={{ display: 'flex' }}>
-                    <Avatar src={imgDemo} />
+                    <Avatar src={parseImg(comment.user.image)} />
                     <Box
                         sx={{
                             width: '100%',
@@ -109,9 +109,7 @@ function LoadComment({
                             {comment.user.fullName}
                         </Typography>
                         <Typography sx={{ fontWeight: '300' }}>
-                            {type === 'comment'
-                                ? comment.commentContent
-                                : comment.content}
+                            {comment.content}
                         </Typography>
                     </Box>
                 </Box>
@@ -163,6 +161,7 @@ function LoadComment({
                     <UserComment
                         name={user.FullName}
                         onSendClick={(text) => handleReply(text, id)}
+                        avatar={avatarUser}
                     />
                 </Box>
             )}
@@ -178,6 +177,7 @@ function LoadComment({
                                     setActiveComment={setActiveComment}
                                     handleReply={handleReply}
                                     getComment={getComment}
+                                    avatarUser={avatarUser}
                                 />
                             ))}
                         </Box>

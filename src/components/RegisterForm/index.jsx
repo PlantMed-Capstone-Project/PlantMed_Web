@@ -5,21 +5,19 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton, Link, Tabs } from '@mui/material'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import InputField from 'components/InputField'
+import { validateInputs } from 'components/InputField/validationRules'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { verifyEmail } from 'rest/api/auth'
-import { createCookie } from 'utils/cookie'
+import { register } from 'rest/api/auth'
 import * as styleMui from './SignupForm.styled'
-import { FORM_REGISTER, VERIFY_CODE } from 'constant'
-import InputField from 'components/InputField'
-import { validateInputs } from 'components/InputField/validationRules'
 
 export default function RegisterForm({ setTypeUser, typeUser }) {
     const navigate = useNavigate()
     const { show } = useActions(snackbarAction)
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (_, newValue) => {
         setTypeUser(newValue)
     }
 
@@ -159,10 +157,9 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
     const onSubmit = async () => {
         try {
             show({
-                message: 'Vui long chờ trong giây lát',
+                message: 'Vui lòng chờ trong giây lát',
                 autoHideDuration: 2000,
             })
-            const response = await verifyEmail({ email: inputs.email })
             const data = {
                 email: inputs.email,
                 password: inputs.password,
@@ -170,15 +167,16 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
                 fullName: inputs.lastName + ' ' + inputs.firstName,
                 role: typeUser === 'người dùng' ? 'user' : 'expert',
             }
-            createCookie(VERIFY_CODE, JSON.stringify(response.data.data))
-            createCookie(FORM_REGISTER, JSON.stringify(data))
+            const res = await register(data)
+            show({
+                message: res.data.message,
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
             clearInput()
-            return navigate('/verification')
+            navigate('/login')
         } catch (error) {
             show({
-                message:
-                    error.response.data.message ??
-                    'Lỗi hệ thống! Vui lòng thử lại sau!',
+                message: error.response.data.message,
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
         }

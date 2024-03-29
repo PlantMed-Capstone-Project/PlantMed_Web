@@ -88,19 +88,19 @@ const CardBlogList = ({
         navigate(`/blog/${id}`)
     }
 
-    const handleClick = (id, title) => {
-        if (!isHeart) {
-            handleLike(id, title)
+    const handleClick = async (id, islike, name) => {
+        if (!islike) {
+            await handleLike(id, name)
         } else {
-            handleUnLike(id, title)
+            await handleUnLike(id, name)
         }
     }
 
-    const handleLike = async (id, title) => {
+    const handleLike = async (id, name) => {
         try {
             await like(id)
             show({
-                message: `Bạn đã thích bài viết ${title}`,
+                message: `Bạn đã thích bài viết ${name}`,
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
         } catch (error) {
@@ -108,10 +108,10 @@ const CardBlogList = ({
         }
     }
 
-    const handleUnLike = async (id, title) => {
+    const handleUnLike = async (id, name) => {
         try {
             await unlike(id)
-            show({ message: `Bạn đã bỏ thích bài viết ${title}` })
+            show({ message: `Bạn đã bỏ thích bài viết ${name}` })
         } catch (error) {
             console.log(error.message)
         }
@@ -223,7 +223,9 @@ const CardBlogList = ({
                     <LikeButton
                         initHeart={isHeart}
                         likeQuantity={item.totalLike}
-                        handleClick={() => handleClick(item.id, item.title)}
+                        handleClick={handleClick}
+                        item={item.id}
+                        name={item.title}
                     />
                 </styleMui.likeContainer>
                 <styleMui.commentBox onClick={() => handleRedirect(item.id)}>
