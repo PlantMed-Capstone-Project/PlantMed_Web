@@ -15,7 +15,7 @@ function PopupInfo({
     approvalPage = false,
     setIndexData,
     predicPage = false,
-    myblog = false,
+    myblog = null,
 }) {
     const getDataPredic = JSON.parse(localStorage.getItem('dataPredict'))
     const getImagePredict = localStorage.getItem('imagePredict')
@@ -40,7 +40,7 @@ function PopupInfo({
     if (predicPage) {
         dataFilter = getDataPredic
     } else {
-        if (approvalPage && myblog) {
+        if (approvalPage && myblog !== null) {
             dataFilter = myblog
         } else {
             dataFilter = conditionData.filter((vl) => vl.id === id)[0]
