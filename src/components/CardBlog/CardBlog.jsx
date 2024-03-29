@@ -98,6 +98,7 @@ function CardBlog({
                 {loading
                     ? Array.from(new Array(3)).map((_, idx) => (
                           <Skeleton
+                              key={idx}
                               animation="wave"
                               variant="rectangular"
                               sx={{
@@ -108,9 +109,9 @@ function CardBlog({
                           />
                       ))
                     : displayedData.length > 0
-                    ? displayedData.map((vl, idx) => (
+                    ? displayedData.map((vl) => (
                           <CardBlogList
-                              key={blogActive}
+                              key={vl.id}
                               item={vl}
                               idx={vl.id}
                               loadingReport={loadingReport}

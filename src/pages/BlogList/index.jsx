@@ -135,12 +135,12 @@ function BlogListPage() {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle>
-                    {'Bạn có chắc chắn sẽ báo cáo bài viết này không ?'}
+                    {'Bạn có chắc chắn sẽ báo cáo bài viết này không?'}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Việc báo cáo sẽ được kiểm duyệt bởi admin và sẽ mất một
-                        khoảng thời gian !
+                        khoảng thời gian!
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
