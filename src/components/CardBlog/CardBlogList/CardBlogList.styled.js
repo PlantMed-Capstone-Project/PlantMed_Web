@@ -133,7 +133,6 @@ export const ctnATag = styled(Box)(() => ({
 
 export const caontainerRp = styled(Box)(() => ({
     position: 'absolute',
-    minHeight: '8rem',
     backgroundColor: '#214400',
     minWidth: '10rem',
     borderRadius: '0.6rem',
@@ -143,18 +142,21 @@ export const caontainerRp = styled(Box)(() => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     zIndex: '2',
-    paddingTop: '0.8rem',
 }))
 
-export const report = styled(Box)(({ ishover }) => ({
+export const report = styled(Box)(({ ishover, idx }) => ({
     display: 'flex',
     gap: '0.3rem',
     alignItems: 'center',
     width: '100%',
-    padding: '0 1.2rem',
+    padding: '1rem 1.2rem',
     cursor: 'pointer',
-    backgroundColor: ishover && 'rgba(105, 173, 40, 0.3)',
+    backgroundColor: ishover === idx && 'rgba(105, 173, 40, 0.3)',
     transition: 'all 0.2s',
+    borderTopLeftRadius: idx === 0 && '0.6rem',
+    borderTopRightRadius: idx === 0 && '0.6rem',
+    borderBottomLeftRadius: idx === 2 && '0.6rem',
+    borderBottomRightRadius: idx === 2 && '0.6rem',
 }))
 
 export const reportTxt = styled(Typography)(() => ({
