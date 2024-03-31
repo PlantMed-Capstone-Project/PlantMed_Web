@@ -20,6 +20,7 @@ import { predict } from 'rest/api/predict'
 import * as styleMui from './UploadImage.styled'
 import { useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -34,13 +35,41 @@ const VisuallyHiddenInput = styled('input')({
 })
 
 function UploadImage({ setDataPredic, handle }) {
+    const { isLogin } = useShallowEqualSelector((state) => state.auth)
+    const { show } = useActions(snackbarAction)
+
     const [progress, setProgress] = useState(0)
     const [imageLoaded, setImageLoaded] = useState()
     const [imgFile, setImgFile] = useState()
     const [loading, setLoading] = useState(false)
     const [progressStatus, setProgressStatus] = useState(false)
     const [prevResult, setPrevResult] = useState(false)
-    const { show } = useActions(snackbarAction)
+
+    // Mình sẽ đến số lượt state tăng lên theo mỗi lần call và nếu state === 3 thì mình stop calling và navigate đến đăng nhập để được gọi thêm
+    const [timeCalling, setTimeCalling] = useState(0)
+
+    // Hàm Này xử lý condition về việc có đăng nhập hay chưa để gọi api trong nếu chưa thì state tiếp tục tăng, nếu rồi thì mỗi lần gọi thì nó ko tăng và clear state
+    const handleTimeCalling = () => {
+        // Kiểm tra nếu chưa đăng nhập và đã đạt đến giới hạn 3 lần gửi POST
+        if (!isLogin && timeCalling >= 3) {
+            show({
+                message:
+                    'Vui lòng đăng nhập để được sử dụng thêm tính năng này !',
+                severity: SNACKBAR_SEVERITY.WARNING,
+            })
+            return
+        }
+
+        uploadFile()
+
+        // Tăng số lần gửi POST nếu chưa đăng nhập
+        if (!isLogin) {
+            const updatedCount = timeCalling + 1
+            setTimeCalling(updatedCount)
+            localStorage.setItem('postCount', updatedCount) // Lưu trạng thái vào localStorage
+        }
+    }
+
     // const [slide, setSlide] = useState(false)
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
@@ -142,6 +171,15 @@ function UploadImage({ setDataPredic, handle }) {
         }
     }, [progress])
 
+    // Hàm này sẽ hỗ trợ chúng ta cho việc gọi storage và thêm vào state
+    useEffect(() => {
+        // Kiểm tra nếu đã lưu trữ postCount trong localStorage
+        const storedPostCount = localStorage.getItem('postCount')
+        if (storedPostCount) {
+            setTimeCalling(parseInt(storedPostCount))
+        }
+    }, [])
+
     return (
         <styleMui.background
             direction="column"
@@ -239,7 +277,7 @@ function UploadImage({ setDataPredic, handle }) {
                         >
                             <styleMui.btnSend
                                 variant="contained"
-                                onClick={uploadFile}
+                                onClick={handleTimeCalling}
                                 disabled={loading}
                             >
                                 <>
