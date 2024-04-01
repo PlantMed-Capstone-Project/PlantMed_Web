@@ -25,3 +25,7 @@ export const resetPassword = async (payload) => {
 export const forgotPassword = async (payload) => {
     return http.put('auth/forgotPassword', payload)
 }
+
+export const confirm = async (email, code) => {
+    return http.post(`auth/confirm?email=${email}&code=${code}`)
+}

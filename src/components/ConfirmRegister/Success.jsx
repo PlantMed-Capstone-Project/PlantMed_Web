@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 export const VerifySuccess = () => {
     const navigate = useNavigate()
 
-    const gotoHomePage = () => {
-        navigate('/')
+    const gotoLogin = () => {
+        navigate('/login')
     }
 
     return (
@@ -21,10 +21,10 @@ export const VerifySuccess = () => {
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                onClick={() => gotoHomePage()}
+                onClick={() => gotoLogin()}
                 isSuccess
             >
-                Quay về trang chủ
+                Quay về trang đăng nhập
             </styleMui.btn>
         </styleMui.verifyContainer>
     )
