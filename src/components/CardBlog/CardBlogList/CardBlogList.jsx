@@ -20,13 +20,7 @@ const styleIcon = {
     fontSize: '2rem',
     color: '#FFF',
 }
-const CardBlogList = ({
-    item,
-    idx,
-    loadingReport,
-    dataReport,
-    handleDialog,
-}) => {
+const CardBlogList = ({ item, idx, dataReport, handleDialog }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)

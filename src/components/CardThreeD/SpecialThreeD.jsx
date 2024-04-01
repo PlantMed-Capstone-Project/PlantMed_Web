@@ -72,7 +72,7 @@ function SpecialThreeD() {
             >
                 {(loading ? Array.from(new Array(8)) : dataPlant).map(
                     (vl, idx) => (
-                        <SwiperSlide key={idx}>
+                        <SwiperSlide key={vl.id}>
                             <CardThreeD data={vl} idx={idx} />
                         </SwiperSlide>
                     )

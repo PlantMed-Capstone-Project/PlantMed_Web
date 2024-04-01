@@ -82,7 +82,7 @@ function FeaturedSearch({ title, data, loading }) {
                                 <styleMui.NameOfProduct
                                     component={motion.p}
                                     product={idx + 1}
-                                    hoverIndex={hoverIndex}
+                                    hoverindex={hoverIndex}
                                     idx={idx}
                                 >
                                     {product.name}

@@ -1,7 +1,7 @@
 import { Box, Button, Skeleton, Typography } from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { convertString, parseImg } from 'utils'
 
 const styles = {
@@ -41,7 +41,11 @@ const styles = {
 }
 
 function BlogList({ blogData, loading }) {
+    const navigate = useNavigate()
     const [hover, setHover] = useState(null)
+    const handleClick = (id) => {
+        navigate(`/blog/${id}`)
+    }
     return (
         <Box sx={styles.containerBlog}>
             <Box
@@ -54,8 +58,9 @@ function BlogList({ blogData, loading }) {
                 }}
             >
                 {loading ? (
-                    Array.from(new Array(9)).map((vl) => (
+                    Array.from(new Array(9)).map((_, idx) => (
                         <Skeleton
+                            key={idx}
                             animation="wave"
                             variant="rectangular"
                             sx={{
@@ -67,7 +72,11 @@ function BlogList({ blogData, loading }) {
                     ))
                 ) : blogData.length > 0 ? (
                     blogData.map((vl, idx) => (
-                        <Box sx={styles.card}>
+                        <Box
+                            key={vl.id}
+                            sx={styles.card}
+                            onClick={() => handleClick(vl.id)}
+                        >
                             <Box
                                 sx={{
                                     overflow: 'hidden',
