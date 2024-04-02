@@ -166,6 +166,7 @@ export default function RegisterForm({ setTypeUser, typeUser }) {
                 confirmPassword: inputs.confirmPassword,
                 fullName: inputs.lastName + ' ' + inputs.firstName,
                 role: typeUser === 'người dùng' ? 'user' : 'expert',
+                type: 'web',
             }
             const res = await register(data)
             show({

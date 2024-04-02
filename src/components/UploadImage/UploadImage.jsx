@@ -19,6 +19,7 @@ import { useState } from 'react'
 import { predict } from 'rest/api/predict'
 import * as styleMui from './UploadImage.styled'
 import { useEffect } from 'react'
+import { useDropzone } from 'react-dropzone'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -43,6 +44,26 @@ function UploadImage({ setDataPredic, handle }) {
     // const [slide, setSlide] = useState(false)
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
+    // Hàm này là để thể hiện các xử lý liên quan đến drag ảnh
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: {
+            'image/jpeg': ['.jpg', '.jpeg'],
+            'image/png': ['.png'],
+        },
+        onDrop: (acceptedFiles) => {
+            setProgress(0)
+            setLoading(false)
+            setPrevResult(false)
+            setImageLoaded(URL.createObjectURL(acceptedFiles[0]))
+            setImgFile(acceptedFiles[0])
+            localStorage.setItem(
+                'imagePredict',
+                URL.createObjectURL(acceptedFiles[0])
+            )
+        },
+    })
+
+    // Hàm xử lý các vấn đề liên quan đến nhấn chọn ảnh
     const handleFileChange = (event) => {
         setProgress(0)
         setLoading(false)
@@ -82,7 +103,7 @@ function UploadImage({ setDataPredic, handle }) {
             })
             setPrevResult(false)
         } finally {
-            setProgressStatus(false) // Bắt đầu tiến trình
+            setProgressStatus(false) // Kết thúc tiến trình
         }
     }
 
@@ -131,7 +152,9 @@ function UploadImage({ setDataPredic, handle }) {
                 direction="column"
                 alignItems="center"
                 isloaded={imageLoaded}
+                {...getRootProps()}
             >
+                <input {...getInputProps()} />
                 {imageLoaded ? (
                     <styleMui.imageLoadBox
                         component="label"

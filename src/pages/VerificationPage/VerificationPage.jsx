@@ -1,22 +1,29 @@
-import * as styleMui from './VerificationPage.styled'
-import { VerifySuccess, VerifyFailed } from 'components/ConfirmRegister'
+import { VerifyFailed, VerifySuccess } from 'components/ConfirmRegister'
 import { useEffect, useState } from 'react'
-import { verifyEmail } from 'rest/api/auth'
+import { useSearchParams } from 'react-router-dom'
+import { confirm } from 'rest/api/auth'
+import * as styleMui from './VerificationPage.styled'
 
 function VerificationPage() {
-    const [isVerified, setIsVerified] = useState(false)
+    const [isVerified, setIsVerified] = useState()
+    // Vì không sử dụng hàm setSearchParams
+    const searchParams = useSearchParams()[0]
 
     async function verify() {
         try {
-            await verifyEmail()
+            const email = searchParams.get('email')
+            const code = searchParams.get('code')
+            await confirm(email, code)
             setIsVerified(true)
         } catch (error) {
             console.log(error.message)
+            setIsVerified(false)
         }
     }
 
     useEffect(() => {
         verify()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
