@@ -32,6 +32,7 @@ import ImageIcon from '@mui/icons-material/Image'
 import * as S from './Chat.styled'
 import useActions from 'hooks/useActions'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { convertChatToString } from 'utils'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -159,6 +160,7 @@ function Chat({ room, user, closeChat, userStatus }) {
 
     // eslint-disable-next-line no-unused-vars
     const endChat = async () => {
+        handleSendMail()
         closeChat()
         //gửi mail cái rồi làm gì làm\
         //Xóa request giữa expert với user
@@ -181,6 +183,26 @@ function Chat({ room, user, closeChat, userStatus }) {
             }
             //xóa text
             await deleteDoc(doc(messageRef, data.id))
+        }
+    }
+
+    const handleSendMail = async () => {
+        const userName = userStatus[0].userRequest.FullName
+        const expertName = userStatus[0].expertName
+        let html = ''
+
+        for (const mess of messages) {
+            html +=
+                mess.role === 'expert'
+                    ? convertChatToString(expertName, mess.text)
+                    : convertChatToString(userName, mess.text)
+        }
+        const obj = { email: userStatus[0].userRequest.Email, content: html }
+        try {
+            //put obj here when have api chat
+            console.log(html)
+        } catch (e) {
+            console.log(e)
         }
     }
 

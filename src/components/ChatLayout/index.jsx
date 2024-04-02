@@ -1,9 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, Button, Paper, Typography } from '@mui/material'
-import Avatar from '@mui/material/Avatar'
 import CircularProgress from '@mui/material/CircularProgress'
 import IconButton from '@mui/material/IconButton'
-import AvatarUser from 'Images/avatar.jpg'
 import AlertDialog from 'components/AlertDialog'
 import Chat from 'components/Chat'
 import { ACCESS_TOKEN } from 'constant'
@@ -153,7 +151,7 @@ function ChatLayout({ handleCloseChat }) {
     }
 
     const handleDeleChatDone = async (id) => {
-        try{
+        try {
             await deleteDoc(doc(requestRef, id))
             const expertStatus = expertIsDone.find(
                 ({ expert }) => expert.Email === user.Email
@@ -164,7 +162,7 @@ function ChatLayout({ handleCloseChat }) {
                     status: 'isOnline',
                 })
             }
-        }catch(e){
+        } catch (e) {
             console.log(e)
         }
     }
@@ -307,9 +305,6 @@ function ChatLayout({ handleCloseChat }) {
                                                                 'center',
                                                         }}
                                                     >
-                                                        <Avatar
-                                                            src={AvatarUser}
-                                                        />
                                                         <Typography
                                                             sx={{
                                                                 marginLeft:
