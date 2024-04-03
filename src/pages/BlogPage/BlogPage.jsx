@@ -57,22 +57,22 @@ function BlogPage() {
             <Stack
                 direction="column"
                 alignItems="center"
-                width="100%"
+                width="90%"
                 mt="3.75rem"
-                sx={{ backgroundColor: '#F4FFEB' }}
-            ></Stack>
-            <Typography
-                sx={{
-                    fontSize: '2.188rem',
-                    textTransform: 'uppercase',
-                    textAlign: 'center',
-                    fontWeight: '800',
-                    color: '#214400',
-                }}
             >
-                Bài viết nổi bật
-            </Typography>
-            <BlogList blogData={blogList} loading={loadingAllBlog} />
+                <Typography
+                    sx={{
+                        fontSize: '2.188rem',
+                        textTransform: 'uppercase',
+                        textAlign: 'center',
+                        fontWeight: '800',
+                        color: '#214400',
+                    }}
+                >
+                    Bài viết nổi bật
+                </Typography>
+                <BlogList blogData={blogList} loading={loadingAllBlog} />
+            </Stack>
         </Box>
     )
 }

@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import { blogAction } from 'app/reducers/blog'
 import { BlogApprovalCard } from 'components/BlogApproval'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
@@ -72,7 +72,9 @@ export default function ApprovalPage() {
                 sx={{ width: '100%' }}
             >
                 <HeroBlog approvalPage />
-                <BlogApprovalCard setIndexData={setIndexData} />
+                <Stack alignItems="center" width="90rem">
+                    <BlogApprovalCard setIndexData={setIndexData} />
+                </Stack>
             </Stack>
             <styleFromPlant.popupContainer
                 isopen={indexData !== null || undefined}
