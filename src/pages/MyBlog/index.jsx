@@ -22,10 +22,16 @@ function MyBlog() {
             link: '',
         },
     ]
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true)
+    // Dưới đây là các state sẽ được sử dụng trong quá trình remake
+    const [loadingActive, setloadingActive] = useState(null)
+    const [loaidngApproval, setLoadingApproval] = useState(null)
+    const [dataActive, setDataActive] = useState([])
+    const [dataApproval, setdDataApproval] = useState([])
+    const [switchTabs, setSwitchTabs] = useState(null)
+
     const [dataValue, setDataValue] = useState(null)
     const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
+
     const containerPopup = useRef()
 
     const handleChange = (_, newValue) => {
@@ -33,34 +39,28 @@ function MyBlog() {
     }
 
     const getActiveBlog = async () => {
-        setLoading(true)
+        setloadingActive(true)
         try {
             const res = await getActiveByUser()
-            setData(res.data)
+            setDataActive(res.data)
         } catch (e) {
             console.log(e)
         } finally {
-            setLoading(false)
+            setloadingActive(false)
         }
     }
 
     const getPendingBlog = async () => {
-        setLoading(true)
+        setLoadingApproval(true)
         try {
             const res = await getPendingByUser()
-            setData(res.data)
+            setdDataApproval(res.data)
         } catch (e) {
             console.log(e)
         } finally {
-            setLoading(false)
+            setLoadingApproval(false)
         }
     }
-
-    useEffect(() => {
-        blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [blogStatus])
 
     // Hủy scroll khi mở popup
     const disableScroll = () => {
@@ -99,6 +99,17 @@ function MyBlog() {
         return () => enableScroll()
     }, [dataValue])
 
+    useEffect(() => {
+        getPendingBlog()
+        getActiveBlog()
+    }, [])
+
+    // Chỉ cần đổi thành 1 state true hoặc false, và sau đo sử dujg state khác để lưu data của 2 api đó
+    useEffect(() => {
+        setSwitchTabs(() => blogStatus === nabItem[0].label)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [blogStatus])
+
     return (
         <styleMui.container>
             <styleMui.blogContainer>
@@ -119,11 +130,19 @@ function MyBlog() {
                         />
                     ))}
                 </styleMui.tabContainer>
-                <StatusBlogCardList
-                    data={data}
-                    setDataValue={setDataValue}
-                    loading={loading}
-                />
+                {switchTabs ? (
+                    <StatusBlogCardList
+                        data={dataApproval}
+                        setDataValue={setDataValue}
+                        loading={loaidngApproval}
+                    />
+                ) : (
+                    <StatusBlogCardList
+                        data={dataActive}
+                        setDataValue={setDataValue}
+                        loading={loadingActive}
+                    />
+                )}
             </styleMui.blogContainer>
             <styleFromPlant.popupContainer
                 isopen={dataValue !== null || undefined}

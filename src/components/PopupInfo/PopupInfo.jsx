@@ -221,18 +221,24 @@ function PopupInfo({
                                     </Box>
                                 </styleMui.boxContent>
                                 <styleMui.diver isbottom="true" />
-                                <styleMui.boxBtn>
-                                    <styleMui.btn
-                                        onClick={() => acceptBlog(textData.id)}
-                                    >
-                                        Duyệt
-                                    </styleMui.btn>
-                                    <styleMui.btn
-                                        onClick={() => rejectBlogs(textData.id)}
-                                    >
-                                        Không duyệt
-                                    </styleMui.btn>
-                                </styleMui.boxBtn>
+                                {myBlogData === null && (
+                                    <styleMui.boxBtn>
+                                        <styleMui.btn
+                                            onClick={() =>
+                                                acceptBlog(textData.id)
+                                            }
+                                        >
+                                            Duyệt
+                                        </styleMui.btn>
+                                        <styleMui.btn
+                                            onClick={() =>
+                                                rejectBlogs(textData.id)
+                                            }
+                                        >
+                                            Không duyệt
+                                        </styleMui.btn>
+                                    </styleMui.boxBtn>
+                                )}
                             </styleMui.containerBlog>
                         </>
                     )}
