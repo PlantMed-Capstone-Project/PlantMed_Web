@@ -355,7 +355,7 @@ function Header({ isLogin, avatar }) {
                                 color: '#214400',
                             }}
                         >
-                            PlantMed
+                            {user.FullName}
                         </Typography>
                         <Typography
                             variant="caption"
