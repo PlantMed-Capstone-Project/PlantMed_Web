@@ -1,21 +1,16 @@
 import { Paper } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import CloseIcon from '@mui/icons-material/Close'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
+import ImageIcon from '@mui/icons-material/Image'
 import SendIcon from '@mui/icons-material/Send'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import IconButton from '@mui/material/IconButton'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import AlertDialog from 'components/AlertDialog'
 import { MessageLeft, MessageRight } from 'components/Message'
 import { db, imgDb } from 'firebase.js'
-import {
-    deleteObject,
-    getDownloadURL,
-    ref,
-    uploadBytes,
-} from 'firebase/storage'
-import { v4 } from 'uuid'
 import {
     addDoc,
     collection,
@@ -26,14 +21,14 @@ import {
     updateDoc,
     where,
 } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import useActions from 'hooks/useActions'
 import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
 import { useEffect, useRef, useState } from 'react'
-import ImageIcon from '@mui/icons-material/Image'
-import * as S from './Chat.styled'
-import useActions from 'hooks/useActions'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import { convertChatToString } from 'utils'
 import { sendChat } from 'rest/api/user'
+import { convertChatToString } from 'utils'
+import { v4 } from 'uuid'
+import * as S from './Chat.styled'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -161,7 +156,7 @@ function Chat({ room, user, closeChat, userStatus }) {
 
     // eslint-disable-next-line no-unused-vars
     const endChat = async () => {
-        handleSendMail()
+        messages.length !== 0 && handleSendMail()
         closeChat()
         //gửi mail cái rồi làm gì làm\
         //Xóa request giữa expert với user
@@ -176,12 +171,12 @@ function Chat({ room, user, closeChat, userStatus }) {
         //Xóa hết quá khứ
         for (const data of messages) {
             //Xóa hình ảnh
-            if (data.text.startsWith('https://firebasestorage')) {
-                // Create a reference to the file to delete
-                const desertRef = ref(imgDb, data.text)
-                // Delete the file
-                deleteObject(desertRef)
-            }
+            // if (data.text.startsWith('https://firebasestorage')) {
+            //     // Create a reference to the file to delete
+            //     const desertRef = ref(imgDb, data.text)
+            //     // Delete the file
+            //     deleteObject(desertRef)
+            // }
             //xóa text
             await deleteDoc(doc(messageRef, data.id))
         }
