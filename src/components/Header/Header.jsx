@@ -20,6 +20,7 @@ import { collection, deleteDoc, doc, or, where } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
 import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getAvatar } from 'rest/api/user'
@@ -28,6 +29,8 @@ import { readCookie } from 'utils/cookie'
 import * as styleMui from './header.styled'
 
 function Header({ isLogin, avatar }) {
+    const { isUpdate } = useShallowEqualSelector((state) => state.updateAv)
+
     const expertRef = collection(db, 'expertOnline')
     const user = parseJwt(readCookie(ACCESS_TOKEN))
 
@@ -168,7 +171,7 @@ function Header({ isLogin, avatar }) {
     useMemo(() => {
         handleGetAvatar()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [isUpdate])
 
     const menuItems = [
         {
@@ -352,7 +355,7 @@ function Header({ isLogin, avatar }) {
                                 color: '#214400',
                             }}
                         >
-                            PlantMed
+                            {user.FullName}
                         </Typography>
                         <Typography
                             variant="caption"

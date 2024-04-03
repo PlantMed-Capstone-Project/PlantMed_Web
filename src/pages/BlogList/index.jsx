@@ -32,7 +32,6 @@ function BlogListPage() {
     const [isFixed, setIsFixed] = useState(false)
     const [isAbs, setIsAbs] = useState(false)
     const [dataReport, setdataReport] = useState([])
-    const [loading, setLoading] = useState([])
     const [openDialog, setOpenDialog] = useState(false)
     const [reportId, setReportId] = useState(null)
     const [blogId, setBlogId] = useState(null)
@@ -63,14 +62,11 @@ function BlogListPage() {
     }
 
     const fetchReport = async () => {
-        setLoading(true)
         try {
             const resp = await getReport()
             setdataReport(resp.data)
         } catch (error) {
             console.log(error)
-        } finally {
-            setLoading(false)
         }
     }
 
@@ -154,7 +150,6 @@ function BlogListPage() {
                 <CardBlog
                     valueSearch={tagSearch}
                     positions={positions}
-                    loadingReport={loading}
                     dataReport={dataReport}
                     handleDialog={handleOpenDialog}
                 />

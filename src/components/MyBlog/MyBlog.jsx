@@ -1,6 +1,7 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { convertString, parseImg } from 'utils'
 const styles = {
     card: {
@@ -46,6 +47,10 @@ const styles = {
 function MyBlog({ userBlog, loading }) {
     const [hover, setHover] = useState()
     let dataBlog = [...userBlog].sort((a, b) => b.totalLike - a.totalLike)
+    const navigate = useNavigate()
+    const handleClick = (id) => {
+        navigate(`/blog/${id}`)
+    }
 
     return (
         <Box sx={styles.containerBlog}>
@@ -62,8 +67,9 @@ function MyBlog({ userBlog, loading }) {
                 }}
             >
                 {loading ? (
-                    Array.from(new Array(3)).map((_) => (
+                    Array.from(new Array(3)).map((_, idx) => (
                         <Skeleton
+                            key={idx}
                             animation="wave"
                             variant="rectangular"
                             sx={{
@@ -83,6 +89,7 @@ function MyBlog({ userBlog, loading }) {
                             p="1rem"
                             height="100%"
                             width="24rem"
+                            onClick={() => handleClick(vl.id)}
                             sx={{
                                 borderRadius: '2rem',
                                 boxShadow:
@@ -94,6 +101,7 @@ function MyBlog({ userBlog, loading }) {
                                 sx={{
                                     overflow: 'hidden',
                                     borderRadius: '2rem',
+                                    width: '100%',
                                 }}
                             >
                                 <CardMedia

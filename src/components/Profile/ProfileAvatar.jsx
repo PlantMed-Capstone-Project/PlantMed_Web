@@ -1,16 +1,19 @@
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
+import CircularProgress from '@mui/material/CircularProgress'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
+import { updateAvatarAction } from 'app/reducers/updateAvatar'
+import useActions from 'hooks/useActions'
 import { useEffect, useState } from 'react'
+import { getAvatar, updateAvatar } from 'rest/api/user'
 import { imageToBase64, parseImg } from 'utils'
 import * as styleMui from './Profile.styled'
-import { getAvatar, updateAvatar } from 'rest/api/user'
-import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
-import CircularProgress from '@mui/material/CircularProgress'
-import useActions from 'hooks/useActions'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 
 export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
+    const { isUpdate } = useShallowEqualSelector((state) => state.updateAv)
     const { show } = useActions(snackbarAction)
+    const { updateImage } = useActions(updateAvatarAction)
     const [selectedAvatar, setSelectedAvatar] = useState()
-
     const handleAvatarChange = (event) => {
         const file = event.target.files[0]
         if (file) {
@@ -28,6 +31,9 @@ export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
                 message: 'Cập nhật ảnh đại diện thành công',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
                 autoHideDuration: 2000,
+            })
+            updateImage({
+                updateImage: image,
             })
         } catch (e) {
             show({
@@ -51,7 +57,8 @@ export const ProfileAvatar = ({ userInfo, avatar, isDisabled }) => {
 
     useEffect(() => {
         handleGetAvatar()
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isUpdate])
 
     return (
         <styleMui.avatarPlace>

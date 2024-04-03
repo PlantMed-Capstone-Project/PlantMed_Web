@@ -4,13 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
 
-function CardBlog({
-    valueSearch,
-    positions,
-    loadingReport,
-    dataReport,
-    handleDialog,
-}) {
+function CardBlog({ valueSearch, positions, dataReport, handleDialog }) {
     const { blogActive, loading } = useShallowEqualSelector(
         (state) => state.blog
     )
@@ -114,7 +108,6 @@ function CardBlog({
                               key={vl.id}
                               item={vl}
                               idx={vl.id}
-                              loadingReport={loadingReport}
                               dataReport={dataReport}
                               handleDialog={handleDialog}
                           />
