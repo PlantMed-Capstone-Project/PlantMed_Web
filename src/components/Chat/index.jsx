@@ -33,6 +33,7 @@ import * as S from './Chat.styled'
 import useActions from 'hooks/useActions'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import { convertChatToString } from 'utils'
+import { sendChat } from 'rest/api/user'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -199,8 +200,7 @@ function Chat({ room, user, closeChat, userStatus }) {
         }
         const obj = { email: userStatus[0].userRequest.Email, content: html }
         try {
-            //put obj here when have api chat
-            console.log(html)
+            await sendChat(obj)
         } catch (e) {
             console.log(e)
         }
