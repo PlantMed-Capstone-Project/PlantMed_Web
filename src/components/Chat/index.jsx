@@ -158,7 +158,7 @@ function Chat({ room, user, closeChat, userStatus }) {
     const endChat = async () => {
         messages.length !== 0 && handleSendMail()
         closeChat()
-        //gửi mail cái rồi làm gì làm\
+        //gửi mail cái rồi làm gì làm
         //Xóa request giữa expert với user
         try {
             await updateDoc(doc(requestRef, userChat.id), {
@@ -170,13 +170,6 @@ function Chat({ room, user, closeChat, userStatus }) {
 
         //Xóa hết quá khứ
         for (const data of messages) {
-            //Xóa hình ảnh
-            // if (data.text.startsWith('https://firebasestorage')) {
-            //     // Create a reference to the file to delete
-            //     const desertRef = ref(imgDb, data.text)
-            //     // Delete the file
-            //     deleteObject(desertRef)
-            // }
             //xóa text
             await deleteDoc(doc(messageRef, data.id))
         }
