@@ -25,20 +25,12 @@ export default function DetailPage() {
             const response = await getById(id)
             let dataRsp = response.data
             setData(dataRsp)
-            fetchSearchById(dataRsp.name)
+            //count here
+            await countSearch(id)
         } catch (error) {
             console.log(error)
         } finally {
             setloading(false)
-        }
-    }
-
-    // Đếm số lượng của cây đó theo tên
-    const fetchSearchById = async (name) => {
-        try {
-            await countSearch(name, 1)
-        } catch (error) {
-            console.log(error)
         }
     }
 

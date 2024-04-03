@@ -10,6 +10,6 @@ export const getById = async (id) => {
     return http.get(`plants/${id}`)
 }
 
-export const countSearch = async (name, count) => {
-    return http.post(`plants/countSearch?name=${name}&count=${count}`)
+export const countSearch = async (id) => {
+    return http.post(`plants/countSearch?id=${id}`)
 }
