@@ -7,7 +7,7 @@ import SlideDetail from 'components/SlideDetail/SlideDetail'
 import useScrollTo from 'hooks/useScrollTo'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getById } from 'rest/api/plant'
+import { countSearch, getById } from 'rest/api/plant'
 
 export default function DetailPage() {
     const [loading, setloading] = useState()
@@ -15,20 +15,24 @@ export default function DetailPage() {
     const [data, setData] = useState()
     const slideNav = 'topscreen'
     const slideBottom = 'bottomscreen'
+    // scroll to top based on data
+    useScrollTo(0, 0, data)
 
+    // Lấy dữ liệu cây theo ID
     const fetchPlantByID = async (id) => {
         setloading(true)
         try {
             const response = await getById(id)
-            setData(response.data)
+            let dataRsp = response.data
+            setData(dataRsp)
+            //count here
+            await countSearch(id)
         } catch (error) {
             console.log(error)
         } finally {
             setloading(false)
         }
     }
-    // scroll to top based on data
-    useScrollTo(0, 0, data)
 
     const textData = {
         valueList: [
