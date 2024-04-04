@@ -110,3 +110,13 @@ export const convertString = (str, len) => {
 export const sortComment = (data) => {
     data.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
 }
+
+export const convertChatToString = (name, data) => {
+    let text = ''
+    if (!data.startsWith('https://firebasestorage')) {
+        text = `<b>${name}: </b> ${data}`
+    } else {
+        text = `<b>${name}: </b> <a target="_blank" href=${data}><img style="width: 100px; height: auto" src='${data}'/></a>`
+    }
+    return `${text}<br/>`
+}

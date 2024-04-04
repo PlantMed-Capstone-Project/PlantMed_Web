@@ -8,13 +8,14 @@ import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
 import { db } from 'firebase.js'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, where } from 'firebase/firestore'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login as authLogin } from 'rest/api/auth'
 import { parseJwt } from 'utils'
 import * as styleMui from './SigninForm.styled'
+import { useFirestoreQuery } from 'hooks/useFirestoreQuery'
 
 export default function LoginForm() {
     const { login, loginFailure } = useActions(authAction)
@@ -54,9 +55,16 @@ export default function LoginForm() {
         },
     ]
 
+    const [expert, setExpert] = useState()
     const expertRef = collection(db, 'expertOnline')
+    useFirestoreQuery(expertRef, [where('status', '==', 'isOnline')], setExpert)
+
     const handleOnline = async (data) => {
-        if (data.Role === 'expert') {
+        const expertCheck = expert.find(
+            ({ expert }) => expert.Email === data.Email
+        )
+
+        if (data.Role === 'expert' && expertCheck === undefined) {
             await addDoc(expertRef, {
                 expert: data,
                 status: 'isOnline',
@@ -68,7 +76,7 @@ export default function LoginForm() {
     const renderInputs = () => {
         return inputFields.map((item) => (
             <InputField
-                key={item.id}
+                key={item.key}
                 type={item.type}
                 icon={item.icon}
                 eyeIcon={item.eyeIcon}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
-function JoinBlog() {
+function  JoinBlog() {
     return (
         <Box sx={{ marginTop: "3.75rem", backgroundColor: "#F4FFEB", width: "90%", display: "flex" }}>
             <Box sx={{ padding: "2.813rem 0 2.813rem 3.75rem" }}>

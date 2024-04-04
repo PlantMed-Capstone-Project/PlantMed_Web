@@ -1,11 +1,14 @@
 import { Box, Typography } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
+import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import AlertDialog from 'components/AlertDialog'
 import ReportModal from 'components/ReportModal'
 import UserComment from 'components/UserComment'
 import { ACCESS_TOKEN } from 'constant'
-import { useState } from 'react'
+import useActions from 'hooks/useActions'
+import { useEffect, useState } from 'react'
 import { deleteComment, deleteReplyComment } from 'rest/api/comment'
+import { getReport, reportComment } from 'rest/api/report'
 import { parseImg, parseJwt } from 'utils'
 import { readCookie } from 'utils/cookie'
 
@@ -30,6 +33,22 @@ function LoadComment({
     const user = parseJwt(readCookie(ACCESS_TOKEN))
 
     const [openDialog, setOpenDialog] = useState(false)
+    const [reportList, setReportList] = useState([])
+    const { show } = useActions(snackbarAction)
+
+    const getReportCategory = async () => {
+        try {
+            const res = await getReport()
+            setReportList(res.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getReportCategory()
+    }, [])
+
     const alert = {
         title: 'Xóa bình luận',
         content: 'Bạn có chắc chắn muốn xóa bình luận của mình?',
@@ -43,25 +62,25 @@ function LoadComment({
 
     const id = type === 'comment' ? comment.id : comment.commentParentId
 
-    const checkBoxLabel = [
-        {
-            label: 'Ngôn từ không phù hợp',
-        },
-        {
-            label: 'Chủ đề không liên quan',
-        },
-        {
-            label: 'Thông tin sai sự thật',
-        },
-    ]
     const [isOpen, setIsOpen] = useState(false)
     const handleOpen = () => {
         setIsOpen(!isOpen)
     }
 
-    const handleReport = (value) => {
-        console.log(value)
-        //hanlde send report label later
+    const handleReport = async (reportId) => {
+        try {
+            await reportComment({ reportId, commentId: comment.id })
+            show({
+                message: 'Đã gửi báo cáo!',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error)
+            show({
+                message: 'Chưa thể báo cáo ngay lúc này!',
+                severity: SNACKBAR_SEVERITY.ERROR,
+            })
+        }
     }
 
     const handleDeleteComment = async () => {
@@ -76,6 +95,7 @@ function LoadComment({
             console.log(e)
         }
     }
+
     return (
         <>
             {openDialog && (
@@ -152,7 +172,7 @@ function LoadComment({
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
                         handleReport={handleReport}
-                        checkBoxLabel={checkBoxLabel}
+                        reportLabels={reportList}
                     />
                 </Box>
             </Box>

@@ -6,7 +6,7 @@ export const iconStyle = {
 }
 
 export const CustomBoxPopup = styled(Box)(() => ({
-    width: '12.4875rem',
+    minWidth: '12.4875rem',
     height: '14.725rem',
     display: 'flex',
     flexDirection: 'column',
@@ -24,7 +24,7 @@ export const CustomBoxPopup = styled(Box)(() => ({
 }))
 
 export const BoxContainAvt = styled(Box)(() => ({
-    width: '9.125rem',
+    minWidth: '9.125rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -1,42 +1,71 @@
-import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto'
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
+import ContentPasteOffIcon from '@mui/icons-material/ContentPasteOff'
+import DangerousIcon from '@mui/icons-material/Dangerous'
+import GTranslateIcon from '@mui/icons-material/GTranslate'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { Typography } from '@mui/material'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import { LikeButton } from 'components/LikeButton'
+import { ACCESS_TOKEN } from 'constant'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { like, unlike } from 'rest/api/blog'
 import { convertString, parseImg, parseJwt } from 'utils'
-import * as styleMui from './CardBlogList.styled'
 import { readCookie } from 'utils/cookie'
-import { ACCESS_TOKEN } from 'constant'
-import { Typography } from '@mui/material'
+import * as styleMui from './CardBlogList.styled'
 
-const CardBlogList = ({ item, idx, onResetData }) => {
+const styleIcon = {
+    fontSize: '2rem',
+    color: '#FFF',
+}
+const CardBlogList = ({ item, idx, dataReport, handleDialog }) => {
     const [showPopup, setShowPopup] = useState(false)
     const [hoverRp, setHoverRp] = useState(false)
     const [isHover, setIsHover] = useState(false)
     const [isHeart, setIsHeart] = useState(false)
-
     const { show } = useActions(snackbarAction)
     const navigate = useNavigate()
     let user = parseJwt(readCookie(ACCESS_TOKEN))
-
     const popupRef = useRef()
-
+    const dot = useRef()
+    const Report = [
+        {
+            id: dataReport[0]?.id,
+            icon: <ContentPasteOffIcon sx={styleIcon} />,
+            name: dataReport[0]?.name,
+        },
+        {
+            id: dataReport[1]?.id,
+            icon: <DangerousIcon sx={styleIcon} />,
+            name: dataReport[1]?.name,
+        },
+        {
+            id: dataReport[2]?.id,
+            icon: <GTranslateIcon sx={styleIcon} />,
+            name: dataReport[2]?.name,
+        },
+    ]
     // kiểm tra khi click có đang click vào popup hay không ?
     const handler = (e) => {
         if (!popupRef.current?.contains(e.target)) {
-            setShowPopup(null)
+            if (dot.current?.contains(e.target)) {
+                return
+            }
+            setShowPopup(false)
         }
+    }
+
+    const opentPopup = () => {
+        setShowPopup(!showPopup)
     }
 
     useEffect(() => {
         document.addEventListener('mousedown', handler)
 
         return () => document.removeEventListener('mousedown', handler)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -44,28 +73,28 @@ const CardBlogList = ({ item, idx, onResetData }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item])
 
-    const handleOpenForm = (value) => {
-        console.log(value)
+    // open dialog
+    const handleOpenForm = (idReport, idBlog) => {
+        handleDialog(idReport, idBlog)
     }
 
     const handleRedirect = (id) => {
         navigate(`/blog/${id}`)
     }
 
-    const handleClick = async (id, title) => {
-        if (!isHeart) {
-            await handleLike(id, title)
+    const handleClick = async (id, islike, name) => {
+        if (!islike) {
+            await handleLike(id, name)
         } else {
-            await handleUnLike(id, title)
+            await handleUnLike(id, name)
         }
-        onResetData()
     }
 
-    const handleLike = async (id, title) => {
+    const handleLike = async (id, name) => {
         try {
             await like(id)
             show({
-                message: `Bạn đã thích bài viết ${title}`,
+                message: `Bạn đã thích bài viết ${name}`,
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
         } catch (error) {
@@ -73,10 +102,10 @@ const CardBlogList = ({ item, idx, onResetData }) => {
         }
     }
 
-    const handleUnLike = async (id, title) => {
+    const handleUnLike = async (id, name) => {
         try {
             await unlike(id)
-            show({ message: `Bạn đã bỏ thích bài viết ${title}` })
+            show({ message: `Bạn đã bỏ thích bài viết ${name}` })
         } catch (error) {
             console.log(error.message)
         }
@@ -101,19 +130,23 @@ const CardBlogList = ({ item, idx, onResetData }) => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                 >
-                    <styleMui.report
-                        ishover={hoverRp}
-                        onMouseEnter={() => setHoverRp(true)}
-                        onMouseLeave={() => setHoverRp(false)}
-                        onClick={() => handleOpenForm(item.id)}
-                    >
-                        <AssistantPhotoIcon
-                            sx={{ fontSize: '2rem', color: '#FFF' }}
-                        />
-                        <styleMui.reportTxt>
-                            Báo cáo bài viết
-                        </styleMui.reportTxt>
-                    </styleMui.report>
+                    {dataReport?.length > 0
+                        ? Report?.map((vl, idx) => (
+                              <styleMui.report
+                                  key={vl.id}
+                                  idx={idx}
+                                  ishover={hoverRp}
+                                  onMouseEnter={() => setHoverRp(idx)}
+                                  onMouseLeave={() => setHoverRp(null)}
+                                  onClick={() => handleOpenForm(vl.id, item.id)}
+                              >
+                                  {vl.icon}
+                                  <styleMui.reportTxt>
+                                      {vl.name}
+                                  </styleMui.reportTxt>
+                              </styleMui.report>
+                          ))
+                        : ''}
                 </styleMui.caontainerRp>
             )}
 
@@ -131,7 +164,7 @@ const CardBlogList = ({ item, idx, onResetData }) => {
                     <styleMui.tagContainer>
                         {item.tags.length &&
                             item.tags.map((vl) => (
-                                <styleMui.tag key={item}>
+                                <styleMui.tag key={vl.id}>
                                     <styleMui.tagContent>
                                         {vl?.name}
                                     </styleMui.tagContent>
@@ -140,10 +173,13 @@ const CardBlogList = ({ item, idx, onResetData }) => {
                     </styleMui.tagContainer>
                 </styleMui.ctnATag>
                 {/* End avartar case */}
-                <MoreHorizIcon
-                    sx={{ cursor: 'pointer' }}
-                    onClick={() => setShowPopup(!showPopup)}
-                />
+                {!(user.Email === item.user.email) && (
+                    <MoreHorizIcon
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => opentPopup()}
+                        ref={dot}
+                    />
+                )}
             </styleMui.ctnHead>
             {/* End first phase of this card */}
 
@@ -181,7 +217,9 @@ const CardBlogList = ({ item, idx, onResetData }) => {
                     <LikeButton
                         initHeart={isHeart}
                         likeQuantity={item.totalLike}
-                        handleClick={() => handleClick(item.id, item.title)}
+                        handleClick={handleClick}
+                        item={item.id}
+                        name={item.title}
                     />
                 </styleMui.likeContainer>
                 <styleMui.commentBox onClick={() => handleRedirect(item.id)}>

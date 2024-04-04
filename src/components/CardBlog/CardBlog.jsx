@@ -1,18 +1,13 @@
 import { Skeleton } from '@mui/material'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
-import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
-import useActions from 'hooks/useActions'
-import { blogAction } from 'app/reducers/blog'
-import { getActiveBlog } from 'rest/api/blog'
 
-function CardBlog({ valueSearch, positions }) {
+function CardBlog({ valueSearch, positions, dataReport, handleDialog }) {
     const { blogActive, loading } = useShallowEqualSelector(
         (state) => state.blog
     )
-    const { storeBlogActive, storeBlog, storePlantFail } =
-        useActions(blogAction)
     const [dataBlog, setDataBlog] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
     let itemsPerPage = 6
@@ -84,21 +79,6 @@ function CardBlog({ valueSearch, positions }) {
         setCurrentPage(vl)
     }
 
-    const fetchData = async () => {
-        storeBlog()
-        try {
-            const response = await getActiveBlog()
-            storeBlogActive(response.data)
-        } catch (error) {
-            console.log(error)
-            storePlantFail()
-        }
-    }
-
-    const handleLikeClick = () => {
-        fetchData()
-    }
-
     return (
         <styleMui.container ref={getPosition}>
             <styleMui.mainTitle>
@@ -109,27 +89,30 @@ function CardBlog({ valueSearch, positions }) {
                 </styleMui.subTitle>
             </styleMui.mainTitle>
             <styleMui.listBlog>
-                {(loading ? Array.from(new Array(3)) : displayedData).map(
-                    (vl, idx) =>
-                        vl ? (
-                            <CardBlogList
-                                key={blogActive}
-                                item={vl}
-                                idx={idx}
-                                onResetData={handleLikeClick}
-                            />
-                        ) : (
-                            <Skeleton
-                                animation="wave"
-                                variant="rectangular"
-                                sx={{
-                                    width: '100%',
-                                    height: '16rem',
-                                    borderRadius: '1rem',
-                                }}
-                            />
-                        )
-                )}
+                {loading
+                    ? Array.from(new Array(3)).map((_, idx) => (
+                          <Skeleton
+                              key={idx}
+                              animation="wave"
+                              variant="rectangular"
+                              sx={{
+                                  width: '100%',
+                                  height: '16rem',
+                                  borderRadius: '1rem',
+                              }}
+                          />
+                      ))
+                    : displayedData.length > 0
+                    ? displayedData.map((vl) => (
+                          <CardBlogList
+                              key={vl.id}
+                              item={vl}
+                              idx={vl.id}
+                              dataReport={dataReport}
+                              handleDialog={handleDialog}
+                          />
+                      ))
+                    : ''}
                 <styleMui.pagination
                     count={pageCount}
                     onChange={handlePagnating}

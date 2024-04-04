@@ -13,3 +13,7 @@ export const updateAvatar = async (payload) => {
 export const getAvatar = async () => {
     return http.get('users/getAvatar')
 }
+
+export const sendChat = async (payload) => {
+    return http.post('users/sendContent', payload)
+}

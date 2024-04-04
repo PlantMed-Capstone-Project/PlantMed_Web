@@ -9,3 +9,7 @@ export const getAll = async () => {
 export const getById = async (id) => {
     return http.get(`plants/${id}`)
 }
+
+export const countSearch = async (id) => {
+    return http.post(`plants/countSearch?id=${id}`)
+}

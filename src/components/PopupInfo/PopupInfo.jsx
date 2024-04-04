@@ -15,6 +15,7 @@ function PopupInfo({
     approvalPage = false,
     setIndexData,
     predicPage = false,
+    myBlogData = null,
 }) {
     const getDataPredic = JSON.parse(localStorage.getItem('dataPredict'))
     const getImagePredict = localStorage.getItem('imagePredict')
@@ -24,14 +25,31 @@ function PopupInfo({
     const { data: dataApproval } = useShallowEqualSelector(
         (state) => state.blog
     )
+
     const { show } = useActions(snackbarAction)
 
     const [isHover, setIsHover] = useState(false)
 
     const conditionData = approvalPage ? dataApproval : dataPlant
-    const dataFilter = predicPage
-        ? getDataPredic
-        : conditionData.filter((vl) => vl.id === id)[0]
+
+    // Sử dụng popup ở 5 phase, check xem nếu đang ở chỗ predict thì sẽ lấy data từ storage
+    // Nếu không phải predict page thì sẽ check 2 case
+    // case 1 : approvalPage và myblog 'từ profile' có data thì sẽ nhận data từ prop.myblog
+    // case 2 : là những trường hợp còn lại ví dụ như là plant thì sẽ lấy id để lọc ra .
+    let dataFilter
+    if (predicPage) {
+        dataFilter = getDataPredic
+    } else {
+        if (approvalPage && myBlogData !== null) {
+            dataFilter = myBlogData
+        } else {
+            dataFilter = conditionData.filter((vl) => vl.id === id)[0]
+        }
+    }
+
+    // predicPage
+    //     ? getDataPredic
+    //     : conditionData.filter((vl) => vl.id === id)[0]
     let textData
     if (approvalPage) {
         textData = dataFilter
@@ -203,18 +221,24 @@ function PopupInfo({
                                     </Box>
                                 </styleMui.boxContent>
                                 <styleMui.diver isbottom="true" />
-                                <styleMui.boxBtn>
-                                    <styleMui.btn
-                                        onClick={() => acceptBlog(textData.id)}
-                                    >
-                                        Duyệt
-                                    </styleMui.btn>
-                                    <styleMui.btn
-                                        onClick={() => rejectBlogs(textData.id)}
-                                    >
-                                        Không duyệt
-                                    </styleMui.btn>
-                                </styleMui.boxBtn>
+                                {myBlogData === null && (
+                                    <styleMui.boxBtn>
+                                        <styleMui.btn
+                                            onClick={() =>
+                                                acceptBlog(textData.id)
+                                            }
+                                        >
+                                            Duyệt
+                                        </styleMui.btn>
+                                        <styleMui.btn
+                                            onClick={() =>
+                                                rejectBlogs(textData.id)
+                                            }
+                                        >
+                                            Không duyệt
+                                        </styleMui.btn>
+                                    </styleMui.boxBtn>
+                                )}
                             </styleMui.containerBlog>
                         </>
                     )}

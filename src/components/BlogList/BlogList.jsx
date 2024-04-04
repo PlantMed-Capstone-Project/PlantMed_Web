@@ -1,7 +1,7 @@
 import { Box, Button, Skeleton, Typography } from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { convertString, parseImg } from 'utils'
 
 const styles = {
@@ -30,7 +30,7 @@ const styles = {
         textAlign: 'left',
     },
     card: {
-        width: '22.063rem',
+        width: '25.25rem',
         height: '18.625rem',
         borderRadius: '0.625rem',
         boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
@@ -41,25 +41,30 @@ const styles = {
 }
 
 function BlogList({ blogData, loading }) {
+    const navigate = useNavigate()
     const [hover, setHover] = useState(null)
+    const handleClick = (id) => {
+        navigate(`/blog/${id}`)
+    }
     return (
         <Box sx={styles.containerBlog}>
             <Box
                 sx={{
-                    width: '72.685rem',
+                    width: '100%    ',
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: '1rem',
-                    justifyContent: 'center',
+                    justifyContent: 'space-between',
+                    rowGap: '2.5rem',
                 }}
             >
                 {loading ? (
-                    Array.from(new Array(9)).map((vl) => (
+                    Array.from(new Array(9)).map((_, idx) => (
                         <Skeleton
+                            key={idx}
                             animation="wave"
                             variant="rectangular"
                             sx={{
-                                width: '22.063rem',
+                                width: '25.25rem',
                                 height: '18.625rem',
                                 borderRadius: '2rem',
                             }}
@@ -67,7 +72,11 @@ function BlogList({ blogData, loading }) {
                     ))
                 ) : blogData.length > 0 ? (
                     blogData.map((vl, idx) => (
-                        <Box sx={styles.card}>
+                        <Box
+                            key={vl.id}
+                            sx={styles.card}
+                            onClick={() => handleClick(vl.id)}
+                        >
                             <Box
                                 sx={{
                                     overflow: 'hidden',
