@@ -42,6 +42,7 @@ function App() {
             storeBlogActive(response.data)
         } catch (error) {
             console.log(error)
+        } finally {
             storePlantFail()
         }
     }

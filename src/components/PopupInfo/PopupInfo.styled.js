@@ -99,7 +99,7 @@ export const boxContent = styled(Box)({
 
 export const blogContent = styled(Typography)({
     width: '100%',
-    wordBreak: 'break-all',
+    wordBreak: 'break-word',
     padding: '0 0.7rem',
     fontSize: ' 1rem ',
     fontWeight: 'normal',

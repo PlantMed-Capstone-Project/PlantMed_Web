@@ -22,10 +22,15 @@ function MyBlog() {
             link: '',
         },
     ]
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true)
+    // Dưới đây là các state sẽ được sử dụng trong quá trình remake
+    const [loadingActive, setloadingActive] = useState(null)
+    const [loaidngApproval, setLoadingApproval] = useState(null)
+    const [dataActive, setDataActive] = useState([])
+    const [dataApproval, setdDataApproval] = useState([])
+
     const [dataValue, setDataValue] = useState(null)
     const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
+
     const containerPopup = useRef()
 
     const handleChange = (_, newValue) => {
@@ -33,34 +38,28 @@ function MyBlog() {
     }
 
     const getActiveBlog = async () => {
-        setLoading(true)
+        setloadingActive(true)
         try {
             const res = await getActiveByUser()
-            setData(res.data)
+            setDataActive(res.data)
         } catch (e) {
             console.log(e)
         } finally {
-            setLoading(false)
+            setloadingActive(false)
         }
     }
 
     const getPendingBlog = async () => {
-        setLoading(true)
+        setLoadingApproval(true)
         try {
             const res = await getPendingByUser()
-            setData(res.data)
+            setdDataApproval(res.data)
         } catch (e) {
             console.log(e)
         } finally {
-            setLoading(false)
+            setLoadingApproval(false)
         }
     }
-
-    useEffect(() => {
-        blogStatus === nabItem[0].label ? getPendingBlog() : getActiveBlog()
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [blogStatus])
 
     // Hủy scroll khi mở popup
     const disableScroll = () => {
@@ -99,6 +98,11 @@ function MyBlog() {
         return () => enableScroll()
     }, [dataValue])
 
+    useEffect(() => {
+        getPendingBlog()
+        getActiveBlog()
+    }, [])
+
     return (
         <styleMui.container>
             <styleMui.blogContainer>
@@ -120,9 +124,17 @@ function MyBlog() {
                     ))}
                 </styleMui.tabContainer>
                 <StatusBlogCardList
-                    data={data}
+                    data={
+                        blogStatus === nabItem[0].label
+                            ? dataApproval
+                            : dataActive
+                    }
                     setDataValue={setDataValue}
-                    loading={loading}
+                    loading={
+                        blogStatus === nabItem[0].label
+                            ? loaidngApproval
+                            : loadingActive
+                    }
                 />
             </styleMui.blogContainer>
             <styleFromPlant.popupContainer
