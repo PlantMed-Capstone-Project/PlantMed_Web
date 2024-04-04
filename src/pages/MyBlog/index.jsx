@@ -27,7 +27,6 @@ function MyBlog() {
     const [loaidngApproval, setLoadingApproval] = useState(null)
     const [dataActive, setDataActive] = useState([])
     const [dataApproval, setdDataApproval] = useState([])
-    const [switchTabs, setSwitchTabs] = useState(null)
 
     const [dataValue, setDataValue] = useState(null)
     const [blogStatus, setBlogStatus] = useState(nabItem[0].label)
@@ -104,12 +103,6 @@ function MyBlog() {
         getActiveBlog()
     }, [])
 
-    // Chỉ cần đổi thành 1 state true hoặc false, và sau đo sử dujg state khác để lưu data của 2 api đó
-    useEffect(() => {
-        setSwitchTabs(() => blogStatus === nabItem[0].label)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [blogStatus])
-
     return (
         <styleMui.container>
             <styleMui.blogContainer>
@@ -130,19 +123,19 @@ function MyBlog() {
                         />
                     ))}
                 </styleMui.tabContainer>
-                {switchTabs ? (
-                    <StatusBlogCardList
-                        data={dataApproval}
-                        setDataValue={setDataValue}
-                        loading={loaidngApproval}
-                    />
-                ) : (
-                    <StatusBlogCardList
-                        data={dataActive}
-                        setDataValue={setDataValue}
-                        loading={loadingActive}
-                    />
-                )}
+                <StatusBlogCardList
+                    data={
+                        blogStatus === nabItem[0].label
+                            ? dataApproval
+                            : dataActive
+                    }
+                    setDataValue={setDataValue}
+                    loading={
+                        blogStatus === nabItem[0].label
+                            ? loaidngApproval
+                            : loadingActive
+                    }
+                />
             </styleMui.blogContainer>
             <styleFromPlant.popupContainer
                 isopen={dataValue !== null || undefined}
