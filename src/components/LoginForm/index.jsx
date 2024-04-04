@@ -76,7 +76,7 @@ export default function LoginForm() {
     const renderInputs = () => {
         return inputFields.map((item) => (
             <InputField
-                key={item.id}
+                key={item.key}
                 type={item.type}
                 icon={item.icon}
                 eyeIcon={item.eyeIcon}
