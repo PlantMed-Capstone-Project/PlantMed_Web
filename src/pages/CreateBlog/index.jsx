@@ -120,7 +120,7 @@ function CreateBlog() {
                 tagsPlant: inputs.tag,
             })
             show({
-                message: 'Bài đăng của bạn đã được đưa vào hàng chờ',
+                message: 'Bài viết của bạn đã được đưa vào hàng chờ duyệt',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
                 autoHideDuration: 2000,
             })
