@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 import { blogAction } from 'app/reducers/blog'
 import { BlogApprovalCard } from 'components/BlogApproval'
 import HeroBlog from 'components/HeroBlog/HeroBlog'
