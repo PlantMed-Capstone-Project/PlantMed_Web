@@ -15,7 +15,7 @@ export function BlogApprovalCard({ setIndexData }) {
         <styleMui.container
             direction="row"
             alignItems="flex-start"
-            justifyContent="flex-start"
+            justifyContent="space-between"
         >
             {loading ? (
                 Array.from(new Array(7)).map((_, idx) => (
@@ -24,8 +24,8 @@ export function BlogApprovalCard({ setIndexData }) {
                         variant="rectangular"
                         animation="wave"
                         sx={{
-                            height: '16rem',
-                            width: 'calc(33.3% - 1rem)',
+                            width: '25.25rem',
+                            height: '18.625rem',
                             borderRadius: '0.625rem',
                         }}
                     />

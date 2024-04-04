@@ -72,7 +72,9 @@ export default function ApprovalPage() {
                 sx={{ width: '100%' }}
             >
                 <HeroBlog approvalPage />
-                <BlogApprovalCard setIndexData={setIndexData} />
+                <Stack alignItems="center" width="90rem">
+                    <BlogApprovalCard setIndexData={setIndexData} />
+                </Stack>
             </Stack>
             <styleFromPlant.popupContainer
                 isopen={indexData !== null || undefined}

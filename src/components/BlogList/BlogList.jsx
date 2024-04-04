@@ -30,7 +30,7 @@ const styles = {
         textAlign: 'left',
     },
     card: {
-        width: '22.063rem',
+        width: '25.25rem',
         height: '18.625rem',
         borderRadius: '0.625rem',
         boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
@@ -50,11 +50,11 @@ function BlogList({ blogData, loading }) {
         <Box sx={styles.containerBlog}>
             <Box
                 sx={{
-                    width: '72.685rem',
+                    width: '100%    ',
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: '1rem',
-                    justifyContent: 'center',
+                    justifyContent: 'space-between',
+                    rowGap: '2.5rem',
                 }}
             >
                 {loading ? (
@@ -64,7 +64,7 @@ function BlogList({ blogData, loading }) {
                             animation="wave"
                             variant="rectangular"
                             sx={{
-                                width: '22.063rem',
+                                width: '25.25rem',
                                 height: '18.625rem',
                                 borderRadius: '2rem',
                             }}

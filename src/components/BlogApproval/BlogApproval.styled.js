@@ -1,13 +1,12 @@
 import { Box, CardMedia, Stack, Typography, styled } from '@mui/material'
 
 export const container = styled(Stack)({
-    columnGap: '1rem',
     marginBottom: '4.13rem',
     flexWrap: 'wrap',
-    width: '72.685rem',
+    width: '90%',
     minHeight: '40.31rem',
     marginTop: '10rem',
-    rowGap: '2rem',
+    rowGap: '2.5rem',
 })
 
 export const text = styled(Typography)({
@@ -23,8 +22,8 @@ export const text = styled(Typography)({
 //====================== CARD LIST =================================//
 
 export const containerCard = styled(Box)(({ itemimage }) => ({
-    height: '16rem',
-    width: 'calc(33.3% - 1rem)',
+    width: '25.25rem',
+    height: '18.625rem',
     borderRadius: '0.625rem',
     boxShadow: '0px 4px 5px 0px rgba(33, 68, 0, 0.50)',
     cursor: 'pointer',
@@ -114,8 +113,8 @@ export const avatarName = styled(Typography)({
 })
 
 export const cardHover = styled(Box)(() => ({
-    height: '100%',
-    width: '100%',
+    width: '25.25rem',
+    height: '18.625rem',
     borderRadius: '0.625rem',
     display: 'flex',
     flexDirection: 'column',

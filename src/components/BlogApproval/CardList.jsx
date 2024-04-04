@@ -39,11 +39,13 @@ export function CardList({ item, idx, setIndexData }) {
                     component={motion.div}
                     initial={{
                         opacity: 0,
-                        scale: 0,
+                        y: 0,
+                        x: 0,
                     }}
                     animate={{
                         opacity: 1,
-                        scale: 1,
+                        y: -12,
+                        x: -12,
                     }}
                     transition={{ duration: 0.2 }}
                 >
