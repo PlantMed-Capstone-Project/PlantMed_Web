@@ -190,27 +190,26 @@ function UploadImage({ setDataPredic, handle }) {
                 direction="column"
                 alignItems="center"
                 isloaded={imageLoaded}
-                {...getRootProps()}
+                onClick={(e) => e.stopPropagation()}
             >
-                <input {...getInputProps()} />
                 {imageLoaded ? (
                     <styleMui.imageLoadBox
                         component="label"
                         onChange={(event) => handleFileChange(event)}
-                        onClick={(event) => {
-                            event.target.value = null
-                        }}
+                        onClick={(e) => e.target.value === null}
+                        {...getRootProps()}
                     >
+                        <input {...getInputProps()} />
                         <CardMedia
                             component="img"
                             sx={{ height: '35rem', objectFit: 'cover' }}
                             image={imageLoaded}
                             title="green iguana"
                         />
-                        <VisuallyHiddenInput type="file" />
                     </styleMui.imageLoadBox>
                 ) : (
-                    <styleMui.uploadPlace>
+                    <styleMui.uploadPlace {...getRootProps()}>
+                        <input {...getInputProps()} />
                         <styleMui.containerIcon component="label">
                             <Box
                                 component={motion.div}
@@ -230,7 +229,6 @@ function UploadImage({ setDataPredic, handle }) {
                                             cursor: 'pointer',
                                         }}
                                     />
-                                    <VisuallyHiddenInput type="file" />
                                 </IconButton>
                             </Box>
                             <styleMui.txtUnderIcon>
