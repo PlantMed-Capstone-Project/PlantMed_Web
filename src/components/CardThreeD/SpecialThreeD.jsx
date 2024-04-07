@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'

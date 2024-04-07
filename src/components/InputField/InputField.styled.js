@@ -2,6 +2,8 @@ import { styled, TextField } from '@mui/material'
 
 export const Input = styled(TextField)(() => ({
     backgroundColor: '#FFF',
+    position: 'relative',
+    marginTop: '0',
     '& .MuiOutlinedInput-root': {
         '& fieldset': {
             borderRadius: '0.625rem',
