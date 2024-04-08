@@ -3,6 +3,7 @@ import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
 import { useEffect, useState } from 'react'
 import * as styleMui from './Profile.styled'
+import { Typography, Box } from '@mui/material'
 
 export const ProfileForm = ({
     userInfo,
@@ -152,12 +153,23 @@ export const ProfileForm = ({
                     Thông tin người dùng
                 </styleMui.Title>
                 <styleMui.inputPlace>
-                    <styleMui.hearderContainer>
-                        {editFields.map(renderHeaders)}
-                    </styleMui.hearderContainer>
-                    <styleMui.inputContainer>
-                        {editFields.map(renderInputs)}
-                    </styleMui.inputContainer>
+                    {editFields.map((obj) => (
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                gap: '2rem',
+                            }}
+                        >
+                            <styleMui.hearderContainer>
+                                {renderHeaders(obj)}
+                            </styleMui.hearderContainer>
+                            <styleMui.inputContainer>
+                                {renderInputs(obj)}
+                            </styleMui.inputContainer>
+                        </Box>
+                    ))}
                 </styleMui.inputPlace>
             </styleMui.profileContainer>
             <styleMui.buttonContainer>
