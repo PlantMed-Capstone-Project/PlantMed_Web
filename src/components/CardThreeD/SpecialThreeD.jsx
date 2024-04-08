@@ -1,11 +1,11 @@
-import { Box, Stack } from '@mui/material'
+import { Box } from '@mui/material'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import * as styleMui from './SpecialThreeD.styled'
 // icon MUI
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 
 // Import Swiper styles
 import 'swiper/css'

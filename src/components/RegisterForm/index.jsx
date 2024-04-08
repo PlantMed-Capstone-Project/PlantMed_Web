@@ -313,7 +313,7 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
         if (dataFirebase?.length === certificate?.length) {
             try {
                 show({
-                    message: 'Đang xử lý nhé!',
+                    message: 'Đang xử lý! Vui lòng đợi trong giây lát.',
                     autoHideDuration: 3000,
                 })
                 const data = {
@@ -327,7 +327,7 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
                 }
                 await register(data)
                 show({
-                    message: 'Đã xử lý thành công, vui lòng đợi chờ được duyệt',
+                    message: 'Tài khoản chuyên gia của bạn đang được xem xét!',
                     severity: SNACKBAR_SEVERITY.SUCCESS,
                 })
                 clearInput()
