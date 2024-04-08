@@ -27,7 +27,7 @@ export default function HomePage() {
             />
             <styleMui.subContainer direction="column" alignItems="center">
                 <styleMui.alotComponent>
-                    <styleMui.slideShowTitle>1
+                    <styleMui.slideShowTitle>
                         ĐA DẠNG CÁC LOẠI THỰC VẬT
                     </styleMui.slideShowTitle>
                     <SpecialThreeD />
