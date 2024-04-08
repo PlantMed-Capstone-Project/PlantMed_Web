@@ -57,7 +57,8 @@ function PaginationLayout({
         setIshover(null)
     }
 
-    const handleClick = (id) => {
+    const handleClick = (id, val) => {
+        if (!val) return
         if (!setIndexData) {
             navigate(`/plants/${id}`)
         } else {
@@ -94,7 +95,7 @@ function PaginationLayout({
                         transition={{
                             duration: 0.2,
                         }}
-                        onClick={() => handleClick(vl.id)}
+                        onClick={() => handleClick(vl.id, vl)}
                     >
                         <styleMui.title
                             sx={{ opacity: isHover === idx ? '0' : '1' }}

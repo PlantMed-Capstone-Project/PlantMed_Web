@@ -3,6 +3,7 @@ import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
 import { useEffect, useRef, useState } from 'react'
 import * as styleMui from './CardBlog.styled'
 import CardBlogList from './CardBlogList/CardBlogList'
+import { Box, Typography, styled } from '@mui/material'
 
 function CardBlog({ valueSearch, positions, dataReport, handleDialog }) {
     const { blogActive, loading } = useShallowEqualSelector(
@@ -89,30 +90,32 @@ function CardBlog({ valueSearch, positions, dataReport, handleDialog }) {
                 </styleMui.subTitle>
             </styleMui.mainTitle>
             <styleMui.listBlog>
-                {loading
-                    ? Array.from(new Array(3)).map((_, idx) => (
-                          <Skeleton
-                              key={idx}
-                              animation="wave"
-                              variant="rectangular"
-                              sx={{
-                                  width: '100%',
-                                  height: '16rem',
-                                  borderRadius: '1rem',
-                              }}
-                          />
-                      ))
-                    : displayedData.length > 0
-                    ? displayedData.map((vl) => (
-                          <CardBlogList
-                              key={vl.id}
-                              item={vl}
-                              idx={vl.id}
-                              dataReport={dataReport}
-                              handleDialog={handleDialog}
-                          />
-                      ))
-                    : ''}
+                {loading ? (
+                    Array.from(new Array(3)).map((_, idx) => (
+                        <Skeleton
+                            key={idx}
+                            animation="wave"
+                            variant="rectangular"
+                            sx={{
+                                width: '100%',
+                                height: '16rem',
+                                borderRadius: '1rem',
+                            }}
+                        />
+                    ))
+                ) : displayedData.length > 0 ? (
+                    displayedData.map((vl) => (
+                        <CardBlogList
+                            key={vl.id}
+                            item={vl}
+                            idx={vl.id}
+                            dataReport={dataReport}
+                            handleDialog={handleDialog}
+                        />
+                    ))
+                ) : (
+                    <Typography>Không có bài blog nào đang tồn tại </Typography>
+                )}
                 <styleMui.pagination
                     count={pageCount}
                     onChange={handlePagnating}
