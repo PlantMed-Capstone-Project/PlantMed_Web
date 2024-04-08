@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { resetPassword } from 'rest/api/auth'
 import * as styleMui from './ResetPasswordForm.styled'
 
-const ResetPasswordForm = () => {
+const ResetPasswordForm = ({ setIsChangePass }) => {
     const navigate = useNavigate()
     const { show } = useActions(snackbarAction)
     const [errors, setErrors] = useState({})
@@ -112,6 +112,10 @@ const ResetPasswordForm = () => {
         }
     }
 
+    const prvProfile = () => {
+        setIsChangePass(false)
+    }
+
     const buttons = [
         {
             id: 1,
@@ -123,19 +127,13 @@ const ResetPasswordForm = () => {
             id: 2,
             value: 'Quay lại',
             width: '7rem',
-            nav: '/profile',
+            onClick: prvProfile,
         },
     ]
 
-    const renderButtons = ({ id, value, onClick, width, nav }) => {
+    const renderButtons = ({ id, value, onClick, width }) => {
         return (
-            <styleMui.button
-                component={Link}
-                key={id}
-                onClick={onClick}
-                width={width}
-                to={nav}
-            >
+            <styleMui.button key={id} onClick={onClick} width={width}>
                 {value}
             </styleMui.button>
         )

@@ -3,7 +3,6 @@ import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
 import { useEffect, useState } from 'react'
 import * as styleMui from './Profile.styled'
-import { useNavigate } from 'react-router-dom'
 
 export const ProfileForm = ({
     userInfo,
@@ -11,6 +10,7 @@ export const ProfileForm = ({
     handleEditButtonClick,
     handleCancelButtonClick,
     isDisabled,
+    setIsChangePass,
 }) => {
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
@@ -33,8 +33,6 @@ export const ProfileForm = ({
         setInputs({ ...inputs, fullname: userInfo?.FullName })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userInfo])
-
-    const navigate = useNavigate()
 
     //Switch set button
     const onSwitch = (buttonSet) => {
@@ -172,7 +170,7 @@ export const ProfileForm = ({
                 )}
                 <styleMui.button
                     width="9rem"
-                    onClick={() => navigate('/reset-password')}
+                    onClick={() => setIsChangePass(true)}
                 >
                     Đổi mật khẩu
                 </styleMui.button>

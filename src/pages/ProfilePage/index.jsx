@@ -9,12 +9,14 @@ import { refreshToken as authRefreshToken } from 'rest/api/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
 import { authAction } from 'app/reducers/auth'
+import ResetPasswordForm from 'components/ResetPassword/index.jsx'
 
 function ProfilePage() {
     const { refreshToken } = useActions(authAction)
     const { show } = useActions(snackbarAction)
     const [userInfo, setUserInfo] = useState(parseJwt(readCookie(ACCESS_TOKEN)))
     const [isFormDisabled, setIsFormDisabled] = useState(true)
+    const [isChangePass, setIsChangePass] = useState(null)
 
     const updateUserInformation = async (userInfo) => {
         show({ message: 'Vui lòng chờ trong giây lát' })
@@ -53,13 +55,18 @@ function ProfilePage() {
     return (
         <styleMui.container>
             <ProfileAvatar userInfo={userInfo} isDisabled={isFormDisabled} />
-            <ProfileForm
-                userInfo={userInfo}
-                isDisabled={isFormDisabled}
-                onUpdateInfo={updateUserInformation}
-                handleEditButtonClick={handleEditButtonClick}
-                handleCancelButtonClick={handleCancelButtonClick}
-            />
+            {isChangePass ? (
+                <ResetPasswordForm setIsChangePass={setIsChangePass} />
+            ) : (
+                <ProfileForm
+                    userInfo={userInfo}
+                    isDisabled={isFormDisabled}
+                    onUpdateInfo={updateUserInformation}
+                    handleEditButtonClick={handleEditButtonClick}
+                    handleCancelButtonClick={handleCancelButtonClick}
+                    setIsChangePass={setIsChangePass}
+                />
+            )}
             <ProfileSidebar />
         </styleMui.container>
     )
