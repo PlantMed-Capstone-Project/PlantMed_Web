@@ -74,7 +74,7 @@ function UploadImage({ setDataPredic, handle }) {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
     // Hàm này là để thể hiện các xử lý liên quan đến drag ảnh
-    const { getRootProps, getInputProps } = useDropzone({
+    const { getRootProps, getInputProps, open } = useDropzone({
         accept: {
             'image/jpeg': ['.jpg', '.jpeg'],
             'image/png': ['.png'],
@@ -90,6 +90,8 @@ function UploadImage({ setDataPredic, handle }) {
                 URL.createObjectURL(acceptedFiles[0])
             )
         },
+        noClick: true,
+        noKeyboard: true,
     })
 
     // Hàm xử lý các vấn đề liên quan đến nhấn chọn ảnh
@@ -206,6 +208,7 @@ function UploadImage({ setDataPredic, handle }) {
                             image={imageLoaded}
                             title="green iguana"
                         />
+                        <VisuallyHiddenInput type="file" onClick={open} />
                     </styleMui.imageLoadBox>
                 ) : (
                     <styleMui.uploadPlace {...getRootProps()}>
@@ -220,6 +223,7 @@ function UploadImage({ setDataPredic, handle }) {
                                 <IconButton
                                     component="label"
                                     variant="contained"
+                                    onClick={open}
                                 >
                                     <CloudUploadIcon
                                         sx={{
