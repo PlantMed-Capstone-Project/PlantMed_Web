@@ -13,7 +13,7 @@ export const containerTxt = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    width: '50%',
+    width: '70%',
     alignItems: 'flex-start',
     paddingTop: '7.75rem',
     paddingLeft: '10rem',
@@ -35,6 +35,7 @@ export const Background = styled(Box)(() => ({
     height: '100%',
     display: 'flex',
     alignItems: 'center',
+    position: 'relative',
 }))
 
 export const formContainer = styled(Box)(() => ({
@@ -43,7 +44,6 @@ export const formContainer = styled(Box)(() => ({
     justifyContent: 'center',
     alignItems: 'center',
 }))
-
 
 export const Title = styled(Typography)(() => ({
     textAlign: 'center',
