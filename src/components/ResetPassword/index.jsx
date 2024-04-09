@@ -1,15 +1,15 @@
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { IconButton } from '@mui/material'
+import { changePassAction } from 'app/reducers/changePass.js'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { resetPassword } from 'rest/api/auth'
 import * as styleMui from './ResetPasswordForm.styled'
-import { changePassAction } from 'app/reducers/changePass.js'
 
 const ResetPasswordForm = () => {
     const { setChange } = useActions(changePassAction)
