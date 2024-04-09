@@ -16,7 +16,7 @@ import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
-import { predict } from 'rest/api/predict'
+import { predict, predictHistory } from 'rest/api/predict'
 import * as styleMui from './UploadImage.styled'
 import { useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
@@ -126,6 +126,12 @@ function UploadImage({ setDataPredic, handle }) {
             localStorage.setItem('dataPredict', JSON.stringify(res.data))
             setProgress(100)
             setPrevResult(true)
+            if (res.status === 200 && isLogin) {
+                postHistory(
+                    res.data.plant.id,
+                    parseFloat(res.data.accuracy.replace('%', ''))
+                )
+            }
         } catch (error) {
             console.log(error)
             show({
@@ -135,6 +141,20 @@ function UploadImage({ setDataPredic, handle }) {
             setPrevResult(false)
         } finally {
             setProgressStatus(false) // Kết thúc tiến trình
+        }
+    }
+
+    // Đưa thông tin đã được predict vào database
+    const postHistory = async (plantId, accuracy) => {
+        try {
+            console.log('dang chay data ', plantId, accuracy)
+            await predictHistory({ plantId: plantId, accuracy: accuracy })
+            show({
+                message: 'Đã lưu vào lịch sử phân tích ảnh ',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error)
         }
     }
 

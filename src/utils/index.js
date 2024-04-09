@@ -120,3 +120,7 @@ export const convertChatToString = (name, data) => {
     }
     return `${text}<br/>`
 }
+
+export function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}

@@ -4,6 +4,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import DescriptionIcon from '@mui/icons-material/Description'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useEffect, useState } from 'react'
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory'
 
 export const ProfileSidebar = () => {
     const [selectedButtonId, setSelectedButtonId] = useState(null)
@@ -41,6 +42,12 @@ export const ProfileSidebar = () => {
             icon: <FavoriteIcon sx={styleMui.iconStyle} />,
             name: 'Đã thích',
             nav: '/liked-blog',
+        },
+        {
+            id: 4,
+            icon: <ManageHistoryIcon sx={styleMui.iconStyle} />,
+            name: 'Lịch sử',
+            nav: '/history-predict',
         },
     ]
 
