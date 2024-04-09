@@ -29,7 +29,7 @@ export const BoxContainAvt = styled(Box)(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottom: 'solid #69AD28 2px',
-    pb: '0.63rem',
+    padding: '0.2rem 0.4rem',
 }))
 
 export const containerButton = styled(Box)(() => ({

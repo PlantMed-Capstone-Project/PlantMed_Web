@@ -1,9 +1,11 @@
 import EditIcon from '@mui/icons-material/Edit'
+import { Box } from '@mui/material'
+import { changePassAction } from 'app/reducers/changePass.js'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
+import useActions from 'hooks/useActions.js'
 import { useEffect, useState } from 'react'
 import * as styleMui from './Profile.styled'
-import { Typography, Box } from '@mui/material'
 
 export const ProfileForm = ({
     userInfo,
@@ -11,8 +13,9 @@ export const ProfileForm = ({
     handleEditButtonClick,
     handleCancelButtonClick,
     isDisabled,
-    setIsChangePass,
 }) => {
+    const { setChange } = useActions(changePassAction)
+
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
         fullname: userInfo?.FullName,
@@ -180,10 +183,7 @@ export const ProfileForm = ({
                 ) : (
                     buttonsSet.map(renderButtons)
                 )}
-                <styleMui.button
-                    width="9rem"
-                    onClick={() => setIsChangePass(true)}
-                >
+                <styleMui.button width="9rem" onClick={() => setChange(true)} j>
                     Đổi mật khẩu
                 </styleMui.button>
             </styleMui.buttonContainer>

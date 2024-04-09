@@ -10,13 +10,16 @@ import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
 import { authAction } from 'app/reducers/auth'
 import ResetPasswordForm from 'components/ResetPassword/index.jsx'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector.js'
 
 function ProfilePage() {
     const { refreshToken } = useActions(authAction)
     const { show } = useActions(snackbarAction)
+    const { isChangePass } = useShallowEqualSelector(
+        (state) => state.changePass
+    )
     const [userInfo, setUserInfo] = useState(parseJwt(readCookie(ACCESS_TOKEN)))
     const [isFormDisabled, setIsFormDisabled] = useState(true)
-    const [isChangePass, setIsChangePass] = useState(null)
 
     const updateUserInformation = async (userInfo) => {
         show({ message: 'Vui lòng chờ trong giây lát' })
@@ -56,7 +59,7 @@ function ProfilePage() {
         <styleMui.container>
             <ProfileAvatar userInfo={userInfo} isDisabled={isFormDisabled} />
             {isChangePass ? (
-                <ResetPasswordForm setIsChangePass={setIsChangePass} />
+                <ResetPasswordForm />
             ) : (
                 <ProfileForm
                     userInfo={userInfo}
@@ -64,7 +67,6 @@ function ProfilePage() {
                     onUpdateInfo={updateUserInformation}
                     handleEditButtonClick={handleEditButtonClick}
                     handleCancelButtonClick={handleCancelButtonClick}
-                    setIsChangePass={setIsChangePass}
                 />
             )}
             <ProfileSidebar />

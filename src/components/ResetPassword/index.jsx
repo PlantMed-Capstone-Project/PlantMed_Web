@@ -9,8 +9,10 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { resetPassword } from 'rest/api/auth'
 import * as styleMui from './ResetPasswordForm.styled'
+import { changePassAction } from 'app/reducers/changePass.js'
 
-const ResetPasswordForm = ({ setIsChangePass }) => {
+const ResetPasswordForm = () => {
+    const { setChange } = useActions(changePassAction)
     const navigate = useNavigate()
     const { show } = useActions(snackbarAction)
     const [errors, setErrors] = useState({})
@@ -113,7 +115,7 @@ const ResetPasswordForm = ({ setIsChangePass }) => {
     }
 
     const prvProfile = () => {
-        setIsChangePass(false)
+        setChange(false)
     }
 
     const buttons = [
