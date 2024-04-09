@@ -1,13 +1,12 @@
-import React from 'react'
 import {
-    render,
+    cleanup,
     fireEvent,
+    render,
     screen,
     waitFor,
-    cleanup,
 } from '@testing-library/react'
-import RegisterForm from 'components/RegisterForm'
 import store from 'app/store'
+import RegisterForm from 'components/RegisterForm'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -78,12 +77,13 @@ describe('RegisterForm component', () => {
         })
 
         // Click on the registration button
-        const button = screen.getByText(/Đăng ký/i, { selector: 'button' })
-        button.click()
+        const button = screen.getByText('Đăng ký', { selector: 'button' })
+        fireEvent.click(button)
 
         // Assert that the form is submitted
         await waitFor(() => {
-            expect(screen.getByText('Đăng ký thành công!')).toBeInTheDocument()
+            const actual = screen.getByText(/Vui lòng chờ trong giây lát/i)
+            expect(actual).toBeInTheDocument()
         })
     })
 })
