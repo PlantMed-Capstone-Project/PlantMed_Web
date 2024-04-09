@@ -110,7 +110,7 @@ export const Title = styled(Typography)(() => ({
 
 export const inputPlace = styled(Box)(() => ({
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     width: '39.875rem',
     marginTop: '2rem',
     marginLeft: '3.25rem',

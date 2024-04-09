@@ -1,9 +1,11 @@
 import EditIcon from '@mui/icons-material/Edit'
+import { Box } from '@mui/material'
+import { changePassAction } from 'app/reducers/changePass.js'
 import InputField from 'components/InputField'
 import { validateInputs } from 'components/InputField/validationRules'
+import useActions from 'hooks/useActions.js'
 import { useEffect, useState } from 'react'
 import * as styleMui from './Profile.styled'
-import { useNavigate } from 'react-router-dom'
 
 export const ProfileForm = ({
     userInfo,
@@ -12,6 +14,8 @@ export const ProfileForm = ({
     handleCancelButtonClick,
     isDisabled,
 }) => {
+    const { setChange } = useActions(changePassAction)
+
     const [errors, setErrors] = useState({})
     const [inputs, setInputs] = useState({
         fullname: userInfo?.FullName,
@@ -33,8 +37,6 @@ export const ProfileForm = ({
         setInputs({ ...inputs, fullname: userInfo?.FullName })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userInfo])
-
-    const navigate = useNavigate()
 
     //Switch set button
     const onSwitch = (buttonSet) => {
@@ -154,12 +156,23 @@ export const ProfileForm = ({
                     Thông tin người dùng
                 </styleMui.Title>
                 <styleMui.inputPlace>
-                    <styleMui.hearderContainer>
-                        {editFields.map(renderHeaders)}
-                    </styleMui.hearderContainer>
-                    <styleMui.inputContainer>
-                        {editFields.map(renderInputs)}
-                    </styleMui.inputContainer>
+                    {editFields.map((obj) => (
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                gap: '2rem',
+                            }}
+                        >
+                            <styleMui.hearderContainer>
+                                {renderHeaders(obj)}
+                            </styleMui.hearderContainer>
+                            <styleMui.inputContainer>
+                                {renderInputs(obj)}
+                            </styleMui.inputContainer>
+                        </Box>
+                    ))}
                 </styleMui.inputPlace>
             </styleMui.profileContainer>
             <styleMui.buttonContainer>
@@ -170,10 +183,7 @@ export const ProfileForm = ({
                 ) : (
                     buttonsSet.map(renderButtons)
                 )}
-                <styleMui.button
-                    width="9rem"
-                    onClick={() => navigate('/reset-password')}
-                >
+                <styleMui.button width="9rem" onClick={() => setChange(true)} j>
                     Đổi mật khẩu
                 </styleMui.button>
             </styleMui.buttonContainer>

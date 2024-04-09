@@ -9,10 +9,15 @@ import { refreshToken as authRefreshToken } from 'rest/api/auth'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
 import { authAction } from 'app/reducers/auth'
+import ResetPasswordForm from 'components/ResetPassword/index.jsx'
+import useShallowEqualSelector from 'hooks/useShallowEqualSelector.js'
 
 function ProfilePage() {
     const { refreshToken } = useActions(authAction)
     const { show } = useActions(snackbarAction)
+    const { isChangePass } = useShallowEqualSelector(
+        (state) => state.changePass
+    )
     const [userInfo, setUserInfo] = useState(parseJwt(readCookie(ACCESS_TOKEN)))
     const [isFormDisabled, setIsFormDisabled] = useState(true)
 
@@ -53,13 +58,17 @@ function ProfilePage() {
     return (
         <styleMui.container>
             <ProfileAvatar userInfo={userInfo} isDisabled={isFormDisabled} />
-            <ProfileForm
-                userInfo={userInfo}
-                isDisabled={isFormDisabled}
-                onUpdateInfo={updateUserInformation}
-                handleEditButtonClick={handleEditButtonClick}
-                handleCancelButtonClick={handleCancelButtonClick}
-            />
+            {isChangePass ? (
+                <ResetPasswordForm />
+            ) : (
+                <ProfileForm
+                    userInfo={userInfo}
+                    isDisabled={isFormDisabled}
+                    onUpdateInfo={updateUserInformation}
+                    handleEditButtonClick={handleEditButtonClick}
+                    handleCancelButtonClick={handleCancelButtonClick}
+                />
+            )}
             <ProfileSidebar />
         </styleMui.container>
     )

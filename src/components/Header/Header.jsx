@@ -27,8 +27,11 @@ import { getAvatar } from 'rest/api/user'
 import { parseImg, parseJwt } from 'utils'
 import { readCookie } from 'utils/cookie'
 import * as styleMui from './header.styled'
+import { changePassAction } from 'app/reducers/changePass.js'
 
 function Header({ isLogin, avatar }) {
+    const { setChange } = useActions(changePassAction)
+
     const { isUpdate } = useShallowEqualSelector((state) => state.updateAv)
 
     const expertRef = collection(db, 'expertOnline')
@@ -149,7 +152,8 @@ function Header({ isLogin, avatar }) {
     }
 
     const handleResetPassword = () => {
-        navigate('/reset-password')
+        setChange(true)
+        navigate('/profile')
     }
 
     const goToProfile = () => {
