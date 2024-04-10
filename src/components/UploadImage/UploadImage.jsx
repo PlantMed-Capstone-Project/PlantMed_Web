@@ -16,11 +16,12 @@ import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import { motion } from 'framer-motion'
 import useActions from 'hooks/useActions'
 import { useState } from 'react'
-import { predict, predictHistory } from 'rest/api/predict'
+import { predict } from 'rest/api/predict'
 import * as styleMui from './UploadImage.styled'
 import { useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import { predictHistory } from 'rest/api/history'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',

@@ -3,8 +3,8 @@ import { ProfileSidebar } from 'components/Profile/ProfileSidebar.jsx'
 import TableCustom from 'components/Table/index.jsx'
 import * as styleMui from 'pages/MyBlog/MyBlog.styled'
 import { useEffect, useState } from 'react'
-import { getHistory } from 'rest/api/predict.js'
 import { useNavigate } from 'react-router-dom'
+import { getHistory } from 'rest/api/history'
 
 function HistoryPage() {
     const [historyList, setHistoryList] = useState([])
