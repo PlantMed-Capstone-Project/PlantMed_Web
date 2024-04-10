@@ -5,4 +5,5 @@ export const container = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    paddingBottom: '5rem',
 })

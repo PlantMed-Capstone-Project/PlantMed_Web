@@ -1,9 +1,8 @@
-import avatar from 'Images/avatar.jpg'
 import * as S from './AboutUs.styled'
 
-const RenderAvatar = ({ name, studentId }) => {
+const RenderAvatar = ({ name, studentId, avartar }) => {
     return (
-        <S.Avatar sx={{ backgroundImage: `url(${avatar})` }}>
+        <S.Avatar sx={{ backgroundImage: `url(${avartar})` }}>
             <S.infoPlace>
                 <S.Info>
                     {name}
