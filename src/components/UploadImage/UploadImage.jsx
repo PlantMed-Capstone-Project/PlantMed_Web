@@ -136,7 +136,7 @@ function UploadImage({ setDataPredic, handle }) {
         } catch (error) {
             console.log(error)
             show({
-                message: 'Có vấn đề khi phân tích ảnh xin thử lại !',
+                message: 'Có lỗi phân tích ảnh, vui lòng thử lại !',
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
             setPrevResult(false)
@@ -148,10 +148,9 @@ function UploadImage({ setDataPredic, handle }) {
     // Đưa thông tin đã được predict vào database
     const postHistory = async (plantId, accuracy) => {
         try {
-            console.log('dang chay data ', plantId, accuracy)
             await predictHistory({ plantId: plantId, accuracy: accuracy })
             show({
-                message: 'Đã lưu vào lịch sử phân tích ảnh ',
+                message: 'Kết quả đã được lưu vào lịch sử!',
                 severity: SNACKBAR_SEVERITY.SUCCESS,
             })
         } catch (error) {

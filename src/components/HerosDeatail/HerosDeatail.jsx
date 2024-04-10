@@ -14,7 +14,7 @@ export default function HerosDeatail() {
                 sx={{ borderRadius: '0.625rem' }}
             />
             <styleMui.TextHero>
-                HƠN 30K LOÀI THỰC VẬT ĐỂ BẠN TÌM KIẾM
+                HƠN 70 LOÀI THỰC VẬT ĐỂ BẠN TÌM KIẾM
             </styleMui.TextHero>
         </styleMui.BoxImg>
     )

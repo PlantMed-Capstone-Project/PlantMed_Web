@@ -18,16 +18,6 @@ export const validationRules = {
             message: 'Vui lòng nhập mật khẩu.',
         },
     ],
-    lastName: [
-        {
-            message: 'Vui lòng nhập họ.',
-        },
-    ],
-    firstName: [
-        {
-            message: 'Vui lòng nhập tên.',
-        },
-    ],
     confirmPassword: [
         {
             message: 'Mật khẩu xác thực không trùng khớp.',
@@ -43,7 +33,7 @@ export const validationRules = {
     fullname: [
         {
             message: 'Tên hiển thị không hợp lệ.',
-            regex: /^(?=.*[a-zA-Z_À-ỹ])[a-zA-Z_À-ỹ\s\d]{1,30}$/,
+            regex: /^[\p{L}\p{M}\s'-]{1,30}$/u,
         },
         {
             message: 'Tên hiển thị không được để trống.',
