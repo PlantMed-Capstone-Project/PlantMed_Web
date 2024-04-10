@@ -52,7 +52,9 @@ function HistoryPage() {
                             label: 'Độ chính xác',
                             minWidth: 170,
                             render: ({ accuracy }) => (
-                                <Typography>{accuracy + '%'}</Typography>
+                                <Typography>
+                                    {accuracy.toFixed(2) + '%'}
+                                </Typography>
                             ),
                         },
                         {
