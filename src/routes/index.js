@@ -10,6 +10,7 @@ import CreateBlog from 'pages/CreateBlog'
 import DetailPage from 'pages/DetailPage/DetailPage'
 import DetectionPage from 'pages/DetectionPage/DetectionPage'
 import ForgotPasswordPage from 'pages/ForgotPasswordPage'
+import HistoryPage from 'pages/HistoryPage/index.jsx'
 import HomePage from 'pages/HomePage'
 import LikedBlog from 'pages/LikedBlog'
 import Login from 'pages/Login'
@@ -38,6 +39,7 @@ const privateRoutes = [
     { path: '/profile', page: ProfilePage, layout: LoginLayout },
     { path: '/my-blog', page: MyBlog, layout: LoginLayout },
     { path: '/liked-blog', page: LikedBlog, layout: LoginLayout },
+    { path: '/history-predict', page: HistoryPage, layout: LoginLayout },
 ]
 
 export { privateRoutes, publicRoutes }

@@ -89,8 +89,8 @@ function Register() {
                             >
                                 {validPdf
                                     ? `Bạn nhớ thêm ảnh chứng chỉ để bọn mình xác nhận
-                                nhé !`
-                                    : `Hãy thêm ít nhất 1 ảnh chứng chỉ của mình nhé`}
+                                nhé!`
+                                    : `Hãy thêm ít nhất 1 ảnh chứng chỉ`}
                             </Typography>
                         </Box>
                     )}

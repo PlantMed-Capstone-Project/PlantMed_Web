@@ -128,7 +128,7 @@ function ChatBox() {
                                             color: '#214400',
                                         }}
                                     >
-                                        Xin chào bạn, Chúng tôi ở đây và sẵn
+                                        Xin chào bạn! Chúng tôi ở đây và sẵn
                                         sàng tư vấn. Hãy cho chúng tôi biết câu
                                         hỏi của bạn!
                                     </Typography>

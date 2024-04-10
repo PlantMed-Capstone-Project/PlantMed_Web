@@ -36,8 +36,7 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
 
     const [inputs, setInputs] = useState({
         email: '',
-        lastName: '',
-        firstName: '',
+        fullName: '',
         password: '',
         confirmPassword: '',
         policyCheck: false,
@@ -54,20 +53,13 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
         },
         {
             id: 2,
-            key: 'lastName',
-            placeholder: 'Họ',
+            key: 'fullName',
+            placeholder: 'Tên hiển thị',
             type: 'text',
             icon: <BadgeIcon sx={styleMui.iconStyle} />,
         },
         {
             id: 3,
-            key: 'firstName',
-            placeholder: 'Tên',
-            type: 'text',
-            icon: <BadgeIcon sx={styleMui.iconStyle} />,
-        },
-        {
-            id: 4,
             key: 'password',
             placeholder: 'Mật khẩu',
             type: eye ? 'text' : 'password',
@@ -79,7 +71,7 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
             ),
         },
         {
-            id: 5,
+            id: 4,
             key: 'confirmPassword',
             placeholder: 'Xác thực mật khẩu',
             type: eye ? 'text' : 'password',
@@ -268,8 +260,7 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
     const clearInput = () => {
         setInputs({
             email: '',
-            lastName: '',
-            firstName: '',
+            fullName: '',
             password: '',
             confirmPassword: '',
         })
@@ -320,19 +311,20 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
                     email: inputs.email,
                     password: inputs.password,
                     confirmPassword: inputs.confirmPassword,
-                    fullName: inputs.lastName + ' ' + inputs.firstName,
+                    fullName: inputs.fullName,
                     role: 'expert',
                     type: 'web',
                     certificateList: dataFirebase,
                 }
                 await register(data)
                 show({
-                    message: 'Tài khoản chuyên gia của bạn đang được xem xét!',
+                    message: 'Tài khoản chuyên gia của bạn đang chờ xét duyệt!',
                     severity: SNACKBAR_SEVERITY.SUCCESS,
                 })
                 clearInput()
                 navigate('/login')
             } catch (error) {
+                console.log(error)
                 show({
                     message: error.response.data.message,
                     severity: SNACKBAR_SEVERITY.ERROR,
@@ -357,7 +349,7 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
                 email: inputs.email,
                 password: inputs.password,
                 confirmPassword: inputs.confirmPassword,
-                fullName: inputs.lastName + ' ' + inputs.firstName,
+                fullName: inputs.fullName,
                 role: 'user',
                 type: 'web',
             }
@@ -393,6 +385,7 @@ export default function RegisterForm({ setTypeUser, typeUser, setValidPdf }) {
                     '& .Mui-selected': {
                         color: '#69AD28 !important',
                     },
+                    mb: '1.2rem',
                 }}
             >
                 {nabItem?.map((item) => (

@@ -91,5 +91,5 @@ export const inputPlace = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
     width: '17.875rem',
-    gap: '0.3rem',
+    gap: '0.7rem',
 }))

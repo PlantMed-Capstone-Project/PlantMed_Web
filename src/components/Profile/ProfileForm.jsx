@@ -24,7 +24,7 @@ export const ProfileForm = ({
         role:
             userInfo?.Role === 'user'
                 ? 'Người Dùng'
-                : 'Chuyên Gia Về Cây Thuốc',
+                : 'Chuyên Gia',
     })
     const [displayButtons, setDisplayButtons] = useState(1)
     //Lưu thông tin cũ khi hủy thay đổi

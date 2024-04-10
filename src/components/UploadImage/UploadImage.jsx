@@ -21,6 +21,7 @@ import * as styleMui from './UploadImage.styled'
 import { useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import useShallowEqualSelector from 'hooks/useShallowEqualSelector'
+import { predictHistory } from 'rest/api/history'
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -126,15 +127,34 @@ function UploadImage({ setDataPredic, handle }) {
             localStorage.setItem('dataPredict', JSON.stringify(res.data))
             setProgress(100)
             setPrevResult(true)
+            if (res.status === 200 && isLogin) {
+                postHistory(
+                    res.data.plant.id,
+                    parseFloat(res.data.accuracy.replace('%', ''))
+                )
+            }
         } catch (error) {
             console.log(error)
             show({
-                message: 'Có vấn đề khi phân tích ảnh xin thử lại !',
+                message: 'Có lỗi phân tích ảnh, vui lòng thử lại !',
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
             setPrevResult(false)
         } finally {
             setProgressStatus(false) // Kết thúc tiến trình
+        }
+    }
+
+    // Đưa thông tin đã được predict vào database
+    const postHistory = async (plantId, accuracy) => {
+        try {
+            await predictHistory({ plantId: plantId, accuracy: accuracy })
+            show({
+                message: 'Kết quả đã được lưu vào lịch sử!',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
+        } catch (error) {
+            console.log(error)
         }
     }
 
