@@ -4,9 +4,8 @@ import Client from 'rest/baseClient'
 const http = new Client(PREDICT_URL)
 
 export const predict = async (payload) => {
-    return http.postForm('predict/yolo', payload)
+    return http.postForm('predict', payload)
 }
-
 /**
  * {image: file}
  */
