@@ -128,10 +128,10 @@ function UploadImage({ setDataPredic, handle }) {
             setProgress(100)
             setPrevResult(true)
             if (res.status === 200 && isLogin) {
-                postHistory(
-                    res.data.plant.id,
-                    parseFloat(res.data.accuracy.replace('%', ''))
-                )
+                const { plant, accuracy } = res.data
+                let formattedNumber = accuracy.replace('%', '')
+                formattedNumber = Number(formattedNumber)
+                postHistory(plant.id, formattedNumber)
             }
         } catch (error) {
             console.log(error)
