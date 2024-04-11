@@ -17,7 +17,6 @@ function HistoryPage() {
         try {
             const rsp = await getHistory()
             setHistoryList(rsp.data)
-            console.log(rsp.data)
         } catch (error) {
             console.log(error)
             setEmptyMessage('Không có lịch sử được lưu')
