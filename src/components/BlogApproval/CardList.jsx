@@ -20,6 +20,8 @@ export function CardList({ item, idx, setIndexData }) {
 
     const content = convertString(item.content, 200)
 
+
+    
     return (
         <S.containerCard
             component={motion.div}

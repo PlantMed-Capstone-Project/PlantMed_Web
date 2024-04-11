@@ -31,7 +31,8 @@ function App() {
             storePlantSuccessful(data)
         } catch (error) {
             console.log(error)
-            storeBlogFailed()
+        } finally {
+            storePlantFail()
         }
     }
 
@@ -43,7 +44,7 @@ function App() {
         } catch (error) {
             console.log(error)
         } finally {
-            storePlantFail()
+            storeBlogFailed()
         }
     }
 
