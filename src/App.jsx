@@ -29,7 +29,6 @@ function App() {
             const response = await getAll()
             const data = response.data
             storePlantSuccessful(data)
-            console.log(data)
         } catch (error) {
             console.log(error)
             storeBlogFailed()
