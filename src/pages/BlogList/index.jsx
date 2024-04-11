@@ -14,10 +14,13 @@ import {
 } from '@mui/material'
 import { SNACKBAR_SEVERITY, snackbarAction } from 'app/reducers/snackbar'
 import useActions from 'hooks/useActions'
+import { blogAction } from 'app/reducers/blog.js'
+import { getActiveBlog } from 'rest/api/blog.js'
 
 function BlogListPage() {
     const { show } = useActions(snackbarAction)
-
+    const { storeBlogActive, storeBlog, storeBlogFailed } =
+        useActions(blogAction)
     const [tagSearch, setTagSearch] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [positions] = useState({
@@ -70,9 +73,22 @@ function BlogListPage() {
         }
     }
 
+    const fetchblog = async () => {
+        storeBlog()
+        try {
+            const response = await getActiveBlog()
+            storeBlogActive(response.data)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            storeBlogFailed()
+        }
+    }
+
     useEffect(() => {
         window.addEventListener('scroll', scrollValue, { passive: true })
         fetchReport()
+        fetchblog()
         // cleanup side effect
         return () => {
             window.removeEventListener('scroll', scrollValue)
