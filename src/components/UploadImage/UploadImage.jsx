@@ -175,7 +175,7 @@ function UploadImage({ setDataPredic, handle }) {
                     }
                     return nextProgress
                 })
-            }, 50)
+            }, 200)
             return () => {
                 clearInterval(timer)
             }
@@ -186,7 +186,7 @@ function UploadImage({ setDataPredic, handle }) {
         if (progress === 100) {
             const timer = setTimeout(() => {
                 setLoading(false)
-            }, 1000)
+            }, 2000)
             return () => {
                 clearTimeout(timer)
             }
