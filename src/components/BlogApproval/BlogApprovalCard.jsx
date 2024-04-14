@@ -15,7 +15,7 @@ export function BlogApprovalCard({ setIndexData }) {
         <styleMui.container
             direction="row"
             alignItems="flex-start"
-            justifyContent="space-between"
+            justifyContent="flex-start"
         >
             {loading ? (
                 Array.from(new Array(7)).map((_, idx) => (

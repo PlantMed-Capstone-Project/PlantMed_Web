@@ -127,6 +127,11 @@ function UploadImage({ setDataPredic, handle }) {
             localStorage.setItem('dataPredict', JSON.stringify(res.data))
             setProgress(100)
             setPrevResult(true)
+            show({
+                message:
+                    'Phân tích thành công, chọn ảnh khác bằng cách nhấn vào ảnh bạn nhé!',
+                severity: SNACKBAR_SEVERITY.SUCCESS,
+            })
             if (res.status === 200 && isLogin) {
                 const { plant, accuracy } = res.data
                 let formattedNumber = accuracy.replace('%', '')
@@ -136,9 +141,10 @@ function UploadImage({ setDataPredic, handle }) {
         } catch (error) {
             console.log(error)
             show({
-                message: 'Có lỗi phân tích ảnh, vui lòng thử lại !',
+                message: 'Có lỗi phân tích ảnh, xin chọn ảnh khác bạn nhé !',
                 severity: SNACKBAR_SEVERITY.ERROR,
             })
+            setImageLoaded(null)
             setPrevResult(false)
         } finally {
             setProgressStatus(false) // Kết thúc tiến trình
@@ -175,7 +181,7 @@ function UploadImage({ setDataPredic, handle }) {
                     }
                     return nextProgress
                 })
-            }, 50)
+            }, 200)
             return () => {
                 clearInterval(timer)
             }
@@ -186,7 +192,7 @@ function UploadImage({ setDataPredic, handle }) {
         if (progress === 100) {
             const timer = setTimeout(() => {
                 setLoading(false)
-            }, 1000)
+            }, 2000)
             return () => {
                 clearTimeout(timer)
             }
@@ -224,7 +230,11 @@ function UploadImage({ setDataPredic, handle }) {
                         <input {...getInputProps()} />
                         <CardMedia
                             component="img"
-                            sx={{ height: '35rem', objectFit: 'cover' }}
+                            sx={{
+                                height: '35rem',
+                                objectFit: 'cover',
+                                cursor: 'pointer',
+                            }}
                             image={imageLoaded}
                             title="green iguana"
                         />

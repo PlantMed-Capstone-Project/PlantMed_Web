@@ -7,6 +7,7 @@ export const container = styled(Stack)({
     minHeight: '40.31rem',
     marginTop: '10rem',
     rowGap: '2.5rem',
+    columnGap: '41px',
 })
 
 export const text = styled(Typography)({
